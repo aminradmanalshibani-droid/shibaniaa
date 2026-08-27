@@ -104,6 +104,84 @@
         </div>
     </div>
 
+    <!-- نافذة قائمة عرض المنبثقة بحجم أنحف ومتناسق -->
+    <div id="viewModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden animate-in fade-in zoom-in duration-150">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
+                <div class="flex items-center gap-1.5">
+                    <span class="text-sm">👁️</span>
+                    <h3 class="font-bold text-xs text-slate-800">قائمة العرض</h3>
+                </div>
+                <button onclick="toggleViewModal()" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
+            </div>
+            <div class="space-y-1">
+                <button onclick="navAction('لوحة التحكم'); toggleViewModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>🏠</span>
+                        <span>لوحة التحكم</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('مركز الاستعلام'); toggleViewModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>🔍</span>
+                        <span>مركز الاستعلام</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('الحسابات والدفاتر'); toggleViewModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📒</span>
+                        <span>الحسابات والدفاتر</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('المخزون والأصناف'); toggleViewModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📦</span>
+                        <span>المخزون والأصناف</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('الفواتير والمستندات'); toggleViewModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>🧾</span>
+                        <span>الفواتير والمستندات</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('العملاء والموردون'); toggleViewModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>👥</span>
+                        <span>العملاء والموردون</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('الخزينة والبنوك'); toggleViewModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>💰</span>
+                        <span>الخزينة والبنوك</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('التقارير'); toggleViewModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📊</span>
+                        <span>التقارير</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('سجل العمليات'); toggleViewModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📜</span>
+                        <span>سجل العمليات</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- نافذة قائمة ابدأ العائمة -->
     <div id="startMenu" class="hidden fixed bottom-20 right-6 w-80 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-2xl z-50 p-4 transition-all duration-200">
         <div class="flex items-center gap-3 pb-3 mb-3 border-b border-slate-100">
@@ -190,7 +268,12 @@
                             <span>ملف</span>
                         </button>
 
-                        <button onclick="navAction('عرض')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">عرض</button>
+                        <!-- زر عرض بالتصميم المطابق -->
+                        <button onclick="toggleViewModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+                            <span>👁️</span>
+                            <span>عرض</span>
+                        </button>
+
                         <button onclick="navAction('المحاسبة المالية')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">المحاسبة المالية</button>
                         <button onclick="navAction('إدارة المخزون')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all cursor-pointer whitespace-nowrap">إدارة المخزون</button>
                         <button onclick="navAction('إعدادات')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all cursor-pointer whitespace-nowrap">إعدادات</button>
@@ -351,16 +434,30 @@
             modal.classList.toggle('hidden');
         }
 
+        function toggleViewModal() {
+            const modal = document.getElementById('viewModal');
+            modal.classList.toggle('hidden');
+        }
+
         function toggleStartMenu() {
             const menu = document.getElementById('startMenu');
             menu.classList.toggle('hidden');
         }
 
-        // إغلاق قائمة ابدأ عند الضغط خارجها
+        // إغلاق القوائم عند الضغط خارجها
         window.addEventListener('click', function(e) {
             const startMenu = document.getElementById('startMenu');
+            const fileModal = document.getElementById('fileModal');
+            const viewModal = document.getElementById('viewModal');
+
             if (startMenu && !startMenu.contains(e.target) && !e.target.closest('button[onclick="toggleStartMenu()"]')) {
                 startMenu.classList.add('hidden');
+            }
+            if (fileModal && e.target === fileModal) {
+                fileModal.classList.add('hidden');
+            }
+            if (viewModal && e.target === viewModal) {
+                viewModal.classList.add('hidden');
             }
         });
     </script>
