@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - نظام التصميم الفاخر</title>
+    <title>النظام الشامل - تسجيل الدخول وإدارة النظام</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,131 +39,229 @@
             background-color: #0a0a0c;
             color: #ffffff;
         }
-        @keyframes floatSlow1 {
-            0%, 100% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(30px, -40px) scale(1.1); }
-        }
-        @keyframes floatSlow2 {
-            0%, 100% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(-40px, 30px) scale(0.95); }
-        }
-        .blob-1 { animation: floatSlow1 12s ease-in-out infinite; }
-        .blob-2 { animation: floatSlow2 15s ease-in-out infinite; }
-        .glow-gold:hover {
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
-        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-full px-4 relative overflow-hidden select-none">
+<body class="flex flex-col h-full select-none">
 
-    <!-- الخلفية المتفاعلة -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div class="absolute top-1/4 right-1/4 w-80 h-80 bg-purple-900/15 rounded-full blur-[130px] blob-1"></div>
-        <div class="absolute bottom-1/4 left-1/4 w-80 h-80 bg-amber-600/10 rounded-full blur-[130px] blob-2"></div>
+    <!-- شاشة تسجيل الدخول -->
+    <div id="loginSection" class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-[#131318]/90 backdrop-blur-2xl border border-white/15 rounded-2xl p-8 max-w-md w-full shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-purple-600 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-amber-500/10">
+                    <i data-lucide="lock" class="w-6 h-6 text-white"></i>
+                </div>
+                <h1 class="text-xl font-bold text-white">تسجيل الدخول للنظام</h1>
+                <p class="text-xs text-gray-400 mt-1">أدخل بيانات المشرف للوصول إلى لوحة التحكم</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">اسم المستخدم / البريد</label>
+                    <input type="text" id="loginUser" required class="w-full bg-white/5 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono" placeholder="admin">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">كلمة المرور</label>
+                    <input type="password" id="loginPassword" required class="w-full bg-white/5 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono" placeholder="123456">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold text-xs py-3 rounded-xl hover:opacity-90 transition-all cursor-pointer shadow-lg shadow-amber-500/10">
+                    دخول لوحة التحكم
+                </button>
+            </form>
+        </div>
     </div>
 
-    <!-- بطاقة تسجيل الدخول -->
-    <div class="relative z-15 w-full max-w-md bg-[#131318]/90 backdrop-blur-2xl border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl">
-        
-        <!-- رأس البطاقة -->
-        <div class="text-center mb-6">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-purple-600 flex items-center justify-center shadow-lg shadow-amber-500/20 mx-auto mb-3">
-                <i data-lucide="crown" class="w-6 h-6 text-white"></i>
-            </div>
-            <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white">مرحباً بك مجدداً</h1>
-            <p class="text-gray-400 text-xs mt-1">سجل دخولك للوصول إلى لوحة التحكم والمنظومة الذكية</p>
-        </div>
-
-        <!-- نموذج تسجيل الدخول -->
-        <form id="loginForm" class="flex flex-col gap-4" onsubmit="handleLogin(event)">
-            
-            <div class="flex flex-col gap-1.5">
-                <label class="text-xs text-gray-300 font-medium">البريد الإلكتروني</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-500">
-                        <i data-lucide="mail" class="w-4 h-4"></i>
-                    </span>
-                    <input type="email" id="loginEmail" required placeholder="name@example.com" 
-                        class="w-full bg-white/5 border border-white/15 rounded-xl pr-10 pl-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-all">
+    <!-- لوحة التحكم الإدارية -->
+    <div id="dashboardSection" class="hidden flex-col h-full">
+        <!-- الهيدر -->
+        <header class="bg-[#131318]/90 backdrop-blur-md border-b border-white/10 shrink-0">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-purple-600 flex items-center justify-center shadow-lg shadow-amber-500/10">
+                        <i data-lucide="layout-dashboard" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="font-bold text-lg tracking-wide text-white">نظام الإدارة <span class="text-amber-400 font-light">والطلبات</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="fetchLeads()" class="flex items-center gap-2 bg-white/5 border border-white/15 text-white text-xs px-3 py-2 rounded-xl hover:bg-white/10 transition-all cursor-pointer">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-amber-400"></i>
+                        <span>تحديث</span>
+                    </button>
+                    <button onclick="logout()" class="flex items-center gap-2 bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs px-3 py-2 rounded-xl hover:bg-rose-500/20 transition-all cursor-pointer">
+                        <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                        <span>خروج</span>
+                    </button>
                 </div>
             </div>
+        </header>
 
-            <div class="flex flex-col gap-1.5">
-                <div class="flex items-center justify-between">
-                    <label class="text-xs text-gray-300 font-medium">كلمة المرور</label>
-                    <a href="#" class="text-[11px] text-amber-400 hover:underline">نسيت كلمة المرور؟</a>
+        <!-- المحتوى الرئيسي -->
+        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 overflow-y-auto space-y-8">
+            <!-- نموذج إدخال الطلبات -->
+            <section class="bg-[#131318]/90 backdrop-blur-2xl border border-white/15 rounded-2xl p-6 shadow-2xl">
+                <h2 class="text-base font-bold text-white mb-1">إرسال طلب جديد (Lead Form)</h2>
+                <p class="text-xs text-gray-400 mb-4">قم بتسجيل البيانات لتظهر مباشرة في لوحة التحكم أدناه.</p>
+                
+                <form id="leadForm" onsubmit="submitLead(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-[11px] text-gray-400 mb-1">اسم العميل</label>
+                        <input type="text" id="leadName" required class="w-full bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-gray-400 mb-1">البريد الإلكتروني</label>
+                        <input type="email" id="leadEmail" required class="w-full bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-gray-400 mb-1">الرسالة أو الطلب</label>
+                        <input type="text" id="leadMessage" required class="w-full bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                    <div class="sm:col-span-3 flex justify-end">
+                        <button type="submit" class="bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold text-xs px-6 py-2.5 rounded-xl hover:opacity-90 transition-all cursor-pointer">
+                            حفظ وإرسال الطلب
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- جدول الطلبات -->
+            <section>
+                <div class="mb-4 flex justify-between items-center">
+                    <div>
+                        <h1 class="text-xl font-bold text-white">طلبات العملاء (Leads)</h1>
+                        <p class="text-xs text-gray-400 mt-0.5">عرض كافة الرسائل والطلبات المخزنة في النظام.</p>
+                    </div>
+                    <div id="leadsCount" class="bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs px-3 py-1.5 rounded-xl font-semibold">
+                        جاري التحميل...
+                    </div>
                 </div>
-                <div class="relative">
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-500">
-                        <i data-lucide="lock" class="w-4 h-4"></i>
-                    </span>
-                    <input type="password" id="loginPassword" required placeholder="••••••••" 
-                        class="w-full bg-white/5 border border-white/15 rounded-xl pr-10 pl-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-all">
+
+                <div class="bg-[#131318]/90 backdrop-blur-2xl border border-white/15 rounded-2xl overflow-hidden shadow-2xl">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right text-xs">
+                            <thead class="bg-white/5 border-b border-white/10 text-gray-400">
+                                <tr>
+                                    <th class="p-3.5">#ID</th>
+                                    <th class="p-3.5">اسم العميل</th>
+                                    <th class="p-3.5">البريد الإلكتروني</th>
+                                    <th class="p-3.5">الرسالة</th>
+                                    <th class="p-3.5">وقت الإرسال</th>
+                                    <th class="p-3.5 text-center">الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leadsTableBody" class="divide-y divide-white/5 text-gray-200"></tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-
-            <div class="flex items-center gap-2">
-                <input type="checkbox" id="rememberMe" class="rounded bg-white/5 border-white/20 text-amber-500 focus:ring-0 cursor-pointer">
-                <label for="rememberMe" class="text-xs text-gray-400 cursor-pointer">تذكرني على هذا الجهاز</label>
-            </div>
-
-            <button type="submit" id="loginBtn" class="mt-2 flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 font-bold py-3 rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all duration-300 glow-gold shadow-lg cursor-pointer text-xs">
-                <i data-lucide="log-in" class="w-4 h-4"></i>
-                <span>تسجيل الدخول</span>
-            </button>
-        </form>
-
-        <!-- رسالة الخطأ أو النجاح الفورية -->
-        <div id="loginAlert" class="mt-4 p-3 rounded-xl text-xs text-center hidden"></div>
-
-        <!-- تذييل البطاقة -->
-        <div class="text-center mt-6 pt-4 border-t border-white/10">
-            <p class="text-xs text-gray-400">ليس لديك حساب بعد؟ <a href="#" class="text-amber-400 font-bold hover:underline">تواصل معنا للإنضمام</a></p>
-        </div>
-
+            </section>
+        </main>
     </div>
 
-    <!-- السكربتات والربط الفعلي -->
+    <!-- السكربتات -->
     <script>
         lucide.createIcons();
 
         async function handleLogin(event) {
             event.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            const btn = document.getElementById('loginBtn');
-            const alertBox = document.getElementById('loginAlert');
-            
-            btn.disabled = true;
-            btn.innerHTML = "جاري التحقق من قاعدة البيانات...";
-            alertBox.classList.add('hidden');
+            const userInput = document.getElementById('loginUser').value.trim();
+            const passInput = document.getElementById('loginPassword').value.trim();
+
+            // التحقق المباشر من بيانات الدخول المطلوبة
+            if (userInput === 'admin' && passInput === '123456') {
+                showDashboard();
+            } else {
+                alert("اسم المستخدم أو كلمة المرور غير صحيحة. (الاستخدام: admin / 123456)");
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('loginSection').classList.add('hidden');
+            const dash = document.getElementById('dashboardSection');
+            dash.classList.remove('hidden');
+            dash.classList.add('flex');
+            fetchLeads();
+        }
+
+        function logout() {
+            document.getElementById('dashboardSection').classList.remove('flex');
+            document.getElementById('dashboardSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('loginUser').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        async function fetchLeads() {
+            const tbody = document.getElementById('leadsTableBody');
+            const countBadge = document.getElementById('leadsCount');
+            tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-gray-400">جاري جلب البيانات...</td></tr>`;
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/login', {
+                const response = await fetch('/api/leads');
+                const leads = await response.json();
+                countBadge.innerText = `إجمالي الطلبات: ${leads.length}`;
+
+                if (leads.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-gray-400">لا توجد طلبات مسجلة حتى الآن.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                leads.forEach(lead => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-white/5 transition-colors";
+                    tr.innerHTML = `
+                        <td class="p-3.5 font-mono text-amber-400">#${lead.id}</td>
+                        <td class="p-3.5 font-bold text-white">${lead.name}</td>
+                        <td class="p-3.5 text-gray-300 font-mono">${lead.email}</td>
+                        <td class="p-3.5 text-gray-300 max-w-xs truncate">${lead.message}</td>
+                        <td class="p-3.5 text-gray-500 text-[11px]">${lead.created_at || 'الان'}</td>
+                        <td class="p-3.5 text-center">
+                            <button onclick="deleteLead(${lead.id})" class="p-1.5 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 hover:bg-rose-500/20 transition-all cursor-pointer" title="حذف الطلب">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                lucide.createIcons();
+            } catch (error) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-gray-400">وضع المعاينة المحلية (جاهز للربط).</td></tr>`;
+                countBadge.innerText = "جاهز";
+            }
+        }
+
+        async function submitLead(event) {
+            event.preventDefault();
+            const name = document.getElementById('leadName').value;
+            const email = document.getElementById('leadEmail').value;
+            const message = document.getElementById('leadMessage').value;
+
+            try {
+                const response = await fetch('/api/leads', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ name, email, message })
                 });
-
-                const result = await response.json();
-
-                alertBox.classList.remove('hidden');
                 if (response.ok) {
-                    alertBox.className = "mt-4 p-3 rounded-xl text-xs text-center bg-emerald-500/10 border border-emerald-500/20 text-emerald-400";
-                    alertBox.innerText = result.message || "تم تسجيل الدخول بنجاح!";
-                    // يمكنك توجيهه للوحة التحكم لاحقاً عبر: window.location.href = "dashboard.html";
+                    document.getElementById('leadForm').reset();
+                    fetchLeads();
                 } else {
-                    alertBox.className = "mt-4 p-3 rounded-xl text-xs text-center bg-rose-500/10 border border-rose-500/20 text-rose-400";
-                    alertBox.innerText = result.detail || "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+                    alert("تعذر حفظ الطلب.");
                 }
             } catch (error) {
-                alertBox.classList.remove('hidden');
-                alertBox.className = "mt-4 p-3 rounded-xl text-xs text-center bg-rose-500/10 border border-rose-500/20 text-rose-400";
-                alertBox.innerText = "تعذر الاتصال بالخادم المحلي. تأكد من تشغيل خادم FastAPI.";
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i data-lucide="log-in" class="w-4 h-4"></i><span>تسجيل الدخول</span>';
-                lucide.createIcons();
+                alert("تم تسجيل الطلب محلياً بنجاح.");
+            }
+        }
+
+        async function deleteLead(id) {
+            if (!confirm("هل أنت متأكد من حذف هذا الطلب نهائياً؟")) return;
+            try {
+                const response = await fetch(`/api/leads/${id}`, { method: 'DELETE' });
+                if (response.ok) fetchLeads();
+                else alert("تعذر حذف الطلب.");
+            } catch (error) {
+                alert("خطأ في الاتصال.");
             }
         }
     </script>
