@@ -51,7 +51,7 @@
     <!-- حاوية الإشعارات العائمة -->
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- 1. شاشة تسجيل الدخول أولاً (النسق الأساسي) -->
+    <!-- 1. شاشة تسجيل الدخول أولاً -->
     <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-100">
         <div class="bg-white border border-slate-200 rounded-2xl p-8 max-w-md w-full shadow-xl">
             <div class="text-center mb-6">
@@ -78,38 +78,40 @@
         </div>
     </div>
 
-    <!-- 2. الواجهة الرئيسية للوحة التحكم (تظهر بعد الدخول) -->
+    <!-- 2. الواجهة الرئيسية لوحة التحكم (تظهر بعد تسجيل الدخول) -->
     <div id="dashboardSection" class="hidden flex-col h-full">
         
-        <!-- الهيدر العلوي بالأزرق مع الأزرار الستة -->
+        <!-- الهيدر العلوي بالأزرق مع تنسيق الأزرار داخل مربعات جميلة وواضحة -->
         <header class="bg-primaryBlue text-white shadow-md shrink-0">
-            <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-                <div class="flex items-center gap-3 shrink-0">
-                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 overflow-hidden">
-                        <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام" class="w-full h-full object-cover">
-                    </div>
-                    <span class="font-bold text-sm sm:text-base tracking-wide whitespace-nowrap">النظام المحاسبي | أمين الشيباني</span>
+            <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+                
+                <!-- زر الخروج بتنسيق مربع جميل ومميز -->
+                <div class="shrink-0 order-1">
+                    <button onclick="logout()" class="flex items-center justify-center w-10 h-10 bg-red-600 hover:bg-red-700 border border-red-500 rounded-xl text-white transition-all shadow-md cursor-pointer" title="تسجيل خروج">
+                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                    </button>
                 </div>
 
-                <!-- شريط الأزرار الستة الرئيسي -->
-                <div class="overflow-x-auto no-scrollbar py-2 flex-grow max-w-2xl">
-                    <nav class="flex items-center gap-1.5 bg-blue-700/50 p-1.5 rounded-xl border border-blue-600 min-w-max">
-                        <button onclick="navAction('ملف')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/15 hover:bg-white/25 transition-all cursor-pointer whitespace-nowrap">ملف</button>
-                        <button onclick="navAction('عرض')" class="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/15 transition-all cursor-pointer whitespace-nowrap">عرض</button>
-                        <button onclick="navAction('المحاسبة المالية')" class="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/15 transition-all cursor-pointer whitespace-nowrap">المحاسبة المالية</button>
-                        <button onclick="navAction('إدارة المخزون')" class="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/15 transition-all cursor-pointer whitespace-nowrap">إدارة المخزون</button>
-                        <button onclick="navAction('إعدادات')" class="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/15 transition-all cursor-pointer whitespace-nowrap">إعدادات</button>
-                        <button onclick="navAction('تعليمات')" class="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/15 transition-all cursor-pointer whitespace-nowrap">تعليمات</button>
+                <!-- شريط التمرير الأفقي للأزرار الستة بتنسيق مربعات منفصلة وجميلة داخل الهيدر -->
+                <div class="overflow-x-auto no-scrollbar py-1 flex-grow order-2">
+                    <nav class="flex items-center gap-1.5 min-w-max justify-center">
+                        <button onclick="navAction('ملف')" class="px-3 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap">ملف</button>
+                        <button onclick="navAction('عرض')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">عرض</button>
+                        <button onclick="navAction('المحاسبة المالية')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">المحاسبة المالية</button>
+                        <button onclick="navAction('إدارة المخزون')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">إدارة المخزون</button>
+                        <button onclick="navAction('إعدادات')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">إعدادات</button>
+                        <button onclick="navAction('تعليمات')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">تعليمات</button>
                     </nav>
                 </div>
 
-                <!-- زر الخروج -->
-                <div class="shrink-0">
-                    <button onclick="logout()" class="flex items-center gap-1.5 bg-red-600/80 border border-red-500 text-white text-xs px-3 py-2 rounded-xl hover:bg-red-700 transition-all cursor-pointer">
-                        <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-                        <span class="hidden sm:inline">خروج</span>
-                    </button>
+                <!-- شعار النظام واسمه في الجهة المقابلة -->
+                <div class="flex items-center gap-2.5 shrink-0 order-3">
+                    <span class="font-bold text-xs sm:text-sm tracking-wide whitespace-nowrap hidden sm:inline">أمين الشيباني</span>
+                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 overflow-hidden shadow-sm">
+                        <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام" class="w-full h-full object-cover">
+                    </div>
                 </div>
+
             </div>
         </header>
 
