@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام التصميم الفاخر - الخدمات والتواصل</title>
+    <title>نظام التصميم الفاخر - النسخة النهائية المتكاملة</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,7 +34,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* إيقاف التمرير الرأسي تماماً وجعل الصفحة ثابتة ومستقرة داخل الإطار المرئي */
+        /* إيقاف التمرير الرأسي تماماً وجعل الصفحة ثابتة ومستقرة */
         html, body {
             height: 100%;
             margin: 0;
@@ -45,7 +45,7 @@
             color: #ffffff;
         }
 
-        /* تأثيرات الإضاءة الخلفية المتحركة الناعمة */
+        /* تأثيرات الإضاءة الخلفية المتحركة */
         @keyframes floatSlow1 {
             0%, 100% { transform: translate(0px, 0px) scale(1); }
             50% { transform: translate(30px, -40px) scale(1.1); }
@@ -57,17 +57,16 @@
         .blob-1 { animation: floatSlow1 12s ease-in-out infinite; }
         .blob-2 { animation: floatSlow2 15s ease-in-out infinite; }
 
-        /* تأثيرات الـ Glow والارتفاع للبطاقات */
         .glow-gold:hover {
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
         }
         .card-hover:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 25px -10px rgba(212, 175, 55, 0.2);
         }
 
-        /* تخصيص شريط التمرير الداخلي إن وجد */
+        /* تخصيص شريط التمرير الداخلي */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #0a0a0c; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
@@ -77,144 +76,189 @@
 
     <!-- ================= الخلفية المتفاعلة (Ambient Glows) ================= -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-900/15 rounded-full blur-[120px] blob-1"></div>
-        <div class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-amber-600/10 rounded-full blur-[140px] blob-2"></div>
+        <div class="absolute top-1/4 right-1/4 w-72 h-72 md:w-96 md:h-96 bg-purple-900/15 rounded-full blur-[120px] blob-1"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-72 h-72 md:w-96 md:h-96 bg-amber-600/10 rounded-full blur-[140px] blob-2"></div>
     </div>
 
     <!-- ================= الهيدر (Header) ================= -->
-    <header class="relative z-10 bg-[#131318]/80 backdrop-blur-md border-b border-white/10 shrink-0">
+    <header class="relative z-30 bg-[#131318]/90 backdrop-blur-md border-b border-white/10 shrink-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <!-- الشعار -->
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-purple-600 flex items-center justify-center shadow-lg shadow-amber-500/10">
-                    <i data-lucide="crown" class="w-5 h-5 text-white"></i>
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-purple-600 flex items-center justify-center shadow-lg shadow-amber-500/10">
+                    <i data-lucide="crown" class="w-4 h-4 sm:w-5 sm:h-5 text-white"></i>
                 </div>
-                <span class="font-bold text-lg tracking-wide text-white">نيو إدج <span class="text-amber-400 font-light">فاخر</span></span>
+                <span class="font-bold text-base sm:text-lg tracking-wide text-white">نيو إدج <span class="text-amber-400 font-light">فاخر</span></span>
             </div>
 
-            <!-- القائمة الرئيسية -->
-            <nav class="hidden md:flex items-center gap-8 text-sm text-gray-300 font-medium">
+            <!-- القائمة الرئيسية (للهواتف الكبيرة والشاشات) -->
+            <nav class="hidden md:flex items-center gap-6 text-sm text-gray-300 font-medium">
                 <a href="#" class="hover:text-amber-400 transition-colors">الرئيسية</a>
                 <a href="#" class="hover:text-amber-400 transition-colors">الخدمات</a>
-                <a href="#" class="hover:text-amber-400 transition-colors">المميزات</a>
-                <a href="#" class="hover:text-amber-400 transition-colors">اتصل بنا</a>
+                <a href="#" class="hover:text-amber-400 transition-colors">آراء العملاء</a>
+                <a href="#" class="hover:text-amber-400 transition-colors">الأسئلة الشائعة</a>
             </nav>
 
-            <!-- زر الحساب -->
+            <!-- أزرار الإجراءات و زر الهمبرجر للجوال -->
             <div class="flex items-center gap-3">
-                <button class="flex items-center gap-2 bg-transparent border border-white/20 text-white text-sm px-4 py-2 rounded-xl hover:bg-white/5 transition-all cursor-pointer">
+                <button class="hidden sm:flex items-center gap-2 bg-transparent border border-white/25 text-white text-xs sm:text-sm px-3.5 py-2 rounded-xl hover:bg-white/5 transition-all cursor-pointer">
                     <i data-lucide="user" class="w-4 h-4 text-amber-400"></i>
                     <span>حسابي</span>
                 </button>
+                <!-- زر الهمبرجر -->
+                <button id="menuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-300 hover:text-amber-400 focus:outline-none cursor-pointer">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
             </div>
+        </div>
+
+        <!-- قائمة الهواتف المنسدلة (Mobile Menu) -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-16 left-0 right-0 bg-[#131318]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex flex-col gap-3 shadow-2xl transition-all z-40">
+            <a href="#" class="text-sm text-gray-200 hover:text-amber-400 py-1 border-b border-white/5">الرئيسية</a>
+            <a href="#" class="text-sm text-gray-200 hover:text-amber-400 py-1 border-b border-white/5">الخدمات</a>
+            <a href="#" class="text-sm text-gray-200 hover:text-amber-400 py-1 border-b border-white/5">آراء العملاء</a>
+            <a href="#" class="text-sm text-gray-200 hover:text-amber-400 py-1">الأسئلة الشائعة</a>
         </div>
     </header>
 
     <!-- ================= المحتوى الرئيسي (Main Content) ================= -->
-    <main class="relative z-10 flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col justify-center items-center overflow-hidden">
+    <main class="relative z-10 flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-col justify-center items-center overflow-hidden">
         
-        <!-- الحاوية الأساسية لتنظيم العناصر بدون تداخل وبدون تمرير -->
-        <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- الحاوية الأساسية للعرض المتجاوب -->
+        <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-center">
             
-            <!-- قسم الـ Hero والبطاقات (يسار أو يمين حسب الاتجاه) -->
-            <div class="lg:col-span-7 flex flex-col gap-4">
+            <!-- القسم الأيمن: المميزات والخدمات المصغرة -->
+            <div class="lg:col-span-7 flex flex-col gap-3 sm:gap-4">
                 
-                <!-- رأس مختصر -->
                 <div class="text-right">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold mb-2">
-                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[11px] sm:text-xs font-semibold mb-1.5">
+                        <i data-lucide="sparkles" class="w-3 h-3"></i>
                         <span>منظومة الخدمات الذكية المتكاملة</span>
                     </div>
-                    <h1 class="text-2xl md:text-4xl font-black tracking-tight text-white">
+                    <h1 class="text-xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-snug">
                         حلول رقمية مبتكرة <span class="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">بأعلى معايير الجودة</span>
                     </h1>
                 </div>
 
-                <!-- شبكة البطاقات التفاعلية (3 بطاقات متجاوبة) -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <!-- شبكة البطاقات التفاعلية (3 بطاقات) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 flex flex-col gap-2 card-hover transition-all duration-300 cursor-pointer">
+                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
+                            <i data-lucide="cpu" class="w-4 h-4"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-sm">هندسة الأنظمة</h3>
+                        <p class="text-gray-400 text-[11px] leading-relaxed">بناء هيكليات برمجية متطورة تلبي متطلبات الأعمال بكفاءة.</p>
+                    </div>
+
+                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 flex flex-col gap-2 card-hover transition-all duration-300 cursor-pointer">
+                        <div class="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-sm">الحماية المتقدمة</h3>
+                        <p class="text-gray-400 text-[11px] leading-relaxed">تأمين تام للبيانات بأحدث بروتوكولات التشفير العالمية.</p>
+                    </div>
+
+                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 flex flex-col gap-2 card-hover transition-all duration-300 cursor-pointer">
+                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
+                            <i data-lucide="zap" class="w-4 h-4"></i>
+                        </div>
+                        <h3 class="font-bold text-white text-sm">سرعة الأداء</h3>
+                        <p class="text-gray-400 text-[11px] leading-relaxed">استجابة فائقة السرعة وتجربة مستخدم سلسة وخالية من البطء.</p>
+                    </div>
+                </div>
+
+                <!-- إضافات القسم السفلي: آراء العملاء + الأسئلة الشائعة (مدمجة بانسيابية تامة) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1">
                     
-                    <!-- البطاقة الأولى -->
-                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex flex-col gap-3 card-hover transition-all duration-300 cursor-pointer">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
-                            <i data-lucide="cpu" class="w-5 h-5"></i>
+                    <!-- 1. قسم آراء العملاء (Testimonials) مصغر جانبي -->
+                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 flex flex-col justify-between">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-white">آراء النخبة</span>
+                            <div class="flex text-amber-400 gap-0.5">
+                                <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
+                            </div>
                         </div>
-                        <h3 class="font-bold text-white text-base">هندسة الأنظمة</h3>
-                        <p class="text-gray-400 text-xs leading-relaxed">بناء هيكليات برمجية متطورة تلبي متطلبات الأعمال الكبرى بكفاءة عالية.</p>
+                        <p class="text-gray-300 text-[11px] italic mb-2">"تجربة استثنائية ونظام متكامل نقل عملنا لمستوى احترافي غير مسبوق."</p>
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-amber-500 to-purple-600 flex items-center justify-center text-[10px] font-bold text-white">أم</div>
+                            <span class="text-[11px] text-gray-400 font-medium">أمين الشيباني</span>
+                        </div>
                     </div>
 
-                    <!-- البطاقة الثانية -->
-                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex flex-col gap-3 card-hover transition-all duration-300 cursor-pointer">
-                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center">
-                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                    <!-- 2. قسم الأسئلة الشائعة (FAQ Accordion مصغر تفاعلي) -->
+                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 flex flex-col justify-between">
+                        <span class="text-xs font-bold text-white mb-2 flex items-center gap-1.5">
+                            <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-400"></i>
+                            <span>الأسئلة الشائعة</span>
+                        </span>
+                        
+                        <!-- عنصر الأكورديون التفاعلي -->
+                        <div class="space-y-1.5">
+                            <div class="border border-white/10 rounded-xl overflow-hidden">
+                                <button onclick="toggleAccordion('faq1')" class="w-full text-right px-3 py-1.5 text-[11px] font-medium text-gray-200 bg-white/5 flex justify-between items-center cursor-pointer">
+                                    <span>كيف يمكنني البدء؟</span>
+                                    <i data-lucide="chevron-down" id="icon-faq1" class="w-3 h-3 transition-transform duration-300"></i>
+                                </button>
+                                <div id="faq1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-black/20">
+                                    <p class="p-2 text-[10px] text-gray-400">فقط تواصل معنا عبر النموذج المجاني وسنقوم بتفعيل حسابك فوراً.</p>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="font-bold text-white text-base">الحماية المتقدمة</h3>
-                        <p class="text-gray-400 text-xs leading-relaxed">تأمين تام للبيانات الشخصية والمالية بأحدث بروتوكولات التشفير العالمية.</p>
-                    </div>
-
-                    <!-- البطاقة الثالثة -->
-                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex flex-col gap-3 card-hover transition-all duration-300 cursor-pointer">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
-                            <i data-lucide="zap" class="w-5 h-5"></i>
-                        </div>
-                        <h3 class="font-bold text-white text-base">سرعة الأداء</h3>
-                        <p class="text-gray-400 text-xs leading-relaxed">استجابة فائقة السرعة وتجربة مستخدم سلسة خالية من أي بطء أو تعقيد.</p>
                     </div>
 
                 </div>
+
             </div>
 
-            <!-- قسم نموذج الاتصال وتجربة المستخدم (Lead Capture Form) -->
+            <!-- القسم الأيسر: نموذج الاتصال (Lead Capture Form) -->
             <div class="lg:col-span-5 relative">
-                <div class="bg-[#131318]/90 backdrop-blur-2xl border border-white/15 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+                <div class="bg-[#131318]/90 backdrop-blur-2xl border border-white/15 rounded-3xl p-4 sm:p-5 shadow-2xl relative overflow-hidden">
                     
-                    <!-- عنوان النموذج -->
-                    <div class="mb-4">
-                        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <div class="mb-3">
+                        <h2 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
                             <i data-lucide="mail" class="w-4 h-4 text-amber-400"></i>
                             <span>ابدأ استشارتك المجانية</span>
                         </h2>
-                        <p class="text-gray-400 text-xs">املأ البيانات أدناه وسنواصل معك خلال دقائق.</p>
+                        <p class="text-gray-400 text-[11px]">املأ البيانات أدناه وسنواصل معك خلال دقائق.</p>
                     </div>
 
-                    <!-- نموذج الإرسال -->
-                    <form id="leadForm" class="flex flex-col gap-3" onsubmit="handleFormSubmit(event)">
-                        
-                        <!-- حقل الاسم -->
+                    <form id="leadForm" class="flex flex-col gap-2.5" onsubmit="handleFormSubmit(event)">
                         <div class="flex flex-col gap-1">
-                            <label class="text-xs text-gray-300 font-medium">الاسم الكريم</label>
+                            <label class="text-[11px] text-gray-300 font-medium">الاسم الكريم</label>
                             <input type="text" required placeholder="أدخل اسمك الكامل" 
-                                class="bg-white/5 border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all">
+                                class="bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all">
                         </div>
 
-                        <!-- حقل البريد الإلكتروني -->
                         <div class="flex flex-col gap-1">
-                            <label class="text-xs text-gray-300 font-medium">البريد الإلكتروني</label>
+                            <label class="text-[11px] text-gray-300 font-medium">البريد الإلكتروني</label>
                             <input type="email" required placeholder="name@example.com" 
-                                class="bg-white/5 border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all">
+                                class="bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all">
                         </div>
 
-                        <!-- حقل الرسالة المخصصة -->
                         <div class="flex flex-col gap-1">
-                            <label class="text-xs text-gray-300 font-medium">الرسالة أو الاستفسار</label>
-                            <textarea rows="2" required placeholder="اكتب تفاصيل مشروعك أو استفسارك..." 
-                                class="bg-white/5 border border-white/15 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all resize-none"></textarea>
+                            <label class="text-[11px] text-gray-300 font-medium">الرسالة أو الاستفسار</label>
+                            <textarea rows="2" required placeholder="اكتب تفاصيل مشروعك..." 
+                                class="bg-white/5 border border-white/15 rounded-xl px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all resize-none"></textarea>
                         </div>
 
-                        <!-- زر الإرسال -->
-                        <button type="submit" class="mt-1 flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 font-bold py-3 rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all duration-300 glow-gold shadow-lg cursor-pointer text-sm">
-                            <i data-lucide="send" class="w-4 h-4"></i>
+                        <button type="submit" class="mt-1 flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 font-bold py-2.5 rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all duration-300 glow-gold shadow-lg cursor-pointer text-xs">
+                            <i data-lucide="send" class="w-3.5 h-3.5"></i>
                             <span>إرسال الطلب الآن</span>
                         </button>
                     </form>
 
-                    <!-- رسالة النجاح المنبثقة (مخفية افتراضياً) -->
-                    <div id="successAlert" class="absolute inset-0 bg-[#131318]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 text-center opacity-0 pointer-events-none transition-all duration-300 z-20">
-                        <div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500 text-amber-400 flex items-center justify-center mb-3 animate-bounce">
-                            <i data-lucide="check" class="w-6 h-6"></i>
+                    <!-- رسالة النجاح المنبثقة (Success Alert) -->
+                    <div id="successAlert" class="absolute inset-0 bg-[#131318]/95 backdrop-blur-xl flex flex-col items-center justify-center p-5 text-center opacity-0 pointer-events-none transition-all duration-300 z-20">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500 text-amber-400 flex items-center justify-center mb-2.5 animate-bounce">
+                            <i data-lucide="check" class="w-5 h-5"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-1">تم إرسال طلبك بنجاح!</h3>
-                        <p class="text-gray-400 text-xs mb-4">شكراً لتواصلك معنا. سنقوم بمراجعة بياناتك والرد عليك في أقرب وقت ممكن.</p>
-                        <button type="button" onclick="closeAlert()" class="bg-white/10 hover:bg-white/20 text-white text-xs px-5 py-2 rounded-xl transition-all border border-white/20 cursor-pointer">
+                        <h3 class="text-sm font-bold text-white mb-1">تم إرسال طلبك بنجاح!</h3>
+                        <p class="text-gray-400 text-[11px] mb-3">شكراً لتواصلك معنا. سنقوم بمراجعة بياناتك والرد عليك قريباً.</p>
+                        <button type="button" onclick="closeAlert()" class="bg-white/10 hover:bg-white/20 text-white text-[11px] px-4 py-1.5 rounded-xl transition-all border border-white/20 cursor-pointer">
                             إغلاق وتجربة جديدة
                         </button>
                     </div>
@@ -227,36 +271,53 @@
     </main>
 
     <!-- ================= الفوتر (Footer) ================= -->
-    <footer class="relative z-10 bg-[#131318]/80 backdrop-blur-md border-t border-white/10 py-3 shrink-0">
+    <footer class="relative z-10 bg-[#131318]/90 backdrop-blur-md border-t border-white/10 py-3 shrink-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-right">
-            <p class="text-gray-500 text-xs">جميع الحقوق محفوظة &copy; 2026 - نظام التصميم الفاخر</p>
-            <div class="flex items-center gap-6 text-xs text-gray-400">
+            <p class="text-gray-500 text-[11px]">جميع الحقوق محفوظة &copy; 2026 - نظام التصميم الفاخر</p>
+            <div class="flex items-center gap-4 text-[11px] text-gray-400">
                 <a href="#" class="hover:text-amber-400 transition-colors">الأمان والخصوصية</a>
                 <a href="#" class="hover:text-amber-400 transition-colors">الشروط العامة</a>
             </div>
         </div>
     </footer>
 
-    <!-- سكربت التفاعل وجافاسكريبت الإرسال المنبثق -->
+    <!-- سكربتات التفاعل والجافاسكريبت (Vanilla JS) -->
     <script>
         // تفعيل أيقونات Lucide
         lucide.createIcons();
 
-        // دالة التعامل مع إرسال النموذج بدون تحديث الصفحة
-        function handleFormSubmit(event) {
-            event.preventDefault(); // منع إعادة تحميل الصفحة
+        // 1. تشغيل قائمة الهمبرجر للجوال
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // 2. تفعيل الأكورديون للأسئلة الشائعة
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
             
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // 3. إدارة نموذج الإرسال ورسالة النجاح
+        function handleFormSubmit(event) {
+            event.preventDefault();
             const alertBox = document.getElementById('successAlert');
             alertBox.classList.remove('opacity-0', 'pointer-events-none');
             alertBox.classList.add('opacity-100', 'pointer-events-auto');
         }
 
-        // دالة إغلاق تنبيه النجاح وإعادة تعيين النموذج
         function closeAlert() {
             const alertBox = document.getElementById('successAlert');
             alertBox.classList.remove('opacity-100', 'pointer-events-auto');
             alertBox.classList.add('opacity-0', 'pointer-events-none');
-            
             document.getElementById('leadForm').reset();
         }
     </script>
