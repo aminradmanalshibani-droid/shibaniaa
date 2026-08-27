@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام التصميم الفاخر - مع الربط الفعلي للبيانات</title>
+    <title>تسجيل الدخول - نظام التصميم الفاخر</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,19 +16,17 @@
                         cardBg: '#131318',
                         gold: '#d4af37',
                         goldHover: '#f3e5ab',
-                        neonPurple: '#8b5cf6',
                     },
                     fontFamily: {
                         cairo: ['Cairo', 'sans-serif'],
-                        inter: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     
-    <!-- Google Fonts: Cairo & Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -37,13 +35,10 @@
         html, body {
             height: 100%;
             margin: 0;
-            padding: 0;
-            overflow: hidden;
-            font-family: 'Cairo', 'Inter', sans-serif;
+            font-family: 'Cairo', sans-serif;
             background-color: #0a0a0c;
             color: #ffffff;
         }
-
         @keyframes floatSlow1 {
             0%, 100% { transform: translate(0px, 0px) scale(1); }
             50% { transform: translate(30px, -40px) scale(1.1); }
@@ -54,275 +49,122 @@
         }
         .blob-1 { animation: floatSlow1 12s ease-in-out infinite; }
         .blob-2 { animation: floatSlow2 15s ease-in-out infinite; }
-
         .glow-gold:hover {
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
         }
-        .card-hover:hover {
-            transform: translateY(-3px);
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 25px -10px rgba(212, 175, 55, 0.2);
-        }
-
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #0a0a0c; }
-        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
     </style>
 </head>
-<body class="flex flex-col justify-between h-full select-none relative">
+<body class="flex items-center justify-center min-h-full px-4 relative overflow-hidden select-none">
 
     <!-- الخلفية المتفاعلة -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div class="absolute top-1/4 right-1/4 w-72 h-72 md:w-96 md:h-96 bg-purple-900/15 rounded-full blur-[120px] blob-1"></div>
-        <div class="absolute bottom-1/4 left-1/4 w-72 h-72 md:w-96 md:h-96 bg-amber-600/10 rounded-full blur-[140px] blob-2"></div>
+        <div class="absolute top-1/4 right-1/4 w-80 h-80 bg-purple-900/15 rounded-full blur-[130px] blob-1"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-80 h-80 bg-amber-600/10 rounded-full blur-[130px] blob-2"></div>
     </div>
 
-    <!-- الهيدر -->
-    <header class="relative z-30 bg-[#131318]/90 backdrop-blur-md border-b border-white/10 shrink-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-purple-600 flex items-center justify-center shadow-lg shadow-amber-500/10">
-                    <i data-lucide="crown" class="w-4 h-4 sm:w-5 sm:h-5 text-white"></i>
-                </div>
-                <span class="font-bold text-base sm:text-lg tracking-wide text-white">نيو إدج <span class="text-amber-400 font-light">فاخر</span></span>
+    <!-- بطاقة تسجيل الدخول -->
+    <div class="relative z-15 w-full max-w-md bg-[#131318]/90 backdrop-blur-2xl border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl">
+        
+        <!-- رأس البطاقة -->
+        <div class="text-center mb-6">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-purple-600 flex items-center justify-center shadow-lg shadow-amber-500/20 mx-auto mb-3">
+                <i data-lucide="crown" class="w-6 h-6 text-white"></i>
             </div>
-            <nav class="hidden md:flex items-center gap-6 text-sm text-gray-300 font-medium">
-                <a href="#" class="hover:text-amber-400 transition-colors">الرئيسية</a>
-                <a href="#" class="hover:text-amber-400 transition-colors">الخدمات</a>
-                <a href="#" class="hover:text-amber-400 transition-colors">آراء العملاء</a>
-                <a href="#" class="hover:text-amber-400 transition-colors">الأسئلة الشائعة</a>
-            </nav>
-            <div class="flex items-center gap-3">
-                <button class="hidden sm:flex items-center gap-2 bg-transparent border border-white/25 text-white text-xs sm:text-sm px-3.5 py-2 rounded-xl hover:bg-white/5 transition-all cursor-pointer">
-                    <i data-lucide="user" class="w-4 h-4 text-amber-400"></i>
-                    <span>حسابي</span>
-                </button>
-                <button id="menuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-300 hover:text-amber-400 focus:outline-none cursor-pointer">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-            </div>
+            <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white">مرحباً بك مجدداً</h1>
+            <p class="text-gray-400 text-xs mt-1">سجل دخولك للوصول إلى لوحة التحكم والمنظومة الذكية</p>
         </div>
-        <div id="mobileMenu" class="hidden md:hidden absolute top-16 left-0 right-0 bg-[#131318]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex flex-col gap-3 shadow-2xl transition-all z-40">
-            <a href="#" class="text-sm text-gray-200 hover:text-amber-400 py-1 border-b border-white/5">الرئيسية</a>
-            <a href="#" class="text-sm text-gray-200 hover:text-amber-400 py-1 border-b border-white/5">الخدمات</a>
-            <a href="#" class="text-sm text-gray-200 hover:text-amber-400 py-1 border-b border-white/5">آراء العملاء</a>
-            <a href="#" class="text-sm text-gray-200 hover:text-amber-400 py-1">الأسئلة الشائعة</a>
-        </div>
-    </header>
 
-    <!-- المحتوى الرئيسي -->
-    <main class="relative z-10 flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-col justify-center items-center overflow-hidden">
-        <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-center">
+        <!-- نموذج تسجيل الدخول -->
+        <form id="loginForm" class="flex flex-col gap-4" onsubmit="handleLogin(event)">
             
-            <div class="lg:col-span-7 flex flex-col gap-3 sm:gap-4">
-                <div class="text-right">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[11px] sm:text-xs font-semibold mb-1.5">
-                        <i data-lucide="sparkles" class="w-3 h-3"></i>
-                        <span>منظومة الخدمات الذكية المتكاملة</span>
-                    </div>
-                    <h1 class="text-xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-snug">
-                        حلول رقمية مبتكرة <span class="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">بأعلى معايير الجودة</span>
-                    </h1>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 flex flex-col gap-2 card-hover transition-all duration-300 cursor-pointer">
-                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
-                            <i data-lucide="cpu" class="w-4 h-4"></i>
-                        </div>
-                        <h3 class="font-bold text-white text-sm">هندسة الأنظمة</h3>
-                        <p class="text-gray-400 text-[11px] leading-relaxed">بناء هيكليات برمجية متطورة تلبي متطلبات الأعمال.</p>
-                    </div>
-
-                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 flex flex-col gap-2 card-hover transition-all duration-300 cursor-pointer">
-                        <div class="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center">
-                            <i data-lucide="shield-check" class="w-4 h-4"></i>
-                        </div>
-                        <h3 class="font-bold text-white text-sm">الحماية المتقدمة</h3>
-                        <p class="text-gray-400 text-[11px] leading-relaxed">تأمين تام للبيانات بأحدث بروتوكولات التشفير.</p>
-                    </div>
-
-                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 flex flex-col gap-2 card-hover transition-all duration-300 cursor-pointer">
-                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
-                            <i data-lucide="zap" class="w-4 h-4"></i>
-                        </div>
-                        <h3 class="font-bold text-white text-sm">سرعة الأداء</h3>
-                        <p class="text-gray-400 text-[11px] leading-relaxed">استجابة فائقة السرعة وتجربة مستخدم سلسة.</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1">
-                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 flex flex-col justify-between">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-white">آراء النخبة</span>
-                            <div class="flex text-amber-400 gap-0.5">
-                                <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
-                                <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
-                            </div>
-                        </div>
-                        <p class="text-gray-300 text-[11px] italic mb-2">"تجربة استثنائية ونظام متكامل نقل عملنا لمستوى احترافي."</p>
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-amber-500 to-purple-600 flex items-center justify-center text-[10px] font-bold text-white">أم</div>
-                            <span class="text-[11px] text-gray-400 font-medium">أمين الشيباني</span>
-                        </div>
-                    </div>
-
-                    <div class="bg-[#131318]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 flex flex-col justify-between">
-                        <span class="text-xs font-bold text-white mb-2 flex items-center gap-1.5">
-                            <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-400"></i>
-                            <span>الأسئلة الشائعة</span>
-                        </span>
-                        <div class="space-y-1.5">
-                            <div class="border border-white/10 rounded-xl overflow-hidden">
-                                <button onclick="toggleAccordion('faq1')" class="w-full text-right px-3 py-1.5 text-[11px] font-medium text-gray-200 bg-white/5 flex justify-between items-center cursor-pointer">
-                                    <span>كيف يمكنني البدء؟</span>
-                                    <i data-lucide="chevron-down" id="icon-faq1" class="w-3 h-3 transition-transform duration-300"></i>
-                                </button>
-                                <div id="faq1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-black/20">
-                                    <p class="p-2 text-[10px] text-gray-400">فقط تواصل معنا عبر النموذج وسنقوم بتفعيل حسابك.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="flex flex-col gap-1.5">
+                <label class="text-xs text-gray-300 font-medium">البريد الإلكتروني</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-500">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                    </span>
+                    <input type="email" id="loginEmail" required placeholder="name@example.com" 
+                        class="w-full bg-white/5 border border-white/15 rounded-xl pr-10 pl-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-all">
                 </div>
             </div>
 
-            <!-- نموذج الاتصال المرتبط بالخلفية -->
-            <div class="lg:col-span-5 relative">
-                <div class="bg-[#131318]/90 backdrop-blur-2xl border border-white/15 rounded-3xl p-4 sm:p-5 shadow-2xl relative overflow-hidden">
-                    <div class="mb-3">
-                        <h2 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                            <i data-lucide="mail" class="w-4 h-4 text-amber-400"></i>
-                            <span>ابدأ استشارتك المجانية</span>
-                        </h2>
-                        <p class="text-gray-400 text-[11px]">املأ البيانات أدناه لتخزينها مباشرة في قاعدة البيانات.</p>
-                    </div>
-
-                    <form id="leadForm" class="flex flex-col gap-2.5" onsubmit="handleFormSubmit(event)">
-                        <div class="flex flex-col gap-1">
-                            <label class="text-[11px] text-gray-300 font-medium">الاسم الكريم</label>
-                            <input type="text" id="name" required placeholder="أدخل اسمك الكامل" 
-                                class="bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-all">
-                        </div>
-
-                        <div class="flex flex-col gap-1">
-                            <label class="text-[11px] text-gray-300 font-medium">البريد الإلكتروني</label>
-                            <input type="email" id="email" required placeholder="name@example.com" 
-                                class="bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-all">
-                        </div>
-
-                        <div class="flex flex-col gap-1">
-                            <label class="text-[11px] text-gray-300 font-medium">الرسالة أو الاستفسار</label>
-                            <textarea id="message" rows="2" required placeholder="اكتب تفاصيل مشروعك..." 
-                                class="bg-white/5 border border-white/15 rounded-xl px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-all resize-none"></textarea>
-                        </div>
-
-                        <button type="submit" id="submitBtn" class="mt-1 flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 font-bold py-2.5 rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all duration-300 glow-gold shadow-lg cursor-pointer text-xs">
-                            <i data-lucide="send" class="w-3.5 h-3.5"></i>
-                            <span>إرسال وتخزين الطلب</span>
-                        </button>
-                    </form>
-
-                    <!-- رسالة النجاح المنبثقة -->
-                    <div id="successAlert" class="absolute inset-0 bg-[#131318]/95 backdrop-blur-xl flex flex-col items-center justify-center p-5 text-center opacity-0 pointer-events-none transition-all duration-300 z-20">
-                        <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500 text-amber-400 flex items-center justify-center mb-2.5 animate-bounce">
-                            <i data-lucide="check" class="w-5 h-5"></i>
-                        </div>
-                        <h3 class="text-sm font-bold text-white mb-1" id="alertTitle">تم حفظ الطلب بنجاح!</h3>
-                        <p class="text-gray-400 text-[11px] mb-3" id="alertDesc">تم إرسال البيانات وتخزينها في قاعدة بيانات SQLite بنجاح.</p>
-                        <button type="button" onclick="closeAlert()" class="bg-white/10 hover:bg-white/20 text-white text-[11px] px-4 py-1.5 rounded-xl transition-all border border-white/20 cursor-pointer">
-                            إغلاق وتجربة جديدة
-                        </button>
-                    </div>
+            <div class="flex flex-col gap-1.5">
+                <div class="flex items-center justify-between">
+                    <label class="text-xs text-gray-300 font-medium">كلمة المرور</label>
+                    <a href="#" class="text-[11px] text-amber-400 hover:underline">نسيت كلمة المرور؟</a>
+                </div>
+                <div class="relative">
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-500">
+                        <i data-lucide="lock" class="w-4 h-4"></i>
+                    </span>
+                    <input type="password" id="loginPassword" required placeholder="••••••••" 
+                        class="w-full bg-white/5 border border-white/15 rounded-xl pr-10 pl-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-all">
                 </div>
             </div>
 
+            <div class="flex items-center gap-2">
+                <input type="checkbox" id="rememberMe" class="rounded bg-white/5 border-white/20 text-amber-500 focus:ring-0 cursor-pointer">
+                <label for="rememberMe" class="text-xs text-gray-400 cursor-pointer">تذكرني على هذا الجهاز</label>
+            </div>
+
+            <button type="submit" id="loginBtn" class="mt-2 flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 font-bold py-3 rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all duration-300 glow-gold shadow-lg cursor-pointer text-xs">
+                <i data-lucide="log-in" class="w-4 h-4"></i>
+                <span>تسجيل الدخول</span>
+            </button>
+        </form>
+
+        <!-- رسالة الخطأ أو النجاح الفورية -->
+        <div id="loginAlert" class="mt-4 p-3 rounded-xl text-xs text-center hidden"></div>
+
+        <!-- تذييل البطاقة -->
+        <div class="text-center mt-6 pt-4 border-t border-white/10">
+            <p class="text-xs text-gray-400">ليس لديك حساب بعد؟ <a href="#" class="text-amber-400 font-bold hover:underline">تواصل معنا للإنضمام</a></p>
         </div>
-    </main>
 
-    <!-- الفوتر -->
-    <footer class="relative z-10 bg-[#131318]/90 backdrop-blur-md border-t border-white/10 py-3 shrink-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-right">
-            <p class="text-gray-500 text-[11px]">جميع الحقوق محفوظة &copy; 2026 - نظام التصميم الفاخر</p>
-            <div class="flex items-center gap-4 text-[11px] text-gray-400">
-                <a href="#" class="hover:text-amber-400 transition-colors">الأمان والخصوصية</a>
-                <a href="#" class="hover:text-amber-400 transition-colors">الشروط العامة</a>
-            </div>
-        </div>
-    </footer>
+    </div>
 
-    <!-- السكربتات والربط الفعلي بـ FastAPI -->
+    <!-- السكربتات والربط الفعلي -->
     <script>
         lucide.createIcons();
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        function toggleAccordion(id) {
-            const content = document.getElementById(id);
-            const icon = document.getElementById('icon-' + id);
-            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
-                content.style.maxHeight = '0px';
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                content.style.maxHeight = content.scrollHeight + 'px';
-                icon.style.transform = 'rotate(180deg)';
-            }
-        }
-
-        async function handleFormSubmit(event) {
+        async function handleLogin(event) {
             event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('loginBtn');
+            const alertBox = document.getElementById('loginAlert');
             
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            const submitBtn = document.getElementById('submitBtn');
-            
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = "جاري الإرسال والحفظ...";
+            btn.disabled = true;
+            btn.innerHTML = "جاري التحقق من قاعدة البيانات...";
+            alertBox.classList.add('hidden');
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/leads', {
+                const response = await fetch('http://127.0.0.1:8000/api/login', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ name, email, message })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
                 });
 
                 const result = await response.json();
 
+                alertBox.classList.remove('hidden');
                 if (response.ok) {
-                    document.getElementById('alertTitle').innerText = "تم حفظ الطلب بقاعدة البيانات!";
-                    document.getElementById('alertDesc').innerText = "تمت عملية التخزين في جدول SQLite بنجاح تام.";
+                    alertBox.className = "mt-4 p-3 rounded-xl text-xs text-center bg-emerald-500/10 border border-emerald-500/20 text-emerald-400";
+                    alertBox.innerText = result.message || "تم تسجيل الدخول بنجاح!";
+                    // يمكنك توجيهه للوحة التحكم لاحقاً عبر: window.location.href = "dashboard.html";
                 } else {
-                    document.getElementById('alertTitle').innerText = "عذراً حدث خطأ";
-                    document.getElementById('alertDesc').innerText = result.detail || "تعذر الاتصال بقاعدة البيانات.";
+                    alertBox.className = "mt-4 p-3 rounded-xl text-xs text-center bg-rose-500/10 border border-rose-500/20 text-rose-400";
+                    alertBox.innerText = result.detail || "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
                 }
             } catch (error) {
-                document.getElementById('alertTitle').innerText = "خطأ في الاتصال";
-                document.getElementById('alertDesc').innerText = "تأكد من تشغيل خادم FastAPI المحلي.";
+                alertBox.classList.remove('hidden');
+                alertBox.className = "mt-4 p-3 rounded-xl text-xs text-center bg-rose-500/10 border border-rose-500/20 text-rose-400";
+                alertBox.innerText = "تعذر الاتصال بالخادم المحلي. تأكد من تشغيل خادم FastAPI.";
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i data-lucide="send" class="w-3.5 h-3.5"></i><span>إرسال وتخزين الطلب</span>';
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="log-in" class="w-4 h-4"></i><span>تسجيل الدخول</span>';
                 lucide.createIcons();
-
-                const alertBox = document.getElementById('successAlert');
-                alertBox.classList.remove('opacity-0', 'pointer-events-none');
-                alertBox.classList.add('opacity-100', 'pointer-events-auto');
             }
-        }
-
-        function closeAlert() {
-            const alertBox = document.getElementById('successAlert');
-            alertBox.classList.remove('opacity-100', 'pointer-events-auto');
-            alertBox.classList.add('opacity-0', 'pointer-events-none');
-            document.getElementById('leadForm').reset();
         }
     </script>
 </body>
