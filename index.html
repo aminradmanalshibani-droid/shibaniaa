@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>النظام التشغيلي المتكامل - أمين الشيباني</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -25,10 +24,8 @@
         }
     </script>
     
-    <!-- Google Fonts: Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -48,10 +45,8 @@
 </head>
 <body class="flex flex-col h-full select-none">
 
-    <!-- حاوية الإشعارات العائمة -->
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- نافذة قائمة ملف المنبثقة -->
     <div id="fileModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden animate-in fade-in zoom-in duration-150">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -104,7 +99,6 @@
         </div>
     </div>
 
-    <!-- نافذة قائمة عرض المنبثقة -->
     <div id="viewModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden animate-in fade-in zoom-in duration-150">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -182,7 +176,6 @@
         </div>
     </div>
 
-    <!-- نافذة قائمة المحاسبة المالية المنبثقة الجديدة -->
     <div id="financeModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden animate-in fade-in zoom-in duration-150">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -255,7 +248,72 @@
         </div>
     </div>
 
-    <!-- نافذة قائمة ابدأ العائمة -->
+    <div id="inventoryModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden animate-in fade-in zoom-in duration-150">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
+                <div class="flex items-center gap-1.5">
+                    <span class="text-sm">📦</span>
+                    <h3 class="font-bold text-xs text-slate-800">إدارة المخزون</h3>
+                </div>
+                <button onclick="toggleInventoryModal()" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
+            </div>
+            <div class="space-y-1">
+                <button onclick="navAction('الأصناف والمواد'); toggleInventoryModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>🏷️</span>
+                        <span>الأصناف والمواد</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('المستودعات'); toggleInventoryModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>🏢</span>
+                        <span>المستودعات</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('الاستلام المخزني'); toggleInventoryModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📥</span>
+                        <span>الاستلام المخزني</span>
+                    </div>
+                </button>
+                <button onclick="navAction('الصرف المخزني'); toggleInventoryModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📤</span>
+                        <span>الصرف المخزني</span>
+                    </div>
+                </button>
+                <button onclick="navAction('التحويل بين المستودعات'); toggleInventoryModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>🔄</span>
+                        <span>التحويل بين المستودعات</span>
+                    </div>
+                </button>
+                <button onclick="navAction('الجرد والتسويات'); toggleInventoryModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📋</span>
+                        <span>الجرد والتسويات</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('المرتجعات المخزنية'); toggleInventoryModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>↩️</span>
+                        <span>المرتجعات المخزنية</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('الباركود'); toggleInventoryModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>🔢</span>
+                        <span>الباركود</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="startMenu" class="hidden fixed bottom-20 right-6 w-80 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-2xl z-50 p-4 transition-all duration-200">
         <div class="flex items-center gap-3 pb-3 mb-3 border-b border-slate-100">
             <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center overflow-hidden">
@@ -271,7 +329,7 @@
                 <i data-lucide="wallet" class="w-4 h-4 text-primaryBlue"></i>
                 <span>المحاسبة المالية</span>
             </button>
-            <button onclick="navAction('إدارة المخزون'); toggleStartMenu();" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+            <button onclick="toggleInventoryModal(); toggleStartMenu();" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
                 <i data-lucide="box" class="w-4 h-4 text-primaryBlue"></i>
                 <span>إدارة المخزون</span>
             </button>
@@ -290,7 +348,6 @@
         </div>
     </div>
 
-    <!-- 1. شاشة تسجيل الدخول أولاً -->
     <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-100">
         <div class="bg-white border border-slate-200 rounded-2xl p-8 max-w-md w-full shadow-xl">
             <div class="text-center mb-6">
@@ -317,46 +374,40 @@
         </div>
     </div>
 
-    <!-- 2. الواجهة الرئيسية لوحة التحكم -->
     <div id="dashboardSection" class="hidden flex-col h-full">
         
-        <!-- الهيدر العلوي -->
         <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
             <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
                 
-                <!-- زر الخروج -->
                 <div class="shrink-0 order-1">
                     <button onclick="logout()" class="flex items-center justify-center w-10 h-10 bg-red-600 hover:bg-red-700 border border-red-500 rounded-xl text-white transition-all shadow-md cursor-pointer" title="تسجيل خروج">
                         <i data-lucide="log-out" class="w-4 h-4"></i>
                     </button>
                 </div>
 
-                <!-- شريط الأزرار في الهيدر -->
                 <div class="overflow-x-auto no-scrollbar py-1 flex-grow order-2">
                     <nav class="flex items-center gap-1.5 min-w-max justify-center">
                         
-                        <!-- زر ملف -->
                         <button onclick="toggleFileModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
                             <span>📁</span>
                             <span>ملف</span>
                         </button>
 
-                        <!-- زر عرض -->
                         <button onclick="toggleViewModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
                             <span>👁️</span>
                             <span>عرض</span>
                         </button>
 
-                        <!-- زر المحاسبة المالية الجديد -->
                         <button onclick="toggleFinanceModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
                             <span>🧮</span>
                             <span>المحاسبة المالية</span>
                         </button>
 
-                        <button onclick="navAction('إدارة المخزون')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+                        <button onclick="toggleInventoryModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
                             <span>📦</span>
                             <span>إدارة المخزون</span>
                         </button>
+
                         <button onclick="navAction('إعدادات')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
                             <span>⚙️</span>
                             <span>إعدادات</span>
@@ -368,7 +419,6 @@
                     </nav>
                 </div>
 
-                <!-- شعار النظام واسمه -->
                 <div class="flex items-center gap-2.5 shrink-0 order-3">
                     <span class="font-bold text-xs sm:text-sm tracking-wide whitespace-nowrap hidden sm:inline">أمين الشيباني</span>
                     <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 overflow-hidden shadow-sm">
@@ -379,10 +429,8 @@
             </div>
         </header>
 
-        <!-- المحتوى الرئيسي -->
         <div class="flex flex-grow overflow-hidden relative">
             
-            <!-- الشريط الجانبي -->
             <aside class="w-64 bg-white border-l border-slate-200 hidden md:flex flex-col p-4 shrink-0 shadow-sm">
                 <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 px-2">لوحة التحكم التشغيلية</div>
                 <nav class="space-y-1.5 flex-grow">
@@ -394,7 +442,7 @@
                         <i data-lucide="wallet" class="w-4 h-4 text-primaryBlue"></i>
                         <span>المحاسبة المالية</span>
                     </a>
-                    <a href="#" onclick="navAction('إدارة المخزون')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition-all cursor-pointer">
+                    <a href="#" onclick="toggleInventoryModal()" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition-all cursor-pointer">
                         <i data-lucide="box" class="w-4 h-4 text-primaryBlue"></i>
                         <span>إدارة المخزون</span>
                     </a>
@@ -412,7 +460,6 @@
                 </div>
             </aside>
 
-            <!-- محتوى لوحة التحكم -->
             <main class="flex-grow p-6 overflow-y-auto flex flex-col items-center justify-center relative pb-20">
                 
                 <div class="bg-white border border-slate-200 rounded-3xl p-8 max-w-lg w-full text-center shadow-lg relative overflow-hidden mb-8">
@@ -442,7 +489,6 @@
                     </div>
                 </div>
 
-                <!-- شريط البحث وزر قائمة ابدأ -->
                 <div class="absolute bottom-4 left-6 right-6 max-w-lg mx-auto flex items-center gap-3">
                     <div class="flex-grow relative">
                         <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
@@ -461,7 +507,6 @@
         </div>
     </div>
 
-    <!-- السكربتات التشغيلية -->
     <script>
         lucide.createIcons();
 
@@ -531,6 +576,11 @@
             modal.classList.toggle('hidden');
         }
 
+        function toggleInventoryModal() {
+            const modal = document.getElementById('inventoryModal');
+            modal.classList.toggle('hidden');
+        }
+
         function toggleStartMenu() {
             const menu = document.getElementById('startMenu');
             menu.classList.toggle('hidden');
@@ -542,6 +592,7 @@
             const fileModal = document.getElementById('fileModal');
             const viewModal = document.getElementById('viewModal');
             const financeModal = document.getElementById('financeModal');
+            const inventoryModal = document.getElementById('inventoryModal');
 
             if (startMenu && !startMenu.contains(e.target) && !e.target.closest('button[onclick="toggleStartMenu()"]')) {
                 startMenu.classList.add('hidden');
@@ -554,6 +605,9 @@
             }
             if (financeModal && e.target === financeModal) {
                 financeModal.classList.add('hidden');
+            }
+            if (inventoryModal && e.target === inventoryModal) {
+                inventoryModal.classList.add('hidden');
             }
         });
     </script>
