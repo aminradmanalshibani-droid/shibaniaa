@@ -51,6 +51,41 @@
     <!-- حاوية الإشعارات العائمة -->
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
+    <!-- نافذة قائمة ابدأ العائمة (شبيهة بنظام ويندوز) -->
+    <div id="startMenu" class="hidden fixed bottom-20 right-6 w-80 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-2xl z-50 p-4 transition-all duration-200">
+        <div class="flex items-center gap-3 pb-3 mb-3 border-b border-slate-100">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center overflow-hidden">
+                <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <h3 class="font-bold text-xs text-slate-800">أمين الشيباني المحاسبي</h3>
+                <p class="text-[10px] text-slate-500">القائمة الرئيسية للنظام</p>
+            </div>
+        </div>
+        <div class="space-y-1">
+            <button onclick="navAction('المحاسبة المالية'); toggleStartMenu();" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                <i data-lucide="wallet" class="w-4 h-4 text-primaryBlue"></i>
+                <span>المحاسبة المالية</span>
+            </button>
+            <button onclick="navAction('إدارة المخزون'); toggleStartMenu();" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                <i data-lucide="box" class="w-4 h-4 text-primaryBlue"></i>
+                <span>إدارة المخزون</span>
+            </button>
+            <button onclick="navAction('إعدادات'); toggleStartMenu();" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                <i data-lucide="settings" class="w-4 h-4 text-primaryBlue"></i>
+                <span>إعدادات النظام</span>
+            </button>
+            <button onclick="navAction('تعليمات'); toggleStartMenu();" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                <i data-lucide="help-circle" class="w-4 h-4 text-primaryBlue"></i>
+                <span>تعليمات الاستخدام</span>
+            </button>
+        </div>
+        <div class="pt-3 mt-3 border-t border-slate-100 flex justify-between items-center">
+            <span class="text-[10px] text-slate-400 font-mono">الإصدار 1.0</span>
+            <button onclick="logout(); toggleStartMenu();" class="text-xs font-bold text-red-600 hover:underline cursor-pointer">تسجيل الخروج</button>
+        </div>
+    </div>
+
     <!-- 1. شاشة تسجيل الدخول أولاً -->
     <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-100">
         <div class="bg-white border border-slate-200 rounded-2xl p-8 max-w-md w-full shadow-xl">
@@ -81,18 +116,18 @@
     <!-- 2. الواجهة الرئيسية لوحة التحكم (تظهر بعد تسجيل الدخول) -->
     <div id="dashboardSection" class="hidden flex-col h-full">
         
-        <!-- الهيدر العلوي بالأزرق مع تنسيق الأزرار داخل مربعات جميلة وواضحة -->
+        <!-- الهيدر العلوي بالأزرق مع مربعات الأزرار -->
         <header class="bg-primaryBlue text-white shadow-md shrink-0">
             <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
                 
-                <!-- زر الخروج بتنسيق مربع جميل ومميز -->
+                <!-- زر الخروج -->
                 <div class="shrink-0 order-1">
                     <button onclick="logout()" class="flex items-center justify-center w-10 h-10 bg-red-600 hover:bg-red-700 border border-red-500 rounded-xl text-white transition-all shadow-md cursor-pointer" title="تسجيل خروج">
                         <i data-lucide="log-out" class="w-4 h-4"></i>
                     </button>
                 </div>
 
-                <!-- شريط التمرير الأفقي للأزرار الستة بتنسيق مربعات منفصلة وجميلة داخل الهيدر -->
+                <!-- شريط الأزرار في الهيدر -->
                 <div class="overflow-x-auto no-scrollbar py-1 flex-grow order-2">
                     <nav class="flex items-center gap-1.5 min-w-max justify-center">
                         <button onclick="navAction('ملف')" class="px-3 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap">ملف</button>
@@ -104,7 +139,7 @@
                     </nav>
                 </div>
 
-                <!-- شعار النظام واسمه في الجهة المقابلة -->
+                <!-- شعار النظام واسمه -->
                 <div class="flex items-center gap-2.5 shrink-0 order-3">
                     <span class="font-bold text-xs sm:text-sm tracking-wide whitespace-nowrap hidden sm:inline">أمين الشيباني</span>
                     <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 overflow-hidden shadow-sm">
@@ -116,7 +151,7 @@
         </header>
 
         <!-- المحتوى الرئيسي مع الشريط الجانبي -->
-        <div class="flex flex-grow overflow-hidden">
+        <div class="flex flex-grow overflow-hidden relative">
             
             <!-- الشريط الجانبي (Sidebar) -->
             <aside class="w-64 bg-white border-l border-slate-200 hidden md:flex flex-col p-4 shrink-0 shadow-sm">
@@ -148,14 +183,13 @@
                 </div>
             </aside>
 
-            <!-- محتوى لوحة التحكم مع شعار النظام في المنتصف -->
-            <main class="flex-grow p-6 overflow-y-auto flex flex-col items-center justify-center">
+            <!-- محتوى لوحة التحكم مع الشعار في المنتصف، وشريط البحث وزر ابدأ أسفل الصفحة -->
+            <main class="flex-grow p-6 overflow-y-auto flex flex-col items-center justify-center relative pb-20">
                 
-                <!-- بطاقة الشعار في وسط الصفحة الرئيسية بشكل احترافي -->
-                <div class="bg-white border border-slate-200 rounded-3xl p-8 max-w-lg w-full text-center shadow-lg relative overflow-hidden">
+                <!-- بطاقة الشعار في وسط الصفحة الرئيسية -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-8 max-w-lg w-full text-center shadow-lg relative overflow-hidden mb-8">
                     <div class="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-500 to-primaryBlue"></div>
                     
-                    <!-- عرض شعار النظام المعتمد -->
                     <div class="w-32 h-32 mx-auto mb-5 rounded-2xl p-2 bg-slate-50 border border-slate-100 shadow-inner flex items-center justify-center overflow-hidden">
                         <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام المحاسبي" class="w-full h-full object-cover rounded-xl shadow-sm">
                     </div>
@@ -178,6 +212,25 @@
                             <span class="text-xs font-bold text-primaryBlue font-mono">2026</span>
                         </div>
                     </div>
+                </div>
+
+                <!-- شريط البحث وزر قائمة ابدأ السفلي (شبيه بنظام ويندوز) -->
+                <div class="absolute bottom-4 left-6 right-6 max-w-lg mx-auto flex items-center gap-3">
+                    
+                    <!-- شريط البحث في المنطقة المشار لها -->
+                    <div class="flex-grow relative">
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                            <i data-lucide="search" class="w-4 h-4"></i>
+                        </span>
+                        <input type="text" id="systemSearch" oninput="handleSearch(this.value)" placeholder="ابحث في النظام (الحسابات، التقارير، المخزون)..." class="w-full bg-white/90 backdrop-blur-sm border border-slate-200 rounded-2xl py-3 pr-10 pl-4 text-xs text-slate-800 shadow-md focus:outline-none focus:border-primaryBlue transition-all">
+                    </div>
+
+                    <!-- زر قائمة ابدأ في الزاوية اليمين السفلى -->
+                    <button onclick="toggleStartMenu()" class="shrink-0 flex items-center gap-2 bg-primaryBlue hover:bg-primaryBlueHover text-white px-4 py-3 rounded-2xl shadow-lg shadow-blue-600/20 transition-all cursor-pointer font-bold text-xs" title="قائمة ابدأ">
+                        <i data-lucide="grid" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">ابدأ</span>
+                    </button>
+
                 </div>
 
             </main>
@@ -233,6 +286,27 @@
         function navAction(sectionName) {
             showToast(`الانتقال إلى قسم: ${sectionName}`, "success");
         }
+
+        function toggleStartMenu() {
+            const menu = document.getElementById('startMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function handleSearch(query) {
+            // محاكاة تفاعلية للبحث السريع
+            if (query.length > 2) {
+                // يمكن إضافة نتائج البحث هنا لاحقاً
+            }
+        }
+
+        // إغلاق قائمة ابدأ عند النقر خارجها
+        window.addEventListener('click', function(e) {
+            const menu = document.getElementById('startMenu');
+            const startBtn = e.target.closest('button[onclick="toggleStartMenu()"]');
+            if (!menu.contains(e.target) && !startBtn && !menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+            }
+        });
     </script>
 </body>
 </html>
