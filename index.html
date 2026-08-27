@@ -51,7 +51,7 @@
     <!-- حاوية الإشعارات العائمة -->
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- نافذة قائمة ملف المنبثقة بحجم أنحف ومتناسق -->
+    <!-- نافذة قائمة ملف المنبثقة -->
     <div id="fileModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden animate-in fade-in zoom-in duration-150">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -104,7 +104,7 @@
         </div>
     </div>
 
-    <!-- نافذة قائمة عرض المنبثقة بحجم أنحف ومتناسق -->
+    <!-- نافذة قائمة عرض المنبثقة -->
     <div id="viewModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden animate-in fade-in zoom-in duration-150">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -175,6 +175,79 @@
                     <div class="flex items-center gap-2">
                         <span>📜</span>
                         <span>سجل العمليات</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة قائمة المحاسبة المالية المنبثقة الجديدة -->
+    <div id="financeModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden animate-in fade-in zoom-in duration-150">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
+                <div class="flex items-center gap-1.5">
+                    <span class="text-sm">🧮</span>
+                    <h3 class="font-bold text-xs text-slate-800">المحاسبة المالية</h3>
+                </div>
+                <button onclick="toggleFinanceModal()" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
+            </div>
+            <div class="space-y-1">
+                <button onclick="navAction('دليل الحسابات'); toggleFinanceModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>🌳</span>
+                        <span>دليل الحسابات</span>
+                    </div>
+                </button>
+                <button onclick="navAction('القيود اليومية'); toggleFinanceModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📝</span>
+                        <span>القيود اليومية</span>
+                    </div>
+                </button>
+                <button onclick="navAction('سندات القبض والصرف'); toggleFinanceModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>💰</span>
+                        <span>سندات القبض والصرف</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('دفتر الأستاذ'); toggleFinanceModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📖</span>
+                        <span>دفتر الأستاذ</span>
+                    </div>
+                </button>
+                <button onclick="navAction('كشوف الحسابات'); toggleFinanceModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>🧾</span>
+                        <span>كشوف الحسابات</span>
+                    </div>
+                </button>
+                <button onclick="navAction('ميزان المراجعة'); toggleFinanceModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>⚖️</span>
+                        <span>ميزان المراجعة</span>
+                    </div>
+                </button>
+                <button onclick="navAction('القوائم المالية'); toggleFinanceModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📊</span>
+                        <span>القوائم المالية</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('التسويات والإقفالات'); toggleFinanceModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>🔄</span>
+                        <span>التسويات والإقفالات</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">◀️</span>
+                </button>
+                <button onclick="navAction('الفترات المالية'); toggleFinanceModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <span>📅</span>
+                        <span>الفترات المالية</span>
                     </div>
                     <span class="text-[10px] text-slate-400">◀️</span>
                 </button>
@@ -268,16 +341,30 @@
                             <span>ملف</span>
                         </button>
 
-                        <!-- زر عرض بالتصميم المطابق -->
+                        <!-- زر عرض -->
                         <button onclick="toggleViewModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
                             <span>👁️</span>
                             <span>عرض</span>
                         </button>
 
-                        <button onclick="navAction('المحاسبة المالية')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">المحاسبة المالية</button>
-                        <button onclick="navAction('إدارة المخزون')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all cursor-pointer whitespace-nowrap">إدارة المخزون</button>
-                        <button onclick="navAction('إعدادات')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all cursor-pointer whitespace-nowrap">إعدادات</button>
-                        <button onclick="navAction('تعليمات')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all cursor-pointer whitespace-nowrap">تعليمات</button>
+                        <!-- زر المحاسبة المالية الجديد -->
+                        <button onclick="toggleFinanceModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+                            <span>🧮</span>
+                            <span>المحاسبة المالية</span>
+                        </button>
+
+                        <button onclick="navAction('إدارة المخزون')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+                            <span>📦</span>
+                            <span>إدارة المخزون</span>
+                        </button>
+                        <button onclick="navAction('إعدادات')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+                            <span>⚙️</span>
+                            <span>إعدادات</span>
+                        </button>
+                        <button onclick="navAction('تعليمات')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+                            <span>❓</span>
+                            <span>تعليمات</span>
+                        </button>
                     </nav>
                 </div>
 
@@ -303,19 +390,19 @@
                         <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
                         <span>الرئيسية والطلبات</span>
                     </a>
-                    <a href="#" onclick="navAction('المحاسبة المالية')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition-all">
+                    <a href="#" onclick="toggleFinanceModal()" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition-all cursor-pointer">
                         <i data-lucide="wallet" class="w-4 h-4 text-primaryBlue"></i>
                         <span>المحاسبة المالية</span>
                     </a>
-                    <a href="#" onclick="navAction('إدارة المخزون')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition-all">
+                    <a href="#" onclick="navAction('إدارة المخزون')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition-all cursor-pointer">
                         <i data-lucide="box" class="w-4 h-4 text-primaryBlue"></i>
                         <span>إدارة المخزون</span>
                     </a>
-                    <a href="#" onclick="navAction('إعدادات')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition-all">
+                    <a href="#" onclick="navAction('إعدادات')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition-all cursor-pointer">
                         <i data-lucide="settings" class="w-4 h-4 text-primaryBlue"></i>
                         <span>إعدادات النظام</span>
                     </a>
-                    <a href="#" onclick="navAction('تعليمات')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition-all">
+                    <a href="#" onclick="navAction('تعليمات')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-semibold text-xs transition-all cursor-pointer">
                         <i data-lucide="help-circle" class="w-4 h-4 text-primaryBlue"></i>
                         <span>تعليمات الاستخدام</span>
                     </a>
@@ -439,6 +526,11 @@
             modal.classList.toggle('hidden');
         }
 
+        function toggleFinanceModal() {
+            const modal = document.getElementById('financeModal');
+            modal.classList.toggle('hidden');
+        }
+
         function toggleStartMenu() {
             const menu = document.getElementById('startMenu');
             menu.classList.toggle('hidden');
@@ -449,6 +541,7 @@
             const startMenu = document.getElementById('startMenu');
             const fileModal = document.getElementById('fileModal');
             const viewModal = document.getElementById('viewModal');
+            const financeModal = document.getElementById('financeModal');
 
             if (startMenu && !startMenu.contains(e.target) && !e.target.closest('button[onclick="toggleStartMenu()"]')) {
                 startMenu.classList.add('hidden');
@@ -458,6 +551,9 @@
             }
             if (viewModal && e.target === viewModal) {
                 viewModal.classList.add('hidden');
+            }
+            if (financeModal && e.target === financeModal) {
+                financeModal.classList.add('hidden');
             }
         });
     </script>
