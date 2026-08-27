@@ -39,34 +39,42 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .horizontal-scroll::-webkit-scrollbar { height: 4px; }
         .horizontal-scroll::-webkit-scrollbar-thumb { background-color: #c6c5d4; border-radius: 4px; }
-        #sidebar { transition: transform 0.3s ease-in-out; }
+        
+        /* ضبط القائمة الجانبية لتفتح بانسيابية من اليمين تماماً */
+        #sidebar {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        #sidebar.open {
+            transform: translateX(0);
+        }
     </style>
 </head>
 
 <body class="relative flex flex-col justify-between overflow-hidden">
 
     <!-- ==================== 1. واجهة تسجيل الدخول ==================== -->
-    <div id="login-view" class="absolute inset-0 flex items-center justify-center p-5 z-50 bg-background overflow-hidden">
-        <div class="w-full max-w-md bg-surface rounded-xl shadow-[0px_8px_30px_rgba(26,35,126,0.12)] p-6 relative z-10 border border-outline-variant/30">
+    <div id="login-view" class="absolute inset-0 flex items-center justify-center p-5 z-50 bg-[#f7f9fc] overflow-hidden">
+        <div class="w-full max-w-md bg-white rounded-xl shadow-[0px_8px_30px_rgba(26,35,126,0.12)] p-6 relative z-10 border border-gray-200">
             <div class="text-center mb-6">
                 <!-- عرض شعارك الشخصي في واجهة الدخول -->
-                <div class="w-16 h-16 rounded-full overflow-hidden mx-auto mb-3 shadow-sm border-2 border-primary">
+                <div class="w-16 h-16 rounded-full overflow-hidden mx-auto mb-3 shadow-sm border-2 border-blue-900">
                     <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام" class="w-full h-full object-cover">
                 </div>
-                <h1 class="text-lg text-primary font-bold">تطبيق الشيباني الذكي</h1>
-                <p class="text-xs text-on-surface-variant mt-1">النظام المحاسبي التنفيذي 2026</p>
+                <h1 class="text-lg text-blue-900 font-bold">تطبيق الشيباني الذكي</h1>
+                <p class="text-xs text-gray-500 mt-1">النظام المحاسبي التنفيذي 2026</p>
             </div>
 
             <form class="space-y-4" onsubmit="handleLogin(event)">
                 <div>
-                    <label class="block text-on-surface mb-1 text-xs font-bold" for="username">اسم المستخدم</label>
-                    <input class="w-full bg-white border border-outline-variant rounded-lg py-2 px-3 text-xs text-on-surface focus:outline-none focus:border-primary" id="username" required type="text" value="admin"/>
+                    <label class="block text-gray-700 mb-1 text-xs font-bold" for="username">اسم المستخدم</label>
+                    <input class="w-full bg-gray-50 border border-gray-300 rounded-lg py-2 px-3 text-xs text-gray-800 focus:outline-none focus:border-blue-900" id="username" required type="text" value="admin"/>
                 </div>
                 <div>
-                    <label class="block text-on-surface mb-1 text-xs font-bold" for="password">كلمة المرور</label>
-                    <input class="w-full bg-white border border-outline-variant rounded-lg py-2 px-3 text-xs text-on-surface focus:outline-none focus:border-primary" id="password" required type="password" value="4444"/>
+                    <label class="block text-gray-700 mb-1 text-xs font-bold" for="password">كلمة المرور</label>
+                    <input class="w-full bg-gray-50 border border-gray-300 rounded-lg py-2 px-3 text-xs text-gray-800 focus:outline-none focus:border-blue-900" id="password" required type="password" value="4444"/>
                 </div>
-                <button class="w-full bg-primary text-on-primary rounded-lg py-2.5 flex items-center justify-center gap-2 hover:bg-primary-container transition-colors text-xs font-bold shadow-sm" type="submit">
+                <button class="w-full bg-blue-900 text-white rounded-lg py-2.5 flex items-center justify-center gap-2 hover:bg-blue-800 transition-colors text-xs font-bold shadow-sm" type="submit">
                     تسجيل الدخول التنفيذي
                     <span class="material-symbols-outlined text-[16px]">login</span>
                 </button>
@@ -76,50 +84,50 @@
 
 
     <!-- ==================== 2. الواجهة الرئيسية للوحة التحكم ==================== -->
-    <div id="main-dashboard" class="absolute inset-0 hidden flex flex-col justify-between bg-background overflow-hidden z-40">
+    <div id="main-dashboard" class="absolute inset-0 hidden flex flex-col justify-between bg-[#f7f9fc] overflow-hidden z-40">
 
         <!-- القائمة الجانبية -->
         <div id="sidebar-overlay" class="absolute inset-0 bg-black/40 z-50 hidden" onclick="toggleSidebar()"></div>
-        <aside id="sidebar" class="absolute top-0 right-0 bottom-0 w-72 bg-surface border-l border-outline-variant/30 shadow-2xl z-50 translate-x-full flex flex-col justify-between p-4">
+        <aside id="sidebar" class="absolute top-0 right-0 bottom-0 w-72 bg-white border-l border-gray-200 shadow-2xl z-50 flex flex-col justify-between p-4">
             <div>
-                <div class="flex items-center justify-between pb-4 border-b border-outline-variant/30 mb-4">
-                    <div class="flex items-center gap-2 text-primary">
+                <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-4">
+                    <div class="flex items-center gap-2 text-blue-900">
                         <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار" class="w-6 h-6 rounded-full object-cover">
                         <span class="font-bold text-xs">قائمة نظام الشيباني</span>
                     </div>
-                    <button onclick="toggleSidebar()" class="p-1 rounded-lg hover:bg-surface-container-low text-on-surface">
+                    <button onclick="toggleSidebar()" class="p-1 rounded-lg hover:bg-gray-100 text-gray-700">
                         <span class="material-symbols-outlined text-lg">close</span>
                     </button>
                 </div>
                 <nav class="space-y-1">
-                    <button onclick="switchView('home')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-bold text-on-surface hover:bg-surface-container-low text-right">
-                        <span class="material-symbols-outlined text-primary">grid_view</span> الرئيسية
+                    <button onclick="switchView('home')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-100 text-right">
+                        <span class="material-symbols-outlined text-blue-900">grid_view</span> الرئيسية
                     </button>
-                    <button onclick="switchView('employees')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-bold text-on-surface hover:bg-surface-container-low text-right">
-                        <span class="material-symbols-outlined text-primary">group</span> إدارة الموظفين التنفيذية
+                    <button onclick="switchView('employees')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-100 text-right">
+                        <span class="material-symbols-outlined text-blue-900">group</span> إدارة الموظفين التنفيذية
                     </button>
-                    <button onclick="switchView('withdrawals')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-bold text-on-surface hover:bg-surface-container-low text-right">
-                        <span class="material-symbols-outlined text-primary">payments</span> السحبيات المالية التنفيذية
+                    <button onclick="switchView('withdrawals')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-100 text-right">
+                        <span class="material-symbols-outlined text-blue-900">payments</span> السحبيات المالية التنفيذية
                     </button>
                 </nav>
             </div>
-            <div class="pt-4 border-t border-outline-variant/30">
-                <button onclick="handleLogout()" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold text-error hover:bg-error-container">
+            <div class="pt-4 border-t border-gray-200">
+                <button onclick="handleLogout()" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold text-red-600 hover:bg-red-50">
                     <span class="material-symbols-outlined text-lg">logout</span> تسجيل الخروج
                 </button>
             </div>
         </aside>
 
         <!-- الهيدر الثابت -->
-        <header class="flex justify-between items-center w-full px-4 h-14 bg-surface border-b border-outline-variant/30 shrink-0 z-30">
-            <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-surface-container-low text-on-surface">
+        <header class="flex justify-between items-center w-full px-4 h-14 bg-white border-b border-gray-200 shrink-0 z-30">
+            <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-gray-100 text-gray-700">
                 <span class="material-symbols-outlined text-2xl">menu</span>
             </button>
-            <div class="flex items-center gap-2 text-primary">
+            <div class="flex items-center gap-2 text-blue-900">
                 <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار" class="w-6 h-6 rounded-full object-cover">
                 <span class="text-xs font-bold">نظام الشيباني التنفيذي 2026</span>
             </div>
-            <div class="w-8 h-8 rounded-full overflow-hidden border border-primary">
+            <div class="w-8 h-8 rounded-full overflow-hidden border border-blue-900">
                 <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="بروفايل" class="w-full h-full object-cover">
             </div>
         </header>
@@ -129,53 +137,53 @@
             
             <!-- شريط التنقل السريع الأفقي -->
             <div class="horizontal-scroll flex items-center gap-2 overflow-x-auto py-1 shrink-0 hide-scrollbar">
-                <button onclick="switchView('home')" class="shrink-0 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-bold shadow-sm">الرئيسية</button>
-                <button onclick="switchView('employees')" class="shrink-0 px-3 py-1.5 border border-outline-variant bg-white text-on-surface rounded-lg text-xs font-bold">إدارة الموظفين</button>
-                <button onclick="switchView('withdrawals')" class="shrink-0 px-3 py-1.5 border border-outline-variant bg-white text-on-surface rounded-lg text-xs font-bold">السحبيات المالية</button>
+                <button onclick="switchView('home')" class="shrink-0 px-3 py-1.5 bg-blue-900 text-white rounded-lg text-xs font-bold shadow-sm">الرئيسية</button>
+                <button onclick="switchView('employees')" class="shrink-0 px-3 py-1.5 border border-gray-300 bg-white text-gray-700 rounded-lg text-xs font-bold">إدارة الموظفين</button>
+                <button onclick="switchView('withdrawals')" class="shrink-0 px-3 py-1.5 border border-gray-300 bg-white text-gray-700 rounded-lg text-xs font-bold">السحبيات المالية</button>
             </div>
 
             <!-- الشاشة 1: الرئيسية -->
-            <div id="view-home" class="view-panel flex-1 bg-surface rounded-xl shadow-sm border border-outline-variant/30 flex flex-col items-center justify-center p-6 text-center">
-                <div class="w-16 h-16 rounded-full overflow-hidden mb-3 shadow-md border-2 border-primary">
+            <div id="view-home" class="view-panel flex-1 bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col items-center justify-center p-6 text-center">
+                <div class="w-16 h-16 rounded-full overflow-hidden mb-3 shadow-md border-2 border-blue-900">
                     <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="الشعار" class="w-full h-full object-cover">
                 </div>
-                <h2 class="text-sm font-bold text-on-surface mb-1">تطبيق الشيباني مدعوم بشعارك الخاص</h2>
-                <p class="text-xs text-on-surface-variant max-w-sm mb-4">تم دمج الشعار بنجاح ليظهر كأيقونة أساسية عند تثبيت النظام على شاشة هاتفك الرئيسية عبر متصفح كروم.</p>
-                <div class="bg-primary-container text-white px-3 py-2 rounded-lg text-xs font-bold shadow-sm">
+                <h2 class="text-sm font-bold text-gray-800 mb-1">تطبيق الشيباني مدعوم بشعارك الخاص</h2>
+                <p class="text-xs text-gray-500 max-w-sm mb-4">تم دمج الشعار بنجاح ليظهر كأيقونة أساسية عند تثبيت النظام على شاشة هاتفك الرئيسية.</p>
+                <div class="bg-blue-50 text-blue-900 px-3 py-2 rounded-lg text-xs font-bold shadow-sm border border-blue-100">
                     قاعدة البيانات المحلية تعمل بكفاءة تامة
                 </div>
             </div>
 
             <!-- الشاشة 2: إدارة الموظفين -->
-            <div id="view-employees" class="view-panel hidden flex-1 bg-surface rounded-xl shadow-sm border border-outline-variant/30 flex flex-col p-3 overflow-hidden">
-                <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30 mb-3 shrink-0">
-                    <h3 class="font-bold text-xs text-primary flex items-center gap-1.5">
+            <div id="view-employees" class="view-panel hidden flex-1 bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col p-3 overflow-hidden">
+                <div class="flex items-center justify-between pb-2 border-b border-gray-200 mb-3 shrink-0">
+                    <h3 class="font-bold text-xs text-blue-900 flex items-center gap-1.5">
                         <span class="material-symbols-outlined text-base">group</span> سجل الموظفين النشط
                     </h3>
-                    <span class="bg-secondary text-white px-2 py-0.5 rounded text-[10px] font-bold">قاعدة بيانات محلية نشطة</span>
+                    <span class="bg-emerald-600 text-white px-2 py-0.5 rounded text-[10px] font-bold">قاعدة بيانات محلية نشطة</span>
                 </div>
 
-                <form id="emp-form" onsubmit="addEmployee(event)" class="grid grid-cols-1 md:grid-cols-3 gap-2 bg-white p-3 rounded-lg border border-outline-variant/30 mb-3 shrink-0">
+                <form id="emp-form" onsubmit="addEmployee(event)" class="grid grid-cols-1 md:grid-cols-3 gap-2 bg-gray-50 p-3 rounded-lg border border-gray-200 mb-3 shrink-0">
                     <div>
-                        <label class="block text-[10px] font-bold text-on-surface mb-1">اسم الموظف الثلاثي</label>
-                        <input type="text" id="emp-name" required class="w-full bg-surface border border-outline-variant rounded px-2 py-1.5 text-xs" placeholder="أدخل اسم الموظف...">
+                        <label class="block text-[10px] font-bold text-gray-700 mb-1">اسم الموظف الثلاثي</label>
+                        <input type="text" id="emp-name" required class="w-full bg-white border border-gray-300 rounded px-2 py-1.5 text-xs" placeholder="أدخل اسم الموظف...">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-bold text-on-surface mb-1">المسمى الوظيفي</label>
-                        <input type="text" id="emp-job" required class="w-full bg-surface border border-outline-variant rounded px-2 py-1.5 text-xs" placeholder="محاسب، مبيعات...">
+                        <label class="block text-[10px] font-bold text-gray-700 mb-1">المسمى الوظيفي</label>
+                        <input type="text" id="emp-job" required class="w-full bg-white border border-gray-300 rounded px-2 py-1.5 text-xs" placeholder="محاسب، مبيعات...">
                     </div>
                     <div class="flex items-end gap-2">
                         <div class="flex-1">
-                            <label class="block text-[10px] font-bold text-on-surface mb-1">الراتب الأساسي ($)</label>
-                            <input type="number" id="emp-salary" required class="w-full bg-surface border border-outline-variant rounded px-2 py-1.5 text-xs" placeholder="0.00">
+                            <label class="block text-[10px] font-bold text-gray-700 mb-1">الراتب الأساسي ($)</label>
+                            <input type="number" id="emp-salary" required class="w-full bg-white border border-gray-300 rounded px-2 py-1.5 text-xs" placeholder="0.00">
                         </div>
-                        <button type="submit" class="bg-primary text-white px-3 py-1.5 rounded text-xs font-bold hover:bg-primary-container shrink-0">حفظ وإضافة</button>
+                        <button type="submit" class="bg-blue-900 text-white px-3 py-1.5 rounded text-xs font-bold hover:bg-blue-800 shrink-0">حفظ وإضافة</button>
                     </div>
                 </form>
 
-                <div class="flex-1 overflow-y-auto border border-outline-variant/30 rounded-lg bg-white">
+                <div class="flex-1 overflow-y-auto border border-gray-200 rounded-lg bg-white">
                     <table class="w-full text-right text-xs">
-                        <thead class="bg-surface-container-low text-on-surface sticky top-0 border-b border-outline-variant/30">
+                        <thead class="bg-gray-100 text-gray-700 sticky top-0 border-b border-gray-200">
                             <tr>
                                 <th class="p-2">#</th>
                                 <th class="p-2">اسم الموظف</th>
@@ -190,37 +198,37 @@
             </div>
 
             <!-- الشاشة 3: السحبيات المالية -->
-            <div id="view-withdrawals" class="view-panel hidden flex-1 bg-surface rounded-xl shadow-sm border border-outline-variant/30 flex flex-col p-3 overflow-hidden">
-                <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30 mb-3 shrink-0">
-                    <h3 class="font-bold text-xs text-primary flex items-center gap-1.5">
+            <div id="view-withdrawals" class="view-panel hidden flex-1 bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col p-3 overflow-hidden">
+                <div class="flex items-center justify-between pb-2 border-b border-gray-200 mb-3 shrink-0">
+                    <h3 class="font-bold text-xs text-blue-900 flex items-center gap-1.5">
                         <span class="material-symbols-outlined text-base">payments</span> سجل السحبيات المالية اليومية
                     </h3>
-                    <span class="bg-secondary text-white px-2 py-0.5 rounded text-[10px] font-bold">تسجيل حقيقي فوري</span>
+                    <span class="bg-emerald-600 text-white px-2 py-0.5 rounded text-[10px] font-bold">تسجيل حقيقي فوري</span>
                 </div>
 
-                <form id="withdrawal-form" onsubmit="addWithdrawal(event)" class="grid grid-cols-1 md:grid-cols-4 gap-2 bg-white p-3 rounded-lg border border-outline-variant/30 mb-3 shrink-0">
+                <form id="withdrawal-form" onsubmit="addWithdrawal(event)" class="grid grid-cols-1 md:grid-cols-4 gap-2 bg-gray-50 p-3 rounded-lg border border-gray-200 mb-3 shrink-0">
                     <div>
-                        <label class="block text-[10px] font-bold text-on-surface mb-1">اختر الموظف</label>
-                        <select id="withdrawal-emp" required class="w-full bg-surface border border-outline-variant rounded px-2 py-1.5 text-xs">
+                        <label class="block text-[10px] font-bold text-gray-700 mb-1">اختر الموظف</label>
+                        <select id="withdrawal-emp" required class="w-full bg-white border border-gray-300 rounded px-2 py-1.5 text-xs">
                             <option value="">-- اختر موظفاً --</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-[10px] font-bold text-on-surface mb-1">المبلغ المسحوب ($)</label>
-                        <input type="number" id="withdrawal-amount" required class="w-full bg-surface border border-outline-variant rounded px-2 py-1.5 text-xs" placeholder="0.00">
+                        <label class="block text-[10px] font-bold text-gray-700 mb-1">المبلغ المسحوب ($)</label>
+                        <input type="number" id="withdrawal-amount" required class="w-full bg-white border border-gray-300 rounded px-2 py-1.5 text-xs" placeholder="0.00">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-bold text-on-surface mb-1">البيان / السبب</label>
-                        <input type="text" id="withdrawal-note" required class="w-full bg-surface border border-outline-variant rounded px-2 py-1.5 text-xs" placeholder="سلفة، عهدة...">
+                        <label class="block text-[10px] font-bold text-gray-700 mb-1">البيان / السبب</label>
+                        <input type="text" id="withdrawal-note" required class="w-full bg-white border border-gray-300 rounded px-2 py-1.5 text-xs" placeholder="سلفة، عهدة...">
                     </div>
                     <div class="flex items-end">
-                        <button type="submit" class="w-full bg-primary text-white py-1.5 rounded text-xs font-bold hover:bg-primary-container">تسجيل السحب</button>
+                        <button type="submit" class="w-full bg-blue-900 text-white py-1.5 rounded text-xs font-bold hover:bg-blue-800">تسجيل السحب</button>
                     </div>
                 </form>
 
-                <div class="flex-1 overflow-y-auto border border-outline-variant/30 rounded-lg bg-white">
+                <div class="flex-1 overflow-y-auto border border-gray-200 rounded-lg bg-white">
                     <table class="w-full text-right text-xs">
-                        <thead class="bg-surface-container-low text-on-surface sticky top-0 border-b border-outline-variant/30">
+                        <thead class="bg-gray-100 text-gray-700 sticky top-0 border-b border-gray-200">
                             <tr>
                                 <th class="p-2">#</th>
                                 <th class="p-2">اسم الموظف</th>
@@ -238,7 +246,7 @@
         </main>
 
         <!-- التنبيهات -->
-        <div id="notification" class="hidden fixed bottom-16 left-1/2 -translate-x-1/2 z-50 bg-primary text-white text-[11px] px-3 py-1.5 rounded shadow-lg">
+        <div id="notification" class="hidden fixed bottom-16 left-1/2 -translate-x-1/2 z-50 bg-blue-900 text-white text-[11px] px-3 py-1.5 rounded shadow-lg">
             رسالة النظام
         </div>
 
@@ -264,7 +272,7 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
-            sidebar.classList.toggle('translate-x-full');
+            sidebar.classList.toggle('open');
             overlay.classList.toggle('hidden');
         }
 
@@ -276,10 +284,8 @@
             }
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
-            if (!sidebar.classList.contains('translate-x-full')) {
-                sidebar.classList.add('translate-x-full');
-                overlay.classList.add('hidden');
-            }
+            sidebar.classList.remove('open');
+            overlay.classList.add('hidden');
         }
 
         function showNotification(msg) {
@@ -308,19 +314,19 @@
             tbody.innerHTML = '';
             
             if (emps.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-outline text-xs">لا توجد سجلات موظفين مضافة حالياً.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-400 text-xs">لا توجد سجلات موظفين مضافة حالياً.</td></tr>`;
                 return;
             }
 
             emps.forEach((emp, index) => {
                 tbody.innerHTML += `
-                    <tr class="border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors">
+                    <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                         <td class="p-2">${index + 1}</td>
                         <td class="p-2 font-bold">${emp.name}</td>
                         <td class="p-2">${emp.job}</td>
                         <td class="p-2">${emp.salary} $</td>
                         <td class="p-2 text-center">
-                            <button onclick="deleteEmployee(${emp.id})" class="text-error hover:bg-error-container p-1 rounded transition-colors" title="حذف الموظف">
+                            <button onclick="deleteEmployee(${emp.id})" class="text-red-600 hover:bg-red-50 p-1 rounded transition-colors" title="حذف الموظف">
                                 <span class="material-symbols-outlined text-sm">delete</span>
                             </button>
                         </td>
@@ -377,20 +383,20 @@
             tbody.innerHTML = '';
 
             if (wids.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-outline text-xs">لا توجد سحبيات مالية مسجلة حتى الآن.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-400 text-xs">لا توجد سحبيات مالية مسجلة حتى الآن.</td></tr>`;
                 return;
             }
 
             wids.forEach((w, index) => {
                 tbody.innerHTML += `
-                    <tr class="border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors">
+                    <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                         <td class="p-2">${index + 1}</td>
                         <td class="p-2 font-bold">${w.empName}</td>
-                        <td class="p-2 text-error font-bold">${w.amount} $</td>
+                        <td class="p-2 text-red-600 font-bold">${w.amount} $</td>
                         <td class="p-2">${w.note}</td>
-                        <td class="p-2 text-outline">${w.date}</td>
+                        <td class="p-2 text-gray-500">${w.date}</td>
                         <td class="p-2 text-center">
-                            <button onclick="deleteWithdrawal(${w.id})" class="text-error hover:bg-error-container p-1 rounded transition-colors" title="حذف السند">
+                            <button onclick="deleteWithdrawal(${w.id})" class="text-red-600 hover:bg-red-50 p-1 rounded transition-colors" title="حذف السند">
                                 <span class="material-symbols-outlined text-sm">delete</span>
                             </button>
                         </td>
@@ -403,7 +409,7 @@
             event.preventDefault();
             const empName = document.getElementById('withdrawal-emp').value;
             const amount = parseFloat(document.getElementById('withdrawal-amount').value);
-            const note = document.getElementById('withdrawal-note',).value;
+            const note = document.getElementById('withdrawal-note').value;
             const date = new Date().toLocaleDateString('ar-YE');
 
             const wids = getStoredWithdrawals();
