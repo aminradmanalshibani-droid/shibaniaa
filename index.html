@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>النظام التشغيلي المتكامل - الهيدر والشريط الجانبي</title>
+    <title>النظام التشغيلي المتكامل - أمين الشيباني</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -42,6 +42,8 @@
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: #f8fafc; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="flex flex-col h-full select-none">
@@ -49,7 +51,7 @@
     <!-- حاوية الإشعارات العائمة -->
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- شاشة تسجيل الدخول -->
+    <!-- 1. شاشة تسجيل الدخول أولاً (النسق الأساسي) -->
     <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-100">
         <div class="bg-white border border-slate-200 rounded-2xl p-8 max-w-md w-full shadow-xl">
             <div class="text-center mb-6">
@@ -76,21 +78,20 @@
         </div>
     </div>
 
-    <!-- لوحة التحكم الرئيسية (مخفية حتى تسجيل الدخول) -->
+    <!-- 2. الواجهة الرئيسية للوحة التحكم (تظهر بعد الدخول) -->
     <div id="dashboardSection" class="hidden flex-col h-full">
         
-        <!-- الهيدر العلوي بالأزرق مع شريط التمرير الأفقي للأزرار الستة -->
+        <!-- الهيدر العلوي بالأزرق مع الأزرار الستة -->
         <header class="bg-primaryBlue text-white shadow-md shrink-0">
             <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-                <!-- شعار النظام -->
                 <div class="flex items-center gap-3 shrink-0">
-                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
-                        <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 overflow-hidden">
+                        <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام" class="w-full h-full object-cover">
                     </div>
-                    <span class="font-bold text-sm sm:text-base tracking-wide whitespace-nowrap">النظام المحاسبي والاداري</span>
+                    <span class="font-bold text-sm sm:text-base tracking-wide whitespace-nowrap">النظام المحاسبي | أمين الشيباني</span>
                 </div>
 
-                <!-- شريط الأزرار الستة الرئيسي (أفقي مع شريط تمرير لضمان عدم القطع) -->
+                <!-- شريط الأزرار الستة الرئيسي -->
                 <div class="overflow-x-auto no-scrollbar py-2 flex-grow max-w-2xl">
                     <nav class="flex items-center gap-1.5 bg-blue-700/50 p-1.5 rounded-xl border border-blue-600 min-w-max">
                         <button onclick="navAction('ملف')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/15 hover:bg-white/25 transition-all cursor-pointer whitespace-nowrap">ملف</button>
@@ -112,10 +113,10 @@
             </div>
         </header>
 
-        <!-- المحتوى الرئيسي مع الشريط الجانبي (Sidebar) -->
+        <!-- المحتوى الرئيسي مع الشريط الجانبي -->
         <div class="flex flex-grow overflow-hidden">
             
-            <!-- الشريط الجانبي للوحة التحكم (Sidebar) -->
+            <!-- الشريط الجانبي (Sidebar) -->
             <aside class="w-64 bg-white border-l border-slate-200 hidden md:flex flex-col p-4 shrink-0 shadow-sm">
                 <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 px-2">لوحة التحكم التشغيلية</div>
                 <nav class="space-y-1.5 flex-grow">
@@ -145,72 +146,37 @@
                 </div>
             </aside>
 
-            <!-- محتوى الصفحة -->
-            <main class="flex-grow p-6 overflow-y-auto space-y-6">
+            <!-- محتوى لوحة التحكم مع شعار النظام في المنتصف -->
+            <main class="flex-grow p-6 overflow-y-auto flex flex-col items-center justify-center">
                 
-                <!-- نموذج إدخال الطلبات -->
-                <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                    <h2 class="text-base font-bold text-slate-800 mb-1">تسجيل طلب أو عميل جديد</h2>
-                    <p class="text-xs text-slate-500 mb-4">أدخل بيانات العميل لتخزينها ومعالجتها فوراً داخل النظام.</p>
+                <!-- بطاقة الشعار في وسط الصفحة الرئيسية بشكل احترافي -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-8 max-w-lg w-full text-center shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-500 to-primaryBlue"></div>
                     
-                    <form id="leadForm" onsubmit="submitLead(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-[11px] text-slate-600 mb-1">اسم العميل</label>
-                            <input type="text" id="leadName" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] text-slate-600 mb-1">البريد الإلكتروني</label>
-                            <input type="email" id="leadEmail" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue font-mono">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] text-slate-600 mb-1">محتوى الطلب</label>
-                            <input type="text" id="leadMessage" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue">
-                        </div>
-                        <div class="sm:col-span-3 flex justify-end">
-                            <button type="submit" class="bg-primaryBlue text-white font-bold text-xs px-6 py-2.5 rounded-xl hover:bg-primaryBlueHover transition-all cursor-pointer shadow-md shadow-blue-500/20">
-                                حفظ وإرسال الطلب
-                            </button>
-                        </div>
-                    </form>
-                </section>
-
-                <!-- جدول الطلبات والتحكم -->
-                <section class="space-y-4">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                        <div>
-                            <h1 class="text-xl font-bold text-slate-800">إدارة طلبات العملاء (Leads)</h1>
-                            <p class="text-xs text-slate-500 mt-0.5">متابعة وعرض كافة الطلبات المسجلة.</p>
-                        </div>
-                        <div class="flex items-center gap-3 w-full sm:w-auto">
-                            <!-- حقل البحث الفوري -->
-                            <div class="relative flex-grow sm:flex-grow-0">
-                                <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute right-3 top-3"></i>
-                                <input type="text" id="searchInput" oninput="filterLeads()" placeholder="بحث سريع..." class="w-full sm:w-48 bg-white border border-slate-300 rounded-xl pr-9 pl-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue">
-                            </div>
-                            <div id="leadsCount" class="bg-blue-50 border border-blue-200 text-primaryBlue text-xs px-3 py-2 rounded-xl font-semibold shrink-0">
-                                العدد: 0
-                            </div>
-                        </div>
+                    <!-- عرض شعار النظام المعتمد -->
+                    <div class="w-32 h-32 mx-auto mb-5 rounded-2xl p-2 bg-slate-50 border border-slate-100 shadow-inner flex items-center justify-center overflow-hidden">
+                        <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام المحاسبي" class="w-full h-full object-cover rounded-xl shadow-sm">
                     </div>
 
-                    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-right text-xs">
-                                <thead class="bg-slate-50 border-b border-slate-200 text-slate-500">
-                                    <tr>
-                                        <th class="p-3.5">#ID</th>
-                                        <th class="p-3.5">اسم العميل</th>
-                                        <th class="p-3.5">البريد الإلكتروني</th>
-                                        <th class="p-3.5">الرسالة</th>
-                                        <th class="p-3.5">وقت الإرسال</th>
-                                        <th class="p-3.5 text-center">الإجراءات</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="leadsTableBody" class="divide-y divide-slate-100 text-slate-700"></tbody>
-                            </table>
+                    <h2 class="text-lg font-bold text-slate-800 mb-1">أمين الشيباني المحاسبي</h2>
+                    <p class="text-xs text-slate-500 mb-4">النظام التشغيلي المتكامل للإدارة والماليات</p>
+                    
+                    <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-primaryBlue px-4 py-2 rounded-xl text-xs font-bold mb-6">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>النظام يعمل بكفاءة وأمان تام</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 text-right">
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                            <span class="text-[11px] text-slate-400 block mb-0.5">حالة الاتصال</span>
+                            <span class="text-xs font-bold text-slate-700">متصل بقاعدة البيانات</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+                            <span class="text-[11px] text-slate-400 block mb-0.5">السنة المالية</span>
+                            <span class="text-xs font-bold text-primaryBlue font-mono">2026</span>
                         </div>
                     </div>
-                </section>
+                </div>
 
             </main>
         </div>
@@ -219,7 +185,6 @@
     <!-- السكربتات التشغيلية والتفاعلية -->
     <script>
         lucide.createIcons();
-        let allLeads = [];
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
@@ -238,29 +203,20 @@
             }, 3000);
         }
 
-        function navAction(sectionName) {
-            showToast(`تم الانتقال إلى قسم: ${sectionName}`, "success");
-        }
-
-        async function handleLogin(event) {
+        function handleLogin(event) {
             event.preventDefault();
             const userInput = document.getElementById('loginUser').value.trim();
             const passInput = document.getElementById('loginPassword').value.trim();
 
             if (userInput === 'admin' && passInput === '123456') {
                 showToast("تم تسجيل الدخول بنجاح!", "success");
-                showDashboard();
+                document.getElementById('loginSection').classList.add('hidden');
+                const dash = document.getElementById('dashboardSection');
+                dash.classList.remove('hidden');
+                dash.classList.add('flex');
             } else {
                 showToast("اسم المستخدم أو كلمة المرور غير صحيحة.", "error");
             }
-        }
-
-        function showDashboard() {
-            document.getElementById('loginSection').classList.add('hidden');
-            const dash = document.getElementById('dashboardSection');
-            dash.classList.remove('hidden');
-            dash.classList.add('flex');
-            fetchLeads();
         }
 
         function logout() {
@@ -272,108 +228,8 @@
             showToast("تم تسجيل الخروج بنجاح.", "success");
         }
 
-        async function fetchLeads() {
-            const tbody = document.getElementById('leadsTableBody');
-            tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">جاري جلب البيانات التشغيلية...</td></tr>`;
-
-            try {
-                const response = await fetch('/api/leads');
-                allLeads = await response.json();
-                renderTable(allLeads);
-            } catch (error) {
-                if (!allLeads.length) {
-                    allLeads = [
-                        { id: 1, name: 'أمين الشيباني', email: 'admin@system.com', message: 'تجربة النظام التشغيلي المتكامل.', created_at: '2026-08-27' }
-                    ];
-                }
-                renderTable(allLeads);
-            }
-        }
-
-        function renderTable(leads) {
-            const tbody = document.getElementById('leadsTableBody');
-            const countBadge = document.getElementById('leadsCount');
-            countBadge.innerText = `العدد: ${leads.length}`;
-
-            if (leads.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">لا توجد طلبات مطابقة للبحث.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = '';
-            leads.forEach(lead => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 transition-colors";
-                tr.innerHTML = `
-                    <td class="p-3.5 font-mono text-primaryBlue font-bold">#${lead.id}</td>
-                    <td class="p-3.5 font-bold text-slate-800">${lead.name}</td>
-                    <td class="p-3.5 text-slate-600 font-mono">${lead.email}</td>
-                    <td class="p-3.5 text-slate-600 max-w-xs truncate">${lead.message}</td>
-                    <td class="p-3.5 text-slate-400 text-[11px]">${lead.created_at || 'الآن'}</td>
-                    <td class="p-3.5 text-center">
-                        <button onclick="deleteLead(${lead.id})" class="p-1.5 rounded-lg bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 transition-all cursor-pointer" title="حذف الطلب">
-                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-            lucide.createIcons();
-        }
-
-        function filterLeads() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allLeads.filter(l => 
-                l.name.toLowerCase().includes(query) || 
-                l.email.toLowerCase().includes(query) || 
-                l.message.toLowerCase().includes(query)
-            );
-            renderTable(filtered);
-        }
-
-        async function submitLead(event) {
-            event.preventDefault();
-            const name = document.getElementById('leadName').value;
-            const email = document.getElementById('leadEmail').value;
-            const message = document.getElementById('leadMessage').value;
-
-            try {
-                const response = await fetch('/api/leads', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, message })
-                });
-                if (response.ok) {
-                    document.getElementById('leadForm').reset();
-                    showToast("تم حفظ وإرسال الطلب بنجاح!", "success");
-                    fetchLeads();
-                } else {
-                    showToast("تعذر حفظ الطلب.", "error");
-                }
-            } catch (error) {
-                const newId = allLeads.length ? allLeads[0].id + 1 : 1;
-                allLeads.unshift({ id: newId, name, email, message, created_at: 'الآن' });
-                document.getElementById('leadForm').reset();
-                renderTable(allLeads);
-                showToast("تم تسجيل الطلب محلياً بنجاح!", "success");
-            }
-        }
-
-        async function deleteLead(id) {
-            if (!confirm("هل أنت متأكد من حذف هذا الطلب نهائياً؟")) return;
-            try {
-                const response = await fetch(`/api/leads/${id}`, { method: 'DELETE' });
-                if (response.ok) {
-                    showToast("تم حذف الطلب بنجاح.", "success");
-                    fetchLeads();
-                } else {
-                    showToast("تعذر حذف الطلب.", "error");
-                }
-            } catch (error) {
-                allLeads = allLeads.filter(l => l.id !== id);
-                renderTable(allLeads);
-                showToast("تم حذف الطلب محلياً.", "success");
-            }
+        function navAction(sectionName) {
+            showToast(`الانتقال إلى قسم: ${sectionName}`, "success");
         }
     </script>
 </body>
