@@ -51,7 +51,60 @@
     <!-- حاوية الإشعارات العائمة -->
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- نافذة قائمة ابدأ العائمة (شبيهة بنظام ويندوز) -->
+    <!-- نافذة قائمة ملف المنبثقة بحجم أنحف ومتناسق -->
+    <div id="fileModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden animate-in fade-in zoom-in duration-150">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
+                <div class="flex items-center gap-1.5">
+                    <span class="text-sm">📁</span>
+                    <h3 class="font-bold text-xs text-slate-800">قائمة ملف النظام</h3>
+                </div>
+                <button onclick="toggleFileModal()" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
+            </div>
+            <div class="space-y-1">
+                <button onclick="navAction('الصفحة الرئيسية'); toggleFileModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <span>الصفحة الرئيسية</span>
+                    <span>🏠</span>
+                </button>
+                <button onclick="navAction('إدارة المنشأة'); toggleFileModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <span>إدارة المنشأة</span>
+                    <span>🏢</span>
+                </button>
+                <button onclick="navAction('النسخ الاحتياطي والاستعادة'); toggleFileModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <span>النسخ الاحتياطي والاستعادة</span>
+                    <span>💾</span>
+                </button>
+                <button onclick="navAction('الطباعة'); toggleFileModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <span>الطباعة</span>
+                    <span>🖨️</span>
+                </button>
+                <div class="h-px bg-slate-100 my-1"></div>
+                <button onclick="navAction('استيراد البيانات'); toggleFileModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <span>استيراد البيانات</span>
+                    <span>📥</span>
+                </button>
+                <button onclick="navAction('تصدير البيانات'); toggleFileModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer">
+                    <span>تصدير البيانات</span>
+                    <span>📤</span>
+                </button>
+                <div class="h-px bg-slate-100 my-1"></div>
+                <button onclick="navAction('قفل النظام'); toggleFileModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-amber-600 hover:bg-amber-50 transition-all cursor-pointer">
+                    <span>قفل النظام</span>
+                    <span>🔒</span>
+                </button>
+                <button onclick="logout(); toggleFileModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-red-600 hover:bg-red-50 transition-all cursor-pointer">
+                    <span>تسجيل الخروج</span>
+                    <span>🚪</span>
+                </button>
+                <button onclick="closeSystem(); toggleFileModal();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-red-700 hover:bg-red-100 transition-all cursor-pointer">
+                    <span>إغلاق النظام</span>
+                    <span>❌</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة قائمة ابدأ العائمة -->
     <div id="startMenu" class="hidden fixed bottom-20 right-6 w-80 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-2xl z-50 p-4 transition-all duration-200">
         <div class="flex items-center gap-3 pb-3 mb-3 border-b border-slate-100">
             <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center overflow-hidden">
@@ -113,11 +166,11 @@
         </div>
     </div>
 
-    <!-- 2. الواجهة الرئيسية لوحة التحكم (تظهر بعد تسجيل الدخول) -->
+    <!-- 2. الواجهة الرئيسية لوحة التحكم -->
     <div id="dashboardSection" class="hidden flex-col h-full">
         
-        <!-- الهيدر العلوي بالأزرق مع مربعات الأزرار -->
-        <header class="bg-primaryBlue text-white shadow-md shrink-0">
+        <!-- الهيدر العلوي -->
+        <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
             <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
                 
                 <!-- زر الخروج -->
@@ -130,12 +183,18 @@
                 <!-- شريط الأزرار في الهيدر -->
                 <div class="overflow-x-auto no-scrollbar py-1 flex-grow order-2">
                     <nav class="flex items-center gap-1.5 min-w-max justify-center">
-                        <button onclick="navAction('ملف')" class="px-3 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap">ملف</button>
+                        
+                        <!-- زر ملف -->
+                        <button onclick="toggleFileModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+                            <span>📁</span>
+                            <span>ملف</span>
+                        </button>
+
                         <button onclick="navAction('عرض')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">عرض</button>
                         <button onclick="navAction('المحاسبة المالية')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">المحاسبة المالية</button>
-                        <button onclick="navAction('إدارة المخزون')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">إدارة المخزون</button>
-                        <button onclick="navAction('إعدادات')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">إعدادات</button>
-                        <button onclick="navAction('تعليمات')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all shadow-sm cursor-pointer whitespace-nowrap">تعليمات</button>
+                        <button onclick="navAction('إدارة المخزون')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all cursor-pointer whitespace-nowrap">إدارة المخزون</button>
+                        <button onclick="navAction('إعدادات')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all cursor-pointer whitespace-nowrap">إعدادات</button>
+                        <button onclick="navAction('تعليمات')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-800/40 hover:bg-white/20 border border-blue-500/40 transition-all cursor-pointer whitespace-nowrap">تعليمات</button>
                     </nav>
                 </div>
 
@@ -150,10 +209,10 @@
             </div>
         </header>
 
-        <!-- المحتوى الرئيسي مع الشريط الجانبي -->
+        <!-- المحتوى الرئيسي -->
         <div class="flex flex-grow overflow-hidden relative">
             
-            <!-- الشريط الجانبي (Sidebar) -->
+            <!-- الشريط الجانبي -->
             <aside class="w-64 bg-white border-l border-slate-200 hidden md:flex flex-col p-4 shrink-0 shadow-sm">
                 <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 px-2">لوحة التحكم التشغيلية</div>
                 <nav class="space-y-1.5 flex-grow">
@@ -183,10 +242,9 @@
                 </div>
             </aside>
 
-            <!-- محتوى لوحة التحكم مع الشعار في المنتصف، وشريط البحث وزر ابدأ أسفل الصفحة -->
+            <!-- محتوى لوحة التحكم -->
             <main class="flex-grow p-6 overflow-y-auto flex flex-col items-center justify-center relative pb-20">
                 
-                <!-- بطاقة الشعار في وسط الصفحة الرئيسية -->
                 <div class="bg-white border border-slate-200 rounded-3xl p-8 max-w-lg w-full text-center shadow-lg relative overflow-hidden mb-8">
                     <div class="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-500 to-primaryBlue"></div>
                     
@@ -214,30 +272,26 @@
                     </div>
                 </div>
 
-                <!-- شريط البحث وزر قائمة ابدأ السفلي (شبيه بنظام ويندوز) -->
+                <!-- شريط البحث وزر قائمة ابدأ -->
                 <div class="absolute bottom-4 left-6 right-6 max-w-lg mx-auto flex items-center gap-3">
-                    
-                    <!-- شريط البحث في المنطقة المشار لها -->
                     <div class="flex-grow relative">
                         <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
                             <i data-lucide="search" class="w-4 h-4"></i>
                         </span>
-                        <input type="text" id="systemSearch" oninput="handleSearch(this.value)" placeholder="ابحث في النظام (الحسابات، التقارير، المخزون)..." class="w-full bg-white/90 backdrop-blur-sm border border-slate-200 rounded-2xl py-3 pr-10 pl-4 text-xs text-slate-800 shadow-md focus:outline-none focus:border-primaryBlue transition-all">
+                        <input type="text" id="systemSearch" placeholder="ابحث في النظام (الحسابات، التقارير، المخزون)..." class="w-full bg-white/90 backdrop-blur-sm border border-slate-200 rounded-2xl py-3 pr-10 pl-4 text-xs text-slate-800 shadow-md focus:outline-none focus:border-primaryBlue transition-all">
                     </div>
 
-                    <!-- زر قائمة ابدأ في الزاوية اليمين السفلى -->
                     <button onclick="toggleStartMenu()" class="shrink-0 flex items-center gap-2 bg-primaryBlue hover:bg-primaryBlueHover text-white px-4 py-3 rounded-2xl shadow-lg shadow-blue-600/20 transition-all cursor-pointer font-bold text-xs" title="قائمة ابدأ">
                         <i data-lucide="grid" class="w-4 h-4"></i>
                         <span class="hidden sm:inline">ابدأ</span>
                     </button>
-
                 </div>
 
             </main>
         </div>
     </div>
 
-    <!-- السكربتات التشغيلية والتفاعلية -->
+    <!-- السكربتات التشغيلية -->
     <script>
         lucide.createIcons();
 
@@ -283,8 +337,18 @@
             showToast("تم تسجيل الخروج بنجاح.", "success");
         }
 
+        function closeSystem() {
+            showToast("تم إغلاق النظام. يمكنك إغلاق النافذة.", "error");
+            setTimeout(() => { window.close(); }, 1000);
+        }
+
         function navAction(sectionName) {
             showToast(`الانتقال إلى قسم: ${sectionName}`, "success");
+        }
+
+        function toggleFileModal() {
+            const modal = document.getElementById('fileModal');
+            modal.classList.toggle('hidden');
         }
 
         function toggleStartMenu() {
@@ -292,19 +356,11 @@
             menu.classList.toggle('hidden');
         }
 
-        function handleSearch(query) {
-            // محاكاة تفاعلية للبحث السريع
-            if (query.length > 2) {
-                // يمكن إضافة نتائج البحث هنا لاحقاً
-            }
-        }
-
-        // إغلاق قائمة ابدأ عند النقر خارجها
+        // إغلاق قائمة ابدأ عند الضغط خارجها
         window.addEventListener('click', function(e) {
-            const menu = document.getElementById('startMenu');
-            const startBtn = e.target.closest('button[onclick="toggleStartMenu()"]');
-            if (!menu.contains(e.target) && !startBtn && !menu.classList.contains('hidden')) {
-                menu.classList.add('hidden');
+            const startMenu = document.getElementById('startMenu');
+            if (startMenu && !startMenu.contains(e.target) && !e.target.closest('button[onclick="toggleStartMenu()"]')) {
+                startMenu.classList.add('hidden');
             }
         });
     </script>
