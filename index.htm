@@ -14,39 +14,16 @@
     <link rel="icon" type="image/png" href="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg">
     <link rel="apple-touch-icon" href="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg">
 
+    <!-- ربط ملف الـ Manifest لظهور الشعار عند التثبيت -->
+    <link rel="manifest" href="manifest.json">
+
     <!-- Tailwind CSS with Forms & Container Queries Plugins -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     
     <!-- Google Fonts & Material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
-    
-    <!-- Tailwind Custom Configuration -->
-    <script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              colors: {
-                "outline": "#767683",
-                "outline-variant": "#c6c5d4",
-                "primary-container": "#1a237e",
-                "on-surface": "#191c1e",
-                "surface": "#f7f9fc",
-                "surface-container-low": "#f2f4f7",
-                "secondary": "#006b5f",
-                "background": "#f7f9fc",
-                "primary": "#000666",
-                "error": "#ba1a1a",
-                "error-container": "#ffdad6",
-                "on-primary": "#ffffff",
-                "on-surface-variant": "#454652"
-              }
-            }
-          }
-        };
-    </script>
-    
+
     <style>
         html, body {
             font-family: 'IBM Plex Sans', sans-serif;
@@ -426,7 +403,7 @@
             event.preventDefault();
             const empName = document.getElementById('withdrawal-emp').value;
             const amount = parseFloat(document.getElementById('withdrawal-amount').value);
-            const note = document.getElementById('withdrawal-note').value;
+            const note = document.getElementById('withdrawal-note',).value;
             const date = new Date().toLocaleDateString('ar-YE');
 
             const wids = getStoredWithdrawals();
