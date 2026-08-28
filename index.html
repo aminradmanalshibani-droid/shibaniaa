@@ -25,7 +25,6 @@
     </script>
     
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -35,6 +34,7 @@
             font-family: 'Cairo', sans-serif;
             background-color: #f8fafc;
             color: #1e293b;
+            overflow: hidden; /* منع التمرير الرأسي العام التام */
         }
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: #f8fafc; }
@@ -52,6 +52,7 @@
 
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
+    <!-- Modal: ملف -->
     <div id="fileModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -59,8 +60,7 @@
                 <button onclick="toggleModal('fileModal')" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
             </div>
             <div class="space-y-1">
-                <button onclick="loadPageView('الصفحة الرئيسية', '🏠'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>الصفحة الرئيسية</span><span>🏠</span></button>
-                <button onclick="loadPageView('إدارة المنشأة', '🏢'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>إدارة المنشأة</span><span>🏢</span></button>
+                <button onclick="loadPageView('لوحة التحكم', '🏠'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>الصفحة الرئيسية</span><span>🏠</span></button>
                 <button onclick="exportDatabase(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>تصدير النسخة الاحتياطية</span><span>📤</span></button>
                 <button onclick="triggerImport(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>استيراد بيانات</span><span>📥</span></button>
                 <input type="file" id="importFile" class="hidden" onchange="importDatabase(event)">
@@ -70,6 +70,7 @@
         </div>
     </div>
 
+    <!-- Modal: عرض -->
     <div id="viewModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -78,13 +79,13 @@
             </div>
             <div class="space-y-1">
                 <button onclick="loadPageView('لوحة التحكم', '🏠'); toggleModal('viewModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>لوحة التحكم والمؤشرات</span><span>📊</span></button>
+                <button onclick="loadPageView('ميزان المراجعة', '⚖️'); toggleModal('viewModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>ميزان المراجعة</span><span>⚖️</span></button>
                 <button onclick="loadPageView('الحسابات والدفاتر', '📒'); toggleModal('viewModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>الحسابات والدفاتر</span><span>📒</span></button>
-                <button onclick="loadPageView('المخزون والأصناف', '📦'); toggleModal('viewModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>المخزون والأصناف</span><span>📦</span></button>
-                <button onclick="loadPageView('العملاء والموردون', '👥'); toggleModal('viewModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>العملاء والموردون</span><span>👥</span></button>
             </div>
         </div>
     </div>
 
+    <!-- Modal: المحاسبة المالية (متضمنة ميزان المراجعة) -->
     <div id="financeModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -92,13 +93,14 @@
                 <button onclick="toggleModal('financeModal')" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
             </div>
             <div class="space-y-1">
+                <button onclick="loadPageView('ميزان المراجعة', '⚖️'); toggleModal('financeModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>ميزان المراجعة (الخطوة 1)</span><span>⚖️</span></button>
                 <button onclick="loadPageView('دليل الحسابات', '🌳'); toggleModal('financeModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>دليل الحسابات</span><span>🌳</span></button>
-                <button onclick="loadPageView('القيود اليومية', '📝'); toggleModal('financeModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>القيود اليومية</span><span>📝</span></button>
                 <button onclick="loadPageView('سندات القبض والصرف', '💰'); toggleModal('financeModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>سندات القبض والصرف</span><span>💰</span></button>
             </div>
         </div>
     </div>
 
+    <!-- Modal: المخزون -->
     <div id="inventoryModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -107,11 +109,11 @@
             </div>
             <div class="space-y-1">
                 <button onclick="loadPageView('الأصناف والمواد', '🏷️'); toggleModal('inventoryModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>الأصناف والمواد</span><span>🏷️</span></button>
-                <button onclick="loadPageView('المستودعات', '🏢'); toggleModal('inventoryModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>المستودعات</span><span>🏢</span></button>
             </div>
         </div>
     </div>
 
+    <!-- Modal: الإعدادات -->
     <div id="settingsModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-72 p-4 overflow-hidden">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -120,28 +122,11 @@
             </div>
             <div class="space-y-1">
                 <button onclick="loadPageView('إعدادات المنشأة والهوية', '🏢'); toggleModal('settingsModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>إعدادات المنشأة والهوية</span><span>🏢</span></button>
-                <button onclick="loadPageView('المستخدمون والصلاحيات', '👥'); toggleModal('settingsModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>المستخدمون والصلاحيات</span><span>👥</span></button>
             </div>
         </div>
     </div>
 
-    <div id="startMenu" class="hidden fixed bottom-20 right-6 w-80 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-2xl z-50 p-4 transition-all duration-200">
-        <div class="flex items-center gap-3 pb-3 mb-3 border-b border-slate-100">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center overflow-hidden">
-                <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار" class="w-full h-full object-cover">
-            </div>
-            <div>
-                <h3 class="font-bold text-xs text-slate-800">أمين الشيباني المحاسبي</h3>
-                <p class="text-[10px] text-slate-500">طاقة تشغيلية متكاملة 100%</p>
-            </div>
-        </div>
-        <div class="space-y-1">
-            <button onclick="loadPageView('المحاسبة المالية', '🧮'); toggleModal('startMenu');" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><i data-lucide="wallet" class="w-4 h-4 text-primaryBlue"></i><span>المحاسبة المالية</span></button>
-            <button onclick="loadPageView('الأصناف والمواد', '🏷️'); toggleModal('startMenu');" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><i data-lucide="box" class="w-4 h-4 text-primaryBlue"></i><span>إدارة المخزون والأصناف</span></button>
-            <button onclick="loadPageView('سندات القبض والصرف', '💰'); toggleModal('startMenu');" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><i data-lucide="file-text" class="w-4 h-4 text-primaryBlue"></i><span>سندات القبض والصرف</span></button>
-        </div>
-    </div>
-
+    <!-- شاشة تسجيل الدخول -->
     <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-100">
         <div class="bg-white border border-slate-200 rounded-2xl p-8 max-w-md w-full shadow-xl">
             <div class="text-center mb-6">
@@ -165,7 +150,8 @@
         </div>
     </div>
 
-    <div id="dashboardSection" class="hidden flex-col h-full">
+    <!-- لوحة التحكم الرئيسية -->
+    <div id="dashboardSection" class="hidden flex-col h-full overflow-hidden">
         <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
             <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
                 <div class="shrink-0 order-1">
@@ -177,8 +163,8 @@
                     <nav class="flex items-center gap-1.5 min-w-max justify-center">
                         <button onclick="toggleModal('fileModal')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/25 hover:bg-white/35 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5"><span>📁</span><span>ملف</span></button>
                         <button onclick="toggleModal('viewModal')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5"><span>👁️</span><span>عرض</span></button>
-                        <button onclick="toggleModal('financeModal')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5"><span>🧮</span><span>المحاسبة المالية</span></button>
-                        <button onclick="toggleModal('inventoryModal')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5"><span>📦</span><span>إدارة المخزون</span></button>
+                        <button onclick="toggleModal('financeModal')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/30 hover:bg-white/40 border border-white/40 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5 ring-2 ring-white/50"><span>⚖️</span><span>ميزان المراجعة (نشط)</span></button>
+                        <button onclick="toggleModal('inventoryModal')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5"><span>📦</span><span>المخزون</span></button>
                         <button onclick="toggleModal('settingsModal')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white/20 hover:bg-white/30 border border-white/30 transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5"><span>⚙️</span><span>إعدادات</span></button>
                     </nav>
                 </div>
@@ -192,26 +178,27 @@
         </header>
 
         <div class="flex flex-grow overflow-hidden relative">
-            <aside class="w-64 bg-white border-l border-slate-200 hidden md:flex flex-col p-4 shrink-0 shadow-sm">
-                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 px-2">التشغيل السريع</div>
+            <aside class="w-64 bg-white border-l border-slate-200 hidden md:flex flex-col p-4 shrink-0 shadow-sm overflow-y-auto">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 px-2">التشغيل المحاسبي</div>
                 <nav class="space-y-1.5 flex-grow">
-                    <a href="#" onclick="loadPageView('لوحة التحكم', '🏠')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-blue-50 text-primaryBlue font-bold text-xs">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i><span>لوحة المؤشرات</span>
+                    <a href="#" onclick="loadPageView('ميزان المراجعة', '⚖️')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-blue-50 text-primaryBlue font-bold text-xs shadow-xs">
+                        <i data-lucide="scale" class="w-4 h-4"></i><span>ميزان المراجعة (رئيسي)</span>
                     </a>
-                    <a href="#" onclick="loadPageView('المحاسبة المالية', '🧮')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold text-xs transition-all cursor-pointer">
-                        <i data-lucide="wallet" class="w-4 h-4 text-primaryBlue"></i><span>المحاسبة المالية</span>
+                    <a href="#" onclick="loadPageView('لوحة التحكم', '🏠')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold text-xs transition-all cursor-pointer">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-primaryBlue"></i><span>لوحة المؤشرات</span>
                     </a>
-                    <a href="#" onclick="loadPageView('الأصناف والمواد', '🏷️')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold text-xs transition-all cursor-pointer">
-                        <i data-lucide="box" class="w-4 h-4 text-primaryBlue"></i><span>إدارة المخزون</span>
+                    <a href="#" onclick="loadPageView('دليل الحسابات', '🌳')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold text-xs transition-all cursor-pointer">
+                        <i data-lucide="folder-tree" class="w-4 h-4 text-primaryBlue"></i><span>دليل الحسابات</span>
                     </a>
                     <a href="#" onclick="loadPageView('سندات القبض والصرف', '💰')" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold text-xs transition-all cursor-pointer">
-                        <i data-lucide="file-text" class="w-4 h-4 text-primaryBlue"></i><span>سندات القبض والصرف</span>
+                        <i data-lucide="receipt" class="w-4 h-4 text-primaryBlue"></i><span>سندات القبض والصرف</span>
                     </a>
                 </nav>
             </aside>
 
-            <main id="mainContentArea" class="flex-grow p-6 overflow-y-auto flex flex-col relative pb-20">
-                </main>
+            <!-- منطقة العرض الرئيسية المانعة للتمرير الرأسي الخارجي -->
+            <main id="mainContentArea" class="flex-grow p-4 md:p-6 overflow-hidden flex flex-col relative bg-slate-50">
+            </main>
         </div>
     </div>
 
@@ -246,7 +233,7 @@
                 const dash = document.getElementById('dashboardSection');
                 dash.classList.remove('hidden');
                 dash.classList.add('flex');
-                loadPageView('لوحة التحكم', '🏠');
+                loadPageView('ميزان المراجعة', '⚖️');
             } else {
                 showToast("بيانات الدخول غير صحيحة.", "error");
             }
@@ -266,25 +253,22 @@
             if (modal) modal.classList.toggle('hidden');
         }
 
-        // إدارة قواعد البيانات المحلية المترابطة
+        // قاعدة البيانات المؤقتة مع عينة دقيقة لميزان المراجعة
         function getPageData(title) {
             const key = 'system_db_' + title;
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
             
-            // بيانات أولية تشغيلية واقعية حسب القسم
-            if (title === 'لوحة التحكم') return [];
-            if (title === 'الأصناف والمواد') return [
-                { id: 1, col1: 'حاسوب محمول HP', col2: 'مستودع الرئيسي', col3: '15' },
-                { id: 2, col1: 'شاشة عرض 24 بوصة', col2: 'مستودع الفرع', col3: '28' }
-            ];
-            if (title === 'سندات القبض والصرف') return [
-                { id: 1, col1: 'سند قبض - عميل شركة النور', col2: 'قبض نقدى', col3: '4500' },
-                { id: 2, col1: 'سند صرف - إيجار المقر', col2: 'صرف بنكي', col3: '1200' }
+            if (title === 'ميزان المراجعة') return [
+                { id: 1, code: '101', name: 'الخزينة النقدية الرئيسية', debit: 45000, credit: 15000 },
+                { id: 2, code: '102', name: 'حساب البنك التجاري', debit: 250000, credit: 100000 },
+                { id: 3, code: '201', name: 'حساب الموردين والمقاولين', debit: 12000, credit: 57000 },
+                { id: 4, code: '301', name: 'رأس المال الأساسي', debit: 0, credit: 200000 },
+                { id: 5, code: '401', name: 'مصروفات التشغيل والإيجار', debit: 35000, credit: 0 }
             ];
             return [
-                { id: 1, col1: 'عنصر تشغيلي أساسي 1', col2: 'معتمد', col3: '5000' },
-                { id: 2, col1: 'عنصر تشغيلي أساسي 2', col2: 'تحت المراجعة', col3: '3200' }
+                { id: 1, col1: 'سجل تشغيلي 1', col2: 'معتمد', col3: '5000' },
+                { id: 2, col1: 'سجل تشغيلي 2', col2: 'تحت المراجعة', col3: '3200' }
             ];
         }
 
@@ -293,7 +277,6 @@
             localStorage.setItem(key, JSON.stringify(data));
         }
 
-        // تصدير واستيراد قواعد البيانات كملف متكامل
         function exportDatabase() {
             const backup = {};
             for (let i = 0; i < localStorage.length; i++) {
@@ -305,7 +288,7 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "Ameen_Alshaibani_Backup.json");
+            downloadAnchor.setAttribute("download", "Ameen_Alshaibani_TrialBalance.json");
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
@@ -326,8 +309,8 @@
                     for (const key in backup) {
                         localStorage.setItem(key, backup[key]);
                     }
-                    showToast("تم استيراد قاعدة البيانات وتحديث النظام بنجاح!", "success");
-                    loadPageView('لوحة التحكم', '🏠');
+                    showToast("تم استيراد البيانات وتحديث ميزان المراجعة بنجاح!", "success");
+                    loadPageView('ميزان المراجعة', '⚖️');
                 } catch (err) {
                     showToast("ملف النسخة الاحتياطية غير صالح.", "error");
                 }
@@ -335,193 +318,198 @@
             reader.readAsText(file);
         }
 
-        // عرض وتحميل الصفحات بكامل الطاقة التشغيلية
+        // محرك عرض الصفحات المتكامل (مخصص بالكامل لميزان المراجعة للخطوة الأولى وبأعلى جاهزية)
         function loadPageView(title, icon) {
             const area = document.getElementById('mainContentArea');
             
             if (title === 'لوحة التحكم') {
-                const inventoryData = getPageData('الأصناف والمواد');
-                const financeData = getPageData('سندات القبض والصرف');
-                
-                let totalInv = inventoryData.reduce((sum, item) => sum + Number(item.col3 || 0), 0);
-                let totalFin = financeData.reduce((sum, item) => sum + Number(item.col3 || 0), 0);
+                area.innerHTML = `
+                    <div class="max-w-5xl w-full mx-auto space-y-4">
+                        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm text-center">
+                            <h2 class="text-base font-bold text-slate-800 mb-2">لوحة المؤشرات التشغيلية</h2>
+                            <p class="text-xs text-slate-500 mb-4">انتقل إلى ميزان المراجعة لمراجعة الأرصدة المدينة والدائنة.</p>
+                            <button onclick="loadPageView('ميزان المراجعة', '⚖️')" class="bg-primaryBlue text-white text-xs font-bold px-4 py-2 rounded-xl shadow-md cursor-pointer">فتح ميزان المراجعة (الخطوة 1)</button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            if (title === 'ميزان المراجعة') {
+                let data = getPageData('ميزان المراجعة');
+                let totalDebit = data.reduce((sum, item) => sum + Number(item.debit || 0), 0);
+                let totalCredit = data.reduce((sum, item) => sum + Number(item.credit || 0), 0);
+                let isBalanced = totalDebit === totalCredit;
 
                 area.innerHTML = `
-                    <div class="max-w-6xl w-full mx-auto space-y-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div id="printableArea" class="bg-white border border-slate-200 rounded-3xl p-5 max-w-6xl w-full mx-auto shadow-lg flex flex-col h-full overflow-hidden">
+                        
+                        <!-- رأس الصفحة والأزرار الإدارية الكاملة -->
+                        <div class="flex flex-wrap items-center justify-between pb-3 mb-3 border-b border-slate-100 shrink-0 gap-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-lg">${icon}</div>
                                 <div>
-                                    <span class="text-xs text-slate-400 block mb-1">إجمالي وحدات المخزون</span>
-                                    <span class="text-xl font-bold text-slate-800 font-mono">${totalInv} وحدة</span>
+                                    <h2 class="font-bold text-sm text-slate-800">ميزان المراجعة المحاسبي (بالمجاميع والأرصدة)</h2>
+                                    <p class="text-[11px] text-slate-500">منصة المراجعة المالية والمطابقة الفورية</p>
                                 </div>
-                                <div class="w-12 h-12 rounded-xl bg-blue-50 text-primaryBlue flex items-center justify-center font-bold">📦</div>
                             </div>
-                            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-                                <div>
-                                    <span class="text-xs text-slate-400 block mb-1">حركة السندات المالية</span>
-                                    <span class="text-xl font-bold text-emerald-600 font-mono">${totalFin} ر.س</span>
-                                </div>
-                                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">💰</div>
-                            </div>
-                            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-                                <div>
-                                    <span class="text-xs text-slate-400 block mb-1">حالة النظام التشغيلي</span>
-                                    <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">نشط ومستقر</span>
-                                </div>
-                                <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">⚡</div>
+                            <div class="flex items-center gap-2">
+                                <span class="px-3 py-1.5 rounded-xl text-xs font-bold ${isBalanced ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'}">
+                                    ${isBalanced ? '⚖️ الميزان متطابق وموزون' : '⚠️ الميزان غير متطابق'}
+                                </span>
+                                <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
+                                <button onclick="openTrialBalanceModal()" class="bg-primaryBlue hover:bg-primaryBlueHover text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة حساب للميزان</button>
                             </div>
                         </div>
 
-                        <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm text-center">
-                            <div class="w-20 h-20 mx-auto mb-4 rounded-2xl p-2 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
-                                <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار" class="w-full h-full object-cover rounded-xl">
-                            </div>
-                            <h2 class="text-base font-bold text-slate-800 mb-1">أهلاً بك مجدداً في نظام أمين الشيباني المتكامل</h2>
-                            <p class="text-xs text-slate-500 mb-4">اختر قسماً من القوائم العلوية أو الجانبية للبدء في الإدخال والمعالجة الفورية.</p>
+                        <!-- نموذج الإضافة السريع ضمن الصفحة المكتملة -->
+                        <div id="tbFormContainer" class="hidden p-3 rounded-2xl bg-blue-50/70 border border-blue-100 mb-3 shrink-0">
+                            <h3 class="font-bold text-xs text-slate-800 mb-2" id="tbFormTitle">إضافة حساب جديد إلى الميزان</h3>
+                            <form onsubmit="handleTBFormSubmit(event)" class="grid grid-cols-1 sm:grid-cols-5 gap-2">
+                                <input type="hidden" id="tbEditIndex" value="-1">
+                                <div>
+                                    <input type="text" id="tbCode" required placeholder="رقم الحساب..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-800 focus:outline-none focus:border-primaryBlue">
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <input type="text" id="tbName" required placeholder="اسم الحساب المالي..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue">
+                                </div>
+                                <div>
+                                    <input type="number" step="any" id="tbDebit" required placeholder="المدين (ر.س)..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-800 focus:outline-none focus:border-primaryBlue">
+                                </div>
+                                <div>
+                                    <input type="number" step="any" id="tbCredit" required placeholder="الدائن (ر.س)..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-800 focus:outline-none focus:border-primaryBlue">
+                                </div>
+                                <div class="sm:col-span-5 flex justify-end gap-2 pt-1">
+                                    <button type="button" onclick="document.getElementById('tbFormContainer').classList.add('hidden')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer">إلغاء</button>
+                                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-xl text-xs font-bold cursor-pointer">حفظ وترصيد مباشر</button>
+                                </div>
+                            </form>
                         </div>
+
+                        <!-- جدول البيانات المحكم (بدون تمرير رأسي للخارج، تمرير داخلي فقط عند الحاجة) -->
+                        <div class="border border-slate-200 rounded-2xl overflow-hidden flex flex-col flex-grow">
+                            <div class="bg-slate-100 px-4 py-2 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center shrink-0">
+                                <span>الحسابات المدرجة في الميزان (${data.length})</span>
+                                <span class="text-[11px] text-slate-500 font-mono">العملة: ريال سعودي (ر.س)</span>
+                            </div>
+                            <div class="overflow-y-auto flex-grow">
+                                <table class="w-full text-right text-xs">
+                                    <thead class="bg-slate-50 text-slate-600 border-b border-slate-200 sticky top-0">
+                                        <tr>
+                                            <th class="p-2.5">#</th>
+                                            <th class="p-2.5 font-mono">رقم الحساب</th>
+                                            <th class="p-2.5">اسم الحساب المالي</th>
+                                            <th class="p-2.5 font-mono text-left">مدين</th>
+                                            <th class="p-2.5 font-mono text-left">دائن</th>
+                                            <th class="p-2.5 text-center">العمليات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 bg-white">
+                                        ${data.length === 0 ? `<tr><td colspan="6" class="p-8 text-center text-slate-400">لا توجد حسابات مضافة حالياً.</td></tr>` :
+                                          data.map((item, index) => `
+                                            <tr class="hover:bg-slate-50 transition-all">
+                                                <td class="p-2.5 font-mono text-slate-400">${index + 1}</td>
+                                                <td class="p-2.5 font-mono font-bold text-primaryBlue">${item.code}</td>
+                                                <td class="p-2.5 font-semibold text-slate-800">${item.name}</td>
+                                                <td class="p-2.5 font-mono text-left text-slate-700">${Number(item.debit).toLocaleString()}</td>
+                                                <td class="p-2.5 font-mono text-left text-slate-700">${Number(item.credit).toLocaleString()}</td>
+                                                <td class="p-2.5 text-center space-x-1 space-x-reverse">
+                                                    <button onclick="editTBRecord(${index})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 px-2 py-1 rounded-lg text-[11px] font-bold cursor-pointer transition-all">تعديل</button>
+                                                    <button onclick="deleteTBRecord(${index})" class="bg-red-50 hover:bg-red-100 text-red-600 px-2 py-1 rounded-lg text-[11px] font-bold cursor-pointer transition-all">حذف</button>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- شريط الإجماليات السفلي الثابت -->
+                            <div class="bg-slate-900 text-white px-4 py-3 border-t border-slate-800 font-bold text-xs flex justify-between items-center shrink-0">
+                                <span>إجمالي المجاميع العامة للميزان:</span>
+                                <div class="flex gap-8 font-mono">
+                                    <span>المدين الكلي: <span class="text-emerald-400">${totalDebit.toLocaleString()}</span> ر.س</span>
+                                    <span>الدائن الكلي: <span class="text-emerald-400">${totalCredit.toLocaleString()}</span> ر.س</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 `;
                 lucide.createIcons();
                 return;
             }
 
-            let data = getPageData(title);
-            
+            // عرض افتراضي للصفحات الأخرى إذا طلبت
             area.innerHTML = `
-                <div id="printableArea" class="bg-white border border-slate-200 rounded-3xl p-6 max-w-5xl w-full mx-auto shadow-lg relative mb-16">
-                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-lg">${icon}</div>
-                            <div>
-                                <h2 class="font-bold text-sm text-slate-800">${title}</h2>
-                                <p class="text-[11px] text-slate-500">منصة التشغيل والإدارة الكاملة</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة التقارير</button>
-                            <button onclick="openAddModal('${title}')" class="bg-primaryBlue hover:bg-primaryBlueHover text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة سجل</button>
-                        </div>
-                    </div>
-
-                    <div id="formContainer" class="hidden p-4 rounded-2xl bg-blue-50/50 border border-blue-100 mb-4">
-                        <h3 class="font-bold text-xs text-slate-800 mb-3" id="formTitle">إضافة سجل جديد</h3>
-                        <form onsubmit="handleFormSubmit(event, '${title}')" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            <input type="hidden" id="editIndex" value="-1">
-                            <div>
-                                <label class="block text-[11px] text-slate-600 mb-1">اسم البيان / السجل</label>
-                                <input type="text" id="inputCol1" required placeholder="أدخل البيان..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue">
-                            </div>
-                            <div>
-                                <label class="block text-[11px] text-slate-600 mb-1">الحالة / التصنيف</label>
-                                <input type="text" id="inputCol2" required placeholder="نشط / معتمد..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue">
-                            </div>
-                            <div>
-                                <label class="block text-[11px] text-slate-600 mb-1">القيمة / الكمية العددية</label>
-                                <input type="number" step="any" id="inputCol3" required placeholder="0.00" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue">
-                            </div>
-                            <div class="sm:col-span-3 flex justify-end gap-2 mt-2">
-                                <button type="button" onclick="document.getElementById('formContainer').classList.add('hidden')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer">إلغاء</button>
-                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-xl text-xs font-bold cursor-pointer">حفظ وترابط مباشر</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden">
-                        <div class="bg-slate-50 px-4 py-2.5 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center">
-                            <span>السجلات المسجلة (${data.length})</span>
-                            <span class="text-[11px] text-slate-400">تحديث تلقائي للمؤشرات</span>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-right text-xs">
-                                <thead class="bg-slate-100 text-slate-600 border-b border-slate-200">
-                                    <tr>
-                                        <th class="p-3">#</th>
-                                        <th class="p-3">البيان الأساسي</th>
-                                        <th class="p-3">الحالة أو التصنيف</th>
-                                        <th class="p-3">القيمة / الكمية</th>
-                                        <th class="p-3 text-center">العمليات التشغيلية</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-100" id="dataTableBody">
-                                    ${data.length === 0 ? `<tr><td colspan="5" class="p-8 text-center text-slate-400">لا توجد بيانات حالياً. اضغط على "إضافة سجل".</td></tr>` :
-                                      data.map((item, index) => `
-                                        <tr class="hover:bg-slate-50 transition-all">
-                                            <td class="p-3 font-mono text-slate-400">${index + 1}</td>
-                                            <td class="p-3 font-semibold text-slate-800">${item.col1}</td>
-                                            <td class="p-3"><span class="px-2 py-0.5 rounded-lg bg-blue-50 text-primaryBlue text-[11px] font-bold">${item.col2}</span></td>
-                                            <td class="p-3 font-mono font-bold text-slate-700">${item.col3}</td>
-                                            <td class="p-3 text-center space-x-1 space-x-reverse">
-                                                <button onclick="editRecord('${title}', ${index})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 px-2.5 py-1 rounded-lg text-[11px] font-bold cursor-pointer transition-all">تعديل</button>
-                                                <button onclick="deleteRecord('${title}', ${index})" class="bg-red-50 hover:bg-red-100 text-red-600 px-2.5 py-1 rounded-lg text-[11px] font-bold cursor-pointer transition-all">حذف</button>
-                                            </td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 max-w-4xl w-full mx-auto shadow-md">
+                    <h2 class="font-bold text-sm text-slate-800 mb-2">${title}</h2>
+                    <p class="text-xs text-slate-500">تم تجهيز هذه الصفحة ضمن النسق التشغيلي للمظام.</p>
                 </div>
             `;
             lucide.createIcons();
         }
 
-        function openAddModal(title) {
-            document.getElementById('formContainer').classList.remove('hidden');
-            document.getElementById('formTitle').innerText = 'إضافة سجل جديد في ' + title;
-            document.getElementById('editIndex').value = '-1';
-            document.getElementById('inputCol1').value = '';
-            document.getElementById('inputCol2').value = '';
-            document.getElementById('inputCol3').value = '';
+        function openTrialBalanceModal() {
+            document.getElementById('tbFormContainer').classList.remove('hidden');
+            document.getElementById('tbFormTitle').innerText = 'إضافة حساب جديد إلى ميزان المراجعة';
+            document.getElementById('tbEditIndex').value = '-1';
+            document.getElementById('tbCode').value = '';
+            document.getElementById('tbName').value = '';
+            document.getElementById('tbDebit').value = '';
+            document.getElementById('tbCredit').value = '';
         }
 
-        function handleFormSubmit(event, title) {
+        function handleTBFormSubmit(event) {
             event.preventDefault();
-            const editIndex = parseInt(document.getElementById('editIndex').value);
-            const val1 = document.getElementById('inputCol1').value;
-            const val2 = document.getElementById('inputCol2').value;
-            const val3 = document.getElementById('inputCol3').value;
+            const editIndex = parseInt(document.getElementById('tbEditIndex').value);
+            const code = document.getElementById('tbCode').value;
+            const name = document.getElementById('tbName').value;
+            const debit = parseFloat(document.getElementById('tbDebit').value) || 0;
+            const credit = parseFloat(document.getElementById('tbCredit').value) || 0;
 
-            let data = getPageData(title);
+            let data = getPageData('mيزان المراجعة'); // مفتاح التخزين
+            let storageKey = 'system_db_ميزان المراجعة';
+            let currentData = JSON.parse(localStorage.getItem(storageKey)) || getPageData('ميزان المراجعة');
 
             if (editIndex === -1) {
-                data.push({ id: Date.now(), col1: val1, col2: val2, col3: val3 });
-                showToast("تمت إضافة السجل وتحديث النظام بنجاح!", "success");
+                currentData.push({ id: Date.now(), code, name, debit, credit });
+                showToast("تمت إضافة الحساب وترصيد الميزان بنجاح!", "success");
             } else {
-                data[editIndex].col1 = val1;
-                data[editIndex].col2 = val2;
-                data[editIndex].col3 = val3;
-                showToast("تم تحديث السجل بنجاح!", "success");
+                currentData[editIndex] = { id: currentData[editIndex].id, code, name, debit, credit };
+                showToast("تم تحديث بيانات الحساب بنجاح!", "success");
             }
 
-            savePageData(title, data);
-            document.getElementById('formContainer').classList.add('hidden');
-            loadPageView(title, '📁');
+            localStorage.setItem(storageKey, JSON.stringify(currentData));
+            document.getElementById('tbFormContainer').classList.add('hidden');
+            loadPageView('ميزان المراجعة', '⚖️');
         }
 
-        function editRecord(title, index) {
-            let data = getPageData(title);
-            const record = data[index];
-            
-            document.getElementById('formContainer').classList.remove('hidden');
-            document.getElementById('formTitle').innerText = 'تعديل السجل رقم ' + (index + 1);
-            document.getElementById('editIndex').value = index;
-            document.getElementById('inputCol1').value = record.col1;
-            document.getElementById('inputCol2').value = record.col2;
-            document.getElementById('inputCol3').value = record.col3;
+        function editTBRecord(index) {
+            let storageKey = 'system_db_ميزان المراجعة';
+            let currentData = JSON.parse(localStorage.getItem(storageKey)) || getPageData('ميزان المراجعة');
+            const record = currentData[index];
+
+            document.getElementById('tbFormContainer').classList.remove('hidden');
+            document.getElementById('tbFormTitle').innerText = 'تعديل الحساب المالي رقم ' + record.code;
+            document.getElementById('tbEditIndex').value = index;
+            document.getElementById('tbCode').value = record.code;
+            document.getElementById('tbName').value = record.name;
+            document.getElementById('tbDebit').value = record.debit;
+            document.getElementById('tbCredit').value = record.credit;
         }
 
-        function deleteRecord(title, index) {
-            if (confirm("هل أنت متأكد من حذف هذا السجل نهائياً؟")) {
-                let data = getPageData(title);
-                data.splice(index, 1);
-                savePageData(title, data);
-                showToast("تم حذف السجل بنجاح.", "success");
-                loadPageView(title, '📁');
+        function deleteTBRecord(index) {
+            if (confirm("هل أنت متأكد من حذف هذا الحساب من ميزان المراجعة؟")) {
+                let storageKey = 'system_db_ميزان المراجعة';
+                let currentData = JSON.parse(localStorage.getItem(storageKey)) || getPageData('ميزان المراجعة');
+                currentData.splice(index, 1);
+                localStorage.setItem(storageKey, JSON.stringify(currentData));
+                showToast("تم حذف الحساب بنجاح وتحديث الأرصدة.", "success");
+                loadPageView('ميزان المراجعة', '⚖️');
             }
         }
 
         window.addEventListener('click', function(e) {
-            ['startMenu', 'fileModal', 'viewModal', 'financeModal', 'inventoryModal', 'settingsModal'].forEach(id => {
+            ['fileModal', 'viewModal', 'financeModal', 'inventoryModal', 'settingsModal'].forEach(id => {
                 const modal = document.getElementById(id);
                 if (modal && e.target === modal) {
                     modal.classList.add('hidden');
