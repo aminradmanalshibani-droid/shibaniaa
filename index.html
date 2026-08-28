@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>النظام المحاسبي الاحترافي | أمين الشيباني</title>
+    <title>النظام المحاسبي المتكامل | أمين الشيباني</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -50,6 +50,7 @@
 
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
+    <!-- نافذة قائمة ملف الاحترافية -->
     <div id="fileModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-80 p-4">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -58,16 +59,13 @@
             </div>
             <div class="space-y-1">
                 <button onclick="loadHomeView(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏠 الصفحة الرئيسية</span><span>◀️</span></button>
-                <button onclick="loadPageView('الحسابات', '🌳'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🌳 شجرة الحسابات</span><span>◀️</span></button>
-                <button onclick="loadPageView('القيود', '📝'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📝 القيود اليومية</span><span>◀️</span></button>
-                <button onclick="loadPageView('المبيعات', '🛒'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🛒 المبيعات والعملاء</span><span>◀️</span></button>
-                <button onclick="loadPageView('ميزان المراجعة', '📊'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📊 ميزان المراجعة</span><span>◀️</span></button>
-                <button onclick="loadPageView('الأرباح', '📈'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📈 الأرباح والخسائر</span><span>◀️</span></button>
-                <button onclick="loadPageView('إدارة المخزون', '📦'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📦 إدارة المخزون</span><span>◀️</span></button>
-                <button onclick="loadPageView('المحاسبة المالية', '💰'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>💰 المحاسبة المالية</span><span>◀️</span></button>
+                <button onclick="loadPageView('إدارة المبيعات', '🛒'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🛒 إدارة المبيعات والعملاء</span><span>◀️</span></button>
+                <button onclick="loadPageView('إدارة المشتريات', '🛍️'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🛍️ إدارة المشتريات والموردين</span><span>◀️</span></button>
+                <button onclick="loadPageView('إدارة المخزون', '📦'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📦 إدارة المخزون والمستودعات</span><span>◀️</span></button>
+                <button onclick="loadPageView('الأصول الثابتة', '🏢'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏢 إدارة الأصول الثابتة</span><span>◀️</span></button>
+                <button onclick="loadPageView('الموارد البشرية', '👥'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>👥 الموارد البشرية والرواتب</span><span>◀️</span></button>
+                <button onclick="loadPageView('دفتر الأستاذ', '📚'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📚 دفتر الأستاذ العام</span><span>◀️</span></button>
                 <button onclick="loadPageView('إعدادات النظام', '⚙️'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>⚙️ إعدادات النظام</span><span>◀️</span></button>
-                <button onclick="triggerImport(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📥 استيراد البيانات</span><span>◀️</span></button>
-                <input type="file" id="importFile" class="hidden" onchange="importDatabase(event)">
                 <button onclick="exportDatabase(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📤 تصدير البيانات</span><span>◀️</span></button>
                 <button onclick="lockSystem(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-amber-600 hover:bg-amber-50 transition-all cursor-pointer"><span>🔒 قفل النظام</span><span>◀️</span></button>
                 <button onclick="logout(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-red-600 hover:bg-red-50 transition-all cursor-pointer"><span>🚪 تسجيل الخروج</span><span>◀️</span></button>
@@ -75,13 +73,14 @@
         </div>
     </div>
 
+    <!-- شاشة تسجيل الدخول -->
     <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-900 overflow-hidden">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div class="text-center mb-4">
                 <div class="w-12 h-12 rounded-xl bg-accentBlue flex items-center justify-center mx-auto mb-2 shadow-lg shadow-blue-500/20">
                     <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
                 </div>
-                <h1 class="text-lg font-bold text-slate-900">النظام المحاسبي الاحترافي</h1>
+                <h1 class="text-lg font-bold text-slate-900">النظام المحاسبي المتكامل</h1>
                 <p class="text-[11px] text-slate-500 mt-0.5">أمين الشيباني (admin / 123456)</p>
             </div>
             <form onsubmit="handleLogin(event)" class="space-y-3">
@@ -98,6 +97,7 @@
         </div>
     </div>
 
+    <!-- شاشة الإغلاق التام -->
     <div id="closedSystemSection" class="hidden flex-grow flex items-center justify-center p-4 bg-slate-950 text-white overflow-hidden">
         <div class="text-center space-y-3 max-w-md">
             <div class="w-14 h-14 rounded-2xl bg-red-600 flex items-center justify-center mx-auto shadow-xl">
@@ -109,15 +109,16 @@
         </div>
     </div>
 
+    <!-- لوحة النظام الأساسية -->
     <div id="dashboardSection" class="hidden flex-col h-full overflow-hidden">
         
+        <!-- شريط التنقل العلوي -->
         <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
             <div class="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between gap-2">
-                
                 <div class="flex items-center gap-3 shrink-0">
                     <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-accentBlue text-white font-black text-xs shadow">AS</span>
                     <span id="headerYearDisplay" class="bg-slate-800 text-blue-300 px-2.5 py-1 rounded-lg text-xs font-mono font-bold border border-slate-700">السنة: 2026</span>
-                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي الاحترافي | أمين الشيباني</h1>
+                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | الخريطة الهيكلية الجديدة</h1>
                 </div>
 
                 <div class="flex items-center gap-1.5 shrink-0 text-xs font-medium">
@@ -125,49 +126,48 @@
                     <button onclick="loadPageView('إعدادات النظام', '⚙️')" class="px-2.5 py-1.5 hover:bg-slate-800 rounded-lg transition-all cursor-pointer text-slate-300 flex items-center gap-1"><i data-lucide="settings" class="w-3.5 h-3.5"></i> الإعدادات</button>
                     <button onclick="toggleModal('fileModal')" class="px-3 py-1.5 bg-accentBlue hover:bg-accentHover text-white font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="menu" class="w-3.5 h-3.5"></i> قائمة ملف</button>
                 </div>
-
             </div>
 
-            <div class="bg-slate-900 border-t border-slate-800 px-3 py-1.5 flex items-center justify-center gap-2 flex-wrap">
-                <button onclick="loadPageView('الحسابات', '🌳')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">🌳</span><span>الحسابات</span>
+            <!-- شريط الأزرار الفرعية للخريطة المحاسبية الجديدة -->
+            <div class="bg-slate-900 border-t border-slate-800 px-2 py-1.5 flex items-center justify-center gap-1.5 flex-wrap">
+                <button onclick="loadPageView('إدارة المبيعات', '🛒')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">🛒</span><span>المبيعات والعملاء</span>
                 </button>
-                <button onclick="loadPageView('القيود', '📝')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">📝</span><span>القيود اليومية</span>
+                <button onclick="loadPageView('إدارة المشتريات', '🛍️')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">🛍️</span><span>المشتريات والموردين</span>
                 </button>
-                <button onclick="loadPageView('المبيعات', '🛒')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">🛒</span><span>المبيعات</span>
+                <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">📦</span><span>المخزون والمستودعات</span>
                 </button>
-                <button onclick="loadPageView('ميزان المراجعة', '📊')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">📊</span><span>ميزان المراجعة</span>
+                <button onclick="loadPageView('الأصول الثابتة', '🏢')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">🏢</span><span>الأصول الثابتة</span>
                 </button>
-                <button onclick="loadPageView('الأرباح', '📈')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">📈</span><span>الأرباح</span>
+                <button onclick="loadPageView('الموارد البشرية', '👥')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">👥</span><span>الموارد البشرية والرواتب</span>
                 </button>
-                <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">📦</span><span>المخزون</span>
+                <button onclick="loadPageView('دفتر الأستاذ', '📚')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">📚</span><span>دفتر الأستاذ العام</span>
                 </button>
-                <button onclick="loadPageView('المحاسبة المالية', '💰')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">💰</span><span>المحاسبة</span>
-                </button>
-                <button onclick="loadHomeView()" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-emerald-400">🔄</span><span>تحديث</span>
+                <button onclick="loadHomeView()" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
+                    <span class="text-emerald-400">🔄</span><span>الرئيسية</span>
                 </button>
             </div>
         </header>
 
+        <!-- منطقة المحتوى الديناميكية (بدون تمرير رأسي) -->
         <div id="mainContentArea" class="flex-grow p-3 flex flex-col items-center justify-center bg-slate-100 overflow-hidden">
         </div>
 
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[11px]">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold tracking-wide">النظام متصل وقاعدة البيانات مؤمنة</span>
+                <span class="font-bold tracking-wide">الخطوة الأولى: تطبيق الخريطة المحاسبية بنجاح</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani Accounting System v3.0</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v3.1</div>
         </footer>
     </div>
 
+    <!-- نافذة منبثقة عامة للإدارة المباشرة -->
     <div id="genericModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-96 p-4">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -224,7 +224,7 @@
             const passInput = document.getElementById('loginPassword').value.trim();
 
             if (userInput === 'admin' && passInput === '123456') {
-                showToast("تم تشغيل النظام المحاسبي الاحترافي بكفاءة تامة!", "success");
+                showToast("تم تشغيل النظام المحاسبي المتكامل بنجاح!", "success");
                 document.getElementById('loginSection').classList.add('hidden');
                 document.getElementById('closedSystemSection').classList.add('hidden');
                 const dash = document.getElementById('dashboardSection');
@@ -271,8 +271,8 @@
 
         function enterSystemWithYear() {
             document.getElementById('headerYearDisplay').innerText = `السنة: ${selectedActiveYear}`;
-            showToast(`تم التفعيل والتحويل بنجاح للسنة المالية: ${selectedActiveYear}`, "success");
-            loadPageView('المحاسبة المالية', '💰');
+            showToast(`تم التفعيل للسنة المالية: ${selectedActiveYear}`, "success");
+            loadPageView('إدارة المبيعات', '🛒');
         }
 
         function loadHomeView() {
@@ -290,7 +290,7 @@
                             <button onclick="selectYear('2024')" id="btnYear2024" class="py-2 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:bg-slate-50 transition-all cursor-pointer">2024</button>
                         </div>
                         <button onclick="enterSystemWithYear()" class="w-full bg-accentBlue hover:bg-accentHover text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-md cursor-pointer">
-                            بدء العمليات المحاسبية
+                            بدء دورة النظام المحاسبي المتكامل
                         </button>
                     </div>
 
@@ -300,10 +300,10 @@
                         </div>
                         <div>
                             <h2 class="font-extrabold text-sm text-slate-900">أمين الشيباني</h2>
-                            <p class="text-[11px] text-slate-500">نظام الإدارة المحاسبية والمالية المتطور</p>
+                            <p class="text-[11px] text-slate-500">نظام الهيكل المحاسبي والمالي المطور</p>
                         </div>
                         <div class="pt-2 border-t border-slate-100">
-                            <p class="text-[11px] font-bold text-accentBlue">معايير محاسبية دقیقة | أمان وثبات تام</p>
+                            <p class="text-[11px] font-bold text-accentBlue">معالجة تلقائية | دفتر أستاذ عام | تقارير شاملة</p>
                         </div>
                     </div>
                 </div>
@@ -312,14 +312,13 @@
         }
 
         const pageConfigs = {
-            'الحسابات': { label1: 'رقم الحساب', label2: 'اسم الحساب الرئيسي/الفرعي', label3: 'طبيعة الحساب (مدين/دائن)' },
-            'القيود': { label1: 'رقم القيد', label2: 'بيان القيد المحاسبي', label3: 'المبلغ الإجمالي' },
-            'المبيعات': { label1: 'رقم الفاتورة', label2: 'اسم العميل / الجهة', label3: 'إجمالي المبلغ وطريقة الدفع' },
-            'ميزان المراجعة': { label1: 'رقم الدليل', label2: 'حركة الحساب خلال الفترة', label3: 'الرصيد النهائي' },
-            'الأرباح': { label1: 'بند الإيرادات/المصروفات', label2: 'الفترة المالية', label3: 'صافي الربح أو الخسارة' },
-            'إدارة المخزون': { label1: 'كود الصنف', label2: 'اسم المادة أو المنتج', label3: 'الكمية المتوفرة والسعر' },
-            'المحاسبة المالية': { label1: 'رقم التقرير المالي', label2: 'نوع القائمة الختامية', label3: 'حالة الاعتماد' },
-            'إعدادات النظام': { label1: 'متغير الإعداد', label2: 'قيمة الضبط الحالية', label3: 'صلاحية التعديل' }
+            'إدارة المبيعات': { label1: 'رقم الفاتورة / العميل', label2: 'نوع المعاملة (نقدي/آجل)', label3: 'المبلغ الإجمالي' },
+            'إدارة المشتريات': { label1: 'رقم أمر الشراء / المورد', label2: 'نوع المشتريات', label3: 'إجمالي التكلفة' },
+            'إدارة المخزون': { label1: 'كود الصنف / الوحدة', label2: 'اسم المادة المخزنية', label3: 'الكمية وسعر التكلفة' },
+            'الأصول الثابتة': { label1: 'كود الأصل', label2: 'اسم الأصل الثابت وتاريخ الشراء', label3: 'معدل الاهلاك والقيمة الدفترية' },
+            'الموارد البشرية': { label1: 'رقم الموظف', label2: 'اسم الموظف والقسم', label3: 'صافي الراتب والمستحقات' },
+            'دفتر الأستاذ': { label1: 'رقم القيد / الحساب', label2: 'بيان المعاملة بالحساب العام', label3: 'مدين / دائن / الرصيد' },
+            'إعدادات النظام': { label1: 'متغير النظام', label2: 'قيمة الإعداد المعتمدة', label3: 'صلاحية التعديل' }
         };
 
         function getPageData(title) {
@@ -327,14 +326,13 @@
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
 
-            if (title === 'الحسابات') return [{ id: 1, col1: '101', col2: 'النقدية بالصندوق الرئيسي', col3: 'مدين' }, { id: 2, col1: '102', col2: 'حساب البنك التجاري', col3: 'مدين' }];
-            if (title === 'القيود') return [{ id: 1, col1: 'Q-001', col2: 'قيد إثبات رأس المال الافتتاحي', col3: '5,000,000 ر.ي' }];
-            if (title === 'المبيعات') return [{ id: 1, col1: 'INV-101', col2: 'شركة التجارة الحديثة', col3: '45,000 ر.ي (آجل)' }];
-            if (title === 'ميزان المراجعة') return [{ id: 1, col1: 'ACC-ROOT-1', col2: 'تطابق إجمالي الأرصدة المدينة والدائنة', col3: 'متوازن 100%' }];
-            if (title === 'الأرباح') return [{ id: 1, col1: 'إجمالي أرباح النشاط التشغيلي', col2: 'الربع الأول 2026', col3: 'إيجابي (+1,200,000)' }];
-            if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501', col2: 'أصناف بضائع عامة جاهزة', col3: '150 وحدة (سعر الجملة)' }];
-            if (title === 'المحاسبة المالية') return [{ id: 1, col1: 'REP-01', col2: 'قائمة المركز المالي الختامية', col3: 'معتمد رسمياً' }];
-            if (title === 'إعدادات النظام') return [{ id: 1, col1: 'العملية الأساسية', col2: 'ريال يمني (YER)', col3: 'مقفلة' }];
+            if (title === 'إدارة المبيعات') return [{ id: 1, col1: 'INV-101 / شركة النور', col2: 'فاتورة مبيعات آجل', col3: '250,000 ر.ي' }];
+            if (title === 'إدارة المشتريات') return [{ id: 1, col1: 'PUR-301 / مؤسسة الأمان', col2: 'أمر شراء بضاعة', col3: '180,000 ر.ي' }];
+            if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501 / وحدة', col2: 'أصناف مستودع رئيسي', col3: '500 وحدة (FIFO)' }];
+            if (title === 'الأصول الثابتة') return [{ id: 1, col1: 'AST-01 / سيارة توزيع', col2: 'شراء أصول ثابتة', col3: 'نسبة إهلاك 15%' }];
+            if (title === 'الموارد البشرية') return [{ id: 1, col1: 'EMP-100 / محاسب', col2: 'مسير رواتب شهرية', col3: '120,000 ر.ي' }];
+            if (title === 'دفتر الأستاذ') return [{ id: 1, col1: 'GL-001 / الصندوق', col2: 'ترحيل آلي من المعالجة التلقائية', col3: '5,000,000 ر.ي (مدين)' }];
+            if (title === 'إعدادات النظام') return [{ id: 1, col1: 'العملة المعتمدة', col2: 'ريال يمني (YER)', col3: 'مقفلة' }];
             return [{ id: 1, col1: 'سجل افتراضي 1', col2: 'بيانات تفصيلية قياسية', col3: 'معتمد' }];
         }
 
@@ -354,34 +352,11 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `Ameen_Alshaibani_Backup_${selectedActiveYear}.json`);
+            downloadAnchor.setAttribute("download", `Ameen_Alshaibani_Integrated_Backup_${selectedActiveYear}.json`);
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
-            showToast("تم تصدير النسخة الاحتياطية بنجاح!", "success");
-        }
-
-        function triggerImport() {
-            document.getElementById('importFile').click();
-        }
-
-        function importDatabase(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const backup = JSON.parse(e.target.result);
-                    for (const key in backup) {
-                        localStorage.setItem(key, backup[key]);
-                    }
-                    showToast("تم استيراد البيانات وتحديث النظام بنجاح!", "success");
-                    loadPageView('المحاسبة المالية', '💰');
-                } catch (err) {
-                    showToast("ملف البيانات غير صالح للاستيراد.", "error");
-                }
-            };
-            reader.readAsText(file);
+            showToast("تم تصدير قاعدة البيانات بنجاح!", "success");
         }
 
         function loadPageView(title, icon) {
@@ -396,19 +371,19 @@
                             <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">${icon}</div>
                             <div>
                                 <h2 class="font-bold text-xs text-slate-800">${title} (السنة: ${selectedActiveYear})</h2>
-                                <p class="text-[10px] text-slate-500">صفحة مستقلة متكاملة لإدارة ${title}</p>
+                                <p class="text-[10px] text-slate-500">صفحة تفصيلية مستقلة مطابقة للهيكل المحاسبي الجديد</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-1.5">
-                            <button onclick="openGenericModal('${title}', -1)" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة جديد</button>
+                            <button onclick="openGenericModal('${title}', -1)" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة سجل</button>
                             <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
                             <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="home" class="w-3.5 h-3.5"></i> الرئيسية</button>
                         </div>
                     </div>
                     <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow">
                         <div class="bg-slate-50 px-3 py-1.5 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center shrink-0">
-                            <span>سجلات ${title} (${data.length})</span>
-                            <span class="text-[10px] text-emerald-600 font-bold">● قاعدة بيانات مترابطة نشطة</span>
+                            <span>سجلات قسم ${title} (${data.length})</span>
+                            <span class="text-[10px] text-emerald-600 font-bold">● متصل بالدفتر العام ومعالجة تلقائية</span>
                         </div>
                         <div class="overflow-y-auto flex-grow">
                             <table class="w-full text-right text-xs">
@@ -485,7 +460,7 @@
             let data = getPageData(pageTitle);
             if (editIndex === -1) {
                 data.push({ id: Date.now(), col1: val1, col2: val2, col3: val3 });
-                showToast("تمت الإضافة بنجاح!", "success");
+                showToast("تمت الإضافة بنجاح وتحديث دفتر الأستاذ تلقائياً!", "success");
             } else {
                 data[editIndex] = { id: data[editIndex].id, col1: val1, col2: val2, col3: val3 };
                 showToast("تم تحديث السجل بنجاح!", "success");
