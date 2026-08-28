@@ -118,7 +118,7 @@
                 <div class="flex items-center gap-3 shrink-0">
                     <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-accentBlue text-white font-black text-xs shadow">AS</span>
                     <span id="headerYearDisplay" class="bg-slate-800 text-blue-300 px-2.5 py-1 rounded-lg text-xs font-mono font-bold border border-slate-700">السنة: 2026</span>
-                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | الخطوة 5: الأصول الثابتة والإهلاك</h1>
+                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | الخطوة 6: الموارد البشرية والرواتب</h1>
                 </div>
 
                 <div class="flex items-center gap-1.5 shrink-0 text-xs font-medium">
@@ -128,7 +128,7 @@
                 </div>
             </div>
 
-            <!-- شريط الأزرار الفرعية للخريطة المحاسبية الجديدة -->
+            <!-- شريط الأزرار الفرعية للخريطة المحاسبية المحدثة -->
             <div class="bg-slate-900 border-t border-slate-800 px-2 py-1.5 flex items-center justify-center gap-1.5 flex-wrap">
                 <button onclick="loadPageView('إدارة المبيعات', '🛒')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
                     <span>🛒</span><span>المبيعات والعملاء</span>
@@ -139,10 +139,10 @@
                 <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
                     <span>📦</span><span>المخزون والمستودعات</span>
                 </button>
-                <button onclick="loadPageView('الأصول الثابتة', '🏢')" class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer shadow">
+                <button onclick="loadPageView('الأصول الثابتة', '🏢')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
                     <span>🏢</span><span>الأصول الثابتة</span>
                 </button>
-                <button onclick="loadPageView('الموارد البشرية', '👥')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
+                <button onclick="loadPageView('الموارد البشرية', '👥')" class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer shadow">
                     <span>👥</span><span>الموارد البشرية والرواتب</span>
                 </button>
                 <button onclick="loadPageView('دفتر الأستاذ', '📚')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
@@ -161,9 +161,9 @@
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[11px]">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold tracking-wide">الخطوة 5: تفعيل أقسام الأصول الثابتة وإهلاكها بالكامل</span>
+                <span class="font-bold tracking-wide">الخطوة 6: إدارة الموارد البشرية والرواتب والربط التلقائي بالدفتر العام</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v5.0</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v6.0</div>
         </footer>
     </div>
 
@@ -268,7 +268,7 @@
         function enterSystemWithYear() {
             document.getElementById('headerYearDisplay').innerText = `السنة: ${selectedActiveYear}`;
             showToast(`تم التفعيل للسنة المالية: ${selectedActiveYear}`, "success");
-            loadPageView('الأصول الثابتة', '🏢');
+            loadPageView('الموارد البشرية', '👥');
         }
 
         function loadHomeView() {
@@ -299,7 +299,7 @@
                             <p class="text-[11px] text-slate-500">نظام الهيكل المحاسبي والمالي المطور</p>
                         </div>
                         <div class="pt-2 border-t border-slate-100">
-                            <p class="text-[11px] font-bold text-accentBlue">الخطوة 5: الأصول الثابتة وحساب الإهلاك</p>
+                            <p class="text-[11px] font-bold text-accentBlue">الخطوة 6: الموارد البشرية والرواتب</p>
                         </div>
                     </div>
                 </div>
@@ -308,6 +308,12 @@
         }
 
         const pageConfigs = {
+            'الموارد البشرية': { label1: 'رقم الموظف الوظيفي', label2: 'اسم الموظف والقسم', label3: 'الراتب الأساسي' },
+            'ملف الموظفين': { label1: 'كود الموظف والعقد', label2: 'المسمى الوظيفي والقسم', label3: 'تاريخ الالتحاق والحالة' },
+            'مسير الرواتب': { label1: 'رقم المسير الشهرى', label2: 'إجمالي البدلات والخصومات', label3: 'صافي الراتب المستحق' },
+            'السلف والقروض': { label1: 'رقم سلف / قرض الموظف', label2: 'قيمة القسط الشهري', label3: 'المبلغ المتبقي' },
+            'حضور والانصراف': { label1: 'كود وتاريخ الحضور', label2: 'حالة الدوام (حضور/غیاب)', label3: 'ساعات العمل الإضافي' },
+
             'الأصول الثابتة': { label1: 'كود ورقم الأصل الثابت', label2: 'اسم الأصل وتاريخ الشراء', label3: 'التكلفة الإجمالية' },
             'سجل الأصول': { label1: 'رقم التعريف بالأصل', label2: 'التصنيف وفئة الأصل', label3: 'حالة الاستخدام' },
             'حساب الإهلاك': { label1: 'رقم الأصل الثابت', label2: 'نسبة الإهلاك السنوي (%)', label3: 'مجمع الإهلاك والقيمة الدفترية' },
@@ -316,7 +322,6 @@
             'إدارة المبيعات': { label1: 'رقم الفاتورة / العميل', label2: 'نوع المعاملة (نقدي/آجل)', label3: 'المبلغ الإجمالي' },
             'إدارة المشتريات': { label1: 'رقم أمر الشراء / المورد', label2: 'نوع المشتريات والبنود', label3: 'إجمالي التكلفة' },
             'إدارة المخزون': { label1: 'كود الصنف / الوحدة', label2: 'اسم المادة المخزنية والمستودع', label3: 'الكمية وسعر التكلفة' },
-            'الموارد البشرية': { label1: 'رقم الموظف', label2: 'اسم الموظف والقسم', label3: 'صافي الراتب والمستحقات' },
             'دفتر الأستاذ': { label1: 'رقم القيد / الحساب', label2: 'بيان المعاملة بالحساب العام', label3: 'مدين / دائن / الرصيد' },
             'إعدادات النظام': { label1: 'متغير النظام', label2: 'قيمة الإعداد المعتمدة', label3: 'صلاحية التعديل' }
         };
@@ -326,6 +331,11 @@
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
 
+            if (title === 'الموارد البشرية' || title === 'ملف الموظفين') return [{ id: 1, col1: 'EMP-101 / عقد دائم', col2: 'أمين الشيباني - قسم الحسابات', col3: '150,000 ر.ي' }];
+            if (title === 'مسير الرواتب') return [{ id: 1, col1: 'PAY-2026-08', col2: 'بدلات معتمدة (تأمين طبي)', col3: '145,000 ر.ي (صافي)' }];
+            if (title === 'السلف والقروض') return [{ id: 1, col1: 'ADV-501 / سلف طارئة', col2: 'قسط شهري: 20,000 ر.ي', col3: 'متبقي: 60,000 ر.ي' }];
+            if (title === 'حضور والانصراف') return [{ id: 1, col1: 'ATT-01 / 2026-08-28', col2: 'انتظام كامل (حضور)', col3: 'ساعات إضافية: 2 ساعة' }];
+
             if (title === 'الأصول الثابتة') return [{ id: 1, col1: 'AST-101 / سيارة نقل', col2: 'سيارة تويوتا هايلوكس - 2024', col3: '12,000,000 ر.ي' }];
             if (title === 'سجل الأصول') return [{ id: 1, col1: 'REG-01', col2: 'أجهزة مكتبية وحواسيب', col3: 'نشط ويعمل' }];
             if (title === 'حساب الإهلاك') return [{ id: 1, col1: 'AST-101', col2: 'نسبة إهلاك 15% سنوياً', col3: 'المجمع: 1,800,000 ر.ي' }];
@@ -334,8 +344,7 @@
             if (title === 'إدارة المبيعات') return [{ id: 1, col1: 'INV-101 / شركة النور', col2: 'فاتورة مبيعات آجل', col3: '250,000 ر.ي' }];
             if (title === 'إدارة المشتريات') return [{ id: 1, col1: 'PUR-301 / مؤسسة الأمان', col2: 'أمر شراء بضاعة عامة', col3: '180,000 ر.ي' }];
             if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501 / وحدة', col2: 'أصناف المستودع الرئيسي - إب', col3: '500 وحدة (FIFO)' }];
-            if (title === 'الموارد البشرية') return [{ id: 1, col1: 'EMP-100 / محاسب', col2: 'مسير رواتب شهرية', col3: '120,000 ر.ي' }];
-            if (title === 'دفتر الأستاذ') return [{ id: 1, col1: 'GL-001 / الصندوق', col2: 'ترحيل آلي من المعالجة التلقائية', col3: '5,000,000 ر.ي (مدين)' }];
+            if (title === 'دفتر الأستاذ') return [{ id: 1, col1: 'GL-001 / الرواتب والأجور', col2: 'ترحيل آلي لمسير رواتب شهر أغسطس', col3: '145,000 ر.ي (دائن)' }];
             if (title === 'إعدادات النظام') return [{ id: 1, col1: 'العملة المعتمدة', label2: 'ريال يمني (YER)', col3: 'مقفلة' }];
             return [{ id: 1, col1: 'سجل افتراضي 1', col2: 'بيانات تفصيلية قياسية', col3: 'معتمد' }];
         }
@@ -369,7 +378,18 @@
             let config = pageConfigs[title] || { label1: 'الحقل الأول', label2: 'الحقل الثاني', label3: 'الحقل الثالث' };
 
             let subButtonsHTML = '';
-            if (title === 'الأصول الثابتة' || title === 'سجل الأصول' || title === 'حساب الإهلاك' || title === 'أستاذ الأصول') {
+            if (['الموارد البشرية', 'ملف الموظفين', 'مسير الرواتب', 'السلف والقروض', 'حضور والانصراف'].includes(title)) {
+                subButtonsHTML = `
+                    <div class="flex items-center gap-1.5 flex-wrap bg-slate-50 p-2 rounded-xl border border-slate-200 shrink-0">
+                        <span class="text-[11px] font-bold text-slate-700 ml-1">أقسام الموارد البشرية:</span>
+                        <button onclick="loadPageView('الموارد البشرية', '👥')" class="px-2 py-1 ${title==='الموارد البشرية'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">الرئيسية</button>
+                        <button onclick="loadPageView('ملف الموظفين', '📇')" class="px-2 py-1 ${title==='ملف الموظفين'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">ملف الموظفين</button>
+                        <button onclick="loadPageView('مسير الرواتب', '💰')" class="px-2 py-1 ${title==='مسير الرواتب'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">مسير الرواتب</button>
+                        <button onclick="loadPageView('السلف والقروض', '💳')" class="px-2 py-1 ${title==='السلف والقروض'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">السلف والقروض</button>
+                        <button onclick="loadPageView('حضور والانصراف', '⏱️')" class="px-2 py-1 ${title==='حضور والانصراف'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">حضور وانصراف</button>
+                    </div>
+                `;
+            } else if (['الأصول الثابتة', 'سجل الأصول', 'حساب الإهلاك', 'أستاذ الأصول'].includes(title)) {
                 subButtonsHTML = `
                     <div class="flex items-center gap-1.5 flex-wrap bg-slate-50 p-2 rounded-xl border border-slate-200 shrink-0">
                         <span class="text-[11px] font-bold text-slate-700 ml-1">أقسام الأصول الثابتة:</span>
