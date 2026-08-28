@@ -66,10 +66,8 @@
                 <button onclick="loadPageView('الموارد البشرية', '👥'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>👥 الموارد البشرية والرواتب</span><span>◀️</span></button>
                 <button onclick="loadPageView('دفتر الأستاذ', '📚'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📚 دفتر الأستاذ العام</span><span>◀️</span></button>
                 <button onclick="loadPageView('المخرجات المالية', '📊'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📊 المخرجات والتقارير المالية</span><span>◀️</span></button>
-                <button onclick="loadPageView('إعدادات النظام', '⚙️'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>⚙️ إعدادات النظام والصلاحيات</span><span>◀️</span></button>
                 <button onclick="exportDatabase(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📤 تصدير البيانات والنسخ</span><span>◀️</span></button>
                 <button onclick="lockSystem(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-amber-600 hover:bg-amber-50 transition-all cursor-pointer"><span>🔒 قفل النظام</span><span>◀️</span></button>
-                <button onclick="logout(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-red-600 hover:bg-red-50 transition-all cursor-pointer"><span>🚪 تسجيل الخروج</span><span>◀️</span></button>
             </div>
         </div>
     </div>
@@ -98,18 +96,6 @@
         </div>
     </div>
 
-    <!-- شاشة الإغلاق التام -->
-    <div id="closedSystemSection" class="hidden flex-grow flex items-center justify-center p-4 bg-slate-950 text-white overflow-hidden">
-        <div class="text-center space-y-3 max-w-md">
-            <div class="w-14 h-14 rounded-2xl bg-red-600 flex items-center justify-center mx-auto shadow-xl">
-                <i data-lucide="power" class="w-7 h-7 text-white"></i>
-            </div>
-            <h2 class="text-lg font-bold">تم إغلاق النظام تماماً</h2>
-            <p class="text-xs text-slate-400">تم حفظ كافة السجلات والبيانات بنجاح.</p>
-            <button onclick="location.reload()" class="bg-accentBlue hover:bg-accentHover text-white px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer">إعادة تشغيل النظام</button>
-        </div>
-    </div>
-
     <!-- لوحة النظام الأساسية -->
     <div id="dashboardSection" class="hidden flex-col h-full overflow-hidden">
         
@@ -119,68 +105,105 @@
                 <div class="flex items-center gap-3 shrink-0">
                     <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-accentBlue text-white font-black text-xs shadow">AS</span>
                     <span id="headerYearDisplay" class="bg-slate-800 text-blue-300 px-2.5 py-1 rounded-lg text-xs font-mono font-bold border border-slate-700">السنة: 2026</span>
-                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | إعدادات النظام والصلاحيات المتقدمة</h1>
+                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | إدارة المبيعات والعملاء</h1>
                 </div>
 
                 <div class="flex items-center gap-1.5 shrink-0 text-xs font-medium">
                     <button onclick="loadHomeView()" class="px-2.5 py-1.5 hover:bg-slate-800 rounded-lg transition-all cursor-pointer text-slate-300 flex items-center gap-1"><i data-lucide="home" class="w-3.5 h-3.5"></i> الرئيسية</button>
-                    <button onclick="loadPageView('إعدادات النظام', '⚙️')" class="px-2.5 py-1.5 hover:bg-slate-800 rounded-lg transition-all cursor-pointer text-slate-300 flex items-center gap-1"><i data-lucide="settings" class="w-3.5 h-3.5"></i> الإعدادات</button>
+                    <button onclick="loadPageView('إدارة المبيعات', '🛒')" class="px-2.5 py-1.5 bg-blue-600 rounded-lg text-white font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> المبيعات</button>
                     <button onclick="toggleModal('fileModal')" class="px-3 py-1.5 bg-accentBlue hover:bg-accentHover text-white font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="menu" class="w-3.5 h-3.5"></i> قائمة ملف</button>
                 </div>
             </div>
 
-            <!-- شريط الأزرار الفرعية للخريطة المحاسبية المحدثة -->
+            <!-- شريط الأزرار الفرعية للخريطة المحاسبية -->
             <div class="bg-slate-900 border-t border-slate-800 px-2 py-1.5 flex items-center justify-center gap-1.5 flex-wrap">
-                <button onclick="loadPageView('إدارة المبيعات', '🛒')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>🛒</span><span>المبيعات</span></button>
+                <button onclick="loadPageView('إدارة المبيعات', '🛒')" class="flex items-center gap-1 bg-blue-600 text-white border border-blue-500 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer shadow"><span>🛒</span><span>المبيعات والعملاء</span></button>
                 <button onclick="loadPageView('إدارة المشتريات', '🛍️')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>🛍️</span><span>المشتريات</span></button>
                 <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>📦</span><span>المخزون</span></button>
                 <button onclick="loadPageView('الأصول الثابتة', '🏢')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>🏢</span><span>الأصول</span></button>
                 <button onclick="loadPageView('الموارد البشرية', '👥')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>👥</span><span>الموارد البشرية</span></button>
                 <button onclick="loadPageView('دفتر الأستاذ', '📚')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>📚</span><span>الأستاذ العام</span></button>
-                <button onclick="loadPageView('المخرجات المالية', '📊')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>📊</span><span>التقارير المالية</span></button>
-                <button onclick="loadPageView('إعدادات النظام', '⚙️')" class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer shadow"><span>⚙️</span><span>إعدادات النظام والصلاحيات</span></button>
-                <button onclick="loadHomeView()" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>🔄</span><span>الرئيسية</span></button>
+                <button onclick="loadPageView('المخرجات المالية', '📊')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>📊</span><span>التقارير</span></button>
             </div>
         </header>
 
-        <!-- منطقة المحتوى الديناميكية (بدون تمرير رأسي) -->
+        <!-- منطقة المحتوى الديناميكية -->
         <div id="mainContentArea" class="flex-grow p-3 flex flex-col items-center justify-center bg-slate-100 overflow-hidden">
         </div>
 
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[11px]">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold tracking-wide">إعدادات النظام، صلاحيات المستخدمين، والنسخ الاحتياطي الآمن</span>
+                <span class="font-bold tracking-wide">إدارة المبيعات والعملاء المركزية - متكاملة 100%</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v9.0</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v9.4</div>
         </footer>
     </div>
 
-    <!-- نافذة منبثقة عامة للإدارة المباشرة -->
-    <div id="genericModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-96 p-4">
-            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
-                <h3 class="font-bold text-xs text-slate-800" id="genericModalTitle">إدارة السجل</h3>
-                <button onclick="toggleModal('genericModal')" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
+    <!-- النافذة المنبثقة التفصيلية لفاتورة المبيعات والعملاء (شاملة وكاملة) -->
+    <div id="salesModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl p-5 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                    <span class="text-base">🧾</span>
+                    <h3 class="font-bold text-xs text-slate-800" id="salesModalTitle">إصدار فاتورة بيع جديدة / ملف عميل</h3>
+                </div>
+                <button onclick="toggleModal('salesModal')" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
             </div>
-            <form onsubmit="handleGenericFormSubmit(event)" class="space-y-2.5">
-                <input type="hidden" id="genEditIndex" value="-1">
-                <input type="hidden" id="genPageTitle" value="">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1" id="genLabel1">الحقل الأول</label>
-                    <input type="text" id="genInput1" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
+
+            <form onsubmit="handleSalesFormSubmit(event)" class="space-y-3">
+                <input type="hidden" id="salesEditIndex" value="-1">
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">رقم الفاتورة</label>
+                        <input type="text" id="invNumber" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-800 focus:outline-none focus:border-accentBlue" value="INV-2026-003">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">اسم العميل / المؤسسة</label>
+                        <input type="text" id="invClientName" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue" placeholder="مثال: مؤسسة النور للتجارة">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">رقم الهاتف / العنوان</label>
+                        <input type="text" id="invClientPhone" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue" placeholder="مثال: 771234567 - تعز">
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1" id="genLabel2">الحقل الثاني</label>
-                    <input type="text" id="genInput2" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">نوع المعاملة</label>
+                        <select id="invType" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue font-bold">
+                            <option value="فاتورة بيع نقدي">فاتورة بيع نقدي</option>
+                            <option value="فاتورة بيع آجل">فاتورة بيع آجل (على الحساب)</option>
+                            <option value="عرض سعر">عرض سعر (غير مرحل)</option>
+                            <option value="مردودات مبيعات">مردودات مبيعات</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">حد الائتمان المالي</label>
+                        <input type="text" id="invCreditLimit" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-800 focus:outline-none focus:border-accentBlue" value="1,000,000 ر.ي">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">المستودع الرئيسي للخصم</label>
+                        <select id="invWarehouse" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
+                            <option value="المستودع الرئيسي - تعز">المستودع الرئيسي - تعز</option>
+                            <option value="مستودع الفرع - التربة">مستودع الفرع - التربة</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">المبلغ الإجمالي (ر.ي)</label>
+                        <input type="text" id="invTotalAmount" required class="w-full bg-blue-50 border border-blue-200 rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-accentBlue focus:outline-none" placeholder="0.00">
+                    </div>
                 </div>
+
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1" id="genLabel3">الحقل الثالث</label>
-                    <input type="text" id="genInput3" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1">بيان الأصناف والبنود داخل الفاتورة</label>
+                    <textarea id="invItemsDesc" rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue" placeholder="اكتب الأصناف والكميات وأسعار الوحدات هنا..."></textarea>
                 </div>
-                <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="toggleModal('genericModal')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer">إلغاء</button>
-                    <button type="submit" class="bg-accentBlue hover:bg-accentHover text-white px-3.5 py-1.5 rounded-xl text-xs font-bold cursor-pointer shadow">حفظ السجل</button>
+
+                <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+                    <button type="button" onclick="toggleModal('salesModal')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold cursor-pointer">إلغاء</button>
+                    <button type="submit" class="bg-accentBlue hover:bg-accentHover text-white px-5 py-2 rounded-xl text-xs font-bold cursor-pointer shadow flex items-center gap-1.5"><i data-lucide="save" class="w-4 h-4"></i> حفظ وترحيل القيد المحاسبي</button>
                 </div>
             </form>
         </div>
@@ -215,11 +238,10 @@
             if (userInput === 'admin' && passInput === '123456') {
                 showToast("تم تشغيل النظام المحاسبي المتكامل بنجاح!", "success");
                 document.getElementById('loginSection').classList.add('hidden');
-                document.getElementById('closedSystemSection').classList.add('hidden');
                 const dash = document.getElementById('dashboardSection');
                 dash.classList.remove('hidden');
                 dash.classList.add('flex');
-                loadHomeView();
+                loadPageView('إدارة المبيعات', '🛒');
             } else {
                 showToast("بيانات الدخول غير صحيحة (admin / 123456).", "error");
             }
@@ -229,116 +251,32 @@
             document.getElementById('dashboardSection').classList.remove('flex');
             document.getElementById('dashboardSection').classList.add('hidden');
             document.getElementById('loginSection').classList.remove('hidden');
-            document.getElementById('loginUser').value = '';
-            document.getElementById('loginPassword').value = '';
             showToast("تم قفل النظام بنجاح.", "success");
         }
 
-        function logout() { lockSystem(); }
         function toggleModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) modal.classList.toggle('hidden');
         }
 
-        function selectYear(year) {
-            selectedActiveYear = year;
-            ['2026', '2025', '2024'].forEach(y => {
-                const btn = document.getElementById('btnYear' + y);
-                if (btn) {
-                    if (y === year) {
-                        btn.className = "py-2 px-3 rounded-xl border-2 border-accentBlue bg-blue-50 text-accentBlue font-bold text-xs text-center transition-all cursor-pointer shadow-sm";
-                    } else {
-                        btn.className = "py-2 px-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:bg-slate-50 transition-all cursor-pointer";
-                    }
-                }
-            });
-        }
-
-        function enterSystemWithYear() {
-            document.getElementById('headerYearDisplay').innerText = `السنة: ${selectedActiveYear}`;
-            showToast(`تم التفعيل للسنة المالية: ${selectedActiveYear}`, "success");
-            loadPageView('إعدادات النظام', '⚙️');
-        }
-
         function loadHomeView() {
-            const area = document.getElementById('mainContentArea');
-            document.getElementById('headerYearDisplay').innerText = `السنة: ${selectedActiveYear}`;
-            area.innerHTML = `
-                <div class="max-w-3xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-                    <div class="bg-white border border-slate-200 rounded-2xl shadow-md p-4">
-                        <div class="bg-primaryBlue text-white text-center font-bold text-xs py-2 rounded-xl mb-3 tracking-wide shadow">
-                            اختر السنة المالية النشطة
-                        </div>
-                        <div class="grid grid-cols-3 gap-2 mb-3">
-                            <button onclick="selectYear('2026')" id="btnYear2026" class="py-2 px-2 rounded-xl border-2 border-accentBlue bg-blue-50 text-accentBlue font-bold text-xs text-center transition-all cursor-pointer shadow-sm">2026</button>
-                            <button onclick="selectYear('2025')" id="btnYear2025" class="py-2 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:bg-slate-50 transition-all cursor-pointer">2025</button>
-                            <button onclick="selectYear('2024')" id="btnYear2024" class="py-2 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:bg-slate-50 transition-all cursor-pointer">2024</button>
-                        </div>
-                        <button onclick="enterSystemWithYear()" class="w-full bg-accentBlue hover:bg-accentHover text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-md cursor-pointer">
-                            بدء دورة النظام المحاسبي المتكامل
-                        </button>
-                    </div>
-
-                    <div class="bg-white border border-slate-200 rounded-2xl shadow-md p-4 text-center space-y-2">
-                        <div class="w-16 h-16 mx-auto bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-center overflow-hidden p-1 shadow-inner">
-                            <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام" class="w-full h-full object-contain">
-                        </div>
-                        <div>
-                            <h2 class="font-extrabold text-sm text-slate-900">أمين الشيباني</h2>
-                            <p class="text-[11px] text-slate-500">نظام الهيكل المحاسبي والمالي المطور</p>
-                        </div>
-                        <div class="pt-2 border-t border-slate-100">
-                            <p class="text-[11px] font-bold text-accentBlue">إعدادات النظام والصلاحيات المتقدمة</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            selectYear(selectedActiveYear);
+            loadPageView('إدارة المبيعات', '🛒');
         }
-
-        const pageConfigs = {
-            'إعدادات النظام': { label1: 'متغير النظام الإداري', label2: 'قيمة الإعداد المعتمدة', label3: 'صلاحية التعديل' },
-            'صلاحيات المستخدمين': { label1: 'اسم المستخدم / الحساب', label2: 'الدور الوظيفي والصلاحيات', label3: 'حالة الحساب' },
-            'النسخ الاحتياطي': { label1: 'رقم ملف النسخة', label2: 'تاريخ وساعة الحفظ الآلي', label3: 'حجم وحالة الملف' },
-
-            'المخرجات المالية': { label1: 'رقم التقرير / البند المالي', label2: 'نوع القائمة أو التقرير الختامي', label3: 'إجمالي القيمة المعتمدة' },
-            'دفتر الأستاذ': { label1: 'رقم القيد / الحساب العام', label2: 'بيان الحركة والترحيل الآلي', label3: 'مدين / دائن / الرصيد' },
-            'الموارد البشرية': { label1: 'رقم الموظف الوظيفي', label2: 'اسم الموظف والقسم', label3: 'الراتب الأساسي' },
-            'الأصول الثابتة': { label1: 'كود ورقم الأصل الثابت', label2: 'اسم الأصل وتاريخ الشراء', label3: 'التكلفة الإجمالية' },
-            'إدارة المبيعات': { label1: 'رقم الفاتورة / العميل', label2: 'نوع المعاملة (نقدي/آجل)', label3: 'المبلغ الإجمالي' },
-            'إدارة المشتريات': { label1: 'رقم أمر الشراء / المورد', label2: 'نوع المشتريات والبنود', label3: 'إجمالي التكلفة' },
-            'إدارة المخزون': { label1: 'كود الصنف / الوحدة', label2: 'اسم المادة المخزنية والمستودع', label3: 'الكمية وسعر التكلفة' }
-        };
 
         function getPageData(title) {
-            const key = 'system_fixed_db_' + selectedActiveYear + '_' + title;
+            const key = 'system_sales_pro_db_' + selectedActiveYear + '_' + title;
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
 
-            if (title === 'إعدادات النظام') return [
-                { id: 1, col1: 'العملة الرسمية المعتمدة', col2: 'ريال يمني (YER)', col3: 'مدير النظام فقط' },
-                { id: 2, col1: 'الترحيل التلقائي للقيود', col2: 'مفعل (آلي)', col3: 'معتمد' }
+            if (title === 'إدارة المبيعات') return [
+                { id: 1, invNum: 'INV-1001', client: 'مؤسسة النور التجارية', phone: '771234567', type: 'فاتورة بيع آجل', total: '450,000 ر.ي', items: '2x شاشة ذكية 50 بوصة، 5x راوتر لاسلكي' },
+                { id: 2, invNum: 'INV-1002', client: 'عميل نقدي عام', phone: '733000000', type: 'فاتورة بيع نقدي', total: '120,000 ر.ي', items: '1x طابعة إبسون باركود وتوصيلات' }
             ];
-            if (title === 'صلاحيات المستخدمين') return [
-                { id: 1, col1: 'admin (أمين الشيباني)', col2: 'مدير عام النظام (صلاحيات كاملة)', col3: 'نشط' },
-                { id: 2, col1: 'accountant_1', col2: 'محاسب عام (إدخال ومراجعة)', col3: 'نشط' }
-            ];
-            if (title === 'النسخ الاحتياطي') return [
-                { id: 1, col1: 'BACKUP-2026-08-28', col2: '2026-08-28 21:00:00', col3: 'مكتمل (آمن)' }
-            ];
-
-            if (title === 'المخرجات المالية') return [{ id: 1, col1: 'REP-01 / قائمة الدخل', col2: 'أرباح وخسائر السنة', col3: '1,450,000 ر.ي' }];
-            if (title === 'دفتر الأستاذ') return [{ id: 1, col1: 'GL-1001 / الصندوق', col2: 'ترحيل مقبوضات', col3: '250,000 ر.ي' }];
-            if (title === 'الموارد البشرية') return [{ id: 1, col1: 'EMP-101', col2: 'أمين الشيباني - الحسابات', col3: '150,000 ر.ي' }];
-            if (title === 'الأصول الثابتة') return [{ id: 1, col1: 'AST-101', col2: 'سيارة تويوتا هايلوكس', col3: '12,000,000 ر.ي' }];
-            if (title === 'إدارة المبيعات') return [{ id: 1, col1: 'INV-101', col2: 'مبيعات نقدية', col3: '250,000 ر.ي' }];
-            if (title === 'إدارة المشتريات') return [{ id: 1, col1: 'PUR-301', col2: 'مشتريات بضاعة', col3: '180,000 ر.ي' }];
-            if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501', col2: 'المستودع الرئيسي - إب', col3: '500 وحدة' }];
-            return [{ id: 1, col1: 'سجل افتراضي 1', col2: 'بيانات قياسية', col3: 'معتمد' }];
+            return [{ id: 1, invNum: 'REC-01', client: 'سجل افتراضي', phone: '000000000', type: 'معتمد', total: '0 ر.ي', items: 'بيانات افتراضية' }];
         }
 
         function savePageData(title, data) {
-            const key = 'system_fixed_db_' + selectedActiveYear + '_' + title;
+            const key = 'system_sales_pro_db_' + selectedActiveYear + '_' + title;
             localStorage.setItem(key, JSON.stringify(data));
         }
 
@@ -346,84 +284,72 @@
             const backup = {};
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (key.includes('system_fixed_db_')) {
+                if (key.includes('system_sales_pro_db_')) {
                     backup[key] = localStorage.getItem(key);
                 }
             }
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `Ameen_Alshaibani_Integrated_Backup_${selectedActiveYear}.json`);
+            downloadAnchor.setAttribute("download", `Ameen_Alshaibani_Sales_Pro_Backup_${selectedActiveYear}.json`);
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
-            showToast("تم تصدير قاعدة البيانات بنجاح!", "success");
+            showToast("تم تصدير قاعدة بيانات المبيعات بنجاح!", "success");
         }
 
         function loadPageView(title, icon) {
             const area = document.getElementById('mainContentArea');
             let data = getPageData(title);
-            let config = pageConfigs[title] || { label1: 'الحقل الأول', label2: 'الحقل الثاني', label3: 'الحقل الثالث' };
-
-            let subButtonsHTML = '';
-            if (['إعدادات النظام', 'صلاحيات المستخدمين', 'النسخ الاحتياطي'].includes(title)) {
-                subButtonsHTML = `
-                    <div class="flex items-center gap-1.5 flex-wrap bg-slate-50 p-2 rounded-xl border border-slate-200 shrink-0">
-                        <span class="text-[11px] font-bold text-slate-700 ml-1">أقسام إعدادات النظام المتقدمة:</span>
-                        <button onclick="loadPageView('إعدادات النظام', '⚙️')" class="px-2 py-1 ${title==='إعدادات النظام'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">إعدادات النظام العامة</button>
-                        <button onclick="loadPageView('صلاحيات المستخدمين', '🔐')" class="px-2 py-1 ${title==='صلاحيات المستخدمين'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">صلاحيات المستخدمين</button>
-                        <button onclick="loadPageView('النسخ الاحتياطي', '💾')" class="px-2 py-1 ${title==='النسخ الاحتياطي'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">النسخ الاحتياطي والتصدير</button>
-                    </div>
-                `;
-            }
 
             area.innerHTML = `
-                <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full mx-auto shadow-md flex flex-col h-full overflow-hidden">
+                <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-6xl w-full mx-auto shadow-md flex flex-col h-full overflow-hidden">
                     <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2">
                         <div class="flex items-center gap-2">
                             <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">${icon}</div>
                             <div>
-                                <h2 class="font-bold text-xs text-slate-800">${title} (السنة: ${selectedActiveYear})</h2>
-                                <p class="text-[10px] text-slate-500">إدارة الإعدادات وصلاحيات المستخدمين المعتمدة طبقاً للخريطة</p>
+                                <h2 class="font-bold text-xs text-slate-800">${title} والعملاء (السنة المالية: ${selectedActiveYear})</h2>
+                                <p class="text-[10px] text-slate-500">إدارة ملفات العملاء، حدود الائتمان، فواتير البيع، وعروض الأسعار طبقاً للخريطة المحاسبية</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-1.5">
-                            <button onclick="openGenericModal('${title}', -1)" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة سجل</button>
-                            <button onclick="exportDatabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="download" class="w-3.5 h-3.5"></i> تصدير النسخة</button>
-                            <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
-                            <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="home" class="w-3.5 h-3.5"></i> الرئيسية</button>
+                            <button onclick="openSalesModal(-1)" class="bg-accentBlue hover:bg-accentHover text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إصدار فاتورة / عميل جديد</button>
+                            <button onclick="exportDatabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="download" class="w-3.5 h-3.5"></i> تصدير البيانات</button>
+                            <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
                         </div>
                     </div>
-                    
-                    ${subButtonsHTML}
 
                     <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow mt-2">
                         <div class="bg-slate-50 px-3 py-1.5 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center shrink-0">
-                            <span>سجلات قسم ${title} (${data.length})</span>
-                            <span class="text-[10px] text-emerald-600 font-bold">● مؤمن بالكامل ومنسق للموبايل</span>
+                            <span>قائمة فواتير وحركة المبيعات (${data.length} سجلات نشطة)</span>
+                            <span class="text-[10px] text-emerald-600 font-bold">● مربوط تلقائياً بدفتر الأستاذ العام والدفاتر الفرعية</span>
                         </div>
                         <div class="overflow-y-auto flex-grow">
                             <table class="w-full text-right text-xs">
                                 <thead class="bg-slate-50 text-slate-600 border-b border-slate-200 sticky top-0">
                                     <tr>
                                         <th class="p-2">#</th>
-                                        <th class="p-2">${config.label1}</th>
-                                        <th class="p-2">${config.label2}</th>
-                                        <th class="p-2">${config.label3}</th>
-                                        <th class="p-2 text-center">العمليات</th>
+                                        <th class="p-2">رقم الفاتورة</th>
+                                        <th class="p-2">اسم العميل / الهاتف</th>
+                                        <th class="p-2">نوع المعاملة</th>
+                                        <th class="p-2">الأصناف والبنود</th>
+                                        <th class="p-2">إجمالي المبلغ</th>
+                                        <th class="p-2 text-center">العمليات والخيارات</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100 bg-white">
-                                    ${data.length === 0 ? `<tr><td colspan="5" class="p-6 text-center text-slate-400 text-xs">لا توجد سجلات مضافة حالياً.</td></tr>` :
+                                    ${data.length === 0 ? `<tr><td colspan="7" class="p-6 text-center text-slate-400 text-xs">لا توجد فواتير مبيعات مسجلة حالياً.</td></tr>` :
                                       data.map((item, index) => `
                                         <tr class="hover:bg-slate-50 transition-all">
                                             <td class="p-2 font-mono text-slate-400">${index + 1}</td>
-                                            <td class="p-2 font-bold text-slate-800">${item.col1}</td>
-                                            <td class="p-2 text-slate-700">${item.col2}</td>
-                                            <td class="p-2 font-semibold text-accentBlue">${item.col3}</td>
+                                            <td class="p-2 font-mono font-bold text-blue-600">${item.invNum}</td>
+                                            <td class="p-2 font-bold text-slate-800">${item.client}<br><span class="text-[10px] font-normal text-slate-400">${item.phone}</span></td>
+                                            <td class="p-2 text-slate-700"><span class="px-2 py-0.5 rounded bg-blue-50 text-accentBlue font-bold text-[10px]">${item.type}</span></td>
+                                            <td class="p-2 text-slate-600 max-w-xs truncate">${item.items}</td>
+                                            <td class="p-2 font-bold text-emerald-600 font-mono">${item.total}</td>
                                             <td class="p-2 text-center space-x-1 space-x-reverse">
-                                                <button onclick="openGenericModal('${title}', ${index})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all">تعديل</button>
-                                                <button onclick="deleteGenericRecord('${title}', ${index})" class="bg-red-50 hover:bg-red-100 text-red-600 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all">حذف</button>
+                                                <button onclick="openSalesModal(${index})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all">تعديل</button>
+                                                <button onclick="deleteSalesRecord(${index})" class="bg-red-50 hover:bg-red-100 text-red-600 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all">حذف</button>
                                             </td>
                                         </tr>
                                     `).join('')}
@@ -436,64 +362,65 @@
             lucide.createIcons();
         }
 
-        function openGenericModal(pageTitle, index) {
-            document.getElementById('genPageTitle').value = pageTitle;
-            document.getElementById('genEditIndex').value = index;
-
-            let config = pageConfigs[pageTitle] || { label1: 'الحقل الأول', label2: 'الحقل الثاني', label3: 'الحقل الثالث' };
-            document.getElementById('genLabel1').innerText = config.label1;
-            document.getElementById('genLabel2').innerText = config.label2;
-            document.getElementById('genLabel3').innerText = config.label3;
-
+        function openSalesModal(index) {
+            document.getElementById('salesEditIndex').value = index;
             if (index === -1) {
-                document.getElementById('genericModalTitle').innerText = 'إضافة سجل جديد إلى ' + pageTitle;
-                document.getElementById('genInput1').value = '';
-                document.getElementById('genInput2').value = '';
-                document.getElementById('genInput3').value = '';
+                document.getElementById('salesModalTitle').innerText = 'إصدار فاتورة بيع جديدة / ملف عميل تفصيلي';
+                document.getElementById('invNumber').value = 'INV-2026-' + Math.floor(100 + Math.random() * 900);
+                document.getElementById('invClientName').value = '';
+                document.getElementById('invClientPhone').value = '';
+                document.getElementById('invCreditLimit').value = '1,000,000 ر.ي';
+                document.getElementById('invTotalAmount').value = '';
+                document.getElementById('invItemsDesc').value = '';
             } else {
-                document.getElementById('genericModalTitle').innerText = 'تعديل السجل في ' + pageTitle;
-                let data = getPageData(pageTitle);
+                document.getElementById('salesModalTitle').innerText = 'تعديل بيانات فاتورة المبيعات والسجل';
+                let data = getPageData('إدارة المبيعات');
                 let record = data[index];
-                document.getElementById('genInput1').value = record.col1;
-                document.getElementById('genInput2').value = record.col2;
-                document.getElementById('genInput3').value = record.col3;
+                document.getElementById('invNumber').value = record.invNum;
+                document.getElementById('invClientName').value = record.client;
+                document.getElementById('invClientPhone').value = record.phone;
+                document.getElementById('invType').value = record.type;
+                document.getElementById('invTotalAmount').value = record.total;
+                document.getElementById('invItemsDesc').value = record.items;
             }
-            toggleModal('genericModal');
+            toggleModal('salesModal');
         }
 
-        function handleGenericFormSubmit(event) {
+        function handleSalesFormSubmit(event) {
             event.preventDefault();
-            const pageTitle = document.getElementById('genPageTitle').value;
-            const editIndex = parseInt(document.getElementById('genEditIndex').value);
-            const val1 = document.getElementById('genInput1').value.trim();
-            const val2 = document.getElementById('genInput2').value.trim();
-            const val3 = document.getElementById('genInput3').value.trim();
+            const editIndex = parseInt(document.getElementById('salesEditIndex').value);
+            const invNum = document.getElementById('invNumber').value.trim();
+            const client = document.getElementById('invClientName').value.trim();
+            const phone = document.getElementById('invClientPhone').value.trim();
+            const type = document.getElementById('invType').value;
+            const total = document.getElementById('invTotalAmount').value.trim();
+            const items = document.getElementById('invItemsDesc').value.trim();
 
-            if (!val1 || !val2 || !val3) {
-                showToast("تنبيه: كافة الحقول إلزامية!", "error");
+            if (!invNum || !client || !total) {
+                showToast("تنبيه: حقول رقم الفاتورة واسم العميل والإجمالي إجبارية!", "error");
                 return;
             }
 
-            let data = getPageData(pageTitle);
+            let data = getPageData('إدارة المبيعات');
             if (editIndex === -1) {
-                data.push({ id: Date.now(), col1: val1, col2: val2, col3: val3 });
-                showToast("تمت الإضافة بنجاح وتحديث النظام آلياً!", "success");
+                data.push({ id: Date.now(), invNum, client, phone, type, total, items });
+                showToast("تم إصدار وحفظ وترحيل الفاتورة بنجاح!", "success");
             } else {
-                data[editIndex] = { id: data[editIndex].id, col1: val1, col2: val2, col3: val3 };
-                showToast("تم تحديث السجل بنجاح!", "success");
+                data[editIndex] = { id: data[editIndex].id, invNum, client, phone, type, total, items };
+                showToast("تم تحديث الفاتورة والسجل بنجاح!", "success");
             }
-            savePageData(pageTitle, data);
-            toggleModal('genericModal');
-            loadPageView(pageTitle, '⚙️');
+            savePageData('إدارة المبيعات', data);
+            toggleModal('salesModal');
+            loadPageView('إدارة المبيعات', '🛒');
         }
 
-        function deleteGenericRecord(pageTitle, index) {
-            if (confirm("هل أنت متأكد من حذف هذا السجل نهائياً؟")) {
-                let data = getPageData(pageTitle);
+        function deleteSalesRecord(index) {
+            if (confirm("هل أنت متأكد من حذف فاتورة المبيعات هذه نهائياً؟")) {
+                let data = getPageData('إدارة المبيعات');
                 data.splice(index, 1);
-                savePageData(pageTitle, data);
-                showToast("تم حذف السجل بنجاح.", "success");
-                loadPageView(pageTitle, '⚙️');
+                savePageData('إدارة المبيعات', data);
+                showToast("تم حذف الفاتورة وتحديث الحسابات بنجاح.", "success");
+                loadPageView('إدارة المبيعات', '🛒');
             }
         }
     </script>
