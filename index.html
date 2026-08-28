@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>النظام المحاسبي الاحترافي | أمين الشيباني</title>
     
-    <!-- إعدادات التثبيت على شاشة الجوال (PWA) -->
+    <!-- إعدادات التثبيت على شاشة الجوال (PWA) مع أيقونة مضمنة -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" href="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg">
     <link rel="icon" type="image/jpeg" href="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg">
 
-    <!-- ملف manifest ديناميكي للتثبيت بأيقونة حقيقية -->
+    <!-- ملف manifest ديناميكي مدعوم بالشعار -->
     <script>
         const manifestData = {
             "name": "النظام المحاسبي الاحترافي - أمين الشيباني",
@@ -26,7 +26,8 @@
                 {
                     "src": "https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg",
                     "sizes": "192x192 512x512",
-                    "type": "image/jpeg"
+                    "type": "image/jpeg",
+                    "purpose": "any maskable"
                 }
             ]
         };
@@ -107,7 +108,7 @@
                 <button onclick="triggerImport(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📥 استيراد البيانات</span><span>◀️</span></button>
                 <input type="file" id="importFile" class="hidden" onchange="importDatabase(event)">
                 <button onclick="exportDatabase(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📤 تصدير البيانات</span><span>◀️</span></button>
-                <button onclick="lockSystem(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-amber-600 hover:bg-amber-50 transition-all cursor-pointer"><span>?? قفل النظام</span><span>◀️</span></button>
+                <button onclick="lockSystem(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-amber-600 hover:bg-amber-50 transition-all cursor-pointer"><span>🔒 قفل النظام</span><span>◀️</span></button>
                 <button onclick="logout(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-red-600 hover:bg-red-50 transition-all cursor-pointer"><span>🚪 تسجيل الخروج</span><span>◀️</span></button>
             </div>
         </div>
@@ -149,68 +150,41 @@
         </div>
     </div>
 
-    <!-- لوحة النظام الأساسية بمظهر الأنظمة العالمية -->
+    <!-- لوحة النظام الأساسية -->
     <div id="dashboardSection" class="hidden flex-col h-full overflow-hidden">
-        
-        <!-- شريط التنقل العلوي الاحترافي -->
         <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
             <div class="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between gap-2">
-                
-                <!-- شعار النظام والسنة المالية -->
                 <div class="flex items-center gap-2.5 shrink-0">
                     <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="الشعار" class="w-7 h-7 rounded-lg object-cover border border-slate-700 shadow">
                     <span id="headerYearDisplay" class="bg-slate-800 text-blue-300 px-2 py-0.5 rounded-lg text-xs font-mono font-bold border border-slate-700">2026</span>
                     <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي الاحترافي | أمين الشيباني</h1>
                 </div>
-
-                <!-- أزرار العمليات السريعة والقائمة -->
                 <div class="flex items-center gap-1.5 shrink-0 text-xs font-medium">
                     <button onclick="loadHomeView()" class="px-2.5 py-1.5 hover:bg-slate-800 rounded-lg transition-all cursor-pointer text-slate-300 flex items-center gap-1"><i data-lucide="home" class="w-3.5 h-3.5"></i> الرئيسية</button>
                     <button onclick="loadPageView('إعدادات النظام', '⚙️')" class="px-2.5 py-1.5 hover:bg-slate-800 rounded-lg transition-all cursor-pointer text-slate-300 flex items-center gap-1"><i data-lucide="settings" class="w-3.5 h-3.5"></i> الإعدادات</button>
                     <button onclick="toggleModal('fileModal')" class="px-3 py-1.5 bg-accentBlue hover:bg-accentHover text-white font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="menu" class="w-3.5 h-3.5"></i> قائمة ملف</button>
                 </div>
-
             </div>
-
-            <!-- شريط الأزرار الفرعية المعياري (مرتب بدقة ومحاذاة تامة بدون أي قطع) -->
             <div class="bg-slate-900 border-t border-slate-800 px-3 py-1.5 flex items-center justify-center gap-2 flex-wrap">
-                <button onclick="loadPageView('الحسابات', '🌳')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">🌳</span><span>الحسابات</span>
-                </button>
-                <button onclick="loadPageView('القيود', '📝')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">📝</span><span>القيود اليومية</span>
-                </button>
-                <button onclick="loadPageView('المبيعات', '🛒')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">🛒</span><span>المبيعات</span>
-                </button>
-                <button onclick="loadPageView('ميزان المراجعة', '📊')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">📊</span><span>ميزان المراجعة</span>
-                </button>
-                <button onclick="loadPageView('الأرباح', '📈')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">📈</span><span>الأرباح</span>
-                </button>
-                <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">📦</span><span>المخزون</span>
-                </button>
-                <button onclick="loadPageView('المحاسبة المالية', '💰')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">💰</span><span>المحاسبة</span>
-                </button>
-                <button onclick="loadHomeView()" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
-                    <span class="text-emerald-400">🔄</span><span>تحديث</span>
-                </button>
+                <button onclick="loadPageView('الحسابات', '🌳')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer"><span class="text-blue-400">🌳</span><span>الحسابات</span></button>
+                <button onclick="loadPageView('القيود', '📝')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer"><span class="text-blue-400">📝</span><span>القيود اليومية</span></button>
+                <button onclick="loadPageView('المبيعات', '🛒')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer"><span class="text-blue-400">🛒</span><span>المبيعات</span></button>
+                <button onclick="loadPageView('ميزان المراجعة', '📊')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer"><span class="text-blue-400">📊</span><span>ميزان المراجعة</span></button>
+                <button onclick="loadPageView('الأرباح', '📈')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer"><span class="text-blue-400">📈</span><span>الأرباح</span></button>
+                <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer"><span class="text-blue-400">📦</span><span>المخزون</span></button>
+                <button onclick="loadPageView('المحاسبة المالية', '💰')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer"><span class="text-blue-400">💰</span><span>المحاسبة</span></button>
+                <button onclick="loadHomeView()" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer"><span class="text-emerald-400">🔄</span><span>تحديث</span></button>
             </div>
         </header>
 
-        <!-- منطقة المحتوى الديناميكية (بدون تمرير رأسي نهائياً) -->
-        <div id="mainContentArea" class="flex-grow p-3 flex flex-col items-center justify-center bg-slate-100 overflow-hidden">
-        </div>
+        <div id="mainContentArea" class="flex-grow p-3 flex flex-col items-center justify-center bg-slate-100 overflow-hidden"></div>
 
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[11px]">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span class="font-bold tracking-wide">النظام متصل وقاعدة البيانات مؤمنة</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani Accounting System v3.1</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani Accounting System v3.2</div>
         </footer>
     </div>
 
@@ -257,7 +231,6 @@
             toast.innerHTML = `<i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}" class="w-4 h-4"></i><span>${message}</span>`;
             container.appendChild(toast);
             lucide.createIcons();
-
             setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
             setTimeout(() => {
                 toast.classList.add('translate-y-2', 'opacity-0');
@@ -269,7 +242,6 @@
             event.preventDefault();
             const userInput = document.getElementById('loginUser').value.trim();
             const passInput = document.getElementById('loginPassword').value.trim();
-
             if (userInput === 'admin' && passInput === '123456') {
                 showToast("تم تشغيل النظام المحاسبي الاحترافي بكفاءة تامة!", "success");
                 document.getElementById('loginSection').classList.add('hidden');
@@ -293,9 +265,7 @@
             showToast("تم قفل النظام بنجاح.", "success");
         }
 
-        function logout() {
-            lockSystem();
-        }
+        function logout() { lockSystem(); }
 
         function toggleModal(modalId) {
             const modal = document.getElementById(modalId);
@@ -328,19 +298,14 @@
             area.innerHTML = `
                 <div class="max-w-3xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                     <div class="bg-white border border-slate-200 rounded-2xl shadow-md p-4">
-                        <div class="bg-primaryBlue text-white text-center font-bold text-xs py-2 rounded-xl mb-3 tracking-wide shadow">
-                            اختر السنة المالية النشطة
-                        </div>
+                        <div class="bg-primaryBlue text-white text-center font-bold text-xs py-2 rounded-xl mb-3 tracking-wide shadow">اختر السنة المالية النشطة</div>
                         <div class="grid grid-cols-3 gap-2 mb-3">
                             <button onclick="selectYear('2026')" id="btnYear2026" class="py-2 px-2 rounded-xl border-2 border-accentBlue bg-blue-50 text-accentBlue font-bold text-xs text-center transition-all cursor-pointer shadow-sm">2026</button>
                             <button onclick="selectYear('2025')" id="btnYear2025" class="py-2 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:bg-slate-50 transition-all cursor-pointer">2025</button>
                             <button onclick="selectYear('2024')" id="btnYear2024" class="py-2 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:bg-slate-50 transition-all cursor-pointer">2024</button>
                         </div>
-                        <button onclick="enterSystemWithYear()" class="w-full bg-accentBlue hover:bg-accentHover text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-md cursor-pointer">
-                            بدء العمليات المحاسبية
-                        </button>
+                        <button onclick="enterSystemWithYear()" class="w-full bg-accentBlue hover:bg-accentHover text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-md cursor-pointer">بدء العمليات المحاسبية</button>
                     </div>
-
                     <div class="bg-white border border-slate-200 rounded-2xl shadow-md p-4 text-center space-y-2">
                         <div class="w-16 h-16 mx-auto bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-center overflow-hidden p-1 shadow-inner">
                             <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام" class="w-full h-full object-contain rounded-xl">
@@ -350,7 +315,7 @@
                             <p class="text-[11px] text-slate-500">نظام الإدارة المحاسبية والمالية المتطور</p>
                         </div>
                         <div class="pt-2 border-t border-slate-100">
-                            <p class="text-[11px] font-bold text-accentBlue">معايير محاسبية دقیقة | أمان وثبات تام</p>
+                            <p class="text-[11px] font-bold text-accentBlue">معايير محاسبية دقيقة | أمان وثبات تام</p>
                         </div>
                     </div>
                 </div>
@@ -373,7 +338,6 @@
             const key = 'system_fixed_db_' + selectedActiveYear + '_' + title;
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
-
             if (title === 'الحسابات') return [{ id: 1, col1: '101', col2: 'النقدية بالصندوق الرئيسي', col3: 'مدين' }, { id: 2, col1: '102', col2: 'حساب البنك التجاري', col3: 'مدين' }];
             if (title === 'القيود') return [{ id: 1, col1: 'Q-001', col2: 'قيد إثبات رأس المال الافتتاحي', col3: '5,000,000 ر.ي' }];
             if (title === 'المبيعات') return [{ id: 1, col1: 'INV-101', col2: 'شركة التجارة الحديثة', col3: '45,000 ر.ي (آجل)' }];
@@ -381,25 +345,22 @@
             if (title === 'الأرباح') return [{ id: 1, col1: 'إجمالي أرباح النشاط التشغيلي', col2: 'الربع الأول 2026', col3: 'إيجابي (+1,200,000)' }];
             if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501', col2: 'أصناف بضائع عامة جاهزة', col3: '150 وحدة (سعر الجملة)' }];
             if (title === 'المحاسبة المالية') return [{ id: 1, col1: 'REP-01', col2: 'قائمة المركز المالي الختامية', col3: 'معتمد رسمياً' }];
-            if (title === 'إعدادات النظام') return [{ id: 1, col1: 'العملة الأساسية', label2: 'ريال يمني (YER)', col3: 'مقفلة' }];
+            if (title === 'إعدادات النظام') return [{ id: 1, col1: 'العملية الأساسية', label2: 'ريال يمني (YER)', col3: 'مقفلة' }];
             return [{ id: 1, col1: 'سجل افتراضي 1', col2: 'بيانات تفصيلية قياسية', col3: 'معتمد' }];
         }
 
         function savePageData(title, data) {
-            const key = 'system_fixed_db_' + selectedActiveYear + '_' + title;
-            localStorage.setItem(key, JSON.stringify(data));
+            localStorage.setItem('system_fixed_db_' + selectedActiveYear + '_' + title, JSON.stringify(data));
         }
 
         function exportDatabase() {
-            const backup = {};
+            let backup = {};
             for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.includes('system_fixed_db_')) {
-                    backup[key] = localStorage.getItem(key);
-                }
+                let key = localStorage.key(i);
+                if (key.includes('system_fixed_db_')) backup[key] = localStorage.getItem(key);
             }
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup, null, 2));
-            const downloadAnchor = document.createElement('a');
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup, null, 2));
+            let downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
             downloadAnchor.setAttribute("download", `Ameen_Alshaibani_Backup_${selectedActiveYear}.json`);
             document.body.appendChild(downloadAnchor);
@@ -408,9 +369,7 @@
             showToast("تم تصدير النسخة الاحتياطية بنجاح!", "success");
         }
 
-        function triggerImport() {
-            document.getElementById('importFile').click();
-        }
+        function triggerImport() { document.getElementById('importFile').click(); }
 
         function importDatabase(event) {
             const file = event.target.files[0];
@@ -419,9 +378,7 @@
             reader.onload = function(e) {
                 try {
                     const backup = JSON.parse(e.target.result);
-                    for (const key in backup) {
-                        localStorage.setItem(key, backup[key]);
-                    }
+                    for (const key in backup) localStorage.setItem(key, backup[key]);
                     showToast("تم استيراد البيانات وتحديث النظام بنجاح!", "success");
                     loadPageView('المحاسبة المالية', '💰');
                 } catch (err) {
@@ -435,7 +392,6 @@
             const area = document.getElementById('mainContentArea');
             let data = getPageData(title);
             let config = pageConfigs[title] || { label1: 'الحقل الأول', label2: 'الحقل الثاني', label3: 'الحقل الثالث' };
-
             area.innerHTML = `
                 <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full mx-auto shadow-md flex flex-col h-full overflow-hidden">
                     <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2">
@@ -496,12 +452,10 @@
         function openGenericModal(pageTitle, index) {
             document.getElementById('genPageTitle').value = pageTitle;
             document.getElementById('genEditIndex').value = index;
-
             let config = pageConfigs[pageTitle] || { label1: 'الحقل الأول', label2: 'الحقل الثاني', label3: 'الحقل الثالث' };
             document.getElementById('genLabel1').innerText = config.label1;
             document.getElementById('genLabel2').innerText = config.label2;
             document.getElementById('genLabel3').innerText = config.label3;
-
             if (index === -1) {
                 document.getElementById('genericModalTitle').innerText = 'إضافة سجل جديد إلى ' + pageTitle;
                 document.getElementById('genInput1').value = '';
@@ -525,12 +479,10 @@
             const val1 = document.getElementById('genInput1').value.trim();
             const val2 = document.getElementById('genInput2').value.trim();
             const val3 = document.getElementById('genInput3').value.trim();
-
             if (!val1 || !val2 || !val3) {
                 showToast("تنبيه: كافة الحقول إلزامية!", "error");
                 return;
             }
-
             let data = getPageData(pageTitle);
             if (editIndex === -1) {
                 data.push({ id: Date.now(), col1: val1, col2: val2, col3: val3 });
