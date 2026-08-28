@@ -50,6 +50,7 @@
 
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
+    <!-- نافذة قائمة ملف الاحترافية -->
     <div id="fileModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-80 p-4">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -72,6 +73,7 @@
         </div>
     </div>
 
+    <!-- شاشة تسجيل الدخول -->
     <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-900 overflow-hidden">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div class="text-center mb-4">
@@ -95,6 +97,7 @@
         </div>
     </div>
 
+    <!-- شاشة الإغلاق التام -->
     <div id="closedSystemSection" class="hidden flex-grow flex items-center justify-center p-4 bg-slate-950 text-white overflow-hidden">
         <div class="text-center space-y-3 max-w-md">
             <div class="w-14 h-14 rounded-2xl bg-red-600 flex items-center justify-center mx-auto shadow-xl">
@@ -106,14 +109,16 @@
         </div>
     </div>
 
+    <!-- لوحة النظام الأساسية -->
     <div id="dashboardSection" class="hidden flex-col h-full overflow-hidden">
         
+        <!-- شريط التنقل العلوي -->
         <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
             <div class="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3 shrink-0">
                     <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-accentBlue text-white font-black text-xs shadow">AS</span>
                     <span id="headerYearDisplay" class="bg-slate-800 text-blue-300 px-2.5 py-1 rounded-lg text-xs font-mono font-bold border border-slate-700">السنة: 2026</span>
-                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | الخطوة 4: إدارة المخزون والمستودعات</h1>
+                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | الخطوة 5: الأصول الثابتة والإهلاك</h1>
                 </div>
 
                 <div class="flex items-center gap-1.5 shrink-0 text-xs font-medium">
@@ -123,6 +128,7 @@
                 </div>
             </div>
 
+            <!-- شريط الأزرار الفرعية للخريطة المحاسبية الجديدة -->
             <div class="bg-slate-900 border-t border-slate-800 px-2 py-1.5 flex items-center justify-center gap-1.5 flex-wrap">
                 <button onclick="loadPageView('إدارة المبيعات', '🛒')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
                     <span>🛒</span><span>المبيعات والعملاء</span>
@@ -130,10 +136,10 @@
                 <button onclick="loadPageView('إدارة المشتريات', '🛍️')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
                     <span>🛍️</span><span>المشتريات والموردين</span>
                 </button>
-                <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer shadow">
+                <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
                     <span>📦</span><span>المخزون والمستودعات</span>
                 </button>
-                <button onclick="loadPageView('الأصول الثابتة', '🏢')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
+                <button onclick="loadPageView('الأصول الثابتة', '🏢')" class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer shadow">
                     <span>🏢</span><span>الأصول الثابتة</span>
                 </button>
                 <button onclick="loadPageView('الموارد البشرية', '👥')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
@@ -148,18 +154,20 @@
             </div>
         </header>
 
+        <!-- منطقة المحتوى الديناميكية (بدون تمرير رأسي) -->
         <div id="mainContentArea" class="flex-grow p-3 flex flex-col items-center justify-center bg-slate-100 overflow-hidden">
         </div>
 
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[11px]">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold tracking-wide">الخطوة 4: تفعيل أقسام إدارة المخزون والمستودعات بالكامل</span>
+                <span class="font-bold tracking-wide">الخطوة 5: تفعيل أقسام الأصول الثابتة وإهلاكها بالكامل</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v4.0</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v5.0</div>
         </footer>
     </div>
 
+    <!-- نافذة منبثقة عامة للإدارة المباشرة -->
     <div id="genericModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-96 p-4">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -260,7 +268,7 @@
         function enterSystemWithYear() {
             document.getElementById('headerYearDisplay').innerText = `السنة: ${selectedActiveYear}`;
             showToast(`تم التفعيل للسنة المالية: ${selectedActiveYear}`, "success");
-            loadPageView('إدارة المخزون', '📦');
+            loadPageView('الأصول الثابتة', '🏢');
         }
 
         function loadHomeView() {
@@ -291,7 +299,7 @@
                             <p class="text-[11px] text-slate-500">نظام الهيكل المحاسبي والمالي المطور</p>
                         </div>
                         <div class="pt-2 border-t border-slate-100">
-                            <p class="text-[11px] font-bold text-accentBlue">الخطوة 4: إدارة المخزون والمستودعات والتقييم</p>
+                            <p class="text-[11px] font-bold text-accentBlue">الخطوة 5: الأصول الثابتة وحساب الإهلاك</p>
                         </div>
                     </div>
                 </div>
@@ -300,18 +308,14 @@
         }
 
         const pageConfigs = {
-            'إدارة المخزون': { label1: 'كود الصنف / الوحدة', label2: 'اسم المادة المخزنية والمستودع', label3: 'الكمية وسعر التكلفة' },
-            'كارت الصنف': { label1: 'رقم الصنف / المادة', label2: 'حركة الوارد والصادر والرصيد', label3: 'التكلفة الإجمالية' },
-            'حركات المخزون': { label1: 'رقم الحركة (إذن إضافة/صرف)', label2: 'نوع الحركة والمستودع', label3: 'الكمية والقيمة' },
-            'الجرد الفعلي': { label1: 'رقم محضر الجرد', label2: 'اسم الصنف والكمية الدفترية', label3: 'الكمية الفعلية والفروقات' },
-            'تقييم المخزون': { label1: 'طريقة التقييم (FIFO / LIFO)', label2: 'إجمالي الوحدات المقيمة', label3: 'القيمة الدفترية الإجمالية' },
-            'تنبيهات النواقص': { label1: 'كود الصنف', label2: 'اسم الصنف ومستوي الحد الأدنى', label3: 'الرصيد الحالي (تنبيه نقص)' },
+            'الأصول الثابتة': { label1: 'كود ورقم الأصل الثابت', label2: 'اسم الأصل وتاريخ الشراء', label3: 'التكلفة الإجمالية' },
+            'سجل الأصول': { label1: 'رقم التعريف بالأصل', label2: 'التصنيف وفئة الأصل', label3: 'حالة الاستخدام' },
+            'حساب الإهلاك': { label1: 'رقم الأصل الثابت', label2: 'نسبة الإهلاك السنوي (%)', label3: 'مجمع الإهلاك والقيمة الدفترية' },
+            'أستاذ الأصول': { label1: 'رقم قيد الأصل', label2: 'حركة الإضافة والاستبعاد', label3: 'الرصيد الدفترى المعتمد' },
             
             'إدارة المبيعات': { label1: 'رقم الفاتورة / العميل', label2: 'نوع المعاملة (نقدي/آجل)', label3: 'المبلغ الإجمالي' },
-            'ملف العميل': { label1: 'كود العميل', label2: 'اسم العميل والعنوان', label3: 'هاتف التواصل والاعتماد' },
             'إدارة المشتريات': { label1: 'رقم أمر الشراء / المورد', label2: 'نوع المشتريات والبنود', label3: 'إجمالي التكلفة' },
-            'ملف المورد': { label1: 'كود المورد', label2: 'اسم المورد والعنوان', label3: 'هاتف التواصل والاعتماد' },
-            'الأصول الثابتة': { label1: 'كود الأصل', label2: 'اسم الأصل الثابت وتاريخ الشراء', label3: 'معدل الاهلاك والقيمة الدفترية' },
+            'إدارة المخزون': { label1: 'كود الصنف / الوحدة', label2: 'اسم المادة المخزنية والمستودع', label3: 'الكمية وسعر التكلفة' },
             'الموارد البشرية': { label1: 'رقم الموظف', label2: 'اسم الموظف والقسم', label3: 'صافي الراتب والمستحقات' },
             'دفتر الأستاذ': { label1: 'رقم القيد / الحساب', label2: 'بيان المعاملة بالحساب العام', label3: 'مدين / دائن / الرصيد' },
             'إعدادات النظام': { label1: 'متغير النظام', label2: 'قيمة الإعداد المعتمدة', label3: 'صلاحية التعديل' }
@@ -322,19 +326,17 @@
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
 
-            if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501 / وحدة', col2: 'أصناف المستودع الرئيسي - إب', col3: '500 وحدة (FIFO)' }];
-            if (title === 'كارت الصنف') return [{ id: 1, col1: 'CARD-101', col2: 'وارد 300 / صادر 100 / الرصيد 200', col3: '350,000 ر.ي' }];
-            if (title === 'حركات المخزون') return [{ id: 1, col1: 'MOV-301', col2: 'إذن إضافة بضاعة مشتريات', col3: '300 وحدة' }];
-            if (title === 'الجرد الفعلي') return [{ id: 1, col1: 'INV-REP-01', col2: 'جرد المستودع الرئيسي (طحين وسكر)', col3: 'مطابق تماماً' }];
-            if (title === 'تقييم المخزون') return [{ id: 1, col1: 'FIFO System', col2: 'تقييم الوارد أولاً صادر أولاً', col3: '4,500,000 ر.ي' }];
-            if (title === 'تنبيهات النواقص') return [{ id: 1, col1: 'ALRT-01', col2: 'أصناف تحت الحد الأدنى (تنبيه مبكر)', col3: '5 وحدات متاحة' }];
+            if (title === 'الأصول الثابتة') return [{ id: 1, col1: 'AST-101 / سيارة نقل', col2: 'سيارة تويوتا هايلوكس - 2024', col3: '12,000,000 ر.ي' }];
+            if (title === 'سجل الأصول') return [{ id: 1, col1: 'REG-01', col2: 'أجهزة مكتبية وحواسيب', col3: 'نشط ويعمل' }];
+            if (title === 'حساب الإهلاك') return [{ id: 1, col1: 'AST-101', col2: 'نسبة إهلاك 15% سنوياً', col3: 'المجمع: 1,800,000 ر.ي' }];
+            if (title === 'أستاذ الأصول') return [{ id: 1, col1: 'GL-AST-01', col2: 'قيد ترحيل أصل ثابت رئيسي', col3: '12,000,000 ر.ي (مدين)' }];
 
             if (title === 'إدارة المبيعات') return [{ id: 1, col1: 'INV-101 / شركة النور', col2: 'فاتورة مبيعات آجل', col3: '250,000 ر.ي' }];
             if (title === 'إدارة المشتريات') return [{ id: 1, col1: 'PUR-301 / مؤسسة الأمان', col2: 'أمر شراء بضاعة عامة', col3: '180,000 ر.ي' }];
-            if (title === 'الأصول الثابتة') return [{ id: 1, col1: 'AST-01 / سيارة توزيع', col2: 'شراء أصول ثابتة', col3: 'نسبة إهلاك 15%' }];
+            if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501 / وحدة', col2: 'أصناف المستودع الرئيسي - إب', col3: '500 وحدة (FIFO)' }];
             if (title === 'الموارد البشرية') return [{ id: 1, col1: 'EMP-100 / محاسب', col2: 'مسير رواتب شهرية', col3: '120,000 ر.ي' }];
             if (title === 'دفتر الأستاذ') return [{ id: 1, col1: 'GL-001 / الصندوق', col2: 'ترحيل آلي من المعالجة التلقائية', col3: '5,000,000 ر.ي (مدين)' }];
-            if (title === 'إعدادات النظام') return [{ id: 1, col1: 'العملة المعتمدة', col2: 'ريال يمني (YER)', col3: 'مقفلة' }];
+            if (title === 'إعدادات النظام') return [{ id: 1, col1: 'العملة المعتمدة', label2: 'ريال يمني (YER)', col3: 'مقفلة' }];
             return [{ id: 1, col1: 'سجل افتراضي 1', col2: 'بيانات تفصيلية قياسية', col3: 'معتمد' }];
         }
 
@@ -367,16 +369,14 @@
             let config = pageConfigs[title] || { label1: 'الحقل الأول', label2: 'الحقل الثاني', label3: 'الحقل الثالث' };
 
             let subButtonsHTML = '';
-            if (title === 'إدارة المخزون' || title === 'كارت الصنف' || title === 'حركات المخزون' || title === 'الجرد الفعلي' || title === 'تقييم المخزون' || title === 'تنبيهات النواقص') {
+            if (title === 'الأصول الثابتة' || title === 'سجل الأصول' || title === 'حساب الإهلاك' || title === 'أستاذ الأصول') {
                 subButtonsHTML = `
                     <div class="flex items-center gap-1.5 flex-wrap bg-slate-50 p-2 rounded-xl border border-slate-200 shrink-0">
-                        <span class="text-[11px] font-bold text-slate-700 ml-1">أقسام المخزون والمستودعات:</span>
-                        <button onclick="loadPageView('إدارة المخزون', '📦')" class="px-2 py-1 ${title==='إدارة المخزون'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">الرئيسية</button>
-                        <button onclick="loadPageView('كارت الصنف', '📑')" class="px-2 py-1 ${title==='كارت الصنف'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">كارت الصنف</button>
-                        <button onclick="loadPageView('حركات المخزون', '🔄')" class="px-2 py-1 ${title==='حركات المخزون'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">حركات المخزون</button>
-                        <button onclick="loadPageView('الجرد الفعلي', '📋')" class="px-2 py-1 ${title==='الجرد الفعلي'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">الجرد الفعلي</button>
-                        <button onclick="loadPageView('تقييم المخزون', '📊')" class="px-2 py-1 ${title==='تقييم المخزون'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">تقييم المخزون</button>
-                        <button onclick="loadPageView('تنبيهات النواقص', '⚠️')" class="px-2 py-1 ${title==='تنبيهات النواقص'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">تنبيهات النواقص</button>
+                        <span class="text-[11px] font-bold text-slate-700 ml-1">أقسام الأصول الثابتة:</span>
+                        <button onclick="loadPageView('الأصول الثابتة', '🏢')" class="px-2 py-1 ${title==='الأصول الثابتة'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">الرئيسية</button>
+                        <button onclick="loadPageView('سجل الأصول', '📑')" class="px-2 py-1 ${title==='سجل الأصول'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">سجل الأصول</button>
+                        <button onclick="loadPageView('حساب الإهلاك', '📉')" class="px-2 py-1 ${title==='حساب الإهلاك'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">حساب الإهلاك</button>
+                        <button onclick="loadPageView('أستاذ الأصول', '📚')" class="px-2 py-1 ${title==='أستاذ الأصول'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">أستاذ الأصول</button>
                     </div>
                 `;
             }
