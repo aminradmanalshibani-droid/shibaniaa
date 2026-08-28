@@ -50,7 +50,6 @@
 
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- نافذة قائمة ملف الاحترافية -->
     <div id="fileModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-80 p-4">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -73,7 +72,6 @@
         </div>
     </div>
 
-    <!-- شاشة تسجيل الدخول -->
     <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-900 overflow-hidden">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div class="text-center mb-4">
@@ -97,7 +95,6 @@
         </div>
     </div>
 
-    <!-- شاشة الإغلاق التام -->
     <div id="closedSystemSection" class="hidden flex-grow flex items-center justify-center p-4 bg-slate-950 text-white overflow-hidden">
         <div class="text-center space-y-3 max-w-md">
             <div class="w-14 h-14 rounded-2xl bg-red-600 flex items-center justify-center mx-auto shadow-xl">
@@ -109,16 +106,14 @@
         </div>
     </div>
 
-    <!-- لوحة النظام الأساسية -->
     <div id="dashboardSection" class="hidden flex-col h-full overflow-hidden">
         
-        <!-- شريط التنقل العلوي -->
         <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
             <div class="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3 shrink-0">
                     <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-accentBlue text-white font-black text-xs shadow">AS</span>
                     <span id="headerYearDisplay" class="bg-slate-800 text-blue-300 px-2.5 py-1 rounded-lg text-xs font-mono font-bold border border-slate-700">السنة: 2026</span>
-                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | الخريطة الهيكلية الجديدة</h1>
+                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | الخطوة 3: إدارة المشتريات والموردين</h1>
                 </div>
 
                 <div class="flex items-center gap-1.5 shrink-0 text-xs font-medium">
@@ -128,46 +123,43 @@
                 </div>
             </div>
 
-            <!-- شريط الأزرار الفرعية للخريطة المحاسبية الجديدة -->
             <div class="bg-slate-900 border-t border-slate-800 px-2 py-1.5 flex items-center justify-center gap-1.5 flex-wrap">
                 <button onclick="loadPageView('إدارة المبيعات', '🛒')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">🛒</span><span>المبيعات والعملاء</span>
+                    <span>🛒</span><span>المبيعات والعملاء</span>
                 </button>
-                <button onclick="loadPageView('إدارة المشتريات', '🛍️')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">🛍️</span><span>المشتريات والموردين</span>
+                <button onclick="loadPageView('إدارة المشتريات', '🛍️')" class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer shadow">
+                    <span>🛍️</span><span>المشتريات والموردين</span>
                 </button>
                 <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">📦</span><span>المخزون والمستودعات</span>
+                    <span>📦</span><span>المخزون والمستودعات</span>
                 </button>
                 <button onclick="loadPageView('الأصول الثابتة', '🏢')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">🏢</span><span>الأصول الثابتة</span>
+                    <span>🏢</span><span>الأصول الثابتة</span>
                 </button>
                 <button onclick="loadPageView('الموارد البشرية', '👥')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">👥</span><span>الموارد البشرية والرواتب</span>
+                    <span>👥</span><span>الموارد البشرية والرواتب</span>
                 </button>
                 <button onclick="loadPageView('دفتر الأستاذ', '📚')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
-                    <span class="text-blue-400">📚</span><span>دفتر الأستاذ العام</span>
+                    <span>📚</span><span>دفتر الأستاذ العام</span>
                 </button>
                 <button onclick="loadHomeView()" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
-                    <span class="text-emerald-400">🔄</span><span>الرئيسية</span>
+                    <span>🔄</span><span>الرئيسية</span>
                 </button>
             </div>
         </header>
 
-        <!-- منطقة المحتوى الديناميكية (بدون تمرير رأسي) -->
         <div id="mainContentArea" class="flex-grow p-3 flex flex-col items-center justify-center bg-slate-100 overflow-hidden">
         </div>
 
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[11px]">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold tracking-wide">الخطوة الأولى: تطبيق الخريطة المحاسبية بنجاح</span>
+                <span class="font-bold tracking-wide">الخطوة 3: تفعيل أقسام إدارة المشتريات والموردين بالكامل</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v3.1</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v3.3</div>
         </footer>
     </div>
 
-    <!-- نافذة منبثقة عامة للإدارة المباشرة -->
     <div id="genericModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-96 p-4">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -239,17 +231,13 @@
         function lockSystem() {
             document.getElementById('dashboardSection').classList.remove('flex');
             document.getElementById('dashboardSection').classList.add('hidden');
-            document.getElementById('closedSystemSection').classList.add('hidden');
             document.getElementById('loginSection').classList.remove('hidden');
             document.getElementById('loginUser').value = '';
             document.getElementById('loginPassword').value = '';
             showToast("تم قفل النظام بنجاح.", "success");
         }
 
-        function logout() {
-            lockSystem();
-        }
-
+        function logout() { lockSystem(); }
         function toggleModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) modal.classList.toggle('hidden');
@@ -272,7 +260,7 @@
         function enterSystemWithYear() {
             document.getElementById('headerYearDisplay').innerText = `السنة: ${selectedActiveYear}`;
             showToast(`تم التفعيل للسنة المالية: ${selectedActiveYear}`, "success");
-            loadPageView('إدارة المبيعات', '🛒');
+            loadPageView('إدارة المشتريات', '🛍️');
         }
 
         function loadHomeView() {
@@ -303,7 +291,7 @@
                             <p class="text-[11px] text-slate-500">نظام الهيكل المحاسبي والمالي المطور</p>
                         </div>
                         <div class="pt-2 border-t border-slate-100">
-                            <p class="text-[11px] font-bold text-accentBlue">معالجة تلقائية | دفتر أستاذ عام | تقارير شاملة</p>
+                            <p class="text-[11px] font-bold text-accentBlue">الخطوة 3: إدارة المشتريات والموردين والمدفوعات</p>
                         </div>
                     </div>
                 </div>
@@ -312,8 +300,20 @@
         }
 
         const pageConfigs = {
+            'إدارة المشتريات': { label1: 'رقم أمر الشراء / المورد', label2: 'نوع المشتريات والبنود', label3: 'إجمالي التكلفة' },
+            'ملف المورد': { label1: 'كود المورد', label2: 'اسم المورد والعنوان', label3: 'هاتف التواصل والاعتماد' },
+            'أوامر الشراء': { label1: 'رقم الطلب', label2: 'جهة التوريد والأصناف المطلوبة', label3: 'القيمة التقديرية' },
+            'فواتير المشتريات': { label1: 'رقم الفاتورة الأصلية', label2: 'اسم المورد ونوع الدفع', label3: 'المبلغ الإجمالي' },
+            'كشف حساب المورد': { label1: 'رقم الحساب / المورد', label2: 'فترة الكشف المالي', label3: 'إجمالي الرصيد والدائنية' },
+            'تسوية المدفوعات': { label1: 'رقم سند الدفع', label2: 'اسم المورد وطريقة الصرف', label3: 'المبلغ المسدد' },
+            
             'إدارة المبيعات': { label1: 'رقم الفاتورة / العميل', label2: 'نوع المعاملة (نقدي/آجل)', label3: 'المبلغ الإجمالي' },
-            'إدارة المشتريات': { label1: 'رقم أمر الشراء / المورد', label2: 'نوع المشتريات', label3: 'إجمالي التكلفة' },
+            'ملف العميل': { label1: 'كود العميل', label2: 'اسم العميل والعنوان', label3: 'هاتف التواصل والاعتماد' },
+            'حد الائتمان': { label1: 'كود العميل', label2: 'الحد الأقصى المسموح للديون', label3: 'الرصيد الحالي' },
+            'كشف حساب': { label1: 'رقم الحساب / العميل', label2: 'فترة الكشف المالي', label3: 'إجمالي الرصيد والمديونية' },
+            'تحصيل الديون': { label1: 'رقم سند التحصيل', label2: 'اسم العميل وطريقة الدفع', label3: 'المبلغ المحصل' },
+            'أعمار ديون العملاء': { label1: 'فترة الدين (أقل من 30 يوم الخ)', label2: 'اسم العميل', label3: 'إجمالي المبلغ المستحق' },
+
             'إدارة المخزون': { label1: 'كود الصنف / الوحدة', label2: 'اسم المادة المخزنية', label3: 'الكمية وسعر التكلفة' },
             'الأصول الثابتة': { label1: 'كود الأصل', label2: 'اسم الأصل الثابت وتاريخ الشراء', label3: 'معدل الاهلاك والقيمة الدفترية' },
             'الموارد البشرية': { label1: 'رقم الموظف', label2: 'اسم الموظف والقسم', label3: 'صافي الراتب والمستحقات' },
@@ -326,8 +326,14 @@
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
 
+            if (title === 'إدارة المشتريات') return [{ id: 1, col1: 'PUR-301 / مؤسسة الأمان', col2: 'أمر شراء بضاعة عامة', col3: '180,000 ر.ي' }];
+            if (title === 'ملف المورد') return [{ id: 1, col1: 'SUP-01', col2: 'شركة التوريدات العالمية - إب', col3: '733123456 / معتمد' }];
+            if (title === 'أوامر الشراء') return [{ id: 1, col1: 'PO-901', col2: 'طلب مواد غذائية ومستهلكات', col3: '180,000 ر.ي' }];
+            if (title === 'فواتير المشتريات') return [{ id: 1, col1: 'PINV-401', col2: 'فاتورة مورد آجل', col3: '180,000 ر.ي' }];
+            if (title === 'كشف حساب المورد') return [{ id: 1, col1: 'ACC-SUP-01', col2: 'من 2026/01/01 إلى 2026/08/28', col3: '180,000 ر.ي دائن' }];
+            if (title === 'تسوية المدفوعات') return [{ id: 1, col1: 'PAY-801', col2: 'سداد جزئي لمؤسسة التوريدات', col3: '50,000 ر.ي' }];
+
             if (title === 'إدارة المبيعات') return [{ id: 1, col1: 'INV-101 / شركة النور', col2: 'فاتورة مبيعات آجل', col3: '250,000 ر.ي' }];
-            if (title === 'إدارة المشتريات') return [{ id: 1, col1: 'PUR-301 / مؤسسة الأمان', col2: 'أمر شراء بضاعة', col3: '180,000 ر.ي' }];
             if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501 / وحدة', col2: 'أصناف مستودع رئيسي', col3: '500 وحدة (FIFO)' }];
             if (title === 'الأصول الثابتة') return [{ id: 1, col1: 'AST-01 / سيارة توزيع', col2: 'شراء أصول ثابتة', col3: 'نسبة إهلاك 15%' }];
             if (title === 'الموارد البشرية') return [{ id: 1, col1: 'EMP-100 / محاسب', col2: 'مسير رواتب شهرية', col3: '120,000 ر.ي' }];
@@ -364,6 +370,21 @@
             let data = getPageData(title);
             let config = pageConfigs[title] || { label1: 'الحقل الأول', label2: 'الحقل الثاني', label3: 'الحقل الثالث' };
 
+            let subButtonsHTML = '';
+            if (title === 'إدارة المشتريات' || title === 'ملف المورد' || title === 'أوامر الشراء' || title === 'فواتير المشتريات' || title === 'كشف حساب المورد' || title === 'تسوية المدفوعات') {
+                subButtonsHTML = `
+                    <div class="flex items-center gap-1.5 flex-wrap bg-slate-50 p-2 rounded-xl border border-slate-200 shrink-0">
+                        <span class="text-[11px] font-bold text-slate-700 ml-1">أقسام المشتريات والموردين:</span>
+                        <button onclick="loadPageView('إدارة المشتريات', '🛍️')" class="px-2 py-1 ${title==='إدارة المشتريات'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">الرئيسية</button>
+                        <button onclick="loadPageView('ملف المورد', '🏢')" class="px-2 py-1 ${title==='ملف المورد'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">ملف المورد</button>
+                        <button onclick="loadPageView('أوامر الشراء', '📝')" class="px-2 py-1 ${title==='أوامر الشراء'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">أوامر الشراء</button>
+                        <button onclick="loadPageView('فواتير المشتريات', '🧾')" class="px-2 py-1 ${title==='فواتير المشتريات'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">فواتير المشتريات</button>
+                        <button onclick="loadPageView('كشف حساب المورد', '📄')" class="px-2 py-1 ${title==='كشف حساب المورد'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">كشف الحساب</button>
+                        <button onclick="loadPageView('تسوية المدفوعات', '💳')" class="px-2 py-1 ${title==='تسوية المدفوعات'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">تسوية المدفوعات</button>
+                    </div>
+                `;
+            }
+
             area.innerHTML = `
                 <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full mx-auto shadow-md flex flex-col h-full overflow-hidden">
                     <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2">
@@ -380,7 +401,10 @@
                             <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="home" class="w-3.5 h-3.5"></i> الرئيسية</button>
                         </div>
                     </div>
-                    <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow">
+                    
+                    ${subButtonsHTML}
+
+                    <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow mt-2">
                         <div class="bg-slate-50 px-3 py-1.5 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center shrink-0">
                             <span>سجلات قسم ${title} (${data.length})</span>
                             <span class="text-[10px] text-emerald-600 font-bold">● متصل بالدفتر العام ومعالجة تلقائية</span>
@@ -460,7 +484,7 @@
             let data = getPageData(pageTitle);
             if (editIndex === -1) {
                 data.push({ id: Date.now(), col1: val1, col2: val2, col3: val3 });
-                showToast("تمت الإضافة بنجاح وتحديث دفتر الأستاذ تلقائياً!", "success");
+                showToast("تمت الإضافة بنجاح وتحديث النظام آلياً!", "success");
             } else {
                 data[editIndex] = { id: data[editIndex].id, col1: val1, col2: val2, col3: val3 };
                 showToast("تم تحديث السجل بنجاح!", "success");
