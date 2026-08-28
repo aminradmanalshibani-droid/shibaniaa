@@ -113,7 +113,7 @@
                 <div class="flex items-center gap-3 shrink-0">
                     <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-accentBlue text-white font-black text-xs shadow">AS</span>
                     <span id="headerYearDisplay" class="bg-slate-800 text-blue-300 px-2.5 py-1 rounded-lg text-xs font-mono font-bold border border-slate-700">السنة: 2026</span>
-                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | الخطوة 3: إدارة المشتريات والموردين</h1>
+                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | الخطوة 4: إدارة المخزون والمستودعات</h1>
                 </div>
 
                 <div class="flex items-center gap-1.5 shrink-0 text-xs font-medium">
@@ -127,10 +127,10 @@
                 <button onclick="loadPageView('إدارة المبيعات', '🛒')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
                     <span>🛒</span><span>المبيعات والعملاء</span>
                 </button>
-                <button onclick="loadPageView('إدارة المشتريات', '🛍️')" class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer shadow">
+                <button onclick="loadPageView('إدارة المشتريات', '🛍️')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
                     <span>🛍️</span><span>المشتريات والموردين</span>
                 </button>
-                <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
+                <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white border border-blue-500 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer shadow">
                     <span>📦</span><span>المخزون والمستودعات</span>
                 </button>
                 <button onclick="loadPageView('الأصول الثابتة', '🏢')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer">
@@ -154,9 +154,9 @@
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[11px]">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold tracking-wide">الخطوة 3: تفعيل أقسام إدارة المشتريات والموردين بالكامل</span>
+                <span class="font-bold tracking-wide">الخطوة 4: تفعيل أقسام إدارة المخزون والمستودعات بالكامل</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v3.3</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v4.0</div>
         </footer>
     </div>
 
@@ -260,7 +260,7 @@
         function enterSystemWithYear() {
             document.getElementById('headerYearDisplay').innerText = `السنة: ${selectedActiveYear}`;
             showToast(`تم التفعيل للسنة المالية: ${selectedActiveYear}`, "success");
-            loadPageView('إدارة المشتريات', '🛍️');
+            loadPageView('إدارة المخزون', '📦');
         }
 
         function loadHomeView() {
@@ -291,7 +291,7 @@
                             <p class="text-[11px] text-slate-500">نظام الهيكل المحاسبي والمالي المطور</p>
                         </div>
                         <div class="pt-2 border-t border-slate-100">
-                            <p class="text-[11px] font-bold text-accentBlue">الخطوة 3: إدارة المشتريات والموردين والمدفوعات</p>
+                            <p class="text-[11px] font-bold text-accentBlue">الخطوة 4: إدارة المخزون والمستودعات والتقييم</p>
                         </div>
                     </div>
                 </div>
@@ -300,21 +300,17 @@
         }
 
         const pageConfigs = {
-            'إدارة المشتريات': { label1: 'رقم أمر الشراء / المورد', label2: 'نوع المشتريات والبنود', label3: 'إجمالي التكلفة' },
-            'ملف المورد': { label1: 'كود المورد', label2: 'اسم المورد والعنوان', label3: 'هاتف التواصل والاعتماد' },
-            'أوامر الشراء': { label1: 'رقم الطلب', label2: 'جهة التوريد والأصناف المطلوبة', label3: 'القيمة التقديرية' },
-            'فواتير المشتريات': { label1: 'رقم الفاتورة الأصلية', label2: 'اسم المورد ونوع الدفع', label3: 'المبلغ الإجمالي' },
-            'كشف حساب المورد': { label1: 'رقم الحساب / المورد', label2: 'فترة الكشف المالي', label3: 'إجمالي الرصيد والدائنية' },
-            'تسوية المدفوعات': { label1: 'رقم سند الدفع', label2: 'اسم المورد وطريقة الصرف', label3: 'المبلغ المسدد' },
+            'إدارة المخزون': { label1: 'كود الصنف / الوحدة', label2: 'اسم المادة المخزنية والمستودع', label3: 'الكمية وسعر التكلفة' },
+            'كارت الصنف': { label1: 'رقم الصنف / المادة', label2: 'حركة الوارد والصادر والرصيد', label3: 'التكلفة الإجمالية' },
+            'حركات المخزون': { label1: 'رقم الحركة (إذن إضافة/صرف)', label2: 'نوع الحركة والمستودع', label3: 'الكمية والقيمة' },
+            'الجرد الفعلي': { label1: 'رقم محضر الجرد', label2: 'اسم الصنف والكمية الدفترية', label3: 'الكمية الفعلية والفروقات' },
+            'تقييم المخزون': { label1: 'طريقة التقييم (FIFO / LIFO)', label2: 'إجمالي الوحدات المقيمة', label3: 'القيمة الدفترية الإجمالية' },
+            'تنبيهات النواقص': { label1: 'كود الصنف', label2: 'اسم الصنف ومستوي الحد الأدنى', label3: 'الرصيد الحالي (تنبيه نقص)' },
             
             'إدارة المبيعات': { label1: 'رقم الفاتورة / العميل', label2: 'نوع المعاملة (نقدي/آجل)', label3: 'المبلغ الإجمالي' },
             'ملف العميل': { label1: 'كود العميل', label2: 'اسم العميل والعنوان', label3: 'هاتف التواصل والاعتماد' },
-            'حد الائتمان': { label1: 'كود العميل', label2: 'الحد الأقصى المسموح للديون', label3: 'الرصيد الحالي' },
-            'كشف حساب': { label1: 'رقم الحساب / العميل', label2: 'فترة الكشف المالي', label3: 'إجمالي الرصيد والمديونية' },
-            'تحصيل الديون': { label1: 'رقم سند التحصيل', label2: 'اسم العميل وطريقة الدفع', label3: 'المبلغ المحصل' },
-            'أعمار ديون العملاء': { label1: 'فترة الدين (أقل من 30 يوم الخ)', label2: 'اسم العميل', label3: 'إجمالي المبلغ المستحق' },
-
-            'إدارة المخزون': { label1: 'كود الصنف / الوحدة', label2: 'اسم المادة المخزنية', label3: 'الكمية وسعر التكلفة' },
+            'إدارة المشتريات': { label1: 'رقم أمر الشراء / المورد', label2: 'نوع المشتريات والبنود', label3: 'إجمالي التكلفة' },
+            'ملف المورد': { label1: 'كود المورد', label2: 'اسم المورد والعنوان', label3: 'هاتف التواصل والاعتماد' },
             'الأصول الثابتة': { label1: 'كود الأصل', label2: 'اسم الأصل الثابت وتاريخ الشراء', label3: 'معدل الاهلاك والقيمة الدفترية' },
             'الموارد البشرية': { label1: 'رقم الموظف', label2: 'اسم الموظف والقسم', label3: 'صافي الراتب والمستحقات' },
             'دفتر الأستاذ': { label1: 'رقم القيد / الحساب', label2: 'بيان المعاملة بالحساب العام', label3: 'مدين / دائن / الرصيد' },
@@ -326,15 +322,15 @@
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
 
-            if (title === 'إدارة المشتريات') return [{ id: 1, col1: 'PUR-301 / مؤسسة الأمان', col2: 'أمر شراء بضاعة عامة', col3: '180,000 ر.ي' }];
-            if (title === 'ملف المورد') return [{ id: 1, col1: 'SUP-01', col2: 'شركة التوريدات العالمية - إب', col3: '733123456 / معتمد' }];
-            if (title === 'أوامر الشراء') return [{ id: 1, col1: 'PO-901', col2: 'طلب مواد غذائية ومستهلكات', col3: '180,000 ر.ي' }];
-            if (title === 'فواتير المشتريات') return [{ id: 1, col1: 'PINV-401', col2: 'فاتورة مورد آجل', col3: '180,000 ر.ي' }];
-            if (title === 'كشف حساب المورد') return [{ id: 1, col1: 'ACC-SUP-01', col2: 'من 2026/01/01 إلى 2026/08/28', col3: '180,000 ر.ي دائن' }];
-            if (title === 'تسوية المدفوعات') return [{ id: 1, col1: 'PAY-801', col2: 'سداد جزئي لمؤسسة التوريدات', col3: '50,000 ر.ي' }];
+            if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501 / وحدة', col2: 'أصناف المستودع الرئيسي - إب', col3: '500 وحدة (FIFO)' }];
+            if (title === 'كارت الصنف') return [{ id: 1, col1: 'CARD-101', col2: 'وارد 300 / صادر 100 / الرصيد 200', col3: '350,000 ر.ي' }];
+            if (title === 'حركات المخزون') return [{ id: 1, col1: 'MOV-301', col2: 'إذن إضافة بضاعة مشتريات', col3: '300 وحدة' }];
+            if (title === 'الجرد الفعلي') return [{ id: 1, col1: 'INV-REP-01', col2: 'جرد المستودع الرئيسي (طحين وسكر)', col3: 'مطابق تماماً' }];
+            if (title === 'تقييم المخزون') return [{ id: 1, col1: 'FIFO System', col2: 'تقييم الوارد أولاً صادر أولاً', col3: '4,500,000 ر.ي' }];
+            if (title === 'تنبيهات النواقص') return [{ id: 1, col1: 'ALRT-01', col2: 'أصناف تحت الحد الأدنى (تنبيه مبكر)', col3: '5 وحدات متاحة' }];
 
             if (title === 'إدارة المبيعات') return [{ id: 1, col1: 'INV-101 / شركة النور', col2: 'فاتورة مبيعات آجل', col3: '250,000 ر.ي' }];
-            if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501 / وحدة', col2: 'أصناف مستودع رئيسي', col3: '500 وحدة (FIFO)' }];
+            if (title === 'إدارة المشتريات') return [{ id: 1, col1: 'PUR-301 / مؤسسة الأمان', col2: 'أمر شراء بضاعة عامة', col3: '180,000 ر.ي' }];
             if (title === 'الأصول الثابتة') return [{ id: 1, col1: 'AST-01 / سيارة توزيع', col2: 'شراء أصول ثابتة', col3: 'نسبة إهلاك 15%' }];
             if (title === 'الموارد البشرية') return [{ id: 1, col1: 'EMP-100 / محاسب', col2: 'مسير رواتب شهرية', col3: '120,000 ر.ي' }];
             if (title === 'دفتر الأستاذ') return [{ id: 1, col1: 'GL-001 / الصندوق', col2: 'ترحيل آلي من المعالجة التلقائية', col3: '5,000,000 ر.ي (مدين)' }];
@@ -371,16 +367,16 @@
             let config = pageConfigs[title] || { label1: 'الحقل الأول', label2: 'الحقل الثاني', label3: 'الحقل الثالث' };
 
             let subButtonsHTML = '';
-            if (title === 'إدارة المشتريات' || title === 'ملف المورد' || title === 'أوامر الشراء' || title === 'فواتير المشتريات' || title === 'كشف حساب المورد' || title === 'تسوية المدفوعات') {
+            if (title === 'إدارة المخزون' || title === 'كارت الصنف' || title === 'حركات المخزون' || title === 'الجرد الفعلي' || title === 'تقييم المخزون' || title === 'تنبيهات النواقص') {
                 subButtonsHTML = `
                     <div class="flex items-center gap-1.5 flex-wrap bg-slate-50 p-2 rounded-xl border border-slate-200 shrink-0">
-                        <span class="text-[11px] font-bold text-slate-700 ml-1">أقسام المشتريات والموردين:</span>
-                        <button onclick="loadPageView('إدارة المشتريات', '🛍️')" class="px-2 py-1 ${title==='إدارة المشتريات'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">الرئيسية</button>
-                        <button onclick="loadPageView('ملف المورد', '🏢')" class="px-2 py-1 ${title==='ملف المورد'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">ملف المورد</button>
-                        <button onclick="loadPageView('أوامر الشراء', '📝')" class="px-2 py-1 ${title==='أوامر الشراء'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">أوامر الشراء</button>
-                        <button onclick="loadPageView('فواتير المشتريات', '🧾')" class="px-2 py-1 ${title==='فواتير المشتريات'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">فواتير المشتريات</button>
-                        <button onclick="loadPageView('كشف حساب المورد', '📄')" class="px-2 py-1 ${title==='كشف حساب المورد'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">كشف الحساب</button>
-                        <button onclick="loadPageView('تسوية المدفوعات', '💳')" class="px-2 py-1 ${title==='تسوية المدفوعات'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">تسوية المدفوعات</button>
+                        <span class="text-[11px] font-bold text-slate-700 ml-1">أقسام المخزون والمستودعات:</span>
+                        <button onclick="loadPageView('إدارة المخزون', '📦')" class="px-2 py-1 ${title==='إدارة المخزون'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">الرئيسية</button>
+                        <button onclick="loadPageView('كارت الصنف', '📑')" class="px-2 py-1 ${title==='كارت الصنف'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">كارت الصنف</button>
+                        <button onclick="loadPageView('حركات المخزون', '🔄')" class="px-2 py-1 ${title==='حركات المخزون'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">حركات المخزون</button>
+                        <button onclick="loadPageView('الجرد الفعلي', '📋')" class="px-2 py-1 ${title==='الجرد الفعلي'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">الجرد الفعلي</button>
+                        <button onclick="loadPageView('تقييم المخزون', '📊')" class="px-2 py-1 ${title==='تقييم المخزون'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">تقييم المخزون</button>
+                        <button onclick="loadPageView('تنبيهات النواقص', '⚠️')" class="px-2 py-1 ${title==='تنبيهات النواقص'?'bg-blue-600 text-white shadow':'bg-white text-slate-700 border border-slate-200'} rounded-lg text-[10px] font-bold transition-all">تنبيهات النواقص</button>
                     </div>
                 `;
             }
