@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>النظام المحاسبي الاحترافي | أمين الشيباني</title>
     
-    <!-- إعدادات التثبيت على شاشة الجوال (PWA) مع أيقونة مضمنة -->
+    <!-- إعدادات التثبيت على الجوال مع أيقونة مضمنة مباشرة -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="نظام الشيباني">
+    
+    <!-- أيقونات مضمنة مباشرة لضمان ظهور الشعار عند التثبيت -->
     <link rel="apple-touch-icon" href="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg">
     <link rel="icon" type="image/jpeg" href="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg">
 
-    <!-- ملف manifest ديناميكي مدعوم بالشعار -->
+    <!-- ملف manifest ديناميكي -->
     <script>
         const manifestData = {
             "name": "النظام المحاسبي الاحترافي - أمين الشيباني",
@@ -184,7 +186,7 @@
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span class="font-bold tracking-wide">النظام متصل وقاعدة البيانات مؤمنة</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani Accounting System v3.2</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani Accounting System v3.3</div>
         </footer>
     </div>
 
@@ -342,7 +344,7 @@
             if (title === 'القيود') return [{ id: 1, col1: 'Q-001', col2: 'قيد إثبات رأس المال الافتتاحي', col3: '5,000,000 ر.ي' }];
             if (title === 'المبيعات') return [{ id: 1, col1: 'INV-101', col2: 'شركة التجارة الحديثة', col3: '45,000 ر.ي (آجل)' }];
             if (title === 'ميزان المراجعة') return [{ id: 1, col1: 'ACC-ROOT-1', col2: 'تطابق إجمالي الأرصدة المدينة والدائنة', col3: 'متوازن 100%' }];
-            if (title === 'الأرباح') return [{ id: 1, col1: 'إجمالي أرباح النشاط التشغيلي', col2: 'الربع الأول 2026', col3: 'إيجابي (+1,200,000)' }];
+            if (title === 'الأرباح') return [{ id: 1, col1: 'إجمالي أرباح النشاط التشغيلي', label2: 'الربع الأول 2026', col3: 'إيجابي (+1,200,000)' }];
             if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501', col2: 'أصناف بضائع عامة جاهزة', col3: '150 وحدة (سعر الجملة)' }];
             if (title === 'المحاسبة المالية') return [{ id: 1, col1: 'REP-01', col2: 'قائمة المركز المالي الختامية', col3: 'معتمد رسمياً' }];
             if (title === 'إعدادات النظام') return [{ id: 1, col1: 'العملية الأساسية', label2: 'ريال يمني (YER)', col3: 'مقفلة' }];
