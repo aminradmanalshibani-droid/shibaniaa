@@ -3,7 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>النظام المحاسبي | أمين الشيباني</title>
+    <title>النظام المحاسبي الاحترافي | أمين الشيباني</title>
+    
+    <!-- إعدادات التثبيت على شاشة الجوال (PWA) -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="نظام الشيباني">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg">
+    <link rel="icon" type="image/jpeg" href="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg">
+
+    <!-- ملف manifest ديناميكي للتثبيت بأيقونة حقيقية -->
+    <script>
+        const manifestData = {
+            "name": "النظام المحاسبي الاحترافي - أمين الشيباني",
+            "short_name": "نظام الشيباني",
+            "start_url": "./",
+            "display": "standalone",
+            "background_color": "#0f172a",
+            "theme_color": "#0f172a",
+            "icons": [
+                {
+                    "src": "https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg",
+                    "sizes": "192x192 512x512",
+                    "type": "image/jpeg"
+                }
+            ]
+        };
+        const stringManifest = JSON.stringify(manifestData);
+        const blob = new Blob([stringManifest], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(blob);
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = manifestURL;
+        document.head.appendChild(link);
+    </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -11,10 +45,10 @@
             theme: {
                 extend: {
                     colors: {
-                        primaryBlue: '#1d4ed8',
-                        primaryBlueHover: '#1e40af',
-                        bgLight: '#f8fafc',
-                        cardLight: '#ffffff',
+                        primaryBlue: '#0f172a',
+                        accentBlue: '#2563eb',
+                        accentHover: '#1d4ed8',
+                        bgLight: '#f1f5f9',
                     },
                     fontFamily: {
                         cairo: ['Cairo', 'sans-serif'],
@@ -32,12 +66,12 @@
             height: 100%;
             margin: 0;
             font-family: 'Cairo', sans-serif;
-            background-color: #f8fafc;
+            background-color: #f1f5f9;
             color: #1e293b;
             overflow: hidden;
         }
         ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         @media print {
             body * { visibility: hidden; }
@@ -50,107 +84,119 @@
 
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- نافذة قائمة ملف -->
+    <!-- نافذة قائمة ملف الاحترافية -->
     <div id="fileModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-80 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-80 p-4">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
-                <div class="flex items-center gap-1.5"><span class="text-sm">📁</span><h3 class="font-bold text-xs text-slate-800">قائمة ملف النظام الأساسية</h3></div>
-                <button onclick="toggleModal('fileModal')" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
+                <div class="flex items-center gap-1.5">
+                    <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" class="w-5 h-5 rounded object-cover">
+                    <h3 class="font-bold text-xs text-slate-800">قائمة ملف النظام الأساسية</h3>
+                </div>
+                <button onclick="toggleModal('fileModal')" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
             </div>
             <div class="space-y-1">
-                <button onclick="loadHomeView(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>🏠 الصفحة الرئيسية</span><span>◀️</span></button>
-                <button onclick="loadPageView('الحسابات', '🌳'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>🌳 الحسابات</span><span>◀️</span></button>
-                <button onclick="loadPageView('القيود', '📝'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>📝 القيود</span><span>◀️</span></button>
-                <button onclick="loadPageView('المبيعات', '🛒'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>🛒 المبيعات</span><span>◀️</span></button>
-                <button onclick="loadPageView('ميزان المراجعة', '📊'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>📊 ميزان المراجعة</span><span>◀️</span></button>
-                <button onclick="loadPageView('الأرباح', '📈'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>📈 الأرباح</span><span>◀️</span></button>
-                <button onclick="loadPageView('إدارة المخزون', '📦'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>📦 إدارة المخزون</span><span>◀️</span></button>
-                <button onclick="loadPageView('المحاسبة المالية', '💰'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>💰 المحاسبة المالية</span><span>◀️</span></button>
-                <button onclick="loadPageView('إعدادات النظام', '⚙️'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>⚙️ الإعدادات</span><span>◀️</span></button>
-                <button onclick="triggerImport(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>📥 استيراد البيانات</span><span>◀️</span></button>
+                <button onclick="loadHomeView(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏠 الصفحة الرئيسية</span><span>◀️</span></button>
+                <button onclick="loadPageView('الحسابات', '🌳'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🌳 شجرة الحسابات</span><span>◀️</span></button>
+                <button onclick="loadPageView('القيود', '📝'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📝 القيود اليومية</span><span>◀️</span></button>
+                <button onclick="loadPageView('المبيعات', '🛒'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🛒 المبيعات والعملاء</span><span>◀️</span></button>
+                <button onclick="loadPageView('ميزان المراجعة', '📊'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📊 ميزان المراجعة</span><span>◀️</span></button>
+                <button onclick="loadPageView('الأرباح', '📈'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📈 الأرباح والخسائر</span><span>◀️</span></button>
+                <button onclick="loadPageView('إدارة المخزون', '📦'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📦 إدارة المخزون</span><span>◀️</span></button>
+                <button onclick="loadPageView('المحاسبة المالية', '💰'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>💰 المحاسبة المالية</span><span>◀️</span></button>
+                <button onclick="loadPageView('إعدادات النظام', '⚙️'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>⚙️ إعدادات النظام</span><span>◀️</span></button>
+                <button onclick="triggerImport(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📥 استيراد البيانات</span><span>◀️</span></button>
                 <input type="file" id="importFile" class="hidden" onchange="importDatabase(event)">
-                <button onclick="exportDatabase(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-primaryBlue transition-all cursor-pointer"><span>📤 تصدير البيانات</span><span>◀️</span></button>
-                <button onclick="lockSystem(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-amber-600 hover:bg-amber-50 transition-all cursor-pointer"><span>🔒 قفل النظام</span><span>◀️</span></button>
+                <button onclick="exportDatabase(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📤 تصدير البيانات</span><span>◀️</span></button>
+                <button onclick="lockSystem(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-amber-600 hover:bg-amber-50 transition-all cursor-pointer"><span>?? قفل النظام</span><span>◀️</span></button>
                 <button onclick="logout(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-red-600 hover:bg-red-50 transition-all cursor-pointer"><span>🚪 تسجيل الخروج</span><span>◀️</span></button>
             </div>
         </div>
     </div>
 
     <!-- شاشة تسجيل الدخول -->
-    <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-100 overflow-hidden">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-xl">
+    <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-900 overflow-hidden">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div class="text-center mb-4">
-                <div class="w-10 h-10 rounded-xl bg-primaryBlue flex items-center justify-center mx-auto mb-2 shadow-md">
-                    <i data-lucide="lock" class="w-5 h-5 text-white"></i>
+                <div class="w-14 h-14 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center mx-auto mb-2 overflow-hidden shadow-lg p-1">
+                    <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام" class="w-full h-full object-contain rounded-lg">
                 </div>
-                <h1 class="text-lg font-bold text-slate-800">النظام المحاسبي | أمين الشيباني</h1>
-                <p class="text-[11px] text-slate-500 mt-0.5">تسجيل الدخول (admin / 123456)</p>
+                <h1 class="text-lg font-bold text-slate-900">النظام المحاسبي الاحترافي</h1>
+                <p class="text-[11px] text-slate-500 mt-0.5">أمين الشيباني (admin / 123456)</p>
             </div>
             <form onsubmit="handleLogin(event)" class="space-y-3">
                 <div>
-                    <label class="block text-xs text-slate-600 mb-1">اسم المستخدم</label>
-                    <input type="text" id="loginUser" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue font-mono" placeholder="admin">
+                    <label class="block text-xs font-bold text-slate-700 mb-1">اسم المستخدم</label>
+                    <input type="text" id="loginUser" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-accentBlue font-mono" placeholder="admin">
                 </div>
                 <div>
-                    <label class="block text-xs text-slate-600 mb-1">كلمة المرور</label>
-                    <input type="password" id="loginPassword" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue font-mono" placeholder="123456">
+                    <label class="block text-xs font-bold text-slate-700 mb-1">كلمة المرور</label>
+                    <input type="password" id="loginPassword" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-accentBlue font-mono" placeholder="123456">
                 </div>
-                <button type="submit" class="w-full bg-primaryBlue text-white font-bold text-xs py-2.5 rounded-xl hover:bg-primaryBlueHover transition-all cursor-pointer shadow-md">تشغيل النظام</button>
+                <button type="submit" class="w-full bg-accentBlue text-white font-bold text-xs py-2.5 rounded-xl hover:bg-accentHover transition-all cursor-pointer shadow-md">تسجيل الدخول للنظام</button>
             </form>
         </div>
     </div>
 
     <!-- شاشة الإغلاق التام -->
-    <div id="closedSystemSection" class="hidden flex-grow flex items-center justify-center p-4 bg-slate-900 text-white overflow-hidden">
+    <div id="closedSystemSection" class="hidden flex-grow flex items-center justify-center p-4 bg-slate-950 text-white overflow-hidden">
         <div class="text-center space-y-3 max-w-md">
             <div class="w-14 h-14 rounded-2xl bg-red-600 flex items-center justify-center mx-auto shadow-xl">
                 <i data-lucide="power" class="w-7 h-7 text-white"></i>
             </div>
             <h2 class="text-lg font-bold">تم إغلاق النظام تماماً</h2>
             <p class="text-xs text-slate-400">تم حفظ كافة السجلات والبيانات بنجاح.</p>
-            <button onclick="location.reload()" class="bg-primaryBlue hover:bg-primaryBlueHover text-white px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer">إعادة تشغيل النظام</button>
+            <button onclick="location.reload()" class="bg-accentBlue hover:bg-accentHover text-white px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer">إعادة تشغيل النظام</button>
         </div>
     </div>
 
-    <!-- لوحة النظام الأساسية -->
+    <!-- لوحة النظام الأساسية بمظهر الأنظمة العالمية -->
     <div id="dashboardSection" class="hidden flex-col h-full overflow-hidden">
-        <!-- شريط التنقل العلوي -->
-        <header class="bg-white border-b border-slate-200 text-slate-800 shadow-xs shrink-0 relative z-40">
+        
+        <!-- شريط التنقل العلوي الاحترافي -->
+        <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
             <div class="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between gap-2">
-                <div class="flex items-center gap-2 shrink-0">
-                    <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-blue-100 text-primaryBlue font-bold text-xs">AS</span>
-                    <span id="headerYearDisplay" class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg text-xs font-semibold">السنة المالية: 2026</span>
-                    <h1 class="font-bold text-xs text-slate-900 hidden md:inline">النظام المحاسبي | أمين الشيباني</h1>
+                
+                <!-- شعار النظام والسنة المالية -->
+                <div class="flex items-center gap-2.5 shrink-0">
+                    <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="الشعار" class="w-7 h-7 rounded-lg object-cover border border-slate-700 shadow">
+                    <span id="headerYearDisplay" class="bg-slate-800 text-blue-300 px-2 py-0.5 rounded-lg text-xs font-mono font-bold border border-slate-700">2026</span>
+                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي الاحترافي | أمين الشيباني</h1>
                 </div>
 
-                <div class="flex items-center gap-1 shrink-0 text-xs font-medium">
-                    <button onclick="loadPageView('إعدادات النظام', '⚙️')" class="px-2 py-1 hover:bg-slate-100 rounded-lg transition-all cursor-pointer text-slate-600">إعدادات</button>
-                    <button onclick="loadPageView('المحاسبة المالية', '💰')" class="px-2 py-1 hover:bg-slate-100 rounded-lg transition-all cursor-pointer text-slate-600">المحاسبة</button>
-                    <button onclick="loadPageView('إدارة المخزون', '📦')" class="px-2 py-1 hover:bg-slate-100 rounded-lg transition-all cursor-pointer text-slate-600">المخزون</button>
-                    <button onclick="loadHomeView()" class="px-2 py-1 hover:bg-slate-100 rounded-lg transition-all cursor-pointer text-slate-600">الرئيسية</button>
-                    <button onclick="toggleModal('fileModal')" class="px-2 py-1 bg-blue-50 text-primaryBlue font-bold rounded-lg transition-all cursor-pointer">قائمة ملف</button>
+                <!-- أزرار العمليات السريعة والقائمة -->
+                <div class="flex items-center gap-1.5 shrink-0 text-xs font-medium">
+                    <button onclick="loadHomeView()" class="px-2.5 py-1.5 hover:bg-slate-800 rounded-lg transition-all cursor-pointer text-slate-300 flex items-center gap-1"><i data-lucide="home" class="w-3.5 h-3.5"></i> الرئيسية</button>
+                    <button onclick="loadPageView('إعدادات النظام', '⚙️')" class="px-2.5 py-1.5 hover:bg-slate-800 rounded-lg transition-all cursor-pointer text-slate-300 flex items-center gap-1"><i data-lucide="settings" class="w-3.5 h-3.5"></i> الإعدادات</button>
+                    <button onclick="toggleModal('fileModal')" class="px-3 py-1.5 bg-accentBlue hover:bg-accentHover text-white font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="menu" class="w-3.5 h-3.5"></i> قائمة ملف</button>
                 </div>
+
             </div>
 
-            <!-- الشريط الثاني للأزرار (مترتب بالكامل ومرئي تماماً بدون قطع) -->
-            <div class="bg-slate-50 border-t border-slate-100 px-3 py-1.5 flex items-center justify-center gap-2 flex-wrap">
-                <button onclick="loadPageView('الحسابات', '🌳')" class="flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs hover:bg-blue-50 hover:border-blue-200 text-xs font-bold text-slate-700 transition-all cursor-pointer">
-                    <span>🌳</span><span>الحسابات</span>
+            <!-- شريط الأزرار الفرعية المعياري (مرتب بدقة ومحاذاة تامة بدون أي قطع) -->
+            <div class="bg-slate-900 border-t border-slate-800 px-3 py-1.5 flex items-center justify-center gap-2 flex-wrap">
+                <button onclick="loadPageView('الحسابات', '🌳')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">🌳</span><span>الحسابات</span>
                 </button>
-                <button onclick="loadPageView('القيود', '📝')" class="flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs hover:bg-blue-50 hover:border-blue-200 text-xs font-bold text-slate-700 transition-all cursor-pointer">
-                    <span>📝</span><span>القيود</span>
+                <button onclick="loadPageView('القيود', '📝')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">📝</span><span>القيود اليومية</span>
                 </button>
-                <button onclick="loadPageView('المبيعات', '🛒')" class="flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs hover:bg-blue-50 hover:border-blue-200 text-xs font-bold text-slate-700 transition-all cursor-pointer">
-                    <span>🛒</span><span>المبيعات</span>
+                <button onclick="loadPageView('المبيعات', '🛒')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">🛒</span><span>المبيعات</span>
                 </button>
-                <button onclick="loadPageView('ميزان المراجعة', '📊')" class="flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs hover:bg-blue-50 hover:border-blue-200 text-xs font-bold text-slate-700 transition-all cursor-pointer">
-                    <span>📊</span><span>ميزان المراجعة</span>
+                <button onclick="loadPageView('ميزان المراجعة', '📊')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">📊</span><span>ميزان المراجعة</span>
                 </button>
-                <button onclick="loadPageView('الأرباح', '📈')" class="flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs hover:bg-blue-50 hover:border-blue-200 text-xs font-bold text-slate-700 transition-all cursor-pointer">
-                    <span>📈</span><span>الأرباح</span>
+                <button onclick="loadPageView('الأرباح', '📈')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">📈</span><span>الأرباح</span>
                 </button>
-                <button onclick="loadHomeView()" class="flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs hover:bg-blue-50 hover:border-blue-200 text-xs font-bold text-slate-700 transition-all cursor-pointer">
-                    <span>🔄</span><span>تحديث</span>
+                <button onclick="loadPageView('إدارة المخزون', '📦')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">📦</span><span>المخزون</span>
+                </button>
+                <button onclick="loadPageView('المحاسبة المالية', '💰')" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                    <span class="text-blue-400">💰</span><span>المحاسبة</span>
+                </button>
+                <button onclick="loadHomeView()" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">
+                    <span class="text-emerald-400">🔄</span><span>تحديث</span>
                 </button>
             </div>
         </header>
@@ -159,39 +205,40 @@
         <div id="mainContentArea" class="flex-grow p-3 flex flex-col items-center justify-center bg-slate-100 overflow-hidden">
         </div>
 
-        <footer class="bg-slate-900 text-white py-1.5 px-4 flex items-center justify-center shrink-0">
-            <div class="inline-flex items-center gap-2 bg-slate-800 px-3 py-1 rounded-full border border-slate-700 text-[11px] shadow-sm">
+        <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[11px]">
+            <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold tracking-wide">Powered by Netlify</span>
+                <span class="font-bold tracking-wide">النظام متصل وقاعدة البيانات مؤمنة</span>
             </div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani Accounting System v3.1</div>
         </footer>
     </div>
 
-    <!-- نافذة منبثقة عامة مخصصة حسب الحقول الفريدة لكل زر -->
+    <!-- نافذة منبثقة عامة للإدارة المباشرة -->
     <div id="genericModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-96 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-96 p-4">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
                 <h3 class="font-bold text-xs text-slate-800" id="genericModalTitle">إدارة السجل</h3>
-                <button onclick="toggleModal('genericModal')" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
+                <button onclick="toggleModal('genericModal')" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
             </div>
             <form onsubmit="handleGenericFormSubmit(event)" class="space-y-2.5">
                 <input type="hidden" id="genEditIndex" value="-1">
                 <input type="hidden" id="genPageTitle" value="">
                 <div>
-                    <label class="block text-xs text-slate-600 mb-1" id="genLabel1">الحقل الأول</label>
-                    <input type="text" id="genInput1" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue">
+                    <label class="block text-xs font-bold text-slate-700 mb-1" id="genLabel1">الحقل الأول</label>
+                    <input type="text" id="genInput1" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
                 </div>
                 <div>
-                    <label class="block text-xs text-slate-600 mb-1" id="genLabel2">الحقل الثاني</label>
-                    <input type="text" id="genInput2" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue">
+                    <label class="block text-xs font-bold text-slate-700 mb-1" id="genLabel2">الحقل الثاني</label>
+                    <input type="text" id="genInput2" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
                 </div>
                 <div>
-                    <label class="block text-xs text-slate-600 mb-1" id="genLabel3">الحقل الثالث</label>
-                    <input type="text" id="genInput3" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-primaryBlue">
+                    <label class="block text-xs font-bold text-slate-700 mb-1" id="genLabel3">الحقل الثالث</label>
+                    <input type="text" id="genInput3" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
                 </div>
                 <div class="flex justify-end gap-2 pt-2">
                     <button type="button" onclick="toggleModal('genericModal')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer">إلغاء</button>
-                    <button type="submit" class="bg-primaryBlue hover:bg-primaryBlueHover text-white px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer">حفظ السجل</button>
+                    <button type="submit" class="bg-accentBlue hover:bg-accentHover text-white px-3.5 py-1.5 rounded-xl text-xs font-bold cursor-pointer shadow">حفظ السجل</button>
                 </div>
             </form>
         </div>
@@ -224,7 +271,7 @@
             const passInput = document.getElementById('loginPassword').value.trim();
 
             if (userInput === 'admin' && passInput === '123456') {
-                showToast("تم تشغيل النظام بكفاءة تامة!", "success");
+                showToast("تم تشغيل النظام المحاسبي الاحترافي بكفاءة تامة!", "success");
                 document.getElementById('loginSection').classList.add('hidden');
                 document.getElementById('closedSystemSection').classList.add('hidden');
                 const dash = document.getElementById('dashboardSection');
@@ -261,7 +308,7 @@
                 const btn = document.getElementById('btnYear' + y);
                 if (btn) {
                     if (y === year) {
-                        btn.className = "py-2 px-3 rounded-xl border-2 border-primaryBlue bg-blue-50/50 text-primaryBlue font-bold text-xs text-center transition-all cursor-pointer";
+                        btn.className = "py-2 px-3 rounded-xl border-2 border-accentBlue bg-blue-50 text-accentBlue font-bold text-xs text-center transition-all cursor-pointer shadow-sm";
                     } else {
                         btn.className = "py-2 px-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:bg-slate-50 transition-all cursor-pointer";
                     }
@@ -270,40 +317,40 @@
         }
 
         function enterSystemWithYear() {
-            document.getElementById('headerYearDisplay').innerText = `السنة المالية: ${selectedActiveYear}`;
-            showToast(`تم الدخول بنجاح للسنة المالية: ${selectedActiveYear}`, "success");
+            document.getElementById('headerYearDisplay').innerText = selectedActiveYear;
+            showToast(`تم التفعيل والتحويل بنجاح للسنة المالية: ${selectedActiveYear}`, "success");
             loadPageView('المحاسبة المالية', '💰');
         }
 
         function loadHomeView() {
             const area = document.getElementById('mainContentArea');
-            document.getElementById('headerYearDisplay').innerText = `السنة المالية: ${selectedActiveYear}`;
+            document.getElementById('headerYearDisplay').innerText = selectedActiveYear;
             area.innerHTML = `
                 <div class="max-w-3xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                     <div class="bg-white border border-slate-200 rounded-2xl shadow-md p-4">
-                        <div class="bg-slate-900 text-white text-center font-bold text-xs py-2 rounded-xl mb-3 tracking-wide">
-                            الفروع - السنة المالية
+                        <div class="bg-primaryBlue text-white text-center font-bold text-xs py-2 rounded-xl mb-3 tracking-wide shadow">
+                            اختر السنة المالية النشطة
                         </div>
                         <div class="grid grid-cols-3 gap-2 mb-3">
-                            <button onclick="selectYear('2026')" id="btnYear2026" class="py-2 px-2 rounded-xl border-2 border-primaryBlue bg-blue-50/50 text-primaryBlue font-bold text-xs text-center transition-all cursor-pointer">2026</button>
+                            <button onclick="selectYear('2026')" id="btnYear2026" class="py-2 px-2 rounded-xl border-2 border-accentBlue bg-blue-50 text-accentBlue font-bold text-xs text-center transition-all cursor-pointer shadow-sm">2026</button>
                             <button onclick="selectYear('2025')" id="btnYear2025" class="py-2 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:bg-slate-50 transition-all cursor-pointer">2025</button>
                             <button onclick="selectYear('2024')" id="btnYear2024" class="py-2 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-xs text-center hover:bg-slate-50 transition-all cursor-pointer">2024</button>
                         </div>
-                        <button onclick="enterSystemWithYear()" class="w-full bg-primaryBlue hover:bg-primaryBlueHover text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-sm cursor-pointer">
-                            دخول النظام
+                        <button onclick="enterSystemWithYear()" class="w-full bg-accentBlue hover:bg-accentHover text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-md cursor-pointer">
+                            بدء العمليات المحاسبية
                         </button>
                     </div>
 
                     <div class="bg-white border border-slate-200 rounded-2xl shadow-md p-4 text-center space-y-2">
-                        <div class="w-16 h-16 mx-auto bg-blue-50 rounded-2xl border border-blue-100 flex items-center justify-center overflow-hidden p-1 shadow-inner">
-                            <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام" class="w-full h-full object-contain">
+                        <div class="w-16 h-16 mx-auto bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-center overflow-hidden p-1 shadow-inner">
+                            <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" alt="شعار النظام" class="w-full h-full object-contain rounded-xl">
                         </div>
                         <div>
                             <h2 class="font-extrabold text-sm text-slate-900">أمين الشيباني</h2>
-                            <p class="text-[11px] text-slate-500">نظام الإدارة المحاسبية والمالية</p>
+                            <p class="text-[11px] text-slate-500">نظام الإدارة المحاسبية والمالية المتطور</p>
                         </div>
                         <div class="pt-2 border-t border-slate-100">
-                            <p class="text-[11px] font-bold text-primaryBlue">دقة محاسبية | أمان تام | قاعدة بيانات مترابطة</p>
+                            <p class="text-[11px] font-bold text-accentBlue">معايير محاسبية دقیقة | أمان وثبات تام</p>
                         </div>
                     </div>
                 </div>
@@ -317,7 +364,7 @@
             'المبيعات': { label1: 'رقم الفاتورة', label2: 'اسم العميل / الجهة', label3: 'إجمالي المبلغ وطريقة الدفع' },
             'ميزان المراجعة': { label1: 'رقم الدليل', label2: 'حركة الحساب خلال الفترة', label3: 'الرصيد النهائي' },
             'الأرباح': { label1: 'بند الإيرادات/المصروفات', label2: 'الفترة المالية', label3: 'صافي الربح أو الخسارة' },
-            'إدارة المخزون': { label1: 'كود الصنف', label2: 'اسم Mادة أو المنتج', label3: 'الكمية المتوفرة والسعر' },
+            'إدارة المخزون': { label1: 'كود الصنف', label2: 'اسم المادة أو المنتج', label3: 'الكمية المتوفرة والسعر' },
             'المحاسبة المالية': { label1: 'رقم التقرير المالي', label2: 'نوع القائمة الختامية', label3: 'حالة الاعتماد' },
             'إعدادات النظام': { label1: 'متغير الإعداد', label2: 'قيمة الضبط الحالية', label3: 'صلاحية التعديل' }
         };
@@ -334,7 +381,7 @@
             if (title === 'الأرباح') return [{ id: 1, col1: 'إجمالي أرباح النشاط التشغيلي', col2: 'الربع الأول 2026', col3: 'إيجابي (+1,200,000)' }];
             if (title === 'إدارة المخزون') return [{ id: 1, col1: 'PRD-501', col2: 'أصناف بضائع عامة جاهزة', col3: '150 وحدة (سعر الجملة)' }];
             if (title === 'المحاسبة المالية') return [{ id: 1, col1: 'REP-01', col2: 'قائمة المركز المالي الختامية', col3: 'معتمد رسمياً' }];
-            if (title === 'إعدادات النظام') return [{ id: 1, col1: 'العملة الأساسية', col2: 'ريال يمني (YER)', col3: 'مقفلة' }];
+            if (title === 'إعدادات النظام') return [{ id: 1, col1: 'العملة الأساسية', label2: 'ريال يمني (YER)', col3: 'مقفلة' }];
             return [{ id: 1, col1: 'سجل افتراضي 1', col2: 'بيانات تفصيلية قياسية', col3: 'معتمد' }];
         }
 
@@ -358,7 +405,7 @@
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
-            showToast("تم تصدير البيانات بنجاح!", "success");
+            showToast("تم تصدير النسخة الاحتياطية بنجاح!", "success");
         }
 
         function triggerImport() {
@@ -393,14 +440,16 @@
                 <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full mx-auto shadow-md flex flex-col h-full overflow-hidden">
                     <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2">
                         <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-sm">${icon}</div>
+                            <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner overflow-hidden p-0.5">
+                                <img src="https://i.postimg.cc/rpG9QxkW/Screenshot-20260820-015259-Gallery.jpg" class="w-full h-full object-cover rounded">
+                            </div>
                             <div>
                                 <h2 class="font-bold text-xs text-slate-800">${title} (السنة: ${selectedActiveYear})</h2>
                                 <p class="text-[10px] text-slate-500">صفحة مستقلة متكاملة لإدارة ${title}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-1.5">
-                            <button onclick="openGenericModal('${title}', -1)" class="bg-primaryBlue hover:bg-primaryBlueHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة جديد</button>
+                            <button onclick="openGenericModal('${title}', -1)" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة جديد</button>
                             <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
                             <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="home" class="w-3.5 h-3.5"></i> الرئيسية</button>
                         </div>
@@ -408,7 +457,7 @@
                     <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow">
                         <div class="bg-slate-50 px-3 py-1.5 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center shrink-0">
                             <span>سجلات ${title} (${data.length})</span>
-                            <span class="text-[10px] text-emerald-600 font-bold">● قاعدة بيانات مترابطة</span>
+                            <span class="text-[10px] text-emerald-600 font-bold">● قاعدة بيانات مترابطة نشطة</span>
                         </div>
                         <div class="overflow-y-auto flex-grow">
                             <table class="w-full text-right text-xs">
@@ -428,7 +477,7 @@
                                             <td class="p-2 font-mono text-slate-400">${index + 1}</td>
                                             <td class="p-2 font-bold text-slate-800">${item.col1}</td>
                                             <td class="p-2 text-slate-700">${item.col2}</td>
-                                            <td class="p-2 font-semibold text-primaryBlue">${item.col3}</td>
+                                            <td class="p-2 font-semibold text-accentBlue">${item.col3}</td>
                                             <td class="p-2 text-center space-x-1 space-x-reverse">
                                                 <button onclick="openGenericModal('${title}', ${index})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all">تعديل</button>
                                                 <button onclick="deleteGenericRecord('${title}', ${index})" class="bg-red-50 hover:bg-red-100 text-red-600 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all">حذف</button>
