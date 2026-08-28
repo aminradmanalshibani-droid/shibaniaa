@@ -108,7 +108,15 @@
                 <div class="flex items-center gap-3 shrink-0">
                     <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-accentBlue text-white font-black text-xs shadow">AS</span>
                     <span id="headerYearDisplay" class="bg-slate-800 text-blue-300 px-2.5 py-1 rounded-lg text-xs font-mono font-bold border border-slate-700">السنة: 2026</span>
-                    <h1 class="font-bold text-xs text-slate-100 hidden lg:inline">النظام المحاسبي المتكامل | أمين الشيباني</h1>
+                    
+                    <!-- زر اختيار العملة المدمج في الهيدر -->
+                    <div class="flex items-center bg-slate-800 border border-slate-700 rounded-lg p-0.5 text-xs">
+                        <span class="px-2 text-slate-400 font-bold">العملة:</span>
+                        <button onclick="setSystemCurrency('YER')" id="btnYer" class="px-2 py-0.5 rounded bg-blue-600 text-white font-bold transition-all cursor-pointer">YER</button>
+                        <button onclick="setSystemCurrency('SAR')" id="btnSar" class="px-2 py-0.5 rounded text-slate-300 hover:bg-slate-700 font-bold transition-all cursor-pointer">SAR</button>
+                    </div>
+
+                    <h1 class="font-bold text-xs text-slate-100 hidden xl:inline">النظام المحاسبي | أمين الشيباني</h1>
                 </div>
 
                 <div class="flex items-center gap-1.5 shrink-0 text-xs font-medium">
@@ -118,7 +126,7 @@
                 </div>
             </div>
 
-            <!-- شريط الأزرار الفرعية المستقلة تماماً (بدون دمج) -->
+            <!-- شريط الأزرار الفرعية المستقلة -->
             <div class="bg-slate-900 border-t border-slate-800 px-2 py-1.5 flex items-center justify-center gap-1 flex-wrap overflow-x-auto">
                 <button onclick="loadPageView('إدارة المبيعات', '🛒')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>🛒</span><span>المبيعات</span></button>
                 <button onclick="loadPageView('إدارة العملاء', '🤝')" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"><span>🤝</span><span>العملاء</span></button>
@@ -140,13 +148,13 @@
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[11px]">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold tracking-wide">النظام المحاسبي المتكامل - أزرار مستقلة تماماً بنسبة 100%</span>
+                <span class="font-bold tracking-wide">النظام المحاسبي المتكامل - مزود بالرصيد الافتتاحي واختيار العملات (YER / SAR)</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v9.8</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani System v9.9</div>
         </footer>
     </div>
 
-    <!-- نافذة منبثقة مخصصة ديناميكياً لكل زر على حدة -->
+    <!-- نافذة الإدخال المنبثقة متضمنة الرصيد الافتتاحي والعملة -->
     <div id="universalModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl p-5 max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
@@ -176,19 +184,26 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 mb-1" id="lblField4">الحقل 4</label>
                         <input type="text" id="uniField4" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
                     </div>
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1" id="lblField5">الحقل 5 (القيمة/الرقم)</label>
-                        <input type="text" id="uniField5" required class="w-full bg-blue-50 border border-blue-200 rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-accentBlue focus:outline-none">
+                        <label class="block text-[11px] font-bold text-emerald-700 mb-1">الرصيد الافتتاحي</label>
+                        <input type="text" id="uniOpeningBalance" required class="w-full bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-emerald-700 focus:outline-none" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-blue-700 mb-1">العملة المعتمدة</label>
+                        <select id="uniCurrency" class="w-full bg-blue-50 border border-blue-200 rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-blue-700 focus:outline-none">
+                            <option value="YER">ريال يمني (YER)</option>
+                            <option value="SAR">ريال سعودي (SAR)</option>
+                        </select>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-700 mb-1" id="lblField6">الحقل 6 (الملاحظات/التفاصيل)</label>
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1" id="lblField6">الملاحظات والتفاصيل</label>
                     <textarea id="uniField6" rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue" placeholder="اكتب الملاحظات والتفاصيل هنا..."></textarea>
                 </div>
 
@@ -205,6 +220,20 @@
         let selectedActiveYear = '2026';
         let currentActivePage = 'إدارة المبيعات';
         let currentActiveIcon = '🛒';
+        let currentSystemCurrency = 'YER';
+
+        function setSystemCurrency(curr) {
+            currentSystemCurrency = curr;
+            if (curr === 'YER') {
+                document.getElementById('btnYer').className = "px-2 py-0.5 rounded bg-blue-600 text-white font-bold transition-all cursor-pointer";
+                document.getElementById('btnSar').className = "px-2 py-0.5 rounded text-slate-300 hover:bg-slate-700 font-bold transition-all cursor-pointer";
+                showToast("تم ضبط عملة النظام على: ريال يمني (YER)", "success");
+            } else {
+                document.getElementById('btnSar').className = "px-2 py-0.5 rounded bg-blue-600 text-white font-bold transition-all cursor-pointer";
+                document.getElementById('btnYer').className = "px-2 py-0.5 rounded text-slate-300 hover:bg-slate-700 font-bold transition-all cursor-pointer";
+                showToast("تم ضبط عملة النظام على: ريال سعودي (SAR)", "success");
+            }
+        }
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
@@ -256,118 +285,37 @@
             loadPageView('إدارة المبيعات', '🛒');
         }
 
-        // إعدادات خاصة ومستقلة لكل زر على حدة
         function getPageConfig(title) {
-            if (title === 'إدارة المبيعات') {
-                return {
-                    headers: ['#', 'رقم الفاتورة', 'اسم العميل', 'نوع البيع (نقدي/آجل)', 'حالة السداد', 'إجمالي الفاتورة', 'بيان الأصناف المباعة'],
-                    defaultData: [
-                        { id: 1, f1: 'INV-1001', f2: 'مؤسسة النور التجارية', f3: 'بيع آجل', f4: 'معتمد وغير مسدد', f5: '450,000 ر.ي', f6: '2x شاشة ذكية، 5x راوتر شبكات' }
-                    ]
-                };
-            }
-            if (title === 'إدارة العملاء') {
-                return {
-                    headers: ['#', 'كود العميل', 'اسم العميل الثلاثي', 'رقم الهاتف والمنطقة', 'حد الإئتمان المسموح', 'الرصيد الحالي', 'ملاحظات وحالة الحساب'],
-                    defaultData: [
-                        { id: 1, f1: 'CUS-501', f2: 'أحمد علي القاضي', f3: '771234567 - تعز / التربة', f4: '1,000,000 ر.ي', f5: '450,000 ر.ي مدين', f6: 'عميل منتظم ومسجل رسمياً' }
-                    ]
-                };
-            }
-            if (title === 'إدارة المشتريات') {
-                return {
-                    headers: ['#', 'رقم أمر الشراء', 'اسم المورد', 'نوع الشراء (نقدي/آجل)', 'شروط الاستلام', 'قيمة المشتريات', 'تفاصيل الأصناف الواردة'],
-                    defaultData: [
-                        { id: 1, f1: 'PO-101', f2: 'شركة الاستيراد الحديثة', f3: 'شراء آجل', f4: 'مستودع رئيسي', f5: '850,000 ر.ي', f6: 'توريد أجهزة حاسوب وشاشات عرض' }
-                    ]
-                };
-            }
-            if (title === 'إدارة الموردين') {
-                return {
-                    headers: ['#', 'كود المورد', 'اسم الشركة / المورد', 'رقم المسؤول والهاتف', 'طبيعة التوريد', 'الرصيد المستحق', 'شروط وفترات السداد'],
-                    defaultData: [
-                        { id: 1, f1: 'SUP-301', f2: 'شركة الاستيراد الحديثة', f3: '733445566 - صنعاء/تعز', f4: 'أجهزة إلكترونية وشبكات', f5: '850,000 ر.ي دائن', f6: 'آجل لمدة 30 يوماً' }
-                    ]
-                };
-            }
-            if (title === 'إدارة المخزون') {
-                return {
-                    headers: ['#', 'كود الصنف', 'اسم الصنف ووحدته', 'المستودع المخزن فيه', 'الكمية المتوفرة', 'سعر التكلفة الإجمالي', 'مواصفات الصنف'],
-                    defaultData: [
-                        { id: 1, f1: 'STK-01', f2: 'شاشة ذكية 32 بوصة', f3: 'المستودع الرئيسي - تعز', f4: '15 وحدة', f5: '2,400,000 ر.ي', f6: 'أصناف أصلية ومفحوصة' }
-                    ]
-                };
-            }
-            if (title === 'الأصول الثابتة') {
-                return {
-                    headers: ['#', 'كود الأصل', 'اسم الأصل الثابت', 'موقع الاستخدام', 'نسبة الإهلاك السنوي', 'القيمة الدفترية', 'حالة الصيانة والضمان'],
-                    defaultData: [
-                        { id: 1, f1: 'AST-01', f2: 'أجهزة الحاسوب والشبكات', f3: 'الإدارة العامة - تعز', f4: '10% سنوياً', f5: '1,200,000 ر.ي', f6: 'بحالة ممتازة وتحت الضمان' }
-                    ]
-                };
-            }
-            if (title === 'الموارد البشرية') {
-                return {
-                    headers: ['#', 'رقم الموظف', 'الاسم الثلاثي', 'المسمى الوظيفي', 'تاريخ التعيين', 'الحالة الوظيفية', 'القسم التابع له'],
-                    defaultData: [
-                        { id: 1, f1: 'EMP-01', f2: 'أمين ردمان الشيباني', f3: 'مدير النظام المحاسبي', f4: '2020/01/01', f5: 'على رأس العمل', f6: 'الإدارة والتقنية' }
-                    ]
-                };
-            }
-            if (title === 'مسير الرواتب') {
-                return {
-                    headers: ['#', 'رقم المسير', 'اسم الموظف', 'الراتب الأساسي', 'الإضافات والبدلات', 'الاستقطاعات والخصومات', 'صافي الراتب المستحق'],
-                    defaultData: [
-                        { id: 1, f1: 'PAY-2026', f2: 'أمين ردمان الشيباني', f3: '250,000 ر.ي', f4: '50,000 ر.ي', f5: '10,000 ر.ي', f6: '290,000 ر.ي' }
-                    ]
-                };
-            }
-            if (title === 'دفتر الأستاذ') {
-                return {
-                    headers: ['#', 'رقم القيد', 'الحساب المدين', 'الحساب الدائن', 'نوع القيد المحاسبي', 'مبلغ الحركة', 'شرح البيان والتوجيه'],
-                    defaultData: [
-                        { id: 1, f1: 'JE-001', f2: 'حساب الصندوق الرئيسي', f3: 'حساب رأس المال', f4: 'قيد افتتاحى', f5: '5,000,000 ر.ي', f6: 'إثبات رأس المال والأرصدة' }
-                    ]
-                };
-            }
-            if (title === 'المخرجات المالية') {
-                return {
-                    headers: ['#', 'رمز التقرير', 'اسم التقرير المالي', 'الفترة المالية', 'حالة الاعتماد', 'المؤشر المالي', 'خلاصة النتائج'],
-                    defaultData: [
-                        { id: 1, f1: 'REP-01', f2: 'قائمة المركز المالي (الميزانية)', f3: 'السنة المالية 2026', f4: 'تقرير معتمد', f5: 'مطابق 100%', f6: 'الأصول تساوي الخصوم وحقوق الملكية' }
-                    ]
-                };
-            }
             return {
-                headers: ['#', 'الكود', 'البيان الرئيسي', 'التفاصيل', 'التصنيف', 'القيمة', 'ملاحظات'],
-                defaultData: [{ id: 1, f1: 'REC-01', f2: 'سجل افتراضي', f3: 'افتراضي', f4: 'معتمد', f5: '0 ر.ي', f6: 'بيانات عامة' }]
+                headers: ['#', 'معرف السجل (الرمز)', 'البيان الرئيسي', 'الفرع/التصنيف', 'الرصيد الافتتاحي', 'العملة', 'ملاحظات وتفاصيل']
             };
         }
 
-        // تسميات الحقول المنبثقة لكل زر
         function getModalFieldLabels(title) {
-            if (title === 'إدارة المبيعات') return ['رقم الفاتورة', 'اسم العميل', 'نوع البيع (نقدي/آجل)', 'حالة السداد', 'إجمالي الفاتورة', 'بيان الأصناف المباعة'];
-            if (title === 'إدارة العملاء') return ['كود العميل', 'اسم العميل الثلاثي', 'رقم الهاتف والمنطقة', 'حد الإئتمان المسموح', 'الرصيد الحالي', 'ملاحظات وحالة الحساب'];
-            if (title === 'إدارة المشتريات') return ['رقم أمر الشراء', 'اسم المورد', 'نوع الشراء (نقدي/آجل)', 'شروط الاستلام', 'قيمة المشتريات', 'تفاصيل الأصناف الواردة'];
-            if (title === 'إدارة الموردين') return ['كود المورد', 'اسم الشركة / المورد', 'رقم المسؤول والهاتف', 'طبيعة التوريد', 'الرصيد المستحق', 'شروط وفترات السداد'];
-            if (title === 'إدارة المخزون') return ['كود الصنف', 'اسم الصنف ووحدته', 'المستودع المخزن فيه', 'الكمية المتوفرة', 'سعر التكلفة الإجمالي', 'مواصفات الصنف'];
-            if (title === 'الأصول الثابتة') return ['كود الأصل', 'اسم الأصل الثابت', 'موقع الاستخدام', 'نسبة الإهلاك السنوي', 'القيمة الدفترية', 'حالة الصيانة والضمان'];
-            if (title === 'الموارد البشرية') return ['رقم الموظف', 'الاسم الثلاثي', 'المسمى الوظيفي', 'تاريخ التعيين', 'الحالة الوظيفية', 'القسم التابع له'];
-            if (title === 'مسير الرواتب') return ['رقم المسير', 'اسم الموظف', 'الراتب الأساسي', 'الإضافات والبدلات', 'الاستقطاعات والخصومات', 'صافي الراتب المستحق'];
-            if (title === 'دفتر الأستاذ') return ['رقم القيد', 'الحساب المدين', 'الحساب الدائن', 'نوع القيد المحاسبي', 'مبلغ الحركة', 'شرح البيان والتوجيه'];
-            if (title === 'المخرجات المالية') return ['رمز التقرير', 'اسم التقرير المالي', 'الفترة المالية', 'حالة الاعتماد', 'المؤشر المالي', 'خلاصة النتائج'];
-            return ['الحقل 1', 'الحقل 2', 'الحقل 3', 'الحقل 4', 'القيمة', 'الملاحظات'];
+            if (title === 'إدارة المبيعات') return ['رقم الفاتورة', 'اسم العميل', 'نوع البيع (نقدي/آجل)', 'حالة السداد'];
+            if (title === 'إدارة العملاء') return ['كود العميل', 'اسم العميل الثلاثي', 'رقم الهاتف والمنطقة', 'حد الإئتمان المسموح'];
+            if (title === 'إدارة المشتريات') return ['رقم أمر الشراء', 'اسم المورد', 'نوع الشراء', 'شروط الاستلام'];
+            if (title === 'إدارة الموردين') return ['كود المورد', 'اسم المورد/الشركة', 'رقم المسؤول والهاتف', 'طبيعة التوريد'];
+            if (title === 'إدارة المخزون') return ['كود الصنف', 'اسم الصنف ووحدته', 'المستودع المخزن فيه', 'الكمية المتوفرة'];
+            if (title === 'الأصول الثابتة') return ['كود الأصل', 'اسم الأصل الثابت', 'موقع الاستخدام', 'نسبة الإهلاك'];
+            if (title === 'الموارد البشرية') return ['رقم الموظف', 'الاسم الثلاثي', 'المسمى الوظيفي', 'القسم التابع له'];
+            if (title === 'مسير الرواتب') return ['رقم المسير', 'اسم الموظف', 'الراتب الأساسي', 'البدلات والإضافات'];
+            if (title === 'دفتر الأستاذ') return ['رقم القيد', 'الحساب المدين', 'الحساب الدائن', 'نوع القيد المحاسبي'];
+            if (title === 'المخرجات المالية') return ['رمز التقرير', 'اسم التقرير المالي', 'الفترة المالية', 'حالة الاعتماد'];
+            return ['الحقل 1', 'الحقل 2', 'الحقل 3', 'الحقل 4'];
         }
 
         function getPageData(title) {
-            const key = 'system_independent_btns_db_' + selectedActiveYear + '_' + title;
+            const key = 'system_currencies_balances_db_' + selectedActiveYear + '_' + title;
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
-            return getPageConfig(title).defaultData;
+            return [
+                { id: 1, f1: 'REF-001', f2: 'سجل افتراضي رئيسي', f3: 'معتمد ونشط', openingBalance: '500,000', currency: 'YER', f6: 'افتتاحي مدخل تلقائياً' }
+            ];
         }
 
         function savePageData(title, data) {
-            const key = 'system_independent_btns_db_' + selectedActiveYear + '_' + title;
+            const key = 'system_currencies_balances_db_' + selectedActiveYear + '_' + title;
             localStorage.setItem(key, JSON.stringify(data));
         }
 
@@ -375,18 +323,18 @@
             const backup = {};
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (key.includes('system_independent_btns_db_')) {
+                if (key.includes('system_currencies_balances_db_')) {
                     backup[key] = localStorage.getItem(key);
                 }
             }
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `Ameen_Alshaibani_Independent_System_Backup_${selectedActiveYear}.json`);
+            downloadAnchor.setAttribute("download", `Ameen_Alshaibani_Currencies_Balances_Backup_${selectedActiveYear}.json`);
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
-            showToast("تم تصدير قواعد البيانات المستقلة بنجاح!", "success");
+            showToast("تم تصدير قاعدة البيانات مع الأرصدة والعملات بنجاح!", "success");
         }
 
         function loadPageView(title, icon) {
@@ -403,7 +351,7 @@
                             <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">${icon}</div>
                             <div>
                                 <h2 class="font-bold text-xs text-slate-800">${title} (السنة المالية: ${selectedActiveYear})</h2>
-                                <p class="text-[10px] text-slate-500">صفحة مستقلة ومكتملة الحقول والمهام خاصة بزر ${title}</p>
+                                <p class="text-[10px] text-slate-500">صفحة مستقلة تتضمن حقول الرصيد الافتتاحي والعملات (YER / SAR)</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-1.5">
@@ -416,7 +364,7 @@
                     <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow mt-2">
                         <div class="bg-slate-50 px-3 py-1.5 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center shrink-0">
                             <span>سجلات قسم ${title} (${data.length} سجلات نشطة)</span>
-                            <span class="text-[10px] text-emerald-600 font-bold">● زر مستقل ببياناته الخاصة 100%</span>
+                            <span class="text-[10px] text-emerald-600 font-bold">● يشمل الرصيد الافتتاحي واختيار العملات بنجاح</span>
                         </div>
                         <div class="overflow-y-auto flex-grow">
                             <table class="w-full text-right text-xs">
@@ -426,8 +374,8 @@
                                         <th class="p-2">${config.headers[1]}</th>
                                         <th class="p-2">${config.headers[2]}</th>
                                         <th class="p-2">${config.headers[3]}</th>
-                                        <th class="p-2">${config.headers[4]}</th>
-                                        <th class="p-2">${config.headers[5]}</th>
+                                        <th class="p-2 text-emerald-700">${config.headers[4]}</th>
+                                        <th class="p-2 text-blue-700">${config.headers[5]}</th>
                                         <th class="p-2">${config.headers[6]}</th>
                                         <th class="p-2 text-center">الخيارات</th>
                                     </tr>
@@ -440,8 +388,8 @@
                                             <td class="p-2 font-mono font-bold text-blue-600">${item.f1}</td>
                                             <td class="p-2 font-bold text-slate-800">${item.f2}</td>
                                             <td class="p-2 text-slate-600">${item.f3}</td>
-                                            <td class="p-2 text-slate-700"><span class="px-2 py-0.5 rounded bg-blue-50 text-accentBlue font-bold text-[10px]">${item.f4}</span></td>
-                                            <td class="p-2 font-bold text-emerald-600 font-mono">${item.f5}</td>
+                                            <td class="p-2 font-mono font-bold text-emerald-600">${item.openingBalance}</td>
+                                            <td class="p-2"><span class="px-2 py-0.5 rounded bg-blue-50 text-accentBlue font-bold font-mono text-[10px]">${item.currency}</span></td>
                                             <td class="p-2 text-slate-600 text-[11px]">${item.f6}</td>
                                             <td class="p-2 text-center space-x-1 space-x-reverse whitespace-nowrap">
                                                 <button onclick="openUniversalModal(${index})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all">تعديل</button>
@@ -468,8 +416,6 @@
             document.getElementById('lblField2').innerText = labels[1];
             document.getElementById('lblField3').innerText = labels[2];
             document.getElementById('lblField4').innerText = labels[3];
-            document.getElementById('lblField5').innerText = labels[4];
-            document.getElementById('lblField6').innerText = labels[5];
 
             if (index === -1) {
                 document.getElementById('universalModalTitle').innerText = `إضافة سجل جديد في: ${currentActivePage}`;
@@ -477,7 +423,8 @@
                 document.getElementById('uniField2').value = '';
                 document.getElementById('uniField3').value = '';
                 document.getElementById('uniField4').value = '';
-                document.getElementById('uniField5').value = '';
+                document.getElementById('uniOpeningBalance').value = '0.00';
+                document.getElementById('uniCurrency').value = currentSystemCurrency;
                 document.getElementById('uniField6').value = '';
             } else {
                 document.getElementById('universalModalTitle').innerText = `تعديل السجل في: ${currentActivePage}`;
@@ -487,7 +434,8 @@
                 document.getElementById('uniField2').value = record.f2;
                 document.getElementById('uniField3').value = record.f3;
                 document.getElementById('uniField4').value = record.f4;
-                document.getElementById('uniField5').value = record.f5;
+                document.getElementById('uniOpeningBalance').value = record.openingBalance || '0.00';
+                document.getElementById('uniCurrency').value = record.currency || 'YER';
                 document.getElementById('uniField6').value = record.f6;
             }
             toggleModal('universalModal');
@@ -501,20 +449,21 @@
             const f2 = document.getElementById('uniField2').value.trim();
             const f3 = document.getElementById('uniField3').value.trim();
             const f4 = document.getElementById('uniField4').value.trim();
-            const f5 = document.getElementById('uniField5').value.trim();
+            const openingBalance = document.getElementById('uniOpeningBalance').value.trim();
+            const currency = document.getElementById('uniCurrency').value;
             const f6 = document.getElementById('uniField6').value.trim();
 
-            if (!f1 || !f2 || !f5) {
-                showToast("تنبيه: الحقول الأساسية إجبارية!", "error");
+            if (!f1 || !f2 || !openingBalance) {
+                showToast("تنبيه: الحقول الأساسية ورصيد الافتتاح إجبارية!", "error");
                 return;
             }
 
             let data = getPageData(pageTitle);
             if (editIndex === -1) {
-                data.push({ id: Date.now(), f1, f2, f3, f4, f5, f6 });
-                showToast("تم حفظ السجل بنجاح!", "success");
+                data.push({ id: Date.now(), f1, f2, f3, f4, openingBalance, currency, f6 });
+                showToast("تم حفظ السجل برصيده الافتتاحي وعملته بنجاح!", "success");
             } else {
-                data[editIndex] = { id: data[editIndex].id, f1, f2, f3, f4, f5, f6 };
+                data[editIndex] = { id: data[editIndex].id, f1, f2, f3, f4, openingBalance, currency, f6 };
                 showToast("تم تحديث السجل بنجاح!", "success");
             }
             savePageData(pageTitle, data);
