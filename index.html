@@ -46,7 +46,6 @@
 <body class="flex flex-col h-full select-none overflow-hidden">
     <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- لوحة التحكم الجانبية -->
     <div id="sidebarModal" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex justify-start">
         <div class="bg-primaryBlue text-white w-72 h-full shadow-2xl flex flex-col p-4 transform transition-transform duration-300">
             <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
@@ -72,7 +71,6 @@
         </div>
     </div>
 
-    <!-- قائمة المحاسبة المالية -->
     <div id="fileModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-80 p-4 max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -83,13 +81,12 @@
                 <button onclick="loadPageView('دليل الحسابات', '🌳'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🌳 دليل الحسابات</span><span>◀️</span></button>
                 <button onclick="loadJournalEntriesView(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📝 القيود اليومية</span><span>◀️</span></button>
                 <button onclick="loadVouchersView(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>💰 السندات المالية (قبض وصرف)</span><span>◀️</span></button>
-                <button onclick="loadPageView('دفتر الأستاذ', '📖'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📖 دفتر الأستاذ</span><span>◀️</span></button>
+                <button onclick="loadGeneralLedgerView(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📖 دفتر الأستاذ وكشف الحساب</span><span>◀️</span></button>
                 <button onclick="loadPageView('ميزان المراجعة', '⚖️'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>⚖️ ميزان المراجعة</span><span>◀️</span></button>
             </div>
         </div>
     </div>
 
-    <!-- تسجيل الدخول -->
     <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-900 overflow-hidden">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div class="text-center mb-4">
@@ -111,7 +108,6 @@
         </div>
     </div>
 
-    <!-- لوحة النظام -->
     <div id="dashboardSection" class="hidden flex-col h-full overflow-hidden">
         <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
             <div class="max-w-7xl mx-auto px-4 h-13 flex items-center justify-between gap-2">
@@ -138,13 +134,74 @@
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[10px]">
             <div class="flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold">نظام الشيباني المحاسبي المتكامل - مع شاشة السندات المالية (قبض وصرف) والربط التلقائي بالقيود</span>
+                <span class="font-bold">نظام الشيباني المحاسبي المتكامل - مع شاشة القيود اليومية والسندات ودفتر الأستاذ الفعالة</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani v10.4</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani v10.6</div>
         </footer>
     </div>
 
-    <!-- نافذة إضافة وتعديل السندات المالية (قبض / صرف) -->
+    <div id="journalModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl p-5 max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                    <span class="text-base">📝</span>
+                    <h3 class="font-bold text-xs text-slate-800" id="jModalTitle">إضافة قيد يومي جديد</h3>
+                </div>
+                <button onclick="toggleModal('journalModal')" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
+            </div>
+            <form onsubmit="handleJournalSubmit(event)" class="space-y-3">
+                <input type="hidden" id="jEditIndex" value="-1">
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">رقم القيد اليومي</label>
+                        <input type="text" id="jNo" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-800 focus:outline-none" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">تاريخ القيد</label>
+                        <input type="date" id="jDate" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-800 focus:outline-none focus:border-accentBlue">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">مركز التكلفة</label>
+                        <input type="text" id="jCostCenter" value="الفرع الرئيسي - تعز" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1">البيان العام للقيد</label>
+                    <input type="text" id="jDesc" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue" placeholder="مثال: إثبات إيرادات نشاط اليوم...">
+                </div>
+
+                <div class="border border-slate-200 rounded-xl p-3 bg-slate-50/50 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-slate-700">تفاصيل أطراف القيد (يجب أن يتساوى المدين مع الدائن)</span>
+                        <button type="button" onclick="addJournalRow()" class="bg-blue-600 hover:bg-blue-700 text-white px-2.5 py-1 rounded-lg text-[11px] font-bold cursor-pointer shadow">＋ إضافة طرف</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right text-xs">
+                            <thead class="bg-slate-100 text-slate-600 border-b border-slate-200">
+                                <tr>
+                                    <th class="p-2">الحساب المحاسبي</th>
+                                    <th class="p-2 w-32">مدين</th>
+                                    <th class="p-2 w-32">دائن</th>
+                                    <th class="p-2">البيان الفرعي</th>
+                                    <th class="p-2 w-12 text-center">حذف</th>
+                                </tr>
+                            </thead>
+                            <tbody id="journalRowsContainer" class="divide-y divide-slate-100 bg-white">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+                    <button type="button" onclick="toggleModal('journalModal')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold cursor-pointer">إلغاء</button>
+                    <button type="submit" class="bg-accentBlue hover:bg-accentHover text-white px-5 py-2 rounded-xl text-xs font-bold cursor-pointer shadow flex items-center gap-1.5"><i data-lucide="save" class="w-4 h-4"></i> حفظ وترحيل القيد المحاسبي</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div id="voucherModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-2xl p-5 max-h-[92vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
@@ -176,15 +233,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 mb-1" id="boxOrBankLabel">الصندوق / الخزنة (الطرف المقابل)</label>
-                        <select id="vTreasury" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none">
-                            <!-- تعبئة تلقائية من دليل الحسابات -->
-                        </select>
+                        <select id="vTreasury" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none"></select>
                     </div>
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 mb-1" id="partyLabel">اسم الطرف (العميل / المورد / الحساب)</label>
-                        <select id="vParty" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none">
-                            <!-- تعبئة تلقائية من دليل الحسابات -->
-                        </select>
+                        <select id="vParty" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none"></select>
                     </div>
                 </div>
 
@@ -209,9 +262,6 @@
         </div>
     </div>
 
-    <!-- نافذة عامة لدليل الحسابات السريع -->
-    <div id="universalModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3"></div>
-
     <script>
         lucide.createIcons();
         let selectedActiveYear = '2026';
@@ -225,6 +275,10 @@
                 loadHomeView();
             } else if (currentActivePage === 'السندات المالية') {
                 loadVouchersView();
+            } else if (currentActivePage === 'القيود اليومية') {
+                loadJournalEntriesView();
+            } else if (currentActivePage === 'دفتر الأستاذ وكشف الحساب') {
+                loadGeneralLedgerView();
             } else {
                 loadPageView(currentActivePage, currentActiveIcon);
             }
@@ -324,13 +378,13 @@
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
             return [
-                { f1: '1101', f2: 'الصندوق الرئيسي (الخزنة)' },
-                { f1: '1102', f2: 'بنك اليمن الدولي' },
-                { f1: '1201', f2: 'العملاء والمدينون' },
-                { f1: '2101', f2: 'الموردون والدائنون' },
-                { f1: '3101', f2: 'رأس المال الأساسي' },
-                { f1: '4101', f2: 'إيرادات المبيعات والنشاط الرئيسي' },
-                { f1: '5201', f2: 'الرواتب والأجور' }
+                { f1: '1101', f2: 'الصندوق الرئيسي (الخزنة)', openingBalance: '2,500,000' },
+                { f1: '1102', f2: 'بنك اليمن الدولي', openingBalance: '5,000,000' },
+                { f1: '1201', f2: 'العملاء والمدينون', openingBalance: '1,200,000' },
+                { f1: '2101', f2: 'الموردون والدائنون', openingBalance: '800,000' },
+                { f1: '3101', f2: 'رأس المال الأساسي', openingBalance: '10,000,000' },
+                { f1: '4101', f2: 'إيرادات المبيعات والنشاط الرئيسي', openingBalance: '0' },
+                { f1: '5201', f2: 'الرواتب والأجور', openingBalance: '0' }
             ];
         }
 
@@ -338,23 +392,23 @@
             const key = `sheibani_db_${selectedActiveYear}_السندات المالية`;
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
-            return [
-                {
-                    id: 1,
-                    vNo: 'RV-2026-001',
-                    type: 'قبض',
-                    vDate: '2026-02-01',
-                    amount: '150,000',
-                    treasury: '1101 - الصندوق الرئيسي (الخزنة)',
-                    party: '1201 - العملاء والمدينون',
-                    method: 'نقدي (صندوق)',
-                    desc: 'تحصيل دفعة نقدية تحت حساب العملاء'
-                }
-            ];
+            return [];
         }
 
         function saveVouchersData(data) {
             const key = `sheibani_db_${selectedActiveYear}_السندات المالية`;
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        function getJournalEntriesData() {
+            const key = `sheibani_db_${selectedActiveYear}_القيود اليومية`;
+            const saved = localStorage.getItem(key);
+            if (saved) return JSON.parse(saved);
+            return [];
+        }
+
+        function saveJournalEntriesData(data) {
+            const key = `sheibani_db_${selectedActiveYear}_القيود اليومية`;
             localStorage.setItem(key, JSON.stringify(data));
         }
 
@@ -383,6 +437,10 @@
                 loadVouchersView();
                 return;
             }
+            if (title === 'دفتر الأستاذ وكشف الحساب') {
+                loadGeneralLedgerView();
+                return;
+            }
             const area = document.getElementById('mainContentArea');
             let data = getPageData(title);
             let cfg = getPageConfig(title);
@@ -401,7 +459,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                <button onclick="loadVouchersView()" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="receipt" class="w-3.5 h-3.5"></i> السندات المالية</button>
+                                <button onclick="loadJournalEntriesView()" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> القيود اليومية</button>
                                 <button onclick="exportDatabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="download" class="w-3.5 h-3.5"></i> تصدير</button>
                                 <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
                             </div>
@@ -444,7 +502,192 @@
             lucide.createIcons();
         }
 
-        // عرض شاشة السندات المالية (قبض وصرف) الاحترافية المتكاملة
+        // شاشة القيود اليومية (المفعلة بالكامل)
+        function loadJournalEntriesView() {
+            currentActivePage = 'القيود اليومية';
+            currentActiveIcon = '📝';
+            const area = document.getElementById('mainContentArea');
+            let entries = getJournalEntriesData();
+
+            area.innerHTML = `
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-6xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
+                                </button>
+                                <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">📝</div>
+                                <div>
+                                    <h2 class="font-bold text-xs text-slate-800">القيود اليومية المحاسبية - (${selectedActiveYear})</h2>
+                                    <p class="text-[10px] text-slate-500">إدارة وتسجيل وترحيل قيود اليومية المزدوجة</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <button onclick="openJournalModal(-1)" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> إضافة قيد يومي</button>
+                                <button onclick="exportDatabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="download" class="w-3.5 h-3.5"></i> تصدير</button>
+                                <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow mt-1">
+                            <div class="bg-slate-50 px-3 py-1.5 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center shrink-0">
+                                <span>سجل القيود اليومية المرحلة (${entries.length} قيد مسجل)</span>
+                                <span class="text-[10px] text-emerald-600 font-bold">● متوافق مع دفتر الأستاذ</span>
+                            </div>
+                            <div class="overflow-y-auto flex-grow p-3 space-y-3">
+                                ${entries.length === 0 ? `<div class="p-8 text-center text-slate-400">لا توجد قيود يومية مسجلة حتى الآن. انقر على "إضافة قيد يومي" للبدء.</div>` :
+                                  entries.map((je, idx) => `
+                                    <div class="border border-slate-200 rounded-xl p-3 bg-white shadow-sm space-y-2">
+                                        <div class="flex justify-between items-center pb-2 border-b border-slate-100 text-xs">
+                                            <div class="flex items-center gap-3">
+                                                <span class="font-mono font-bold text-blue-600">${je.jNo}</span>
+                                                <span class="font-mono text-slate-500">${je.jDate}</span>
+                                                <span class="bg-slate-100 px-2 py-0.5 rounded text-slate-700 text-[10px] font-bold">${je.jCostCenter}</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">${je.jStatus}</span>
+                                                <button onclick="openJournalModal(${idx})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">تعديل</button>
+                                                <button onclick="deleteJournalEntry(${idx})" class="bg-red-50 hover:bg-red-100 text-red-600 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">حذف</button>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs font-semibold text-slate-800">البيان: ${je.jDesc}</p>
+                                        <table class="w-full text-right text-xs bg-slate-50 rounded-lg overflow-hidden">
+                                            <thead class="bg-slate-100 text-slate-600">
+                                                <tr>
+                                                    <th class="p-1.5 px-3">الحساب المحاسبي</th>
+                                                    <th class="p-1.5 px-3 text-emerald-700 w-28">مدين</th>
+                                                    <th class="p-1.5 px-3 text-red-700 w-28">دائن</th>
+                                                    <th class="p-1.5 px-3">البيان الفرعي</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-slate-200">
+                                                ${je.rows.map(r => `
+                                                    <tr>
+                                                        <td class="p-1.5 px-3 font-semibold text-slate-800">${r.account}</td>
+                                                        <td class="p-1.5 px-3 font-mono font-bold text-emerald-600">${r.debit !== '0' && r.debit !== '0.00' ? parseFloat(r.debit).toLocaleString() : '-'}</td>
+                                                        <td class="p-1.5 px-3 font-mono font-bold text-red-600">${r.credit !== '0' && r.credit !== '0.00' ? parseFloat(r.credit).toLocaleString() : '-'}</td>
+                                                        <td class="p-1.5 px-3 text-slate-600 text-[11px]">${r.note || '-'}</td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function openJournalModal(index) {
+            document.getElementById('jEditIndex').value = index;
+            let entries = getJournalEntriesData();
+            const container = document.getElementById('journalRowsContainer');
+            container.innerHTML = '';
+
+            if (index === -1) {
+                document.getElementById('jModalTitle').innerText = 'إضافة قيد يومي جديد';
+                document.getElementById('jNo').value = `JE-${selectedActiveYear}-00${entries.length + 1}`;
+                document.getElementById('jDate').value = new Date().toISOString().split('T')[0];
+                document.getElementById('jCostCenter').value = 'الفرع الرئيسي - تعز';
+                document.getElementById('jDesc').value = '';
+                // إضافة طرفين افتراضيين للقيد
+                addJournalRow();
+                addJournalRow();
+            } else {
+                document.getElementById('jModalTitle').innerText = 'تعديل القيد اليومي';
+                let je = entries[index];
+                document.getElementById('jNo').value = je.jNo;
+                document.getElementById('jDate').value = je.jDate;
+                document.getElementById('jCostCenter').value = je.jCostCenter;
+                document.getElementById('jDesc').value = je.jDesc;
+                je.rows.forEach(r => addJournalRow(r));
+            }
+            toggleModal('journalModal');
+        }
+
+        function addJournalRow(data = null) {
+            let accounts = getAccountsList();
+            const container = document.getElementById('journalRowsContainer');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="p-2">
+                    <select class="jRowAcc w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-800 focus:outline-none">
+                        ${accounts.map(a => `<option value="${a.f1} - ${a.f2}" ${data && data.account === `${a.f1} - ${a.f2}` ? 'selected' : ''}>${a.f1} - ${a.f2}</option>`).join('')}
+                    </select>
+                </td>
+                <td class="p-2">
+                    <input type="number" step="0.01" value="${data ? data.debit : '0'}" class="jRowDebit w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-xs font-mono text-emerald-700 font-bold focus:outline-none" placeholder="0.00">
+                </td>
+                <td class="p-2">
+                    <input type="number" step="0.01" value="${data ? data.credit : '0'}" class="jRowCredit w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-xs font-mono text-red-700 font-bold focus:outline-none" placeholder="0.00">
+                </td>
+                <td class="p-2">
+                    <input type="text" value="${data ? (data.note || '') : ''}" class="jRowNote w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-800 focus:outline-none" placeholder="بيان الفرع...">
+                </td>
+                <td class="p-2 text-center">
+                    <button type="button" onclick="this.closest('tr').remove()" class="w-6 h-6 rounded bg-red-50 hover:bg-red-100 text-red-600 font-bold flex items-center justify-center mx-auto text-xs cursor-pointer">✕</button>
+                </td>
+            `;
+            container.appendChild(tr);
+        }
+
+        function handleJournalSubmit(event) {
+            event.preventDefault();
+            const editIndex = parseInt(document.getElementById('jEditIndex').value);
+            const jNo = document.getElementById('jNo').value;
+            const jDate = document.getElementById('jDate').value;
+            const jCostCenter = document.getElementById('jCostCenter').value;
+            const jDesc = document.getElementById('jDesc').value;
+
+            const rowsElements = document.querySelectorAll('#journalRowsContainer tr');
+            let rows = [];
+            let totalDebit = 0;
+            let totalCredit = 0;
+
+            rowsElements.forEach(tr => {
+                const account = tr.querySelector('.jRowAcc').value;
+                const debit = parseFloat(tr.querySelector('.jRowDebit').value) || 0;
+                const credit = parseFloat(tr.querySelector('.jRowCredit').value) || 0;
+                const note = tr.querySelector('.jRowNote').value;
+                totalDebit += debit;
+                totalCredit += credit;
+                rows.push({ account, debit: debit.toString(), credit: credit.toString(), note });
+            });
+
+            if (Math.abs(totalDebit - totalCredit) > 0.01) {
+                showToast(`خطأ محاسبي: إجمالي المدين (${totalDebit}) لا يساوي إجمالي الدائن (${totalCredit})!`, "error");
+                return;
+            }
+
+            let entries = getJournalEntriesData();
+            if (editIndex === -1) {
+                entries.unshift({ id: Date.now(), jNo, jDate, jCostCenter, jStatus: 'معتمد ومرحل', jDesc, rows });
+                showToast("تم حفظ وترحيل القيد اليومي بنجاح!", "success");
+            } else {
+                entries[editIndex] = { id: entries[editIndex].id, jNo, jDate, jCostCenter, jStatus: 'معتمد ومرحل', jDesc, rows };
+                showToast("تم تحديث القيد اليومي بنجاح!", "success");
+            }
+
+            saveJournalEntriesData(entries);
+            toggleModal('journalModal');
+            loadJournalEntriesView();
+        }
+
+        function deleteJournalEntry(index) {
+            if (confirm("هل أنت متأكد من حذف هذا القيد المحاسبي نهائياً؟")) {
+                let entries = getJournalEntriesData();
+                entries.splice(index, 1);
+                saveJournalEntriesData(entries);
+                showToast("تم حذف القيد بنجاح.", "success");
+                loadJournalEntriesView();
+            }
+        }
+
+        // شاشة السندات المالية
         function loadVouchersView() {
             currentActivePage = 'السندات المالية';
             currentActiveIcon = '💰';
@@ -467,7 +710,7 @@
                             <div class="flex items-center gap-1.5 flex-wrap">
                                 <button onclick="openVoucherModal('قبض', -1)" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> سند قبض جديد</button>
                                 <button onclick="openVoucherModal('صرف', -1)" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="minus-circle" class="w-3.5 h-3.5"></i> سند صرف جديد</button>
-                                <button onclick="exportDatabase()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="download" class="w-3.5 h-3.5"></i> تصدير</button>
+                                <button onclick="loadJournalEntriesView()" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> القيود اليومية</button>
                                 <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
                             </div>
                         </div>
@@ -585,30 +828,24 @@
             }
 
             saveVouchersData(vouchers);
-            
-            // الربط التلقائي وتوليد قيد يومي مقابل في الخلفية
             generateAutomaticJournalEntry(vNo, type, vDate, rawAmount, treasury, party, desc);
 
             toggleModal('voucherModal');
             loadVouchersView();
         }
 
-        // دالة توليد القيد اليومي التلقائي بناءً على السند المالي
         function generateAutomaticJournalEntry(vNo, type, vDate, amount, treasury, party, desc) {
-            const key = `sheibani_db_${selectedActiveYear}_القيود اليومية`;
-            let saved = localStorage.getItem(key);
-            let entries = saved ? JSON.parse(saved) : [];
-
+            let entries = getJournalEntriesData();
             let rows = [];
             if (type === 'قبض') {
                 rows = [
-                    { account: treasury, debit: amount.toLocaleString(), credit: '0', note: 'قبض نقدي' },
-                    { account: party, debit: '0', credit: amount.toLocaleString(), note: desc }
+                    { account: treasury, debit: amount.toString(), credit: '0', note: 'قبض نقدي' },
+                    { account: party, debit: '0', credit: amount.toString(), note: desc }
                 ];
             } else {
                 rows = [
-                    { account: party, debit: amount.toLocaleString(), credit: '0', note: desc },
-                    { account: treasury, debit: '0', credit: amount.toLocaleString(), note: 'صرف نقدي' }
+                    { account: party, debit: amount.toString(), credit: '0', note: desc },
+                    { account: treasury, debit: '0', credit: amount.toString(), note: 'صرف نقدي' }
                 ];
             }
 
@@ -621,7 +858,7 @@
                 jDesc: `قيد تلقائي مرجعي للسند (${vNo}): ${desc}`,
                 rows: rows
             });
-            localStorage.setItem(key, JSON.stringify(entries));
+            saveJournalEntriesData(entries);
         }
 
         function deleteVoucher(index) {
@@ -632,6 +869,131 @@
                 showToast("تم حذف السند بنجاح.", "success");
                 loadVouchersView();
             }
+        }
+
+        // دفتر الأستاذ
+        function loadGeneralLedgerView(selectedAcc = '') {
+            currentActivePage = 'دفتر الأستاذ وكشف الحساب';
+            currentActiveIcon = '📖';
+            const area = document.getElementById('mainContentArea');
+            let accounts = getAccountsList();
+            let entries = getJournalEntriesData();
+
+            let filteredMovements = [];
+            let openingBalanceNum = 0;
+            let accountNameTitle = 'اختر الحساب لعرض كشف الحساب التفصيلي';
+
+            if (selectedAcc) {
+                let accObj = accounts.find(a => a.f1 === selectedAcc || `${a.f1} - ${a.f2}` === selectedAcc);
+                if (accObj) {
+                    selectedAcc = `${accObj.f1} - ${accObj.f2}`;
+                    openingBalanceNum = parseFloat((accObj.openingBalance || '0').replace(/,/g, '')) || 0;
+                    accountNameTitle = selectedAcc;
+                }
+
+                entries.forEach(je => {
+                    if (je.rows) {
+                        je.rows.forEach(r => {
+                            if (r.account === selectedAcc || r.account.startsWith(selectedAcc.split(' ')[0])) {
+                                filteredMovements.push({
+                                    date: je.jDate,
+                                    ref: je.jNo,
+                                    desc: r.note || je.jDesc,
+                                    debit: parseFloat(r.debit) || 0,
+                                    credit: parseFloat(r.credit) || 0
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+
+            let runningBalance = openingBalanceNum;
+            let totalDebit = 0;
+            let totalCredit = 0;
+
+            area.innerHTML = `
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-6xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
+                                </button>
+                                <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">📖</div>
+                                <div>
+                                    <h2 class="font-bold text-xs text-slate-800">دفتر الأستاذ وكشف الحساب التفصيلي - (${selectedActiveYear})</h2>
+                                    <p class="text-[10px] text-slate-500">حركات الحسابات اللحظية المرتبطة بالقيود والسندات اليومية</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <select id="ledgerAccountSelect" onchange="loadGeneralLedgerView(this.value)" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 text-xs text-slate-800 font-bold focus:outline-none focus:border-accentBlue">
+                                    <option value="">-- اختر الحساب المطلوب --</option>
+                                    ${accounts.map(a => `<option value="${a.f1} - ${a.f2}" ${selectedAcc === `${a.f1} - ${a.f2}` ? 'selected' : ''}>${a.f1} - ${a.f2}</option>`).join('')}
+                                </select>
+                                <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 mb-2 shrink-0 flex justify-between items-center flex-wrap gap-2">
+                            <div>
+                                <span class="text-[11px] font-bold text-slate-500">الحساب المختار:</span>
+                                <span class="text-xs font-black text-accentBlue mr-1">${accountNameTitle}</span>
+                            </div>
+                            <div class="flex gap-4 text-xs font-mono">
+                                <span class="bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100 font-bold">الرصيد الافتتاحي: <span class="text-blue-700">${openingBalanceNum.toLocaleString()}</span></span>
+                                <span class="bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-100 font-bold">إجمالي الحركات مدين: <span id="lblTotalDebit" class="text-emerald-700">0.00</span></span>
+                                <span class="bg-red-50 px-2.5 py-1 rounded-lg border border-red-100 font-bold">إجمالي الحركات دائن: <span id="lblTotalCredit" class="text-red-700">0.00</span></span>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow">
+                            <div class="overflow-y-auto flex-grow p-2">
+                                <table class="w-full text-right text-xs">
+                                    <thead class="bg-slate-100 text-slate-600 border-b border-slate-200 sticky top-0">
+                                        <tr>
+                                            <th class="p-2">#</th>
+                                            <th class="p-2">التاريخ</th>
+                                            <th class="p-2">رقم المرجع / القيد</th>
+                                            <th class="p-2">البيان والشرح</th>
+                                            <th class="p-2 text-emerald-700">مدين</th>
+                                            <th class="p-2 text-red-700">دائن</th>
+                                            <th class="p-2 text-blue-700">الرصيد الجاري</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 bg-white">
+                                        ${filteredMovements.length === 0 ? `
+                                            <tr><td colspan="7" class="p-8 text-center text-slate-400">
+                                                ${selectedAcc ? 'لا توجد حركات مسجلة لهذا الحساب حتى الآن.' : 'الرجاء اختيار حساب من القائمة أعلاه لعرض كشف الحساب التفصيلي.'}
+                                            </td></tr>
+                                        ` : filteredMovements.map((m, idx) => {
+                                            totalDebit += m.debit;
+                                            totalCredit += m.credit;
+                                            runningBalance += (m.debit - m.credit);
+                                            return `
+                                                <tr class="hover:bg-slate-50 transition-all">
+                                                    <td class="p-2 font-mono text-slate-400">${idx + 1}</td>
+                                                    <td class="p-2 font-mono text-slate-600">${m.date}</td>
+                                                    <td class="p-2 font-mono font-bold text-blue-600">${m.ref}</td>
+                                                    <td class="p-2 text-slate-700">${m.desc}</td>
+                                                    <td class="p-2 font-mono font-bold text-emerald-600">${m.debit > 0 ? m.debit.toLocaleString() : '-'}</td>
+                                                    <td class="p-2 font-mono font-bold text-red-600">${m.credit > 0 ? m.credit.toLocaleString() : '-'}</td>
+                                                    <td class="p-2 font-mono font-bold text-slate-900 bg-slate-50/50">${runningBalance.toLocaleString()}</td>
+                                                </tr>
+                                            `;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            if (filteredMovements.length > 0) {
+                document.getElementById('lblTotalDebit').innerText = totalDebit.toLocaleString();
+                document.getElementById('lblTotalCredit').innerText = totalCredit.toLocaleString();
+            }
+            lucide.createIcons();
         }
 
         function getPageConfig(title) {
