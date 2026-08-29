@@ -135,7 +135,7 @@
                         </div>
                     </button>
 
-                    <!-- زر نقطة البيع POS المضاف حديثاً -->
+                    <!-- زر نقطة البيع POS -->
                     <button onclick="loadPageView('نقطة البيع POS', '🛒')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1 shadow text-xs">
                         <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> نقطة البيع POS
                     </button>
@@ -229,7 +229,17 @@
     </div>
 
     <script>
-        lucide.createIcons();
+        // دالة آمنة لتوليد الأيقونات دون التسبب بتعطيل المتصفح
+        function safeCreateIcons() {
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                try { lucide.createIcons(); } catch (e) { console.error(e); }
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            safeCreateIcons();
+        });
+
         let selectedActiveYear = '2026';
         let currentActivePage = 'الصفحة الرئيسية';
         let currentActiveIcon = '🏠';
@@ -265,13 +275,14 @@
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
+            if (!container) return;
             const toast = document.createElement('div');
             toast.className = `pointer-events-auto flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold shadow-xl transition-all duration-300 translate-y-2 opacity-0 ${
                 type === 'success' ? 'bg-emerald-600 text-white border border-emerald-500' : 'bg-red-600 text-white border border-red-500'
             }`;
             toast.innerHTML = `<i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}" class="w-4 h-4"></i><span>${message}</span>`;
             container.appendChild(toast);
-            lucide.createIcons();
+            safeCreateIcons();
 
             setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
             setTimeout(() => {
@@ -352,7 +363,7 @@
                     </div>
                 </div>
             `;
-            lucide.createIcons();
+            safeCreateIcons();
         }
 
         function getPageConfig(title) {
@@ -488,7 +499,7 @@
                     </div>
                 </div>
             `;
-            lucide.createIcons();
+            safeCreateIcons();
         }
 
         function openUniversalModal(index) {
