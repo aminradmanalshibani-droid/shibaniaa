@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <!-- قائمة المحاسبة المالية المحدثة بالكامل -->
+    <!-- قائمة المحاسبة المالية -->
     <div id="fileModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-80 p-4 max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
@@ -87,8 +87,6 @@
                 <button onclick="loadPageView('دفتر الأستاذ', '📖'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📖 دفتر الأستاذ</span><span>◀️</span></button>
                 <button onclick="loadPageView('كشوف الحسابات', '🧾'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🧾 كشوف الحسابات</span><span>◀️</span></button>
                 <button onclick="loadPageView('ميزان المراجعة', '⚖️'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>⚖️ ميزان المراجعة</span><span>◀️</span></button>
-                <button onclick="loadPageView('التسويات المحاسبية', '🔄'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🔄 التسويات المحاسبية</span><span>◀️</span></button>
-                <button onclick="loadPageView('الإقفال والفترات المالية', '📅'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📅 الإقفال والفترات المالية</span><span>◀️</span></button>
             </div>
         </div>
     </div>
@@ -117,7 +115,6 @@
 
     <!-- لوحة النظام الأساسية -->
     <div id="dashboardSection" class="hidden flex-col h-full overflow-hidden">
-        <!-- شريط التنقل العلوي -->
         <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
             <div class="max-w-7xl mx-auto px-4 h-13 flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2.5 shrink-0">
@@ -142,19 +139,18 @@
             </div>
         </header>
 
-        <!-- منطقة المحتوى الديناميكية بوضع ملء الشاشة -->
         <div id="mainContentArea" class="flex-grow flex flex-col items-center justify-center bg-slate-100 overflow-hidden w-full h-full"></div>
 
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[10px]">
             <div class="flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold">نظام الشيباني المحاسبي المتكامل - مزود بالرصيد الافتتاحي واختيار العملات (YER / SAR)</span>
+                <span class="font-bold">نظام الشيباني المحاسبي المتكامل - الهيكل الشجري الموسع (أصول، خصوم، حقوق ملكية، إيرادات، مصروفات)</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani v10.1</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani v10.2</div>
         </footer>
     </div>
 
-    <!-- نافذة الإدخال المنبثقة المخصصة لدليل الحسابات وباقي الأقسام -->
+    <!-- نافذة الإدخال المنبثقة -->
     <div id="universalModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl p-5 max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
@@ -228,8 +224,7 @@
         }
 
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebarModal');
-            sidebar.classList.toggle('hidden');
+            document.getElementById('sidebarModal').classList.toggle('hidden');
         }
 
         function setSystemCurrency(curr) {
@@ -271,7 +266,6 @@
                 const dash = document.getElementById('dashboardSection');
                 dash.classList.remove('hidden');
                 dash.classList.add('flex');
-                // ابدأ مباشرة بـ دليل الحسابات باعتباره الأساس المالي الصلب
                 loadPageView('دليل الحسابات', '🌳');
             } else {
                 showToast("بيانات الدخول غير صحيحة (admin / 123456).", "error");
@@ -333,26 +327,7 @@
         }
 
         function getPageConfig(title) {
-            switch(title) {
-                case 'دليل الحسابات':
-                    return { h1: 'رقم الحساب', h2: 'اسم الحساب الرئيسي', h3: 'نوع الحساب (مدين/دائن)', h4: 'حالة الحساب', h5: 'الرصيد الافتتاحي', h6: 'ملاحظات وحساب فرعي' };
-                case 'القيود اليومية':
-                    return { h1: 'رقم القيد', h2: 'بيان القيد اليومي', h3: 'مركز Cost Center', h4: 'حالة الاعتماد', h5: 'مبلغ القيد', h6: 'شرح تفصيلي للقيد' };
-                case 'السندات المالية':
-                    return { h1: 'رقم السند', h2: 'اسم المستفيد / الدافع', h3: 'نوع السند (قبض/صرف)', h4: 'طريقة الدفع', h5: 'مبلغ السند', h6: 'بيان تفصيلي للسند' };
-                case 'دفتر الأستاذ':
-                    return { h1: 'رقم الحركة', h2: 'اسم الحساب للأستاذ', h3: 'التصنيف المحاسبي', h4: 'مراجعة المدقق', h5: 'رصيد الحركة', h6: 'ملاحظات الأستاذ العام' };
-                case 'كشوف الحسابات':
-                    return { h1: 'معرف الكشف', h2: 'اسم العميل / المورد', h3: 'فترة الكشف', h4: 'حالة التدقيق', h5: 'الرصيد الختامي', h6: 'ملخص كشف الحساب' };
-                case 'ميزان المراجعة':
-                    return { h1: 'رقم الدليل', h2: 'اسم الحساب المالي', h3: 'المجاميع والحركة', h4: 'حالة التوازن', h5: 'رصيد المراجعة', h6: 'ملاحظات الميزان' };
-                case 'التسويات المحاسبية':
-                    return { h1: 'رقم التسوية', h2: 'سبب التسوية المالية', h3: 'الحساب المتأثر', h4: 'حالة الاعتماد', h5: 'مبلغ التسوية', h6: 'شرح التسوية المحاسبية' };
-                case 'الإقفال والفترات المالية':
-                    return { h1: 'معرف الفترة', h2: 'اسم الفترة المالية', h3: 'السنة المحاسبية', h4: 'حالة الإقفال', h5: 'الرصيد المرحل', h6: 'ملاحظات الإقفال المالي' };
-                default:
-                    return { h1: 'معرف السجل (الرمز)', h2: 'البيان الرئيسي', h3: 'الفرع / التصنيف', h4: 'الحالة والاعتماد', h5: 'الرصيد الافتتاحي', h6: 'ملاحظات وتفاصيل إضافية' };
-            }
+            return { h1: 'رقم الحساب', h2: 'اسم الحساب الرئيسي', h3: 'نوع الحساب (مدين/دائن)', h4: 'حالة الحساب', h5: 'الرصيد الافتتاحي', h6: 'ملاحظات وحساب فرعي' };
         }
 
         function getPageData(title) {
@@ -360,14 +335,35 @@
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
             
-            // البيانات الافتتاحية الصلبة الخاصة بدليل الحسابات الأساسي
             if (title === 'دليل الحسابات') {
                 return [
-                    { id: 101, f1: '1101', f2: 'الصندوق الرئيسي (الخزنة)', f3: 'مدين (أصول)', f4: 'نشط ومعتمد', openingBalance: '2,500,000', currency: 'YER', f6: 'الفرع الرئيسي - تعز' },
-                    { id: 102, f1: '1102', f2: 'بنك اليمن الدولي', f3: 'مدين (أصول)', f4: 'نشط ومعتمد', openingBalance: '15,000,000', currency: 'YER', f6: 'حساب تجاري رئيسي' },
-                    { id: 103, f1: '1201', f2: 'العملاء والمدينون', f3: 'مدين (أصول متداولة)', f4: 'نشط ومعتمد', openingBalance: '4,200,000', currency: 'YER', f6: 'إجمالي الأرصدة المدنية للعملاء' },
-                    { id: 104, f1: '2101', f2: 'الموردون والدائنون', f3: 'دائن (خصوم متداولة)', f4: 'نشط ومعتمد', openingBalance: '3,800,000', currency: 'YER', f6: 'التزامات للموردين المحليين' },
-                    { id: 105, f1: '3101', f2: 'رأس المال الأساسي', f3: 'دائن (حقوق ملكية)', f4: 'نشط ومعتمد', openingBalance: '50,000,000', currency: 'YER', f6: 'رأس مال أمين ردمان الشيباني' }
+                    // 1. الأصول (Assets)
+                    { id: 101, f1: '1101', f2: 'الصندوق الرئيسي (الخزنة)', f3: 'مدين (أصول متداولة)', f4: 'نشط ومعتمد', openingBalance: '2,500,000', currency: 'YER', f6: 'الفرع الرئيسي - تعز' },
+                    { id: 102, f1: '1102', f2: 'بنك اليمن الدولي', f3: 'مدين (أصول متداولة)', f4: 'نشط ومعتمد', openingBalance: '15,000,000', currency: 'YER', f6: 'حساب تجاري رئيسي' },
+                    { id: 103, f1: '1201', f2: 'العملاء والمدينون', f3: 'مدين (أصول متداولة)', f4: 'نشط ومعتمد', openingBalance: '4,200,000', currency: 'YER', f6: 'محفظة العملاء العامة' },
+                    { id: 104, f1: '1301', f2: 'المخزون السلعي والبضائع', f3: 'مدين (أصول متداولة)', f4: 'نشط ومعتمد', openingBalance: '8,500,000', currency: 'YER', f6: 'مستودع البضائع الرئيسي' },
+                    { id: 105, f1: '1211', f2: 'الأراضي والمباني', f3: 'مدين (أصول ثابتة)', f4: 'نشط ومعتمد', openingBalance: '25,000,000', currency: 'YER', f6: 'مقر المعرض والمستودع' },
+                    { id: 106, f1: '1231', f2: 'وسائل النقل والسيارات', f3: 'مدين (أصول ثابتة)', f4: 'نشط ومعتمد', openingBalance: '6,000,000', currency: 'YER', f6: 'سيارات التوصيل والتوزيع' },
+
+                    // 2. الخصوم والالتزامات (Liabilities)
+                    { id: 201, f1: '2101', f2: 'الموردون والدائنون', f3: 'دائن (خصوم متداولة)', f4: 'نشط ومعتمد', openingBalance: '3,800,000', currency: 'YER', f6: 'أرصدة الموردين المحليين' },
+                    { id: 202, f1: '2121', f2: 'المصروفات المستحقة', f3: 'دائن (خصوم متداولة)', f4: 'نشط ومعتمد', openingBalance: '450,000', currency: 'YER', f6: 'رواتب وأجور مستحقة' },
+                    { id: 203, f1: '2201', f2: 'القروض والتمويلات الإسلامية', f3: 'دائن (خصوم غير متداولة)', f4: 'نشط ومعتمد', openingBalance: '10,000,000', currency: 'YER', f6: 'تمويل تجاري طويل الأجل' },
+
+                    // 3. حقوق الملكية (Equity)
+                    { id: 301, f1: '3101', f2: 'رأس المال الأساسي', f3: 'دائن (حقوق ملكية)', f4: 'نشط ومعتمد', openingBalance: '50,000,000', currency: 'YER', f6: 'رأس مال أمين ردمان الشيباني' },
+                    { id: 302, f1: '3301', f2: 'الأرباح المبقاة (المرحلة)', f3: 'دائن (حقوق ملكية)', f4: 'نشط ومعتمد', openingBalance: '7,350,000', currency: 'YER', f6: 'أرباح السنوات السابقة' },
+                    { id: 303, f1: '3401', f2: 'جاري المالك (المسحوبات الشخصية)', f3: 'مدين (حقوق ملكية)', f4: 'نشط ومعتمد', openingBalance: '1,200,000', currency: 'YER', f6: 'مسحوبات مالية شخصية' },
+
+                    // 4. الإيرادات (Revenues)
+                    { id: 401, f1: '4101', f2: 'إيرادات المبيعات والنشاط الرئيسي', f3: 'دائن (إيرادات)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'حساب إيرادات المبيعات العامة' },
+                    { id: 402, f1: '4201', f2: 'إيرادات الخدمات المقدمة', f3: 'دائن (إيرادات)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'رسوم خدمات الطلاب والعملاء' },
+
+                    // 5. المصروفات (Expenses)
+                    { id: 501, f1: '5101', f2: 'تكلفة البضاعة المباعة', f3: 'مدين (مصروفات)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'تكلفة المبيعات المباشرة' },
+                    { id: 502, f1: '5201', f2: 'الرواتب والأجور', f3: 'مدين (مصروفات تشغيلية)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'رواتب الموظفين الشهرية' },
+                    { id: 503, f1: '5211', f2: 'إيجار المقر والمعارض', f3: 'مدين (مصروفات تشغيلية)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'إيجار المعرض والمستودع' },
+                    { id: 504, f1: '5221', f2: 'الكهرباء والماء والاتصالات', f3: 'مدين (مصروفات تشغيلية)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'مصاريف الخدمات العامة' }
                 ];
             }
 
@@ -416,7 +412,7 @@
                                 <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">${icon}</div>
                                 <div>
                                     <h2 class="font-bold text-xs text-slate-800">${title} (السنة المالية: ${selectedActiveYear})</h2>
-                                    <p class="text-[10px] text-slate-500">الأساس المالي الصلب لنظام الشيباني المحاسبي المتكامل</p>
+                                    <p class="text-[10px] text-slate-500">الهيكل المالي الموسع (أصول، خصوم، حقوق ملكية، إيرادات، مصروفات)</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-1.5 flex-wrap">
@@ -427,8 +423,8 @@
                         </div>
                         <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow mt-1">
                             <div class="bg-slate-50 px-3 py-1.5 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center shrink-0">
-                                <span>شجرة الحسابات والبيانات المالية (${data.length} حسابات نشطة)</span>
-                                <span class="text-[10px] text-emerald-600 font-bold">● مدعوم بالرصيد الافتتاحي والعملات (YER / SAR)</span>
+                                <span>شجرة الحسابات والبيانات المالية (${data.length} حسابات نشطة معتمدة)</span>
+                                <span class="text-[10px] text-emerald-600 font-bold">● متوافق مع المعايير المحاسبية</span>
                             </div>
                             <div class="overflow-y-auto flex-grow">
                                 <table class="w-full text-right text-xs">
