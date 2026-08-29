@@ -82,7 +82,7 @@
             </div>
             <div class="space-y-1 text-xs">
                 <button onclick="loadPageView('دليل الحسابات', '🌳'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🌳 دليل الحسابات</span><span>◀️</span></button>
-                <button onclick="loadPageView('القيود اليومية', '📝'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📝 القيود اليومية</span><span>◀️</span></button>
+                <button onclick="loadJournalEntriesView(); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📝 القيود اليومية</span><span>◀️</span></button>
                 <button onclick="loadPageView('السندات المالية', '💰'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>💰 السندات المالية</span><span>◀️</span></button>
                 <button onclick="loadPageView('دفتر الأستاذ', '📖'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📖 دفتر الأستاذ</span><span>◀️</span></button>
                 <button onclick="loadPageView('كشوف الحسابات', '🧾'); toggleModal('fileModal');" class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🧾 كشوف الحسابات</span><span>◀️</span></button>
@@ -144,66 +144,96 @@
         <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[10px]">
             <div class="flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold">نظام الشيباني المحاسبي المتكامل - الهيكل الشجري الموسع (أصول، خصوم، حقوق ملكية، إيرادات، مصروفات)</span>
+                <span class="font-bold">نظام الشيباني المحاسبي المتكامل - مع شاشة القيود اليومية المتكاملة والمتحققة توازناً</span>
             </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani v10.2</div>
+            <div class="font-mono text-slate-400">Ameen Al-Shaibani v10.3</div>
         </footer>
     </div>
 
-    <!-- نافذة الإدخال المنبثقة -->
-    <div id="universalModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3">
-        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl p-5 max-h-[90vh] overflow-y-auto">
+    <!-- نافذة إضافة وتعديل القيود اليومية المتكاملة -->
+    <div id="journalModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl p-5 max-h-[92vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
                 <div class="flex items-center gap-2">
-                    <span class="text-base" id="modalIconTitle">📝</span>
-                    <h3 class="font-bold text-xs text-slate-800" id="universalModalTitle">إضافة سجل جديد</h3>
+                    <span class="text-base">📝</span>
+                    <h3 class="font-bold text-xs text-slate-800" id="journalModalTitle">إضافة قيد يومي جديد</h3>
                 </div>
-                <button onclick="toggleModal('universalModal')" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
+                <button onclick="toggleModal('journalModal')" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold transition-all cursor-pointer text-xs">✕</button>
             </div>
-            <form onsubmit="handleUniversalFormSubmit(event)" class="space-y-3">
-                <input type="hidden" id="uniEditIndex" value="-1">
-                <input type="hidden" id="uniPageTitle" value="">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <form onsubmit="handleJournalSubmit(event)" class="space-y-3">
+                <input type="hidden" id="journalEditIndex" value="-1">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1" id="labelField1">رقم الحساب</label>
-                        <input type="text" id="uniField1" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-800 focus:outline-none focus:border-accentBlue">
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">رقم القيد</label>
+                        <input type="text" id="jNo" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-800 focus:outline-none focus:border-accentBlue" readonly>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1" id="labelField2">اسم الحساب الرئيسي</label>
-                        <input type="text" id="uniField2" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">تاريخ القيد</label>
+                        <input type="date" id="jDate" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-mono text-slate-800 focus:outline-none focus:border-accentBlue">
                     </div>
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1" id="labelField3">نوع الحساب (مدين/دائن)</label>
-                        <input type="text" id="uniField3" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1" id="labelField4">حالة الحساب</label>
-                        <input type="text" id="uniField4" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue">
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">مركز التكلفة</label>
+                        <select id="jCostCenter" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none">
+                            <option value="الفرع الرئيسي - تعز">الفرع الرئيسي - تعز</option>
+                            <option value="فرع المعرض التجاري">فرع المعرض التجاري</option>
+                            <option value="الإدارة العامة">الإدارة العامة</option>
+                        </select>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-bold text-emerald-700 mb-1" id="labelField5">الرصيد الافتتاحي</label>
-                        <input type="text" id="uniOpeningBalance" required class="w-full bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-emerald-700 focus:outline-none" placeholder="0.00">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-blue-700 mb-1">العملة المعتمدة</label>
-                        <select id="uniCurrency" class="w-full bg-blue-50 border border-blue-200 rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-blue-700 focus:outline-none">
-                            <option value="YER">ريال يمني (YER)</option>
-                            <option value="SAR">ريال سعودي (SAR)</option>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">حالة الاعتماد</label>
+                        <select id="jStatus" class="w-full bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-1.5 text-xs font-bold text-emerald-700 focus:outline-none">
+                            <option value="معتمد ومرحل">معتمد ومرحل</option>
+                            <option value="مسودة">مسودة</option>
                         </select>
                     </div>
                 </div>
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-700 mb-1" id="labelField6">ملاحظات وحساب فرعي</label>
-                    <textarea id="uniField6" rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue" placeholder="اكتب الملاحظات والتفاصيل هنا..."></textarea>
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1">بيان القيد العام (شرح العملية)</label>
+                    <input type="text" id="jDesc" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-accentBlue" placeholder="مثال: اثبات سند قفل وتحصيل مبيعات نقدية...">
                 </div>
+
+                <!-- جدول تفاصيل أسطر القيد (مدين / دائن) -->
+                <div class="border border-slate-200 rounded-xl overflow-hidden mt-3">
+                    <div class="bg-slate-50 px-3 py-1.5 border-b border-slate-200 flex justify-between items-center text-xs font-bold text-slate-700">
+                        <span>بنود وصفوف القيد المحاسبي</span>
+                        <button type="button" onclick="addJournalRow()" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded-lg text-[10px] cursor-pointer shadow">＋ إضافة سطر</button>
+                    </div>
+                    <div class="p-2 overflow-x-auto">
+                        <table class="w-full text-right text-xs">
+                            <thead class="bg-slate-100 text-slate-600 border-b border-slate-200">
+                                <tr>
+                                    <th class="p-1.5">الحساب المالي</th>
+                                    <th class="p-1.5 w-32">مدين</th>
+                                    <th class="p-1.5 w-32">دائن</th>
+                                    <th class="p-1.5">البيان الفرعي للسطر</th>
+                                    <th class="p-1.5 text-center w-12">حذف</th>
+                                </tr>
+                            </thead>
+                            <tbody id="journalRowsBody" class="divide-y divide-slate-100">
+                                <!-- يتم تعبئتها ديناميكياً -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="bg-slate-50 px-3 py-2 border-t border-slate-200 flex justify-between items-center text-xs font-bold">
+                        <span id="balanceStatusText" class="text-emerald-600 font-bold">● القيد متوازن (إجمالي المدين يساوي إجمالي الدائن)</span>
+                        <div class="flex gap-4 font-mono">
+                            <span>إجمالي المدين: <strong id="sumDebit" class="text-blue-600">0.00</strong></span>
+                            <span>إجمالي الدائن: <strong id="sumCredit" class="text-emerald-600">0.00</strong></span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
-                    <button type="button" onclick="toggleModal('universalModal')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold cursor-pointer">إلغاء</button>
-                    <button type="submit" class="bg-accentBlue hover:bg-accentHover text-white px-5 py-2 rounded-xl text-xs font-bold cursor-pointer shadow flex items-center gap-1.5"><i data-lucide="save" class="w-4 h-4"></i> حفظ السجل</button>
+                    <button type="button" onclick="toggleModal('journalModal')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold cursor-pointer">إلغاء</button>
+                    <button type="submit" class="bg-accentBlue hover:bg-accentHover text-white px-5 py-2 rounded-xl text-xs font-bold cursor-pointer shadow flex items-center gap-1.5"><i data-lucide="save" class="w-4 h-4"></i> حفظ وترحيل القيد</button>
                 </div>
             </form>
         </div>
+    </div>
+
+    <!-- نافذة عامة أخرى إذا لزم -->
+    <div id="universalModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3">
+        <!-- مساعدة فرعية -->
     </div>
 
     <script>
@@ -218,6 +248,8 @@
             showToast(`تم الانتقال إلى السنة المالية: ${year}`, "success");
             if (currentActivePage === 'الصفحة الرئيسية') {
                 loadHomeView();
+            } else if (currentActivePage === 'القيود اليومية') {
+                loadJournalEntriesView();
             } else {
                 loadPageView(currentActivePage, currentActiveIcon);
             }
@@ -326,54 +358,43 @@
             lucide.createIcons();
         }
 
-        function getPageConfig(title) {
-            return { h1: 'رقم الحساب', h2: 'اسم الحساب الرئيسي', h3: 'نوع الحساب (مدين/دائن)', h4: 'حالة الحساب', h5: 'الرصيد الافتتاحي', h6: 'ملاحظات وحساب فرعي' };
-        }
-
-        function getPageData(title) {
-            const key = `sheibani_db_${selectedActiveYear}_${title}`;
+        function getAccountsList() {
+            const key = `sheibani_db_${selectedActiveYear}_دليل الحسابات`;
             const saved = localStorage.getItem(key);
             if (saved) return JSON.parse(saved);
-            
-            if (title === 'دليل الحسابات') {
-                return [
-                    // 1. الأصول (Assets)
-                    { id: 101, f1: '1101', f2: 'الصندوق الرئيسي (الخزنة)', f3: 'مدين (أصول متداولة)', f4: 'نشط ومعتمد', openingBalance: '2,500,000', currency: 'YER', f6: 'الفرع الرئيسي - تعز' },
-                    { id: 102, f1: '1102', f2: 'بنك اليمن الدولي', f3: 'مدين (أصول متداولة)', f4: 'نشط ومعتمد', openingBalance: '15,000,000', currency: 'YER', f6: 'حساب تجاري رئيسي' },
-                    { id: 103, f1: '1201', f2: 'العملاء والمدينون', f3: 'مدين (أصول متداولة)', f4: 'نشط ومعتمد', openingBalance: '4,200,000', currency: 'YER', f6: 'محفظة العملاء العامة' },
-                    { id: 104, f1: '1301', f2: 'المخزون السلعي والبضائع', f3: 'مدين (أصول متداولة)', f4: 'نشط ومعتمد', openingBalance: '8,500,000', currency: 'YER', f6: 'مستودع البضائع الرئيسي' },
-                    { id: 105, f1: '1211', f2: 'الأراضي والمباني', f3: 'مدين (أصول ثابتة)', f4: 'نشط ومعتمد', openingBalance: '25,000,000', currency: 'YER', f6: 'مقر المعرض والمستودع' },
-                    { id: 106, f1: '1231', f2: 'وسائل النقل والسيارات', f3: 'مدين (أصول ثابتة)', f4: 'نشط ومعتمد', openingBalance: '6,000,000', currency: 'YER', f6: 'سيارات التوصيل والتوزيع' },
-
-                    // 2. الخصوم والالتزامات (Liabilities)
-                    { id: 201, f1: '2101', f2: 'الموردون والدائنون', f3: 'دائن (خصوم متداولة)', f4: 'نشط ومعتمد', openingBalance: '3,800,000', currency: 'YER', f6: 'أرصدة الموردين المحليين' },
-                    { id: 202, f1: '2121', f2: 'المصروفات المستحقة', f3: 'دائن (خصوم متداولة)', f4: 'نشط ومعتمد', openingBalance: '450,000', currency: 'YER', f6: 'رواتب وأجور مستحقة' },
-                    { id: 203, f1: '2201', f2: 'القروض والتمويلات الإسلامية', f3: 'دائن (خصوم غير متداولة)', f4: 'نشط ومعتمد', openingBalance: '10,000,000', currency: 'YER', f6: 'تمويل تجاري طويل الأجل' },
-
-                    // 3. حقوق الملكية (Equity)
-                    { id: 301, f1: '3101', f2: 'رأس المال الأساسي', f3: 'دائن (حقوق ملكية)', f4: 'نشط ومعتمد', openingBalance: '50,000,000', currency: 'YER', f6: 'رأس مال أمين ردمان الشيباني' },
-                    { id: 302, f1: '3301', f2: 'الأرباح المبقاة (المرحلة)', f3: 'دائن (حقوق ملكية)', f4: 'نشط ومعتمد', openingBalance: '7,350,000', currency: 'YER', f6: 'أرباح السنوات السابقة' },
-                    { id: 303, f1: '3401', f2: 'جاري المالك (المسحوبات الشخصية)', f3: 'مدين (حقوق ملكية)', f4: 'نشط ومعتمد', openingBalance: '1,200,000', currency: 'YER', f6: 'مسحوبات مالية شخصية' },
-
-                    // 4. الإيرادات (Revenues)
-                    { id: 401, f1: '4101', f2: 'إيرادات المبيعات والنشاط الرئيسي', f3: 'دائن (إيرادات)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'حساب إيرادات المبيعات العامة' },
-                    { id: 402, f1: '4201', f2: 'إيرادات الخدمات المقدمة', f3: 'دائن (إيرادات)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'رسوم خدمات الطلاب والعملاء' },
-
-                    // 5. المصروفات (Expenses)
-                    { id: 501, f1: '5101', f2: 'تكلفة البضاعة المباعة', f3: 'مدين (مصروفات)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'تكلفة المبيعات المباشرة' },
-                    { id: 502, f1: '5201', f2: 'الرواتب والأجور', f3: 'مدين (مصروفات تشغيلية)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'رواتب الموظفين الشهرية' },
-                    { id: 503, f1: '5211', f2: 'إيجار المقر والمعارض', f3: 'مدين (مصروفات تشغيلية)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'إيجار المعرض والمستودع' },
-                    { id: 504, f1: '5221', f2: 'الكهرباء والماء والاتصالات', f3: 'مدين (مصروفات تشغيلية)', f4: 'نشط ومعتمد', openingBalance: '0.00', currency: 'YER', f6: 'مصاريف الخدمات العامة' }
-                ];
-            }
-
             return [
-                { id: 1, f1: 'REF-001', f2: 'سجل افتراضي رئيسي', f3: 'معتمد ونشط', f4: 'تلقائي', openingBalance: '500,000', currency: currentSystemCurrency, f6: 'افتتاحي مدخل تلقائياً' }
+                { f1: '1101', f2: 'الصندوق الرئيسي (الخزنة)' },
+                { f1: '1102', f2: 'بنك اليمن الدولي' },
+                { f1: '1201', f2: 'العملاء والمدينون' },
+                { f1: '2101', f2: 'الموردون والدائنون' },
+                { f1: '3101', f2: 'رأس المال الأساسي' },
+                { f1: '4101', f2: 'إيرادات المبيعات والنشاط الرئيسي' },
+                { f1: '5201', f2: 'الرواتب والأجور' }
             ];
         }
 
-        function savePageData(title, data) {
-            const key = `sheibani_db_${selectedActiveYear}_${title}`;
+        function getJournalEntriesData() {
+            const key = `sheibani_db_${selectedActiveYear}_القيود اليومية`;
+            const saved = localStorage.getItem(key);
+            if (saved) return JSON.parse(saved);
+            return [
+                {
+                    id: 1,
+                    jNo: 'JE-2026-001',
+                    jDate: '2026-01-15',
+                    jCostCenter: 'الفرع الرئيسي - تعز',
+                    jStatus: 'معتمد ومرحل',
+                    jDesc: 'قيد اثبات راس المال وتوريد النقدية للصندوق الرئيسي',
+                    rows: [
+                        { account: '1101 - الصندوق الرئيسي (الخزنة)', debit: '2,500,000', credit: '0', note: 'إيداع نقدي' },
+                        { account: '3101 - رأس المال الأساسي', debit: '0', credit: '2,500,000', note: 'رأس المال' }
+                    ]
+                }
+            ];
+        }
+
+        function saveJournalEntriesData(data) {
+            const key = `sheibani_db_${selectedActiveYear}_القيود اليومية`;
             localStorage.setItem(key, JSON.stringify(data));
         }
 
@@ -398,6 +419,11 @@
         function loadPageView(title, icon) {
             currentActivePage = title;
             currentActiveIcon = icon;
+            if (title === 'القيود اليومية') {
+                loadJournalEntriesView();
+                return;
+            }
+            // استدعاء دليل الحسابات أو باقي الصفحات
             const area = document.getElementById('mainContentArea');
             let data = getPageData(title);
             let cfg = getPageConfig(title);
@@ -406,13 +432,13 @@
                     <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
                         <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
                             <div class="flex items-center gap-2">
-                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm" title="الرجوع للرئيسية">
+                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
                                     <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
                                 </button>
                                 <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">${icon}</div>
                                 <div>
                                     <h2 class="font-bold text-xs text-slate-800">${title} (السنة المالية: ${selectedActiveYear})</h2>
-                                    <p class="text-[10px] text-slate-500">الهيكل المالي الموسع (أصول، خصوم، حقوق ملكية، إيرادات، مصروفات)</p>
+                                    <p class="text-[10px] text-slate-500">الهيكل المحاسبي والمالي المعتمد</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-1.5 flex-wrap">
@@ -423,8 +449,8 @@
                         </div>
                         <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow mt-1">
                             <div class="bg-slate-50 px-3 py-1.5 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center shrink-0">
-                                <span>شجرة الحسابات والبيانات المالية (${data.length} حسابات نشطة معتمدة)</span>
-                                <span class="text-[10px] text-emerald-600 font-bold">● متوافق مع المعايير المحاسبية</span>
+                                <span>شجرة الحسابات والبيانات المالية (${data.length} سجلات نشطة)</span>
+                                <span class="text-[10px] text-emerald-600 font-bold">● متوافق مع المعايير</span>
                             </div>
                             <div class="overflow-y-auto flex-grow">
                                 <table class="w-full text-right text-xs">
@@ -441,8 +467,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-100 bg-white">
-                                        ${data.length === 0 ? `<tr><td colspan="8" class="p-6 text-center text-slate-400 text-xs">لا توجد حسابات مسجلة لهذه السنة.</td></tr>` :
-                                          data.map((item, index) => `
+                                        ${data.map((item, index) => `
                                             <tr class="hover:bg-slate-50 transition-all">
                                                 <td class="p-2 font-mono text-slate-400">${index + 1}</td>
                                                 <td class="p-2 font-mono font-bold text-blue-600">${item.f1}</td>
@@ -452,8 +477,8 @@
                                                 <td class="p-2"><span class="px-2 py-0.5 rounded bg-blue-50 text-accentBlue font-bold font-mono text-[10px]">${item.currency}</span></td>
                                                 <td class="p-2 text-slate-600 text-[11px]">${item.f6}</td>
                                                 <td class="p-2 text-center space-x-1 space-x-reverse whitespace-nowrap">
-                                                    <button onclick="openUniversalModal(${index})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all">تعديل</button>
-                                                    <button onclick="deleteUniversalRecord(${index})" class="bg-red-50 hover:bg-red-100 text-red-600 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all">حذف</button>
+                                                    <button onclick="openUniversalModal(${index})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">تعديل</button>
+                                                    <button onclick="deleteUniversalRecord(${index})" class="bg-red-50 hover:bg-red-100 text-red-600 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">حذف</button>
                                                 </td>
                                             </tr>
                                         `).join('')}
@@ -467,80 +492,263 @@
             lucide.createIcons();
         }
 
-        function openUniversalModal(index) {
-            document.getElementById('uniEditIndex').value = index;
-            document.getElementById('uniPageTitle').value = currentActivePage;
-            document.getElementById('modalIconTitle').innerText = currentActiveIcon;
-            let cfg = getPageConfig(currentActivePage);
-            document.getElementById('labelField1').innerText = cfg.h1;
-            document.getElementById('labelField2').innerText = cfg.h2;
-            document.getElementById('labelField3').innerText = cfg.h3;
-            document.getElementById('labelField4').innerText = cfg.h4;
-            document.getElementById('labelField5').innerText = cfg.h5;
-            document.getElementById('labelField6').innerText = cfg.h6;
-            
-            if (index === -1) {
-                document.getElementById('universalModalTitle').innerText = `إضافة حساب جديد في: ${currentActivePage} (${selectedActiveYear})`;
-                document.getElementById('uniField1').value = '1' + Math.floor(100 + Math.random() * 900);
-                document.getElementById('uniField2').value = '';
-                document.getElementById('uniField3').value = 'مدين (أصول)';
-                document.getElementById('uniField4').value = 'نشط ومعتمد';
-                document.getElementById('uniOpeningBalance').value = '0.00';
-                document.getElementById('uniCurrency').value = currentSystemCurrency;
-                document.getElementById('uniField6').value = '';
-            } else {
-                document.getElementById('universalModalTitle').innerText = `تعديل الحساب في: ${currentActivePage}`;
-                let data = getPageData(currentActivePage);
-                let record = data[index];
-                document.getElementById('uniField1').value = record.f1;
-                document.getElementById('uniField2').value = record.f2;
-                document.getElementById('uniField3').value = record.f3;
-                document.getElementById('uniField4').value = record.f4;
-                document.getElementById('uniOpeningBalance').value = record.openingBalance || '0.00';
-                document.getElementById('uniCurrency').value = record.currency || currentSystemCurrency;
-                document.getElementById('uniField6').value = record.f6;
-            }
-            toggleModal('universalModal');
+        // عرض صفحة القيود اليومية الاحترافية المكتملة
+        function loadJournalEntriesView() {
+            currentActivePage = 'القيود اليومية';
+            currentActiveIcon = '📝';
+            const area = document.getElementById('mainContentArea');
+            let entries = getJournalEntriesData();
+            area.innerHTML = `
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-6xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
+                                </button>
+                                <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">📝</div>
+                                <div>
+                                    <h2 class="font-bold text-xs text-slate-800">القيود اليومية المحاسبية (السنة المالية: ${selectedActiveYear})</h2>
+                                    <p class="text-[10px] text-slate-500">تسجيل وتدوين القيود المزدوجة ومراجعة التوازن المالي</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <button onclick="openJournalModal(-1)" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة قيد يومي جديد</button>
+                                <button onclick="exportDatabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="download" class="w-3.5 h-3.5"></i> تصدير</button>
+                                <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
+                            </div>
+                        </div>
+                        <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow mt-1">
+                            <div class="bg-slate-50 px-3 py-1.5 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center shrink-0">
+                                <span>سجل القيود اليومية المرحلة (${entries.length} قيود مسجلة)</span>
+                                <span class="text-[10px] text-emerald-600 font-bold">● متوازن ومرحل لدفتر الأستاذ</span>
+                            </div>
+                            <div class="overflow-y-auto flex-grow p-3 space-y-3">
+                                ${entries.length === 0 ? `<div class="p-6 text-center text-slate-400 text-xs">لا توجد قيود يومية مسجلة لهذه السنة.</div>` :
+                                  entries.map((entry, idx) => `
+                                    <div class="border border-slate-200 rounded-xl p-3 bg-slate-50/50 hover:bg-white transition-all shadow-xs">
+                                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-200 text-xs flex-wrap gap-2">
+                                            <div class="flex items-center gap-3">
+                                                <span class="font-mono font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">${entry.jNo}</span>
+                                                <span class="font-bold text-slate-800">${entry.jDesc}</span>
+                                                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-mono">${entry.jCostCenter}</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-mono text-[11px] text-slate-500">${entry.jDate}</span>
+                                                <span class="px-2 py-0.5 rounded text-[10px] font-bold ${entry.jStatus === 'معتمد ومرحل' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${entry.jStatus}</span>
+                                                <button onclick="openJournalModal(${idx})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">تعديل</button>
+                                                <button onclick="deleteJournalEntry(${idx})" class="bg-red-50 hover:bg-red-100 text-red-600 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">حذف</button>
+                                            </div>
+                                        </div>
+                                        <table class="w-full text-right text-xs">
+                                            <thead class="text-slate-500 text-[11px] bg-slate-100">
+                                                <tr>
+                                                    <th class="p-1">الحساب المحاسبي</th>
+                                                    <th class="p-1 w-32">مدين</th>
+                                                    <th class="p-1 w-32">دائن</th>
+                                                    <th class="p-1">البيان الفرعي</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-slate-100">
+                                                ${entry.rows.map(r => `
+                                                    <tr>
+                                                        <td class="p-1 font-bold text-slate-700">${r.account}</td>
+                                                        <td class="p-1 font-mono text-blue-600 font-bold">${r.debit}</td>
+                                                        <td class="p-1 font-mono text-emerald-600 font-bold">${r.credit}</td>
+                                                        <td class="p-1 text-slate-500 text-[11px]">${r.note || '-'}</td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
         }
 
-        function handleUniversalFormSubmit(event) {
-            event.preventDefault();
-            const editIndex = parseInt(document.getElementById('uniEditIndex').value);
-            const pageTitle = document.getElementById('uniPageTitle').value;
-            const f1 = document.getElementById('uniField1').value.trim();
-            const f2 = document.getElementById('uniField2').value.trim();
-            const f3 = document.getElementById('uniField3').value.trim();
-            const f4 = document.getElementById('uniField4').value.trim();
-            const openingBalance = document.getElementById('uniOpeningBalance').value.trim();
-            const currency = document.getElementById('uniCurrency').value;
-            const f6 = document.getElementById('uniField6').value.trim();
+        // فتح نافذة تحرير أو إضافة قيد يومي
+        function openJournalModal(index) {
+            document.getElementById('journalEditIndex').value = index;
+            let entries = getJournalEntriesData();
+            
+            if (index === -1) {
+                document.getElementById('journalModalTitle').innerText = `إضافة قيد يومي جديد (${selectedActiveYear})`;
+                document.getElementById('jNo').value = `JE-${selectedActiveYear}-00${entries.length + 1}`;
+                document.getElementById('jDate').value = new Date().toISOString().split('T')[0];
+                document.getElementById('jCostCenter').value = 'الفرع الرئيسي - تعز';
+                document.getElementById('jStatus').value = 'معتمد ومرحل';
+                document.getElementById('jDesc').value = '';
+                
+                // سطرين افتراضيين للقيد المزدوج
+                const accounts = getAccountsList();
+                const acc1 = accounts[0] ? `${accounts[0].f1} - ${accounts[0].f2}` : '1101 - الصندوق الرئيسي';
+                const acc2 = accounts[4] ? `${accounts[4].f1} - ${accounts[4].f2}` : '3101 - رأس المال الأساسي';
+                
+                document.getElementById('journalRowsBody').innerHTML = `
+                    <tr>
+                        <td class="p-1">
+                            <select class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs row-acc">
+                                ${accounts.map(a => `<option value="${a.f1} - ${a.f2}">${a.f1} - ${a.f2}</option>`).join('')}
+                            </select>
+                        </td>
+                        <td class="p-1"><input type="text" value="0.00" oninput="calculateJournalTotals()" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono row-debit"></td>
+                        <td class="p-1"><input type="text" value="0.00" oninput="calculateJournalTotals()" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono row-credit"></td>
+                        <td class="p-1"><input type="text" value="مدين" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs row-note"></td>
+                        <td class="p-1 text-center"><button type="button" onclick="this.closest('tr').remove(); calculateJournalTotals();" class="text-red-500 font-bold">✕</button></td>
+                    </tr>
+                    <tr>
+                        <td class="p-1">
+                            <select class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs row-acc">
+                                ${accounts.map(a => `<option value="${a.f1} - ${a.f2}" ${a.f1==='3101'?'selected':''}>${a.f1} - ${a.f2}</option>`).join('')}
+                            </select>
+                        </td>
+                        <td class="p-1"><input type="text" value="0.00" oninput="calculateJournalTotals()" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono row-debit"></td>
+                        <td class="p-1"><input type="text" value="0.00" oninput="calculateJournalTotals()" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono row-credit"></td>
+                        <td class="p-1"><input type="text" value="دائن" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs row-note"></td>
+                        <td class="p-1 text-center"><button type="button" onclick="this.closest('tr').remove(); calculateJournalTotals();" class="text-red-500 font-bold">✕</button></td>
+                    </tr>
+                `;
+            } else {
+                document.getElementById('journalModalTitle').innerText = `تعديل القيد اليومي`;
+                let entry = entries[index];
+                document.getElementById('jNo').value = entry.jNo;
+                document.getElementById('jDate').value = entry.jDate;
+                document.getElementById('jCostCenter').value = entry.jCostCenter;
+                document.getElementById('jStatus').value = entry.jStatus;
+                document.getElementById('jDesc').value = entry.jDesc;
 
-            if (!f1 || !f2 || !openingBalance) {
-                showToast("تنبيه: الحقول الأساسية ورصيد الافتتاح إجبارية!", "error");
+                const accounts = getAccountsList();
+                document.getElementById('journalRowsBody').innerHTML = entry.rows.map(r => `
+                    <tr>
+                        <td class="p-1">
+                            <select class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs row-acc">
+                                ${accounts.map(a => `<option value="${a.f1} - ${a.f2}" ${r.account.includes(a.f1)?'selected':''}>${a.f1} - ${a.f2}</option>`).join('')}
+                            </select>
+                        </td>
+                        <td class="p-1"><input type="text" value="${r.debit}" oninput="calculateJournalTotals()" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono row-debit"></td>
+                        <td class="p-1"><input type="text" value="${r.credit}" oninput="calculateJournalTotals()" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono row-credit"></td>
+                        <td class="p-1"><input type="text" value="${r.note || ''}" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs row-note"></td>
+                        <td class="p-1 text-center"><button type="button" onclick="this.closest('tr').remove(); calculateJournalTotals();" class="text-red-500 font-bold">✕</button></td>
+                    </tr>
+                `).join('');
+            }
+            calculateJournalTotals();
+            toggleModal('journalModal');
+        }
+
+        function addJournalRow() {
+            const accounts = getAccountsList();
+            const tbody = document.getElementById('journalRowsBody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="p-1">
+                    <select class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs row-acc">
+                        ${accounts.map(a => `<option value="${a.f1} - ${a.f2}">${a.f1} - ${a.f2}</option>`).join('')}
+                    </select>
+                </td>
+                <td class="p-1"><input type="text" value="0.00" oninput="calculateJournalTotals()" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono row-debit"></td>
+                <td class="p-1"><input type="text" value="0.00" oninput="calculateJournalTotals()" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono row-credit"></td>
+                <td class="p-1"><input type="text" value="" class="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs row-note"></td>
+                <td class="p-1 text-center"><button type="button" onclick="this.closest('tr').remove(); calculateJournalTotals();" class="text-red-500 font-bold">✕</button></td>
+            `;
+            tbody.appendChild(tr);
+            calculateJournalTotals();
+        }
+
+        // حساب وإلزام توازن القيد (المدين والدائن)
+        function calculateJournalTotals() {
+            const debits = document.querySelectorAll('.row-debit');
+            const credits = document.querySelectorAll('.row-credit');
+            let sumD = 0;
+            let sumC = 0;
+            debits.forEach(inp => sumD += parseFloat(inp.value.replace(/,/g, '')) || 0);
+            credits.forEach(inp => sumC += parseFloat(inp.value.replace(/,/g, '')) || 0);
+
+            document.getElementById('sumDebit').innerText = sumD.toLocaleString();
+            document.getElementById('sumCredit').innerText = sumC.toLocaleString();
+
+            const statusText = document.getElementById('balanceStatusText');
+            if (Math.abs(sumD - sumC) < 0.001 && sumD > 0) {
+                statusText.className = "text-emerald-600 font-bold";
+                statusText.innerText = "● القيد متوازن تماماً (المدين يساوي الدائن)";
+            } else {
+                statusText.className = "text-red-600 font-bold";
+                statusText.innerText = "⚠️ تحذير: القيد غير متوازن! يجب أن يتطابق إجمالي المدين مع إجمالي الدائن.";
+            }
+        }
+
+        function handleJournalSubmit(event) {
+            event.preventDefault();
+            const debits = document.querySelectorAll('.row-debit');
+            const credits = document.querySelectorAll('.row-credit');
+            let sumD = 0;
+            let sumC = 0;
+            debits.forEach(inp => sumD += parseFloat(inp.value.replace(/,/g, '')) || 0);
+            credits.forEach(inp => sumC += parseFloat(inp.value.replace(/,/g, '')) || 0);
+
+            if (Math.abs(sumD - sumC) >= 0.001 || sumD === 0) {
+                showToast("خطأ: لا يمكن حفظ القيد لأن إجمالي المدين لا يساوي إجمالي الدائن!", "error");
                 return;
             }
 
-            let data = getPageData(pageTitle);
-            if (editIndex === -1) {
-                data.push({ id: Date.now(), f1, f2, f3, f4, openingBalance, currency, f6 });
-                showToast("تم حفظ الحساب الجديد برصيده الافتتاحي بنجاح!", "success");
-            } else {
-                data[editIndex] = { id: data[editIndex].id, f1, f2, f3, f4, openingBalance, currency, f6 };
-                showToast("تم تحديث بيانات الحساب بنجاح!", "success");
+            const editIndex = parseInt(document.getElementById('journalEditIndex').value);
+            const jNo = document.getElementById('jNo').value;
+            const jDate = document.getElementById('jDate').value;
+            const jCostCenter = document.getElementById('jCostCenter').value;
+            const jStatus = document.getElementById('jStatus').value;
+            const jDesc = document.getElementById('jDesc').value;
+
+            const rows = [];
+            const accSelects = document.querySelectorAll('.row-acc');
+            const notes = document.querySelectorAll('.row-note');
+            for (let i = 0; i < accSelects.length; i++) {
+                rows.push({
+                    account: accSelects[i].value,
+                    debit: debits[i].value,
+                    credit: credits[i].value,
+                    note: notes[i].value
+                });
             }
-            savePageData(pageTitle, data);
-            toggleModal('universalModal');
-            loadPageView(pageTitle, currentActiveIcon);
+
+            let entries = getJournalEntriesData();
+            if (editIndex === -1) {
+                entries.unshift({ id: Date.now(), jNo, jDate, jCostCenter, jStatus, jDesc, rows });
+                showToast("تم حفظ وترحيل القيد اليومي بنجاح!", "success");
+            } else {
+                entries[editIndex] = { id: entries[editIndex].id, jNo, jDate, jCostCenter, jStatus, jDesc, rows };
+                showToast("تم تحديث القيد اليومي بنجاح!", "success");
+            }
+
+            saveJournalEntriesData(entries);
+            toggleModal('journalModal');
+            loadJournalEntriesView();
         }
 
-        function deleteUniversalRecord(index) {
-            if (confirm("هل أنت متأكد من حذف هذا الحساب نهائياً؟")) {
-                let data = getPageData(currentActivePage);
-                data.splice(index, 1);
-                savePageData(currentActivePage, data);
-                showToast("تم حذف الحساب بنجاح.", "success");
-                loadPageView(currentActivePage, currentActiveIcon);
+        function deleteJournalEntry(index) {
+            if (confirm("هل أنت متأكد من حذف هذا القيد المحاسبي نهائياً؟")) {
+                let entries = getJournalEntriesData();
+                entries.splice(index, 1);
+                saveJournalEntriesData(entries);
+                showToast("تم حذف القيد بنجاح.", "success");
+                loadJournalEntriesView();
             }
+        }
+
+        function getPageConfig(title) {
+            return { h1: 'رقم الحساب', h2: 'اسم الحساب الرئيسي', h3: 'نوع الحساب (مدين/دائن)', h4: 'حالة الحساب', h5: 'الرصيد الافتتاحي', h6: 'ملاحظات وحساب فرعي' };
+        }
+
+        function getPageData(title) {
+            const key = `sheibani_db_${selectedActiveYear}_${title}`;
+            const saved = localStorage.getItem(key);
+            if (saved) return JSON.parse(saved);
+            return [
+                { id: 101, f1: '1101', f2: 'الصندوق الرئيسي (الخزنة)', f3: 'مدين (أصول متداولة)', f4: 'نشط ومعتمد', openingBalance: '2,500,000', currency: 'YER', f6: 'الفرع الرئيسي - تعز' }
+            ];
         }
     </script>
 </body>
