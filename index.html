@@ -87,6 +87,30 @@
         </div>
     </div>
 
+    <!-- نافذة منسدلة قائمة ملف الاحترافية -->
+    <div id="fileDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeFileDropdown()">
+        <div class="absolute top-16 right-16 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
+            <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
+                <span class="text-sm">📁</span>
+                <div>
+                    <h4 class="font-bold text-slate-800">قائمة ملف النظام</h4>
+                    <p class="text-[10px] text-slate-400">خيارات الإدارة والتحكم الأساسية</p>
+                </div>
+            </div>
+            <button onclick="loadHomeView(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏠 الصفحة الرئيسية</span></button>
+            <button onclick="showToast('إدارة المنشأة - قريباً', 'success'); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏢 إدارة المنشأة</span><span>◀️</span></button>
+            <button onclick="showToast('النسخ الاحتياطي والاستعادة', 'success'); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>💾 النسخ الاحتياطي والاستعادة</span><span>◀️</span></button>
+            <button onclick="window.print(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🖨️ الطباعة</span><span>◀️</span></button>
+            <button onclick="showToast('استيراد البيانات جاهز', 'success'); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📥 استيراد البيانات</span></button>
+            <button onclick="exportDatabase(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📤 تصدير البيانات</span></button>
+            <div class="border-t border-slate-100 pt-1 mt-1 space-y-1">
+                <button onclick="lockSystem(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-amber-600 hover:bg-amber-50 transition-all cursor-pointer"><span>🔒 قفل النظام</span></button>
+                <button onclick="lockSystem(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-orange-600 hover:bg-orange-50 transition-all cursor-pointer"><span>🚪 تسجيل الخروج</span></button>
+                <button onclick="if(confirm('هل تريد إغلاق النظام؟')) window.close(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-red-600 hover:bg-red-50 transition-all cursor-pointer"><span>❌ إغلاق النظام</span></button>
+            </div>
+        </div>
+    </div>
+
     <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-900 overflow-hidden">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div class="text-center mb-4">
@@ -288,6 +312,14 @@
             document.getElementById('sidebarModal').classList.toggle('hidden');
         }
 
+        function toggleFileDropdown() {
+            document.getElementById('fileDropdownMenu').classList.toggle('hidden');
+        }
+
+        function closeFileDropdown() {
+            document.getElementById('fileDropdownMenu').classList.add('hidden');
+        }
+
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
@@ -338,20 +370,22 @@
             const area = document.getElementById('mainContentArea');
             area.innerHTML = `
                 <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-y-auto relative">
-                    <!-- الأزرار العلوية الرئيسية (ملف، عرض، إدارة المخزون، إعدادات، تعليمات) -->
-                    <div class="absolute top-4 left-4 right-4 flex items-center justify-between max-w-3xl mx-auto px-2 z-20">
-                        <div class="flex items-center gap-1.5 flex-wrap">
-                            <button onclick="showToast('زر ملف - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">ملف</button>
-                            <button onclick="showToast('زر عرض - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">عرض</button>
-                            <button onclick="showToast('زر إدارة المخزون - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">إدارة المخزون</button>
-                            <button onclick="showToast('زر إعدادات - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">إعدادات</button>
-                        </div>
-                        <div>
-                            <button onclick="showToast('زر تعليمات - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">تعليمات</button>
+                    <!-- الأزرار العلوية الرئيسية بتوزيع متناسق ومنتظم تماماً باستخدام Flexbox مع قياسات متساوية -->
+                    <div class="absolute top-4 left-4 right-4 flex items-center justify-between max-w-4xl mx-auto px-2 z-20">
+                        <div class="flex items-center gap-2 flex-wrap w-full justify-center sm:justify-between bg-white/60 backdrop-blur-md p-2 rounded-2xl border border-slate-200/80 shadow-sm">
+                            <div class="flex items-center gap-1.5 flex-wrap justify-center">
+                                <button onclick="toggleFileDropdown()" class="px-4 py-1.5 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all cursor-pointer flex items-center justify-center gap-1 min-w-[90px]">📁 ملف</button>
+                                <button onclick="showToast('زر عرض - قريباً', 'success')" class="px-4 py-1.5 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all cursor-pointer flex items-center justify-center min-w-[90px]">عرض</button>
+                                <button onclick="showToast('زر إدارة المخزون - قريباً', 'success')" class="px-4 py-1.5 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all cursor-pointer flex items-center justify-center min-w-[110px]">إدارة المخزون</button>
+                                <button onclick="showToast('زر إعدادات - قريباً', 'success')" class="px-4 py-1.5 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all cursor-pointer flex items-center justify-center min-w-[90px]">إعدادات</button>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <button onclick="showToast('زر تعليمات - قريباً', 'success')" class="px-4 py-1.5 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all cursor-pointer flex items-center justify-center min-w-[90px]">تعليمات</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-5 w-full max-w-3xl my-auto pt-6">
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-5 w-full max-w-3xl my-auto pt-12">
                         <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl w-full max-w-[240px] overflow-hidden shrink-0">
                             <div class="bg-primaryBlue px-3 py-2 text-center border-b border-slate-800">
                                 <h3 class="text-white font-bold text-[11px] tracking-wide">الفروع - السنة المالية</h3>
@@ -515,7 +549,6 @@
             lucide.createIcons();
         }
 
-        // شاشة القيود اليومية (المفعلة بالكامل)
         function loadJournalEntriesView() {
             currentActivePage = 'القيود اليومية';
             currentActiveIcon = '📝';
@@ -699,7 +732,6 @@
             }
         }
 
-        // شاشة السندات المالية
         function loadVouchersView() {
             currentActivePage = 'السندات المالية';
             currentActiveIcon = '💰';
@@ -883,7 +915,6 @@
             }
         }
 
-        // دفتر الأستاذ
         function loadGeneralLedgerView(selectedAcc = '') {
             currentActivePage = 'دفتر الأستاذ وكشف الحساب';
             currentActiveIcon = '📖';
