@@ -125,7 +125,7 @@
         </div>
     </div>
 
-    <!-- نافذة منسدلة قائمة "إعدادات" الجديدة المطلوبة -->
+    <!-- نافذة منسدلة قائمة "إعدادات" -->
     <div id="settingsDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeSettingsDropdown()">
         <div class="absolute top-20 right-16 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
             <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
@@ -139,6 +139,24 @@
             <button onclick="loadPageView('إعدادات الطباعة والربط', '🖨️'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🖨️ إعدادات الطابعات والباركود</span><span>◀️</span></button>
             <button onclick="loadPageView('إدارة المستخدمين والصلاحيات', '👥'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>👥 المستخدمين والصلاحيات</span><span>◀️</span></button>
             <button onclick="loadPageView('النسخ الاحتياطي والأمان', '🔒'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🔒 الأمان والنسخ الاحتياطي</span><span>◀️</span></button>
+        </div>
+    </div>
+
+    <!-- نافذة منسدلة قائمة "إدارة التخزين" الجديدة المطلوبة -->
+    <div id="storageDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeStorageDropdown()">
+        <div class="absolute top-20 right-64 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
+            <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
+                <span class="text-sm">📦</span>
+                <div>
+                    <h4 class="font-bold text-slate-800">قائمة إدارة التخزين</h4>
+                    <p class="text-[10px] text-slate-400">إدارة المخازن والأصناف والوحدات</p>
+                </div>
+            </div>
+            <button onclick="loadPageView('بطاقة الاصناف', '🏷️'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏷️ بطاقة الأصناف</span><span>◀️</span></button>
+            <button onclick="loadPageView('المخازن والمستودعات', '🏬'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏬 المخازن والمستودعات</span><span>◀️</span></button>
+            <button onclick="loadPageView('حركات المخزن (إدخال وإخراج)', '📥'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📥 حركات المخزن</span><span>◀️</span></button>
+            <button onclick="loadPageView('الجرد المخزني', '📋'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📋 الجرد المخزني وتسوية المخزون</span><span>◀️</span></button>
+            <button onclick="loadPageView('تقارير المخازن', '📊'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📊 تقارير حركة المخازن والأرصدة</span><span>◀️</span></button>
         </div>
     </div>
 
@@ -215,6 +233,7 @@
         }
 
         function toggleFileDropdown() {
+            closeAllDropdowns('fileDropdownMenu');
             document.getElementById('fileDropdownMenu').classList.toggle('hidden');
         }
 
@@ -223,6 +242,7 @@
         }
 
         function toggleViewDropdown() {
+            closeAllDropdowns('viewDropdownMenu');
             document.getElementById('viewDropdownMenu').classList.toggle('hidden');
         }
 
@@ -231,6 +251,7 @@
         }
 
         function toggleInstructionsDropdown() {
+            closeAllDropdowns('instructionsDropdownMenu');
             document.getElementById('instructionsDropdownMenu').classList.toggle('hidden');
         }
 
@@ -239,11 +260,30 @@
         }
 
         function toggleSettingsDropdown() {
+            closeAllDropdowns('settingsDropdownMenu');
             document.getElementById('settingsDropdownMenu').classList.toggle('hidden');
         }
 
         function closeSettingsDropdown() {
             document.getElementById('settingsDropdownMenu').classList.add('hidden');
+        }
+
+        function toggleStorageDropdown() {
+            closeAllDropdowns('storageDropdownMenu');
+            document.getElementById('storageDropdownMenu').classList.toggle('hidden');
+        }
+
+        function closeStorageDropdown() {
+            document.getElementById('storageDropdownMenu').classList.add('hidden');
+        }
+
+        function closeAllDropdowns(exceptId) {
+            const dropdowns = ['fileDropdownMenu', 'viewDropdownMenu', 'instructionsDropdownMenu', 'settingsDropdownMenu', 'storageDropdownMenu'];
+            dropdowns.forEach(id => {
+                if (id !== exceptId) {
+                    document.getElementById(id).classList.add('hidden');
+                }
+            });
         }
 
         function showToast(message, type = 'success') {
@@ -299,7 +339,7 @@
                         </div>
                         <div class="flex items-center justify-center gap-2 w-full">
                             <button onclick="toggleInstructionsDropdown()" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">تعليمات 📖</button>
-                            <button onclick="showToast('زر إدارة المخزون - قريباً', 'success')" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">إدارة المخزون</button>
+                            <button onclick="toggleStorageDropdown()" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">إدارة التخزين 📦</button>
                         </div>
                     </div>
 
