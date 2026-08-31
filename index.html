@@ -337,8 +337,19 @@
             currentActiveIcon = '🏠';
             const area = document.getElementById('mainContentArea');
             area.innerHTML = `
-                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-y-auto">
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-5 w-full max-w-3xl my-auto">
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-y-auto relative">
+                    <!-- الأزرار الثلاثة العلعلية (ملف، عرض، تعليمات) -->
+                    <div class="absolute top-4 left-4 right-4 flex items-center justify-between max-w-3xl mx-auto px-2 z-20">
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="showToast('زر ملف - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">ملف</button>
+                            <button onclick="showToast('زر عرض - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">عرض</button>
+                        </div>
+                        <div>
+                            <button onclick="showToast('زر تعليمات - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">تعليمات</button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-5 w-full max-w-3xl my-auto pt-6">
                         <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl w-full max-w-[240px] overflow-hidden shrink-0">
                             <div class="bg-primaryBlue px-3 py-2 text-center border-b border-slate-800">
                                 <h3 class="text-white font-bold text-[11px] tracking-wide">الفروع - السنة المالية</h3>
@@ -594,7 +605,6 @@
                 document.getElementById('jDate').value = new Date().toISOString().split('T')[0];
                 document.getElementById('jCostCenter').value = 'الفرع الرئيسي - تعز';
                 document.getElementById('jDesc').value = '';
-                // إضافة طرفين افتراضيين للقيد
                 addJournalRow();
                 addJournalRow();
             } else {
