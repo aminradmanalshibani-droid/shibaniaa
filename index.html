@@ -107,6 +107,24 @@
         </div>
     </div>
 
+    <!-- نافذة منسدلة قائمة "تعليمات" -->
+    <div id="instructionsDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeInstructionsDropdown()">
+        <div class="absolute top-20 right-48 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
+            <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
+                <span class="text-sm">📖</span>
+                <div>
+                    <h4 class="font-bold text-slate-800">قائمة تعليمات ودعم النظام</h4>
+                    <p class="text-[10px] text-slate-400">الدليل التعريفي وإرشادات التشغيل</p>
+                </div>
+            </div>
+            <button onclick="loadPageView('دليل الاستخدام السريع', '📖'); closeInstructionsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📖 دليل الاستخدام السريع</span><span>◀️</span></button>
+            <button onclick="loadPageView('دليل القيود المحاسبية', '📒'); closeInstructionsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📒 دليل القيود والسندات</span><span>◀️</span></button>
+            <button onclick="loadPageView('اختصارات لوحة المفاتيح', '⌨️'); closeInstructionsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>⌨️ اختصارات لوحة المفاتيح</span><span>◀️</span></button>
+            <button onclick="loadPageView('الأسئلة الشائعة', '❓'); closeInstructionsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>❓ الأسئلة الشائعة</span><span>◀️</span></button>
+            <button onclick="loadPageView('حول النظام والمبرمج', 'ℹ️'); closeInstructionsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>ℹ️ حول نظام الشيباني</span><span>◀️</span></button>
+        </div>
+    </div>
+
     <!-- نافذة منسدلة قائمة "إعدادات" الجديدة المطلوبة -->
     <div id="settingsDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeSettingsDropdown()">
         <div class="absolute top-20 right-16 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
@@ -117,11 +135,10 @@
                     <p class="text-[10px] text-slate-400">خيارات الضبط والتخصيص المتقدمة</p>
                 </div>
             </div>
-            <button onclick="loadPageView('إعدادات عامة', '⚙️'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>⚙️ الإعدادات العامة</span><span>◀️</span></button>
-            <button onclick="loadPageView('إعدادات السنة المالية', '📅'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📅 إدارة السنوات المالية</span><span>◀️</span></button>
-            <button onclick="loadPageView('إعدادات الطابعة والباركود', '🖨️'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🖨️ إعدادات الطابعة والباركود</span><span>◀️</span></button>
-            <button onclick="loadPageView('صلاحيات المستخدمين', '🔐'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🔐 صلاحيات المستخدمين</span><span>◀️</span></button>
-            <button onclick="loadPageView('النسخ الاحتياطي', '💾'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>💾 النسخ الاحتياطي والاستعادة</span><span>◀️</span></button>
+            <button onclick="loadPageView('إعدادات المنشأة والشركة', '🏢'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏢 إعدادات المنشأة</span><span>◀️</span></button>
+            <button onclick="loadPageView('إعدادات الطباعة والربط', '🖨️'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🖨️ إعدادات الطابعات والباركود</span><span>◀️</span></button>
+            <button onclick="loadPageView('إدارة المستخدمين والصلاحيات', '👥'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>👥 المستخدمين والصلاحيات</span><span>◀️</span></button>
+            <button onclick="loadPageView('النسخ الاحتياطي والأمان', '🔒'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🔒 الأمان والنسخ الاحتياطي</span><span>◀️</span></button>
         </div>
     </div>
 
@@ -213,6 +230,14 @@
             document.getElementById('viewDropdownMenu').classList.add('hidden');
         }
 
+        function toggleInstructionsDropdown() {
+            document.getElementById('instructionsDropdownMenu').classList.toggle('hidden');
+        }
+
+        function closeInstructionsDropdown() {
+            document.getElementById('instructionsDropdownMenu').classList.add('hidden');
+        }
+
         function toggleSettingsDropdown() {
             document.getElementById('settingsDropdownMenu').classList.toggle('hidden');
         }
@@ -273,7 +298,7 @@
                             <button onclick="toggleFileDropdown()" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">ملف 📁</button>
                         </div>
                         <div class="flex items-center justify-center gap-2 w-full">
-                            <button onclick="showToast('زر تعليمات - قريباً', 'success')" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">تعليمات</button>
+                            <button onclick="toggleInstructionsDropdown()" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">تعليمات 📖</button>
                             <button onclick="showToast('زر إدارة المخزون - قريباً', 'success')" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">إدارة المخزون</button>
                         </div>
                     </div>
@@ -357,7 +382,7 @@
                         <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow mt-1 p-6 items-center justify-center text-center">
                             <div class="text-4xl mb-2">${icon}</div>
                             <h3 class="font-bold text-sm text-slate-800 mb-1">تم تفعيل واجهة (${title}) بنجاح</h3>
-                            <p class="text-xs text-slate-500">هذه الشاشة مرتبطة بقائمة "إعدادات" المنسدلة الجديدة ضمن الهيكل المبرمج للنظام.</p>
+                            <p class="text-xs text-slate-500">هذه الشاشة مرتبطة بقوائم النظام المنسدلة ضمن الهيكل المبرمج لنظام الشيباني المحاسبي.</p>
                         </div>
                     </div>
                 </div>
