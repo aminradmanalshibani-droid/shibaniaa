@@ -189,7 +189,7 @@
                                 </tr>
                             </thead>
                             <tbody id="journalRowsContainer" class="divide-y divide-slate-100 bg-white">
-                                </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -338,11 +338,13 @@
             const area = document.getElementById('mainContentArea');
             area.innerHTML = `
                 <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-y-auto relative">
-                    <!-- الأزرار الثلاثة العلعلية (ملف، عرض، تعليمات) -->
+                    <!-- الأزرار العلوية الرئيسية (ملف، عرض، إدارة المخزون، إعدادات، تعليمات) -->
                     <div class="absolute top-4 left-4 right-4 flex items-center justify-between max-w-3xl mx-auto px-2 z-20">
-                        <div class="flex items-center gap-1.5">
+                        <div class="flex items-center gap-1.5 flex-wrap">
                             <button onclick="showToast('زر ملف - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">ملف</button>
                             <button onclick="showToast('زر عرض - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">عرض</button>
+                            <button onclick="showToast('زر إدارة المخزون - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">إدارة المخزون</button>
+                            <button onclick="showToast('زر إعدادات - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">إعدادات</button>
                         </div>
                         <div>
                             <button onclick="showToast('زر تعليمات - قريباً', 'success')" class="px-3 py-1 bg-white/80 hover:bg-white text-slate-700 border border-slate-200 rounded-lg text-xs font-bold shadow-sm transition-all cursor-pointer">تعليمات</button>
