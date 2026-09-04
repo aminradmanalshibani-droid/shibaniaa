@@ -1,1002 +1,769 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="h-full">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الشيباني المحاسبي المتكامل | أمين ردمان الشيباني</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primaryBlue: '#0f172a',
-                        accentBlue: '#2563eb',
-                        accentHover: '#1d4ed8',
-                        bgLight: '#f1f5f9',
-                    },
-                    fontFamily: {
-                        cairo: ['Cairo', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: #f1f5f9;
-            color: #1e293b;
-            overflow: hidden;
-        }
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        @media print {
-            body * { visibility: hidden; }
-            #printableArea, #printableArea * { visibility: visible; }
-            #printableArea { position: absolute; left: 0; top: 0; width: 100%; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<title>نظام الشيباني المحاسبي 2026</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Tahoma,Arial,sans-serif;background:#f1f5f9;color:#0f172a}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{height:100%;display:flex;flex-direction:column}
+.hidden{display:none!important}
+.login{height:100%;display:grid;place-items:center;padding:20px}
+.login-card{width:min(420px,100%);background:#fff;border:1px solid #e2e8f0;border-radius:22px;box-shadow:0 15px 40px #0f172a18;padding:22px}
+.logo{width:58px;height:58px;border-radius:18px;background:#eff6ff;color:#2563eb;display:grid;place-items:center;font-size:28px;margin:auto}
+h1,h2,h3,p{margin:0}
+.title{font-size:18px;font-weight:900;margin-top:10px;text-align:center}
+.muted{color:#64748b;font-size:11px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:10px;font-weight:800;color:#334155}
+.field input,.field select,.field textarea{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:9px;background:#fff;outline:none;font-size:12px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#2563eb;box-shadow:0 0 0 3px #2563eb18}
+.btn{border:0;border-radius:10px;padding:9px 12px;font-size:11px;font-weight:800}
+.primary{background:#2563eb;color:#fff}.success{background:#059669;color:#fff}.danger{background:#dc2626;color:#fff}
+.secondary{background:#f1f5f9;color:#334155;border:1px solid #e2e8f0}.warning{background:#d97706;color:#fff}
+.header{height:58px;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 12px;gap:8px;flex-shrink:0}
+.brand{font-weight:900;font-size:13px}.header small{font-size:9px;color:#cbd5e1}
+.header-actions{display:flex;gap:6px;align-items:center}
+.main{flex:1;min-height:0;display:flex;overflow:hidden}
+.sidebar{width:225px;background:#fff;border-left:1px solid #e2e8f0;padding:8px;overflow-y:auto;flex-shrink:0}
+.nav-title{font-size:10px;font-weight:900;color:#64748b;padding:9px 7px 5px}
+.nav-btn{width:100%;border:0;background:#fff;text-align:right;padding:9px;border-radius:10px;font-size:11px;font-weight:800;color:#334155}
+.nav-btn:hover{background:#eff6ff;color:#1d4ed8}
+.content{flex:1;min-width:0;min-height:0;padding:10px;overflow:hidden}
+.page{height:100%;background:#fff;border:1px solid #e2e8f0;border-radius:18px;box-shadow:0 3px 12px #0f172a0a;display:flex;flex-direction:column;overflow:hidden}
+.page-head{padding:10px 12px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0}
+.page-title{font-size:13px;font-weight:900}.page-body{padding:10px;min-height:0;flex:1;overflow:auto}
+.grid{display:grid;gap:8px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:10px}
+.kpi{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px}.kpi b{font-size:18px}.kpi span{display:block;color:#64748b;font-size:10px;margin-bottom:5px}
+.module{border:1px solid #e2e8f0;background:#fff;border-radius:15px;padding:13px;text-align:right;display:flex;gap:10px;align-items:center}
+.module .ico{font-size:23px}.module b{font-size:11px;display:block}.module small{font-size:9px;color:#64748b}
+.module:hover{border-color:#93c5fd;background:#eff6ff}
+.toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}
+.table-wrap{border:1px solid #e2e8f0;border-radius:12px;overflow:auto;max-height:100%;min-height:0}
+table{width:100%;border-collapse:collapse;min-width:720px;font-size:10px}
+th{background:#f1f5f9;position:sticky;top:0;z-index:1;font-weight:900}
+th,td{padding:8px;border-bottom:1px solid #f1f5f9;text-align:right;white-space:nowrap}
+td .btn{padding:5px 7px;font-size:9px}
+.empty{text-align:center!important;color:#94a3b8;padding:28px}
+.form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.form-grid .wide{grid-column:span 2}
+.actions{display:flex;gap:6px;justify-content:flex-start;flex-wrap:wrap}
+.toast{position:fixed;bottom:16px;left:16px;z-index:99;background:#0f172a;color:#fff;padding:11px 14px;border-radius:12px;font-size:11px;box-shadow:0 10px 30px #0003;opacity:0;transform:translateY(10px);transition:.2s}
+.toast.show{opacity:1;transform:none}
+.modal{position:fixed;inset:0;background:#0f172a80;display:grid;place-items:center;padding:15px;z-index:50}
+.modal-card{width:min(850px,100%);max-height:92vh;background:#fff;border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.modal-head{padding:12px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;font-size:12px;font-weight:900}
+.modal-body{padding:12px;overflow:auto}
+.pos{height:100%;display:grid;grid-template-columns:1.6fr 1fr;gap:9px}
+.pos-products,.pos-cart{min-height:0;border:1px solid #e2e8f0;border-radius:14px;padding:9px;display:flex;flex-direction:column;overflow:hidden}
+.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;overflow:auto;padding:2px}
+.product{border:1px solid #e2e8f0;border-radius:11px;background:#fff;padding:9px;text-align:right}
+.product b{display:block;font-size:10px}.product span{display:block;color:#2563eb;font-size:9px;margin-top:4px}.product em{font-style:normal;color:#64748b;font-size:8px}
+.pos-cart-list{overflow:auto;flex:1}.pos-total{border-top:1px solid #e2e8f0;padding-top:8px;margin-top:8px}
+.stat{display:flex;justify-content:space-between;font-size:11px;padding:5px 0}.big-total{font-size:18px;font-weight:900;color:#059669}
+@media(max-width:900px){
+ .sidebar{width:175px}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .pos{grid-template-columns:1fr}.pos-products{min-height:48%}.pos-cart{min-height:48%}.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:620px){
+ .sidebar{position:absolute;right:0;top:58px;bottom:0;width:230px;z-index:20;transform:translateX(105%);transition:.2s;box-shadow:-8px 0 25px #0002}
+ .sidebar.open{transform:none}.content{padding:7px}.g2,.g3,.g4{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.form-grid .wide{grid-column:auto}
+ .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.header{height:52px}.page-head{padding:8px}.page-body{padding:8px}
+}
+
+/* المرحلة الثانية: حماية العرض ومنع التداخل والقطع */
+.page-body{overflow:hidden}
+.screen-layout{height:100%;min-height:0;display:flex;flex-direction:column;gap:9px}
+.screen-scroll{min-height:0;flex:1;overflow:auto}
+.form-card{flex-shrink:0}
+.table-wrap{flex:1;min-height:0;overflow:auto}
+@media(max-width:620px){.page-title{font-size:12px}.page-head .btn{padding:7px 8px}.toolbar{flex-wrap:wrap}.actions{flex-wrap:wrap}}
+</style>
 </head>
-<body class="flex flex-col h-full select-none overflow-hidden">
-    <div id="toastContainer" class="fixed top-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+<body>
+<div id="login" class="login">
+  <div class="login-card">
+    <div class="logo">📊</div>
+    <div class="title">نظام الشيباني المحاسبي 2026</div>
+    <p class="muted" style="text-align:center;margin-top:5px">نسخة محلية تنفيذية تعمل بقاعدة بيانات IndexedDB</p>
+    <form id="loginForm" style="margin-top:18px;display:grid;gap:10px">
+      <div class="field"><label>اسم المستخدم</label><input id="loginUser" value="admin" required></div>
+      <div class="field"><label>كلمة المرور</label><input id="loginPass" type="password" value="1234" required></div>
+      <button class="btn primary">دخول النظام</button>
+    </form>
+  </div>
+</div>
 
-    <!-- القائمة الجانبية -->
-    <div id="sidebarModal" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex justify-start">
-        <div class="bg-primaryBlue text-white w-72 h-full shadow-2xl flex flex-col p-4 transform transition-transform duration-300">
-            <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-xl bg-accentBlue flex items-center justify-center font-black text-xs shadow">AS</div>
-                    <div>
-                        <h3 class="font-bold text-xs text-white">لوحة التحكم النظام</h3>
-                        <p class="text-[10px] text-slate-400">القائمة الجانبية الرأسية</p>
-                    </div>
-                </div>
-                <button onclick="toggleSidebar()" class="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-300 font-bold transition-all cursor-pointer text-xs">✕</button>
-            </div>
-            <div class="space-y-1.5 overflow-y-auto flex-grow text-xs">
-                <button onclick="loadHomeView(); toggleSidebar();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-200 hover:bg-slate-800 hover:text-white transition-all cursor-pointer"><span>🏠 الصفحة الرئيسية</span><span>◀️</span></button>
-                <button onclick="loadPageView('إدارة المبيعات', '🛒'); toggleSidebar();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-200 hover:bg-slate-800 hover:text-white transition-all cursor-pointer"><span>🛒 المبيعات والعملاء</span><span>◀️</span></button>
-                <button onclick="loadPageView('إدارة المشتريات', '🛍️'); toggleSidebar();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-200 hover:bg-slate-800 hover:text-white transition-all cursor-pointer"><span>🛍️ المشتريات والموردين</span><span>◀️</span></button>
-                <button onclick="exportDatabase(); toggleSidebar();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-200 hover:bg-slate-800 hover:text-white transition-all cursor-pointer"><span>📤 تصدير قاعدة البيانات</span><span>◀️</span></button>
-                <button onclick="lockSystem(); toggleSidebar();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-amber-400 hover:bg-slate-800 transition-all cursor-pointer"><span>🔒 قفل النظام</span><span>◀️</span></button>
-            </div>
-            <div class="pt-3 border-t border-slate-800 text-center text-[10px] text-slate-400 font-mono">
-                أمين الشيباني © 2026
-            </div>
-        </div>
+<div id="app" class="app hidden">
+  <header class="header">
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="btn secondary" onclick="toggleSidebar()" style="padding:6px 9px">☰</button>
+      <div><div class="brand">نظام الشيباني المحاسبي</div><small>السنة المالية 2026 · العملة الأساسية SAR</small></div>
     </div>
-
-    <!-- نافذة منسدلة قائمة "المحاسبة المالية" -->
-    <div id="financeDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeFinanceDropdown()">
-        <div class="absolute top-14 left-4 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
-            <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
-                <span class="text-sm">💰</span>
-                <div>
-                    <h4 class="font-bold text-slate-800">قائمة المحاسبة المالية</h4>
-                    <p class="text-[10px] text-slate-400">القيود والسندات والحسابات والتقارير</p>
-                </div>
-            </div>
-            <button onclick="loadChartView(); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🌳 دليل الحسابات</span><span>◀️</span></button>
-            <button onclick="loadJournalView(); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📝 القيود اليومية</span><span>◀️</span></button>
-            <button onclick="loadReceiptView(); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📥 سندات القبض</span><span>◀️</span></button>
-            <button onclick="loadPaymentView(); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📤 سندات الصرف</span><span>◀️</span></button>
-            <button onclick="loadPageView('دفتر الأستاذ العام', '📖'); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📖 دفتر الأستاذ العام</span><span>◀️</span></button>
-            <button onclick="loadPageView('ميزان المراجعة', '⚖️'); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>⚖️ ميزان المراجعة</span><span>◀️</span></button>
-            <button onclick="loadPageView('القوائم والتقارير المالية', '📊'); closeFinanceDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📊 القوائم والتقارير المالية</span><span>◀️</span></button>
-        </div>
+    <div class="header-actions">
+      <button class="btn secondary" onclick="loadPage('dashboard')">الرئيسية</button>
+      <button class="btn danger" onclick="logout()">خروج</button>
     </div>
+  </header>
+  <div class="main">
+    <aside id="sidebar" class="sidebar">
+      <div class="nav-title">الرئيسية</div>
+      <button class="nav-btn" onclick="loadPage('dashboard')">🏠 لوحة المؤشرات</button>
+      <button class="nav-btn" onclick="loadPage('pos')">🧾 نقطة البيع POS</button>
+      <div class="nav-title">المخزون</div>
+      <button class="nav-btn" onclick="loadPage('items')">📦 بطاقة الأصناف</button>
+      <button class="nav-btn" onclick="loadPage('warehouses')">🏬 المخازن والمستودعات</button>
+      <button class="nav-btn" onclick="loadPage('stockmoves')">🔄 حركة المخزون</button>
+      <button class="nav-btn" onclick="loadPage('stockcount')">📋 الجرد والتسويات</button>
+      <div class="nav-title">إدارة المبيعات</div>
+      <button class="nav-btn" onclick="loadPage('sales')">💰 لوحة إدارة المبيعات</button>
+      <button class="nav-btn" onclick="loadPage('customers')">👥 العملاء</button>
+      <button class="nav-btn" onclick="loadPage('salesInvoices')">🧾 فواتير المبيعات</button>
+      <button class="nav-btn" onclick="loadPage('salesOrders')">📋 أوامر البيع</button>
+      <button class="nav-btn" onclick="loadPage('salesReturns')">↩️ مرتجعات المبيعات</button>
+      <button class="nav-btn" onclick="loadPage('salesPayments')">💵 التحصيلات</button>
+      <button class="nav-btn" onclick="loadPage('quotations')">📄 عروض الأسعار</button>
+      <button class="nav-btn" onclick="loadPage('discounts')">🏷️ الخصومات</button>
+      <button class="nav-btn" onclick="loadPage('salesReports')">📊 تقارير المبيعات</button>
+      <div class="nav-title">المشتريات</div>
+      <button class="nav-btn" onclick="loadPage('suppliers')">🚚 الموردون</button>
+      <button class="nav-btn" onclick="loadPage('purchases')">🛒 فواتير المشتريات</button>
+      <button class="nav-btn" onclick="loadPage('purchaseOrders')">📋 أوامر الشراء</button>
+      <button class="nav-btn" onclick="loadPage('purchaseReturns')">↩️ مرتجعات المشتريات</button>
+      <button class="nav-btn" onclick="loadPage('purchasePayments')">💳 مدفوعات الموردين</button>
+      <div class="nav-title">الحسابات والخزينة</div>
+      <button class="nav-btn" onclick="loadPage('accounts')">🌳 دليل الحسابات</button>
+      <button class="nav-btn" onclick="loadPage('journal')">📝 القيود اليومية</button>
+      <button class="nav-btn" onclick="loadPage('receipts')">📥 سندات القبض</button>
+      <button class="nav-btn" onclick="loadPage('payments')">📤 سندات الصرف</button>
+      <button class="nav-btn" onclick="loadPage('ledger')">📒 دفتر الأستاذ</button>
+      <button class="nav-btn" onclick="loadPage('trial')">⚖️ ميزان المراجعة</button>
+      <button class="nav-btn" onclick="loadPage('statement')">🔎 كشف حساب</button>
+      <div class="nav-title">التقارير والإعدادات</div>
+      <button class="nav-btn" onclick="loadPage('reports')">📈 التقارير العامة</button>
+      <button class="nav-btn" onclick="loadPage('inventoryReport')">📦 تقرير المخزون</button>
+      <button class="nav-btn" onclick="loadPage('profitLoss')">📉 الأرباح والخسائر</button>
+      <button class="nav-btn" onclick="loadPage('balanceSheet')">🏛️ الميزانية العمومية</button>
+      <button class="nav-btn" onclick="loadPage('audit')">🧾 سجل العمليات</button>
+      <button class="nav-btn" onclick="loadPage('company')">🏢 إعدادات المنشأة</button>
+      <button class="nav-btn" onclick="loadPage('users')">🔐 المستخدمون والصلاحيات</button>
+      <button class="nav-btn" onclick="loadPage('backup')">💾 النسخ الاحتياطي والاستعادة</button>
+      <button class="nav-btn" onclick="loadPage('guide')">📘 تعليمات النظام</button>
+    </aside>
+    <main id="content" class="content"></main>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+<div id="modal" class="modal hidden"></div>
 
-    <!-- نافذة منسدلة قائمة ملف -->
-    <div id="fileDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeFileDropdown()">
-        <div class="absolute top-20 right-8 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
-            <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
-                <span class="text-sm">📁</span>
-                <div>
-                    <h4 class="font-bold text-slate-800">قائمة ملف النظام</h4>
-                    <p class="text-[10px] text-slate-400">خيارات الإدارة والتحكم الأساسية</p>
-                </div>
-            </div>
-            <button onclick="loadHomeView(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏠 الصفحة الرئيسية</span></button>
-            <button onclick="loadPageView('إدارة المنشأة', '🏢'); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏢 إدارة المنشأة</span><span>◀️</span></button>
-            <button onclick="exportDatabase(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📤 تصدير البيانات</span></button>
-            <div class="border-t border-slate-100 pt-1 mt-1 space-y-1">
-                <button onclick="lockSystem(); closeFileDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-amber-600 hover:bg-amber-50 transition-all cursor-pointer"><span>🔒 قفل النظام</span></button>
-            </div>
-        </div>
+<script>
+'use strict';
+const DB_NAME='SheibaniAccounting2026', DB_VERSION=3, BASE_CURRENCY='SAR';
+const STORES=['company','users','items','warehouses','customers','suppliers','salesInvoices','salesOrders','salesReturns','salesPayments','quotations','discounts','purchaseInvoices','purchaseReturns','purchasePayments','journal','receipts','payments','accounts','notes','stockMoves','purchaseOrders','auditLog'];
+let db=null, currentPage='dashboard', posCart=[];
+
+const seed={
+ company:[{id:1,name:'منشأة الشيباني التجارية',taxNo:'',address:'',phone:'',currency:'SAR'}],
+ users:[{id:1,username:'admin',fullname:'مدير النظام',role:'مدير',status:'نشط',password:'1234'}],
+ items:[
+  {id:1,code:'ITM-001',barcode:'100001',name:'قميص رجالي',unit:'قطعة',qty:100,cost:25,price:40,category:'ملابس',warehouseId:1,status:'نشط'},
+  {id:2,code:'ITM-002',barcode:'100002',name:'بنطلون رجالي',unit:'قطعة',qty:70,cost:35,price:55,category:'ملابس',warehouseId:1,status:'نشط'},
+  {id:3,code:'ITM-003',barcode:'100003',name:'دواء تجريبي',unit:'علبة',qty:50,cost:12,price:20,category:'صيدلية',warehouseId:1,status:'نشط'}
+ ],
+ warehouses:[{id:1,code:'WH-001',name:'المخزن الرئيسي',location:'المقر الرئيسي',manager:'مدير المخزن',status:'نشط'}],
+ customers:[{id:1,code:'CUS-001',name:'عميل نقدي',phone:'',address:'',balance:0,status:'نشط'}],
+ suppliers:[{id:1,code:'SUP-001',name:'مورد عام',phone:'',address:'',balance:0,status:'نشط'}],
+ salesInvoices:[],salesOrders:[],salesReturns:[],salesPayments:[],quotations:[],discounts:[],
+ purchaseInvoices:[],purchaseReturns:[],purchasePayments:[],journal:[],receipts:[],payments:[],
+ accounts:[
+  {id:1,code:'1100',name:'الصندوق',type:'أصل',parentId:null},
+  {id:2,code:'1200',name:'البنك',type:'أصل',parentId:null},
+  {id:3,code:'1300',name:'العملاء',type:'أصل',parentId:null},
+  {id:4,code:'1400',name:'المخزون',type:'أصل',parentId:null},
+  {id:5,code:'2100',name:'الموردون',type:'التزام',parentId:null},
+  {id:6,code:'4100',name:'المبيعات',type:'إيراد',parentId:null},
+  {id:7,code:'5100',name:'تكلفة المبيعات',type:'مصروف',parentId:null}
+ ],
+ notes:[],stockMoves:[],purchaseOrders:[],auditLog:[]
+};
+
+function openDB(){
+ return new Promise((resolve,reject)=>{
+  const req=indexedDB.open(DB_NAME,DB_VERSION);
+  req.onupgradeneeded=e=>{const d=e.target.result;STORES.forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:'id',autoIncrement:true})})};
+  req.onsuccess=e=>{db=e.target.result;resolve()};
+  req.onerror=()=>reject(req.error);
+ });
+}
+function tx(store,mode='readonly'){return db.transaction(store,mode).objectStore(store)}
+function all(store){return new Promise((res,rej)=>{const r=tx(store).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})}
+function get(store,id){return new Promise((res,rej)=>{const r=tx(store).get(Number(id));r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+function put(store,obj){return new Promise((res,rej)=>{const r=tx(store,'readwrite').put(obj);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+function add(store,obj){return new Promise((res,rej)=>{const r=tx(store,'readwrite').add(obj);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+function remove(store,id){return new Promise((res,rej)=>{const r=tx(store,'readwrite').delete(Number(id));r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+async function count(store){return (await all(store)).length}
+async function seedDB(){
+ for(const s of STORES){if(await count(s)===0 && seed[s]) for(const row of seed[s]) await add(s,row)}
+}
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const money=n=>new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(n)||0)+' SAR';
+const num=v=>Number(v)||0;
+const today=()=>new Date().toISOString().slice(0,10);
+function toast(msg,type='success'){const t=document.getElementById('toast');t.textContent=msg;t.style.background=type==='error'?'#dc2626':type==='warning'?'#d97706':'#0f172a';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open')}
+function logout(){document.getElementById('app').classList.add('hidden');document.getElementById('login').classList.remove('hidden')}
+document.getElementById('loginForm').onsubmit=async e=>{e.preventDefault();const u=document.getElementById('loginUser').value,p=document.getElementById('loginPass').value;const users=await all('users');const ok=users.some(x=>x.username===u&&x.password===p&&x.status==='نشط');if(!ok)return toast('بيانات الدخول غير صحيحة','error');document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden');loadPage('dashboard')};
+
+function shell(title,body,actions=''){
+ return `<div class="page"><div class="page-head"><div style="display:flex;align-items:center;gap:7px"><button class="btn secondary" onclick="loadPage('dashboard')">↩ رجوع</button><div class="page-title">${title}</div></div><div class="actions">${actions}</div></div><div class="page-body">${body}</div></div>`;
+}
+async function loadPage(page){
+ currentPage=page;closeSidebar();
+ const c=document.getElementById('content');
+ try{
+  if(page==='dashboard')return renderDashboard();
+  if(page==='pos')return renderPOS();
+  if(page==='items')return renderItems();
+  if(page==='warehouses')return renderWarehouses();
+  if(page==='stockmoves')return renderStockMoves();
+  if(page==='stockcount')return renderStockCount();
+  if(page==='sales')return renderSales();
+  if(page==='customers')return renderCustomers();
+  if(page==='salesInvoices')return renderSalesInvoices();
+  if(page==='salesOrders')return renderSimpleCRUD('أوامر البيع','salesOrders');
+  if(page==='salesReturns')return renderReturns('مرتجعات المبيعات','salesReturns',-1);
+  if(page==='salesPayments')return renderPayments('التحصيلات','salesPayments','customer');
+  if(page==='quotations')return renderSimpleCRUD('عروض الأسعار','quotations');
+  if(page==='discounts')return renderDiscounts();
+  if(page==='salesReports')return renderSalesReports();
+  if(page==='suppliers')return renderSuppliers();
+  if(page==='purchases')return renderPurchases();
+  if(page==='purchaseReturns')return renderReturns('مرتجعات المشتريات','purchaseReturns',1);
+  if(page==='purchasePayments')return renderPayments('مدفوعات الموردين','purchasePayments','supplier');
+  if(page==='accounts')return renderAccounts();
+  if(page==='journal')return renderJournal();
+  if(page==='receipts')return renderTreasury('سندات القبض','receipts',1);
+  if(page==='payments')return renderTreasury('سندات الصرف','payments',-1);
+  if(page==='ledger')return renderLedger();
+  if(page==='trial')return renderTrial();
+  if(page==='reports')return renderReports();
+  if(page==='company')return renderCompany();
+  if(page==='users')return renderUsers();
+  if(page==='backup')return renderBackup();
+  if(page==='guide')return renderGuide();
+ }catch(e){console.error(e);c.innerHTML=shell('خطأ',`<div class="card"><b>حدث خطأ في الشاشة</b><p class="muted" style="margin-top:7px">${esc(e.message)}</p></div>`)}
+}
+
+async function renderDashboard(){
+ const items=await all('items'), inv=await all('salesInvoices'), pur=await all('purchaseInvoices'), cust=await all('customers');
+ const sales=inv.reduce((a,x)=>a+num(x.total),0), purchases=pur.reduce((a,x)=>a+num(x.total),0), stock=items.reduce((a,x)=>a+num(x.qty)*num(x.cost),0);
+ document.getElementById('content').innerHTML=shell('لوحة المؤشرات الرئيسية',
+ `<div class="grid g4">
+  <div class="kpi"><span>إجمالي المبيعات</span><b>${money(sales)}</b></div>
+  <div class="kpi"><span>إجمالي المشتريات</span><b>${money(purchases)}</b></div>
+  <div class="kpi"><span>قيمة المخزون بالتكلفة</span><b>${money(stock)}</b></div>
+  <div class="kpi"><span>عدد العملاء</span><b>${cust.length}</b></div>
+ </div>
+ <div style="margin-top:10px" class="grid g3">
+  ${module('🧾','نقطة البيع','بيع فوري وترحيل المخزون',"loadPage('pos')")}
+  ${module('💰','إدارة المبيعات','الفواتير والتحصيلات والمرتجعات',"loadPage('sales')")}
+  ${module('📦','المخزون','الأصناف والمخازن والجرد',"loadPage('items')")}
+  ${module('🛒','المشتريات','فواتير الموردين والمدفوعات',"loadPage('purchases')")}
+  ${module('📒','الحسابات','الدليل والقيود والأستاذ',"loadPage('accounts')")}
+  ${module('📊','التقارير','المبيعات والمخزون وميزان المراجعة',"loadPage('reports')")}
+ </div>
+ <div class="card" style="margin-top:10px"><b style="font-size:12px">حالة النظام</b><div class="muted" style="margin-top:7px">قاعدة البيانات: IndexedDB · العملة الأساسية: SAR · التشغيل محلي دون خادم خارجي.</div></div>`);
+}
+function module(i,t,s,f){return `<button class="module" onclick="${f}"><span class="ico">${i}</span><span><b>${t}</b><small>${s}</small></span></button>`}
+
+async function renderItems(){
+ const items=await all('items'), wh=await all('warehouses');
+ const rows=items.map(x=>`<tr><td>${esc(x.code)}</td><td><b>${esc(x.name)}</b></td><td>${esc(x.barcode)}</td><td>${esc(x.unit)}</td><td>${num(x.qty)}</td><td>${money(x.cost)}</td><td>${money(x.price)}</td><td>${esc(wh.find(w=>w.id===x.warehouseId)?.name||'')}</td><td><button class="btn danger" onclick="deleteItem(${x.id})">حذف</button></td></tr>`).join('');
+ document.getElementById('content').innerHTML=shell('بطاقة الأصناف',
+ `<form onsubmit="addItem(event)" class="card" style="margin-bottom:9px"><div class="form-grid">
+ <div class="field"><label>كود الصنف</label><input id="itCode" required></div><div class="field"><label>الباركود</label><input id="itBarcode"></div>
+ <div class="field wide"><label>اسم الصنف</label><input id="itName" required></div><div class="field"><label>الوحدة</label><input id="itUnit" value="قطعة"></div>
+ <div class="field"><label>الكمية الافتتاحية</label><input id="itQty" type="number" step="0.001" value="0"></div><div class="field"><label>التكلفة SAR</label><input id="itCost" type="number" step="0.01" value="0"></div>
+ <div class="field"><label>سعر البيع SAR</label><input id="itPrice" type="number" step="0.01" value="0"></div><div class="field"><label>المخزن</label><select id="itWh">${wh.map(w=>`<option value="${w.id}">${esc(w.name)}</option>`).join('')}</select></div>
+ </div><div class="actions" style="margin-top:8px"><button class="btn primary">إضافة وحفظ الصنف</button></div></form>
+ <div class="table-wrap"><table><thead><tr><th>الكود</th><th>الصنف</th><th>باركود</th><th>الوحدة</th><th>الكمية</th><th>التكلفة</th><th>البيع</th><th>المخزن</th><th>إجراء</th></tr></thead><tbody>${rows||`<tr><td colspan="9" class="empty">لا توجد أصناف</td></tr>`}</tbody></table></div>`);
+}
+async function addItem(e){e.preventDefault();await add('items',{code:itCode.value,barcode:itBarcode.value.trim(),name:itName.value,unit:itUnit.value,qty:num(itQty.value),cost:num(itCost.value),price:num(itPrice.value),warehouseId:num(itWh.value),status:'نشط'});toast('تم حفظ الصنف');renderItems()}
+async function deleteItem(id){if(!confirm('حذف الصنف؟'))return;await remove('items',id);toast('تم حذف الصنف');renderItems()}
+
+async function renderWarehouses(){
+ const rows=(await all('warehouses')).map(x=>`<tr><td>${esc(x.code)}</td><td>${esc(x.name)}</td><td>${esc(x.location)}</td><td>${esc(x.manager)}</td><td>${esc(x.status)}</td><td><button class="btn danger" onclick="deleteWarehouse(${x.id})">حذف</button></td></tr>`).join('');
+ document.getElementById('content').innerHTML=shell('المخازن والمستودعات',
+ `<form onsubmit="addWarehouse(event)" class="card" style="margin-bottom:9px"><div class="form-grid">
+ <div class="field"><label>كود المخزن</label><input id="whCode" required></div><div class="field"><label>اسم المخزن</label><input id="whName" required></div><div class="field"><label>الموقع</label><input id="whLocation"></div><div class="field"><label>أمين المخزن</label><input id="whManager"></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">إضافة المخزن</button></div></form>
+ <div class="table-wrap"><table><thead><tr><th>الكود</th><th>الاسم</th><th>الموقع</th><th>الأمين</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>${rows||`<tr><td colspan="6" class="empty">لا توجد مخازن</td></tr>`}</tbody></table></div>`);
+}
+async function addWarehouse(e){e.preventDefault();await add('warehouses',{code:whCode.value,name:whName.value,location:whLocation.value,manager:whManager.value,status:'نشط'});toast('تمت إضافة المخزن');renderWarehouses()}
+async function deleteWarehouse(id){const items=await all('items');if(items.some(x=>x.warehouseId===id))return toast('لا يمكن حذف مخزن مرتبط بأصناف','error');if(!confirm('حذف المخزن؟'))return;await remove('warehouses',id);renderWarehouses()}
+
+async function renderSales(){
+ document.getElementById('content').innerHTML=shell('إدارة المبيعات',
+ `<div class="grid g4">
+ ${module('🧾','فاتورة مبيعات','إنشاء وترحيل فاتورة',"openSalesInvoiceForm()")}
+ ${module('📑','فواتير المبيعات','عرض وتفاصيل الفواتير',"loadPage('salesInvoices')")}
+ ${module('📋','أوامر البيع','إدارة الطلبات',"loadPage('salesOrders')")}
+ ${module('👥','العملاء','بيانات وأرصدة العملاء',"loadPage('customers')")}
+ ${module('↩️','مرتجعات المبيعات','تسجيل المرتجع',"loadPage('salesReturns')")}
+ ${module('💵','التحصيلات','تحصيل من العملاء',"loadPage('salesPayments')")}
+ ${module('📄','عروض الأسعار','العروض للعملاء',"loadPage('quotations')")}
+ ${module('🏷️','الخصومات','تسجيل ومتابعة الخصومات',"loadPage('discounts')")}
+ ${module('📊','تقارير المبيعات','ملخص وتحليل',"loadPage('salesReports')")}
+ </div>`);
+}
+async function renderCustomers(){
+ const rows=(await all('customers')).map(x=>`<tr><td>${esc(x.code)}</td><td><b>${esc(x.name)}</b></td><td>${esc(x.phone)}</td><td>${esc(x.address)}</td><td>${money(x.balance)}</td><td><button class="btn danger" onclick="deleteParty('customers',${x.id})">حذف</button></td></tr>`).join('');
+ document.getElementById('content').innerHTML=shell('العملاء',
+ `<form onsubmit="addParty(event,'customers','CUS')" class="card" style="margin-bottom:9px"><div class="form-grid"><div class="field"><label>الكود</label><input id="pCode" required></div><div class="field"><label>اسم العميل</label><input id="pName" required></div><div class="field"><label>الهاتف</label><input id="pPhone"></div><div class="field"><label>العنوان</label><input id="pAddress"></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">حفظ العميل</button></div></form>
+ <div class="table-wrap"><table><thead><tr><th>الكود</th><th>الاسم</th><th>الهاتف</th><th>العنوان</th><th>الرصيد</th><th>إجراء</th></tr></thead><tbody>${rows}</tbody></table></div>`);
+}
+async function renderSuppliers(){
+ const rows=(await all('suppliers')).map(x=>`<tr><td>${esc(x.code)}</td><td><b>${esc(x.name)}</b></td><td>${esc(x.phone)}</td><td>${esc(x.address)}</td><td>${money(x.balance)}</td><td><button class="btn danger" onclick="deleteParty('suppliers',${x.id})">حذف</button></td></tr>`).join('');
+ document.getElementById('content').innerHTML=shell('الموردون',
+ `<form onsubmit="addParty(event,'suppliers','SUP')" class="card" style="margin-bottom:9px"><div class="form-grid"><div class="field"><label>الكود</label><input id="pCode" required></div><div class="field"><label>اسم المورد</label><input id="pName" required></div><div class="field"><label>الهاتف</label><input id="pPhone"></div><div class="field"><label>العنوان</label><input id="pAddress"></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">حفظ المورد</button></div></form>
+ <div class="table-wrap"><table><thead><tr><th>الكود</th><th>الاسم</th><th>الهاتف</th><th>العنوان</th><th>الرصيد</th><th>إجراء</th></tr></thead><tbody>${rows}</tbody></table></div>`);
+}
+async function addParty(e,store,prefix){e.preventDefault();await add(store,{code:pCode.value,name:pName.value,phone:pPhone.value,address:pAddress.value,balance:0,status:'نشط'});toast('تم الحفظ');store==='customers'?renderCustomers():renderSuppliers()}
+async function deleteParty(store,id){if(!confirm('حذف السجل؟'))return;await remove(store,id);store==='customers'?renderCustomers():renderSuppliers()}
+
+async function invoiceForm(kind='sale'){
+ const isSale=kind==='sale', parties=await all(isSale?'customers':'suppliers'), items=await all('items');
+ const title=isSale?'فاتورة مبيعات جديدة':'فاتورة مشتريات جديدة';
+ document.getElementById('modal').classList.remove('hidden');
+ document.getElementById('modal').innerHTML=`<div class="modal-card"><div class="modal-head"><span>${title}</span><button class="btn secondary" onclick="closeModal()">✕</button></div><div class="modal-body">
+ <form id="invoiceForm"><div class="form-grid">
+ <div class="field"><label>التاريخ</label><input id="fDate" type="date" value="${today()}"></div>
+ <div class="field"><label>${isSale?'العميل':'المورد'}</label><select id="fParty">${parties.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></div>
+ <div class="field"><label>طريقة الدفع</label><select id="fPay"><option>نقدي</option><option>آجل</option><option>بنك</option></select></div>
+ <div class="field"><label>المخزن</label><select id="fWh">${(await all('warehouses')).map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></div></div>
+ <div class="card" style="margin-top:9px"><div class="actions"><button type="button" class="btn secondary" onclick="addInvoiceLine()">➕ إضافة صنف</button></div><div id="invoiceLines" style="margin-top:8px"></div></div>
+ <div class="form-grid" style="margin-top:9px"><div class="field"><label>الخصم SAR</label><input id="fDiscount" type="number" value="0" step=".01" oninput="recalcInvoice()"></div><div class="field"><label>الضريبة SAR</label><input id="fTax" type="number" value="0" step=".01" oninput="recalcInvoice()"></div><div class="field"><label>المدفوع SAR</label><input id="fPaid" type="number" value="0" step=".01" oninput="recalcInvoice()"></div><div class="field"><label>الإجمالي SAR</label><input id="fTotal" readonly value="0"></div></div>
+ <div id="invoiceSummary" class="card" style="margin-top:8px"></div>
+ <div class="actions" style="margin-top:9px"><button class="btn success">حفظ وترحيل الفاتورة</button><button type="button" class="btn secondary" onclick="closeModal()">إلغاء</button></div>
+ </form></div></div>`;
+ window.invoiceKind=kind;window.invoiceLines=[];
+ addInvoiceLine();
+ document.getElementById('invoiceForm').onsubmit=e=>saveInvoice(e,kind);
+}
+function closeModal(){document.getElementById('modal').classList.add('hidden');document.getElementById('modal').innerHTML=''}
+async function addInvoiceLine(){
+ const items=await all('items');window.invoiceLines.push({itemId:items[0]?.id||0,qty:1,price:items[0]?.price||0});
+ renderInvoiceLines();
+}
+async function renderInvoiceLines(){
+ const items=await all('items');
+ document.getElementById('invoiceLines').innerHTML=window.invoiceLines.map((l,i)=>`<div class="grid g4" style="margin-bottom:6px;align-items:end">
+ <div class="field"><label>الصنف</label><select onchange="lineChange(${i},'itemId',this.value)">${items.map(x=>`<option value="${x.id}" ${x.id===l.itemId?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div>
+ <div class="field"><label>الكمية</label><input type="number" min=".001" step=".001" value="${l.qty}" onchange="lineChange(${i},'qty',this.value)"></div>
+ <div class="field"><label>السعر SAR</label><input type="number" min="0" step=".01" value="${l.price}" onchange="lineChange(${i},'price',this.value)"></div>
+ <div class="actions"><button type="button" class="btn danger" onclick="removeInvoiceLine(${i})">حذف</button></div></div>`).join('');
+ recalcInvoice();
+}
+async function lineChange(i,k,v){window.invoiceLines[i][k]=k==='itemId'?num(v):num(v);if(k==='itemId'){const x=await get('items',v);window.invoiceLines[i].price=invoiceKind==='sale'?num(x?.price):num(x?.cost)}renderInvoiceLines()}
+function removeInvoiceLine(i){window.invoiceLines.splice(i,1);renderInvoiceLines()}
+function recalcInvoice(){const sub=window.invoiceLines.reduce((a,x)=>a+num(x.qty)*num(x.price),0),d=num(document.getElementById('fDiscount')?.value),tax=num(document.getElementById('fTax')?.value),total=Math.max(0,sub-d+tax),paid=num(document.getElementById('fPaid')?.value);if(document.getElementById('fTotal'))document.getElementById('fTotal').value=total.toFixed(2);if(document.getElementById('invoiceSummary'))document.getElementById('invoiceSummary').innerHTML=`<div class="stat"><span>الإجمالي قبل الخصم</span><b>${money(sub)}</b></div><div class="stat"><span>الصافي</span><b>${money(total)}</b></div><div class="stat"><span>المتبقي</span><b>${money(Math.max(0,total-paid))}</b></div>`}
+async function saveInvoice(e,kind){
+ e.preventDefault();if(!window.invoiceLines.length)return toast('أضف صنفًا واحدًا على الأقل','error');
+ const isSale=kind==='sale', store=isSale?'salesInvoices':'purchaseInvoices', partyStore=isSale?'customers':'suppliers';
+ const partyId=num(fParty.value), date=fDate.value, payment=fPay.value, warehouseId=num(fWh.value);
+ const sub=window.invoiceLines.reduce((a,x)=>a+num(x.qty)*num(x.price),0), discount=num(fDiscount.value),tax=num(fTax.value),total=Math.max(0,sub-discount+tax),paid=num(fPaid.value),remaining=Math.max(0,total-paid);
+ const items=await all('items');
+ for(const l of window.invoiceLines){const it=items.find(x=>x.id===l.itemId);if(!it)return toast('صنف غير موجود','error');if(isSale&&num(it.qty)<num(l.qty))return toast(`المخزون غير كافٍ للصنف: ${it.name}`,'error')}
+ const inv={code:(isSale?'SINV-':'PINV-')+Date.now(),date,partyId,warehouseId,payment,lines:window.invoiceLines.map(x=>({...x})),subtotal:sub,discount,tax,total,paid,remaining,currency:'SAR',status:'مرحل'};
+ await add(store,inv);
+ for(const l of window.invoiceLines){const it=items.find(x=>x.id===l.itemId);it.qty+=isSale?-num(l.qty):num(l.qty);await put('items',it);await add('stockMoves',{date,type:isSale?'بيع':'شراء',itemId:it.id,qty:isSale?-num(l.qty):num(l.qty),ref:inv.code})}
+ const party=await get(partyStore,partyId);if(party){party.balance+=isSale?remaining:-remaining;await put(partyStore,party)}
+ await postJournalForInvoice(inv,isSale);
+ closeModal();toast('تم حفظ وترحيل الفاتورة بنجاح');loadPage(isSale?'salesInvoices':'purchases');
+}
+async function postJournalForInvoice(inv,isSale){
+ const cashAccount=isSale?(inv.payment==='بنك'?2:1):(inv.payment==='بنك'?2:1);
+ const partyAccount=isSale?3:5, salesAccount=isSale?6:4, costAccount=7;
+ let lines=[];
+ if(isSale){
+  lines=[{accountId:cashAccount,debit:inv.paid,credit:0},{accountId:partyAccount,debit:inv.remaining,credit:0},{accountId:salesAccount,debit:0,credit:inv.total}];
+ }else{
+  lines=[{accountId:4,debit:inv.total,credit:0},{accountId:cashAccount,debit:inv.paid,credit:0},{accountId:partyAccount,debit:0,credit:inv.remaining}];
+ }
+ await add('journal',{code:'JV-'+Date.now(),date:inv.date,source:inv.code,description:isSale?'ترحيل فاتورة مبيعات':'ترحيل فاتورة مشتريات',lines,totalDebit:lines.reduce((a,x)=>a+x.debit,0),totalCredit:lines.reduce((a,x)=>a+x.credit,0)});
+}
+
+async function openSalesInvoiceForm(){await invoiceForm('sale')}
+async function openPurchaseInvoiceForm(){await invoiceForm('purchase')}
+
+async function renderSalesInvoices(){
+ const inv=await all('salesInvoices'), cust=await all('customers');
+ const rows=inv.map(x=>`<tr><td>${esc(x.code)}</td><td>${esc(x.date)}</td><td>${esc(cust.find(c=>c.id===x.partyId)?.name||'')}</td><td>${money(x.total)}</td><td>${money(x.paid)}</td><td>${money(x.remaining)}</td><td>${esc(x.payment)}</td><td><button class="btn secondary" onclick="printInvoice('${esc(x.code)}')">طباعة</button></td></tr>`).join('');
+ document.getElementById('content').innerHTML=shell('فواتير المبيعات',`<div class="toolbar"><button class="btn primary" onclick="openSalesInvoiceForm()">➕ فاتورة جديدة</button><button class="btn secondary" onclick="loadPage('sales')">إدارة المبيعات</button></div><div class="table-wrap"><table><thead><tr><th>الرقم</th><th>التاريخ</th><th>العميل</th><th>الإجمالي</th><th>المدفوع</th><th>المتبقي</th><th>الدفع</th><th>طباعة</th></tr></thead><tbody>${rows||`<tr><td colspan="8" class="empty">لا توجد فواتير مبيعات</td></tr>`}</tbody></table></div>`);
+}
+async function renderPurchases(){
+ const inv=await all('purchaseInvoices'), sup=await all('suppliers');
+ const rows=inv.map(x=>`<tr><td>${esc(x.code)}</td><td>${esc(x.date)}</td><td>${esc(sup.find(c=>c.id===x.partyId)?.name||'')}</td><td>${money(x.total)}</td><td>${money(x.paid)}</td><td>${money(x.remaining)}</td><td>${esc(x.payment)}</td></tr>`).join('');
+ document.getElementById('content').innerHTML=shell('فواتير المشتريات',`<div class="toolbar"><button class="btn primary" onclick="openPurchaseInvoiceForm()">➕ فاتورة مشتريات</button></div><div class="table-wrap"><table><thead><tr><th>الرقم</th><th>التاريخ</th><th>المورد</th><th>الإجمالي</th><th>المدفوع</th><th>المتبقي</th><th>الدفع</th></tr></thead><tbody>${rows||`<tr><td colspan="7" class="empty">لا توجد فواتير مشتريات</td></tr>`}</tbody></table></div>`);
+}
+
+async function renderPOS(){
+ const items=await all('items'), customers=await all('customers');
+ const total=posCart.reduce((a,x)=>a+x.qty*x.price,0);
+ document.getElementById('content').innerHTML=`<div class="pos">
+ <div class="pos-products"><div class="toolbar"><button class="btn secondary" onclick="loadPage('dashboard')">↩ رجوع</button><input id="posSearch" placeholder="بحث بالاسم أو الباركود" oninput="filterPOS()" style="flex:1;min-width:150px;border:1px solid #cbd5e1;border-radius:10px;padding:8px;font-size:11px"></div><div id="posProducts" class="product-grid">${items.map(posProduct).join('')}</div></div>
+ <div class="pos-cart"><div class="toolbar"><select id="posCustomer" style="flex:1;border:1px solid #cbd5e1;border-radius:10px;padding:8px;font-size:10px">${customers.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><select id="posPay" style="flex:1;border:1px solid #cbd5e1;border-radius:10px;padding:8px;font-size:10px"><option>نقدي</option><option>آجل</option><option>بنك</option></select></div><div class="pos-cart-list"><table style="min-width:0"><thead><tr><th>الصنف</th><th>كمية</th><th>مبلغ</th><th></th></tr></thead><tbody>${posCart.map((x,i)=>`<tr><td>${esc(x.name)}</td><td><input type="number" min="1" value="${x.qty}" onchange="posQty(${i},this.value)" style="width:55px;padding:5px"></td><td>${money(x.qty*x.price)}</td><td><button class="btn danger" onclick="posRemove(${i})">×</button></td></tr>`).join('')||`<tr><td colspan="4" class="empty">السلة فارغة</td></tr>`}</tbody></table></div>
+ <div class="pos-total"><div class="stat"><span>عدد الأصناف</span><b>${posCart.length}</b></div><div class="stat"><span>الإجمالي</span><b class="big-total">${money(total)}</b></div><button class="btn success" style="width:100%;padding:12px" onclick="checkoutPOS()">ترحيل البيع وطباعة الفاتورة</button></div></div></div>`;
+}
+function posProduct(x){return `<button class="product" data-name="${esc((x.name+' '+x.barcode).toLowerCase())}" onclick="posAdd(${x.id})"><b>${esc(x.name)}</b><span>${money(x.price)}</span><em>المتاح: ${num(x.qty)} · ${esc(x.barcode)}</em></button>`}
+async function filterPOS(){const q=(posSearch.value||'').toLowerCase();document.querySelectorAll('.product').forEach(b=>b.style.display=b.dataset.name.includes(q)?'':'none')}
+async function posAdd(id){const it=await get('items',id);if(!it)return;if(num(it.qty)<=0)return toast('الصنف غير متوفر في المخزون','error');const x=posCart.find(a=>a.id===id);if(x){if(x.qty+1>it.qty)return toast('الكمية تتجاوز المخزون','error');x.qty++}else posCart.push({id,name:it.name,price:num(it.price),qty:1});renderPOS()}
+function posQty(i,v){posCart[i].qty=Math.max(1,num(v));renderPOS()}
+function posRemove(i){posCart.splice(i,1);renderPOS()}
+async function checkoutPOS(){if(!posCart.length)return toast('السلة فارغة','error');const customerId=num(document.getElementById('posCustomer')?.value)||1;const payment=document.getElementById('posPay')?.value||'نقدي';const total=posCart.reduce((a,x)=>a+x.qty*x.price,0);const items=await all('items');for(const x of posCart){const it=items.find(i=>i.id===x.id);if(!it||it.qty<x.qty)return toast('المخزون غير كافٍ','error')}const inv={code:'POS-'+Date.now(),date:today(),partyId:customerId,warehouseId:1,payment,lines:posCart.map(x=>({itemId:x.id,qty:x.qty,price:x.price})),subtotal:total,discount:0,tax:0,total,paid:payment==='آجل'?0:total,remaining:payment==='آجل'?total:0,currency:'SAR',status:'مرحل'};await add('salesInvoices',inv);for(const x of posCart){const it=items.find(i=>i.id===x.id);it.qty-=x.qty;await put('items',it);await add('stockMoves',{date:today(),type:'POS بيع',itemId:it.id,qty:-x.qty,ref:inv.code})}const c=await get('customers',customerId);if(c&&inv.remaining){c.balance+=inv.remaining;await put('customers',c)}await postJournalForInvoice(inv,true);posCart=[];toast('تم ترحيل فاتورة POS');printInvoice(inv.code)}
+
+async function renderStockMoves(){const moves=await all('stockMoves'),items=await all('items');const rows=moves.slice().reverse().map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.type)}</td><td>${esc(items.find(i=>i.id===x.itemId)?.name||'')}</td><td>${num(x.qty)}</td><td>${esc(x.ref)}</td></tr>`).join('');document.getElementById('content').innerHTML=shell('حركة المخزون',`<div class="table-wrap"><table><thead><tr><th>التاريخ</th><th>الحركة</th><th>الصنف</th><th>الكمية</th><th>المرجع</th></tr></thead><tbody>${rows||`<tr><td colspan="5" class="empty">لا توجد حركات</td></tr>`}</tbody></table></div>`)}
+async function renderStockCount(){const items=await all('items');document.getElementById('content').innerHTML=shell('الجرد والتسويات',`<div class="card"><p class="muted">أدخل الكمية الفعلية وسيتم تسجيل فرق الجرد وتحديث رصيد الصنف.</p><div class="table-wrap" style="margin-top:9px"><table><thead><tr><th>الصنف</th><th>الرصيد الدفتري</th><th>الفعلي</th><th>الفرق</th><th>حفظ</th></tr></thead><tbody>${items.map(x=>`<tr><td>${esc(x.name)}</td><td>${num(x.qty)}</td><td><input id="count_${x.id}" type="number" step=".001" value="${num(x.qty)}" style="width:90px;padding:5px"></td><td id="diff_${x.id}">0</td><td><button class="btn primary" onclick="saveCount(${x.id},${x.qty})">تحديث</button></td></tr>`).join('')}</tbody></table></div></div>`)}
+async function saveCount(id,old){const n=num(document.getElementById('count_'+id).value),it=await get('items',id);if(!it)return;const d=n-old;it.qty=n;await put('items',it);await add('stockMoves',{date:today(),type:'تسوية جرد',itemId:id,qty:d,ref:'COUNT-'+Date.now()});toast('تم تحديث الجرد');renderStockCount()}
+
+async function renderSimpleCRUD(title,store){
+ const rows=(await all(store)).slice().reverse().map(x=>`<tr><td>${esc(x.code||('DOC-'+x.id))}</td><td>${esc(x.date||'')}</td><td>${esc(x.name||x.description||'')}</td><td>${money(x.total||0)}</td><td><button class="btn danger" onclick="deleteGeneric('${store}',${x.id})">حذف</button></td></tr>`).join('');
+ document.getElementById('content').innerHTML=shell(title,`<form onsubmit="addGeneric(event,'${store}')" class="card" style="margin-bottom:9px"><div class="form-grid"><div class="field"><label>الرقم</label><input id="gCode" required></div><div class="field"><label>التاريخ</label><input id="gDate" type="date" value="${today()}"></div><div class="field wide"><label>الوصف/العميل</label><input id="gName"></div><div class="field"><label>المبلغ SAR</label><input id="gTotal" type="number" step=".01" value="0"></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">حفظ</button></div></form><div class="table-wrap"><table><thead><tr><th>الرقم</th><th>التاريخ</th><th>البيان</th><th>المبلغ</th><th>إجراء</th></tr></thead><tbody>${rows||`<tr><td colspan="5" class="empty">لا توجد سجلات</td></tr>`}</tbody></table></div>`);
+}
+async function addGeneric(e,s){e.preventDefault();await add(s,{code:gCode.value,date:gDate.value,name:gName.value,total:num(gTotal.value),status:'نشط'});toast('تم الحفظ');renderSimpleCRUD(currentPage==='salesOrders'?'أوامر البيع':'عروض الأسعار',s)}
+async function deleteGeneric(s,id){if(confirm('حذف السجل؟')){await remove(s,id);loadPage(currentPage)}}
+
+async function renderReturns(title,store,direction){
+ const items=await all('items');
+ document.getElementById('content').innerHTML=shell(title,`<form onsubmit="saveReturn(event,'${store}',${direction})" class="card"><div class="form-grid"><div class="field"><label>التاريخ</label><input id="rDate" type="date" value="${today()}"></div><div class="field"><label>الصنف</label><select id="rItem">${items.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></div><div class="field"><label>الكمية</label><input id="rQty" type="number" min=".001" step=".001" value="1"></div><div class="field"><label>المبلغ SAR</label><input id="rTotal" type="number" step=".01" value="0"></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">ترحيل المرتجع</button></div></form>`);
+}
+async function saveReturn(e,store,direction){e.preventDefault();const id=num(rItem.value),q=num(rQty.value),it=await get('items',id);if(!it||q<=0)return;it.qty+=direction*q;await put('items',it);await add(store,{code:'RET-'+Date.now(),date:rDate.value,itemId:id,qty:q,total:num(rTotal.value),status:'مرحل'});await add('stockMoves',{date:rDate.value,type:store==='salesReturns'?'مرتجع مبيعات':'مرتجع مشتريات',itemId:id,qty:direction*q,ref:'RET-'+Date.now()});toast('تم ترحيل المرتجع')}
+
+async function renderPayments(title,store,type){
+ const parties=await all(type==='customer'?'customers':'suppliers');
+ document.getElementById('content').innerHTML=shell(title,`<form onsubmit="savePartyPayment(event,'${store}','${type}')" class="card"><div class="form-grid"><div class="field"><label>التاريخ</label><input id="ppDate" type="date" value="${today()}"></div><div class="field"><label>${type==='customer'?'العميل':'المورد'}</label><select id="ppParty">${parties.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></div><div class="field"><label>المبلغ SAR</label><input id="ppAmount" type="number" min=".01" step=".01" required></div><div class="field"><label>طريقة الدفع</label><select id="ppPay"><option>نقدي</option><option>بنك</option></select></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">حفظ وترحيل</button></div></form>`);
+}
+async function savePartyPayment(e,store,type){e.preventDefault();const partyStore=type==='customer'?'customers':'suppliers',p=await get(partyStore,ppParty.value),amount=num(ppAmount.value);if(!p||amount<=0)return;p.balance+=type==='customer'?-amount:-amount;await put(partyStore,p);await add(store,{date:ppDate.value,partyId:p.id,amount,payment:ppPay.value,code:(type==='customer'?'RCV-':'PAY-')+Date.now()});toast('تم تسجيل العملية')}
+
+async function renderDiscounts(){document.getElementById('content').innerHTML=shell('الخصومات',`<form onsubmit="saveDiscount(event)" class="card"><div class="form-grid"><div class="field"><label>التاريخ</label><input id="dDate" type="date" value="${today()}"></div><div class="field"><label>النوع</label><select id="dType"><option>خصم مبيعات</option><option>خصم مشتريات</option></select></div><div class="field"><label>المرجع</label><input id="dRef"></div><div class="field"><label>المبلغ SAR</label><input id="dAmount" type="number" step=".01" required></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">حفظ الخصم</button></div></form>`)}
+async function saveDiscount(e){e.preventDefault();await add('discounts',{date:dDate.value,type:dType.value,ref:dRef.value,amount:num(dAmount.value)});toast('تم حفظ الخصم')}
+
+async function renderSalesReports(){
+ const inv=await all('salesInvoices'),items=await all('items');const sales=inv.reduce((a,x)=>a+x.total,0),paid=inv.reduce((a,x)=>a+x.paid,0),remain=inv.reduce((a,x)=>a+x.remaining,0);
+ document.getElementById('content').innerHTML=shell('تقارير المبيعات',`<div class="grid g3"><div class="kpi"><span>عدد الفواتير</span><b>${inv.length}</b></div><div class="kpi"><span>إجمالي المبيعات</span><b>${money(sales)}</b></div><div class="kpi"><span>المتبقي</span><b>${money(remain)}</b></div></div><div class="card" style="margin-top:9px"><b>أكثر الأصناف حركة حسب البيانات الحالية</b><p class="muted" style="margin-top:7px">عدد الأصناف المسجلة: ${items.length} · المدفوع: ${money(paid)}</p></div>`);
+}
+
+async function renderAccounts(){const rows=(await all('accounts')).map(a=>`<tr><td>${esc(a.code)}</td><td>${esc(a.name)}</td><td>${esc(a.type)}</td><td>${a.parentId||''}</td><td><button class="btn danger" onclick="deleteAccount(${a.id})">حذف</button></td></tr>`).join('');document.getElementById('content').innerHTML=shell('دليل الحسابات',`<form onsubmit="addAccount(event)" class="card" style="margin-bottom:9px"><div class="form-grid"><div class="field"><label>رمز الحساب</label><input id="aCode" required></div><div class="field wide"><label>اسم الحساب</label><input id="aName" required></div><div class="field"><label>النوع</label><select id="aType"><option>أصل</option><option>التزام</option><option>حقوق ملكية</option><option>إيراد</option><option>مصروف</option></select></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">إضافة حساب</button></div></form><div class="table-wrap"><table><thead><tr><th>الرمز</th><th>الحساب</th><th>النوع</th><th>الأب</th><th>إجراء</th></tr></thead><tbody>${rows}</tbody></table></div>`)}
+async function addAccount(e){e.preventDefault();await add('accounts',{code:aCode.value,name:aName.value,type:aType.value,parentId:null});toast('تمت إضافة الحساب');renderAccounts()}
+async function deleteAccount(id){if((await all('journal')).some(j=>j.lines?.some(l=>l.accountId===id)))return toast('الحساب مرتبط بقيود ولا يمكن حذفه','error');if(confirm('حذف الحساب؟')){await remove('accounts',id);renderAccounts()}}
+
+async function renderJournal(){const j=await all('journal'),a=await all('accounts');const rows=j.slice().reverse().map(x=>`<tr><td>${esc(x.code)}</td><td>${esc(x.date)}</td><td>${esc(x.source)}</td><td>${esc(x.description)}</td><td>${money(x.totalDebit)}</td><td>${money(x.totalCredit)}</td></tr>`).join('');document.getElementById('content').innerHTML=shell('القيود اليومية',`<form onsubmit="manualJournal(event)" class="card" style="margin-bottom:9px"><div class="form-grid"><div class="field"><label>التاريخ</label><input id="jDate" type="date" value="${today()}"></div><div class="field wide"><label>البيان</label><input id="jDesc" required></div><div class="field"><label>مدين</label><select id="jDebit">${a.map(x=>`<option value="${x.id}">${esc(x.code+' - '+x.name)}</option>`).join('')}</select></div><div class="field"><label>دائن</label><select id="jCredit">${a.map(x=>`<option value="${x.id}">${esc(x.code+' - '+x.name)}</option>`).join('')}</select></div><div class="field"><label>المبلغ SAR</label><input id="jAmount" type="number" step=".01" min=".01" required></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">ترحيل القيد</button></div></form><div class="table-wrap"><table><thead><tr><th>القيد</th><th>التاريخ</th><th>المرجع</th><th>البيان</th><th>مدين</th><th>دائن</th></tr></thead><tbody>${rows}</tbody></table></div>`)}
+async function manualJournal(e){e.preventDefault();const amount=num(jAmount.value);if(jDebit.value===jCredit.value)return toast('يجب اختيار حسابين مختلفين','error');await add('journal',{code:'JV-'+Date.now(),date:jDate.value,source:'يدوي',description:jDesc.value,lines:[{accountId:num(jDebit.value),debit:amount,credit:0},{accountId:num(jCredit.value),debit:0,credit:amount}],totalDebit:amount,totalCredit:amount});toast('تم ترحيل القيد');renderJournal()}
+
+async function renderTreasury(title,store,direction){const a=await all('accounts');document.getElementById('content').innerHTML=shell(title,`<form onsubmit="saveTreasury(event,'${store}',${direction})" class="card"><div class="form-grid"><div class="field"><label>التاريخ</label><input id="tDate" type="date" value="${today()}"></div><div class="field"><label>الحساب المقابل</label><select id="tAccount">${a.map(x=>`<option value="${x.id}">${esc(x.code+' - '+x.name)}</option>`).join('')}</select></div><div class="field"><label>الخزينة/البنك</label><select id="tCash"><option value="1">الصندوق</option><option value="2">البنك</option></select></div><div class="field"><label>المبلغ SAR</label><input id="tAmount" type="number" min=".01" step=".01" required></div><div class="field wide"><label>البيان</label><input id="tDesc" required></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">ترحيل السند</button></div></form>`)}
+async function saveTreasury(e,store,direction){e.preventDefault();const amount=num(tAmount.value),cash=num(tCash.value),other=num(tAccount.value);const lines=direction===1?[{accountId:cash,debit:amount,credit:0},{accountId:other,debit:0,credit:amount}]:[{accountId:other,debit:amount,credit:0},{accountId:cash,debit:0,credit:amount}];await add(store,{code:(direction===1?'RCV-':'PAY-')+Date.now(),date:tDate.value,amount,description:tDesc.value});await add('journal',{code:'JV-'+Date.now(),date:tDate.value,source:(direction===1?'قبض':'صرف'),description:tDesc.value,lines,totalDebit:amount,totalCredit:amount});toast('تم ترحيل السند');loadPage(store==='receipts'?'receipts':'payments')}
+
+async function renderLedger(){const j=await all('journal'),a=await all('accounts');const sums={};j.forEach(v=>(v.lines||[]).forEach(l=>{sums[l.accountId]??={d:0,c:0};sums[l.accountId].d+=num(l.debit);sums[l.accountId].c+=num(l.credit)}));const rows=a.map(x=>`<tr><td>${esc(x.code)}</td><td>${esc(x.name)}</td><td>${money(sums[x.id]?.d)}</td><td>${money(sums[x.id]?.c)}</td><td>${money((sums[x.id]?.d||0)-(sums[x.id]?.c||0))}</td></tr>`).join('');document.getElementById('content').innerHTML=shell('دفتر الأستاذ',`<div class="table-wrap"><table><thead><tr><th>الرمز</th><th>الحساب</th><th>مدين</th><th>دائن</th><th>الرصيد</th></tr></thead><tbody>${rows}</tbody></table></div>`)}
+async function renderTrial(){const j=await all('journal'),a=await all('accounts');const sums={};j.forEach(v=>(v.lines||[]).forEach(l=>{sums[l.accountId]??={d:0,c:0};sums[l.accountId].d+=num(l.debit);sums[l.accountId].c+=num(l.credit)}));const rows=a.map(x=>`<tr><td>${esc(x.code)}</td><td>${esc(x.name)}</td><td>${money(sums[x.id]?.d)}</td><td>${money(sums[x.id]?.c)}</td></tr>`).join('');const d=Object.values(sums).reduce((s,x)=>s+x.d,0),c=Object.values(sums).reduce((s,x)=>s+x.c,0);document.getElementById('content').innerHTML=shell('ميزان المراجعة',`<div class="card" style="margin-bottom:9px"><div class="stat"><span>إجمالي المدين</span><b>${money(d)}</b></div><div class="stat"><span>إجمالي الدائن</span><b>${money(c)}</b></div><div class="stat"><span>حالة التوازن</span><b>${Math.abs(d-c)<.01?'متوازن':'غير متوازن'}</b></div></div><div class="table-wrap"><table><thead><tr><th>الرمز</th><th>الحساب</th><th>مدين</th><th>دائن</th></tr></thead><tbody>${rows}</tbody></table></div>`)}
+
+async function renderReports(){const i=await all('items'),s=await all('salesInvoices'),p=await all('purchaseInvoices'),j=await all('journal');document.getElementById('content').innerHTML=shell('التقارير العامة',`<div class="grid g4"><div class="kpi"><span>الأصناف</span><b>${i.length}</b></div><div class="kpi"><span>فواتير البيع</span><b>${s.length}</b></div><div class="kpi"><span>فواتير الشراء</span><b>${p.length}</b></div><div class="kpi"><span>القيود</span><b>${j.length}</b></div></div><div class="grid g2" style="margin-top:10px">${module('📒','دفتر الأستاذ','تحليل حركة الحسابات',"loadPage('ledger')")}${module('⚖️','ميزان المراجعة','اختبار توازن القيود',"loadPage('trial')")}</div>`)}
+
+async function renderCompany(){const c=(await all('company'))[0]||seed.company[0];document.getElementById('content').innerHTML=shell('إعدادات المنشأة',`<form onsubmit="saveCompany(event)" class="card"><div class="form-grid"><div class="field wide"><label>اسم المنشأة</label><input id="cName" value="${esc(c.name)}" required></div><div class="field"><label>الرقم الضريبي</label><input id="cTax" value="${esc(c.taxNo)}"></div><div class="field"><label>الهاتف</label><input id="cPhone" value="${esc(c.phone)}"></div><div class="field wide"><label>العنوان</label><input id="cAddress" value="${esc(c.address)}"></div><div class="field"><label>العملة الأساسية</label><input value="SAR" readonly></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">حفظ الإعدادات</button></div></form>`)}
+async function saveCompany(e){e.preventDefault();const c=(await all('company'))[0]||{id:1};Object.assign(c,{id:1,name:cName.value,taxNo:cTax.value,phone:cPhone.value,address:cAddress.value,currency:'SAR'});await put('company',c);toast('تم حفظ إعدادات المنشأة');renderCompany()}
+async function renderUsers(){const u=await all('users');const rows=u.map(x=>`<tr><td>${esc(x.username)}</td><td>${esc(x.fullname)}</td><td>${esc(x.role)}</td><td>${esc(x.status)}</td><td>${x.username==='admin'?'—':`<button class="btn danger" onclick="deleteUser(${x.id})">إيقاف</button>`}</td></tr>`).join('');document.getElementById('content').innerHTML=shell('المستخدمون والصلاحيات',`<form onsubmit="addUser(event)" class="card" style="margin-bottom:9px"><div class="form-grid"><div class="field"><label>اسم المستخدم</label><input id="uLogin" required></div><div class="field"><label>الاسم الكامل</label><input id="uFull" required></div><div class="field"><label>الدور</label><select id="uRole"><option>مدير</option><option>محاسب</option><option>كاشير</option><option>مخزن</option></select></div><div class="field"><label>كلمة المرور</label><input id="uPass" required></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">إضافة مستخدم</button></div></form><div class="table-wrap"><table><thead><tr><th>المستخدم</th><th>الاسم</th><th>الدور</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>${rows}</tbody></table></div>`)}
+async function addUser(e){e.preventDefault();const users=await all('users');if(users.some(x=>x.username===uLogin.value))return toast('اسم المستخدم موجود','error');await add('users',{username:uLogin.value,fullname:uFull.value,role:uRole.value,status:'نشط',password:uPass.value});toast('تمت إضافة المستخدم');renderUsers()}
+async function deleteUser(id){if(confirm('إيقاف المستخدم؟')){const u=await get('users',id);u.status='موقوف';await put('users',u);renderUsers()}}
+
+async function renderBackup(){document.getElementById('content').innerHTML=shell('النسخ الاحتياطي والاستعادة',`<div class="grid g2"><div class="card"><b>تصدير نسخة احتياطية</b><p class="muted" style="margin:7px 0 10px">يشمل جميع جداول قاعدة البيانات المحلية.</p><button class="btn primary" onclick="backup()">⬇ تصدير JSON</button></div><div class="card"><b>استعادة نسخة</b><p class="muted" style="margin:7px 0 10px">تحقق من الملف قبل استبدال البيانات الحالية.</p><input id="restoreFile" type="file" accept=".json,application/json" onchange="restore(event)"></div></div>`)}
+async function backup(){const data={version:DB_VERSION,date:new Date().toISOString(),stores:{}};for(const s of STORES)data.stores[s]=await all(s);const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Sheibani_DB_2026.json';a.click();URL.revokeObjectURL(a.href);toast('تم تصدير النسخة الاحتياطية')}
+async function restore(e){const f=e.target.files[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(!obj?.stores||typeof obj.stores!=='object')throw Error('صيغة النسخة غير صحيحة');for(const s of STORES){const rows=Array.isArray(obj.stores[s])?obj.stores[s]:[];const old=await all(s);for(const x of old)await remove(s,x.id);for(const x of rows)await put(s,x)}toast('تمت الاستعادة بنجاح');loadPage('dashboard')}catch(err){toast('فشل الاستعادة: '+err.message,'error')}}
+
+async function renderGuide(){document.getElementById('content').innerHTML=shell('تعليمات النظام',`<div class="grid g2"><div class="card"><b>تشغيل النظام</b><p class="muted" style="line-height:1.9;margin-top:8px">الدخول الافتراضي: admin / 1234. البيانات محفوظة محليًا داخل IndexedDB في المتصفح.</p></div><div class="card"><b>العملة</b><p class="muted" style="line-height:1.9;margin-top:8px">العملة الأساسية الموحدة للنظام هي الريال السعودي SAR.</p></div><div class="card"><b>المبيعات</b><p class="muted" style="line-height:1.9;margin-top:8px">ترحيل الفاتورة يخصم المخزون ويحدث رصيد العميل ويسجل قيدًا مزدوجًا.</p></div><div class="card"><b>النسخ الاحتياطي</b><p class="muted" style="line-height:1.9;margin-top:8px">استخدم شاشة النسخ الاحتياطي لتصدير JSON وحفظه في مكان آمن ثم استعادته عند الحاجة.</p></div></div>`)}
+async function printInvoice(code){const inv=(await all('salesInvoices')).find(x=>x.code===code);if(!inv)return;const c=(await all('company'))[0]||{};const cust=(await all('customers')).find(x=>x.id===inv.partyId);const items=await all('items');const rows=inv.lines.map(l=>{const it=items.find(x=>x.id===l.itemId);return `<tr><td>${esc(it?.name||'')}</td><td>${l.qty}</td><td>${money(l.price)}</td><td>${money(l.qty*l.price)}</td></tr>`}).join('');const w=window.open('','_blank','width=800,height=700');if(!w)return toast('المتصفح منع نافذة الطباعة؛ اسمح بالنوافذ المنبثقة','warning');w.document.write(`<html dir="rtl"><head><title>${esc(inv.code)}</title><style>body{font-family:Tahoma,Arial;padding:25px;color:#111}h2{text-align:center}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{border:1px solid #aaa;padding:8px;text-align:right}.total{font-weight:bold;font-size:18px;text-align:left;margin-top:15px}
+/* المرحلة الثانية: حماية العرض ومنع التداخل والقطع */
+.page-body{overflow:hidden}
+.screen-layout{height:100%;min-height:0;display:flex;flex-direction:column;gap:9px}
+.screen-scroll{min-height:0;flex:1;overflow:auto}
+.form-card{flex-shrink:0}
+.table-wrap{flex:1;min-height:0;overflow:auto}
+@media(max-width:620px){.page-title{font-size:12px}.page-head .btn{padding:7px 8px}.toolbar{flex-wrap:wrap}.actions{flex-wrap:wrap}}
+</style></head><body><h2>${esc(c.name||'منشأة الشيباني')}</h2><div>${esc(c.address||'')} · ${esc(c.phone||'')}</div><hr><b>فاتورة مبيعات: ${esc(inv.code)}</b><div>التاريخ: ${esc(inv.date)} · العميل: ${esc(cust?.name||'')}</div><table><thead><tr><th>الصنف</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>${rows}</tbody></table><div class="total">الصافي: ${money(inv.total)}</div><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()}
+
+
+/* ================= المرحلة الثانية: الربط المحاسبي والتنفيذ الواضح ================= */
+function pageLayout(form,table){return `<div class="screen-layout">${form?`<div class="form-card">${form}</div>`:''}<div class="screen-scroll">${table||''}</div></div>`}
+async function existsIn(store,id){return !!(await get(store,id))}
+async function safeDeleteParty(store,id){
+ const sales=store==='customers'?await all('salesInvoices'):await all('purchaseInvoices');
+ if(sales.some(x=>Number(x.partyId)===Number(id)))return toast('لا يمكن حذف السجل لأنه مرتبط بفواتير مرحّلة','error');
+ if(!confirm('هل تريد حذف هذا السجل؟'))return;
+ await remove(store,id); toast('تم الحذف بنجاح'); store==='customers'?renderCustomers():renderSuppliers();
+}
+async function renderSimpleCRUD(title,store){
+ const rows=(await all(store)).slice().reverse().map(x=>`<tr><td>${esc(x.code||'')}</td><td>${esc(x.date||'')}</td><td>${esc(x.name||'')}</td><td>${money(x.total||0)}</td><td>${esc(x.status||'نشط')}</td><td><button class="btn danger" onclick="deleteGeneric('${store}',${x.id})">حذف</button></td></tr>`).join('');
+ const form=`<form onsubmit="addGeneric(event,'${store}')" class="card"><div class="form-grid"><div class="field"><label>الرقم/الكود</label><input id="gCode" required value="${store==='salesOrders'?'SO-':'QT-'}${Date.now()}"></div><div class="field"><label>التاريخ</label><input id="gDate" type="date" value="${today()}" required></div><div class="field wide"><label>العميل / البيان</label><input id="gName" required></div><div class="field"><label>المبلغ SAR</label><input id="gTotal" type="number" min="0" step=".01" value="0"></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">حفظ السجل</button></div></form>`;
+ const table=`<div class="table-wrap"><table><thead><tr><th>الرقم</th><th>التاريخ</th><th>البيان</th><th>المبلغ</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>${rows||'<tr><td colspan="6" class="empty">لا توجد سجلات حتى الآن</td></tr>'}</tbody></table></div>`;
+ document.getElementById('content').innerHTML=shell(title,pageLayout(form,table));
+}
+async function renderReturns(title,store,direction){
+ const items=await all('items'); const rows=(await all(store)).slice().reverse().map(x=>`<tr><td>${esc(x.code)}</td><td>${esc(x.date)}</td><td>${esc((items.find(i=>i.id===x.itemId)||{}).name||'')}</td><td>${x.qty}</td><td>${money(x.total)}</td><td>${esc(x.status)}</td></tr>`).join('');
+ const form=`<form onsubmit="saveReturn(event,'${store}',${direction})" class="card"><div class="form-grid"><div class="field"><label>التاريخ</label><input id="rDate" type="date" value="${today()}"></div><div class="field"><label>الصنف</label><select id="rItem">${items.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></div><div class="field"><label>الكمية</label><input id="rQty" type="number" min=".001" step=".001" value="1"></div><div class="field"><label>المبلغ SAR</label><input id="rTotal" type="number" min="0" step=".01" value="0"></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">ترحيل المرتجع</button></div></form>`;
+ const table=`<div class="table-wrap"><table><thead><tr><th>الرقم</th><th>التاريخ</th><th>الصنف</th><th>الكمية</th><th>المبلغ</th><th>الحالة</th></tr></thead><tbody>${rows||'<tr><td colspan="6" class="empty">لا توجد مرتجعات</td></tr>'}</tbody></table></div>`;
+ document.getElementById('content').innerHTML=shell(title,pageLayout(form,table));
+}
+async function saveReturn(e,store,direction){
+ e.preventDefault();const id=num(rItem.value),q=num(rQty.value),amount=num(rTotal.value),it=await get('items',id);if(!it||q<=0)return toast('تحقق من الصنف والكمية','error');
+ if(direction===-1&&num(it.qty)<q)return toast('كمية المرتجع أكبر من المخزون المتاح','error');
+ const code='RET-'+Date.now();it.qty=num(it.qty)+direction*q;await put('items',it);
+ await add(store,{code,date:rDate.value,itemId:id,qty:q,total:amount,status:'مرحل'});
+ await add('stockMoves',{date:rDate.value,type:store==='salesReturns'?'مرتجع مبيعات':'مرتجع مشتريات',itemId:id,qty:direction*q,ref:code});
+ const lines=store==='salesReturns'?[{accountId:6,debit:amount,credit:0},{accountId:1,debit:0,credit:amount}]:[{accountId:4,debit:amount,credit:0},{accountId:5,debit:0,credit:amount}];
+ await add('journal',{code:'JV-'+Date.now(),date:rDate.value,source:store==='salesReturns'?'مرتجع مبيعات':'مرتجع مشتريات',description:code,lines,totalDebit:amount,totalCredit:amount});
+ toast('تم ترحيل المرتجع وتحديث المخزون والقيد');loadPage(store);
+}
+async function renderPayments(title,store,type){
+ const partyStore=type==='customer'?'customers':'suppliers',parties=await all(partyStore),rows=(await all(store)).slice().reverse().map(x=>{const p=parties.find(z=>z.id===x.partyId);return `<tr><td>${esc(x.code||'')}</td><td>${esc(x.date)}</td><td>${esc(p?.name||'')}</td><td>${money(x.amount)}</td><td>${esc(x.payment)}</td></tr>`}).join('');
+ const form=`<form onsubmit="savePartyPayment(event,'${store}','${type}')" class="card"><div class="form-grid"><div class="field"><label>التاريخ</label><input id="ppDate" type="date" value="${today()}"></div><div class="field"><label>${type==='customer'?'العميل':'المورد'}</label><select id="ppParty">${parties.map(x=>`<option value="${x.id}">${esc(x.name)} — ${money(x.balance)}</option>`).join('')}</select></div><div class="field"><label>المبلغ SAR</label><input id="ppAmount" type="number" min=".01" step=".01" required></div><div class="field"><label>طريقة الدفع</label><select id="ppPay"><option>نقدي</option><option>بنك</option></select></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">حفظ وترحيل</button></div></form>`;
+ const table=`<div class="table-wrap"><table><thead><tr><th>الرقم</th><th>التاريخ</th><th>الطرف</th><th>المبلغ</th><th>الدفع</th></tr></thead><tbody>${rows||'<tr><td colspan="5" class="empty">لا توجد عمليات مسجلة</td></tr>'}</tbody></table></div>`;
+ document.getElementById('content').innerHTML=shell(title,pageLayout(form,table));
+}
+async function savePartyPayment(e,store,type){
+ e.preventDefault();const partyStore=type==='customer'?'customers':'suppliers',p=await get(partyStore,ppParty.value),amount=num(ppAmount.value);if(!p||amount<=0)return toast('أدخل مبلغًا صحيحًا','error');if(amount>num(p.balance))return toast('المبلغ أكبر من الرصيد المستحق','error');
+ p.balance=Math.max(0,num(p.balance)-amount);await put(partyStore,p);const code=(type==='customer'?'RCV-':'PAY-')+Date.now();await add(store,{date:ppDate.value,partyId:p.id,amount,payment:ppPay.value,code});
+ const cashAccount=ppPay.value==='بنك'?2:1,partyAccount=type==='customer'?3:5;
+ const lines=type==='customer'?[{accountId:cashAccount,debit:amount,credit:0},{accountId:partyAccount,debit:0,credit:amount}]:[{accountId:partyAccount,debit:amount,credit:0},{accountId:cashAccount,debit:0,credit:amount}];
+ await add('journal',{code:'JV-'+Date.now(),date:ppDate.value,source:type==='customer'?'تحصيل عميل':'سداد مورد',description:code,lines,totalDebit:amount,totalCredit:amount});
+ toast('تم تسجيل العملية وترحيل القيد');loadPage(store);
+}
+async function renderDiscounts(){const rows=(await all('discounts')).slice().reverse().map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.type)}</td><td>${esc(x.ref)}</td><td>${money(x.amount)}</td></tr>`).join('');document.getElementById('content').innerHTML=shell('الخصومات',pageLayout(`<form onsubmit="saveDiscount(event)" class="card"><div class="form-grid"><div class="field"><label>التاريخ</label><input id="dDate" type="date" value="${today()}"></div><div class="field"><label>النوع</label><select id="dType"><option>خصم مبيعات</option><option>خصم مشتريات</option></select></div><div class="field"><label>المرجع</label><input id="dRef"></div><div class="field"><label>المبلغ SAR</label><input id="dAmount" type="number" min=".01" step=".01" required></div></div><div class="actions" style="margin-top:8px"><button class="btn primary">حفظ الخصم</button></div></form>`,`<div class="table-wrap"><table><thead><tr><th>التاريخ</th><th>النوع</th><th>المرجع</th><th>المبلغ</th></tr></thead><tbody>${rows||'<tr><td colspan="4" class="empty">لا توجد خصومات</td></tr>'}</tbody></table></div>`));}
+async function saveDiscount(e){e.preventDefault();await add('discounts',{date:dDate.value,type:dType.value,ref:dRef.value,amount:num(dAmount.value)});toast('تم حفظ الخصم');loadPage('discounts')}
+async function renderGuide(){const notes=await all('notes');const rows=notes.slice().reverse().map(n=>`<div class="card"><b>${esc(n.date||'')}</b><p class="muted" style="margin-top:6px">${esc(n.text||'')}</p></div>`).join('');document.getElementById('content').innerHTML=shell('تعليمات النظام',pageLayout(`<div class="card"><b>قواعد التشغيل</b><p class="muted" style="line-height:1.9;margin-top:8px">كل عملية مرحّلة يجب أن تكون واضحة، وكل التمرير يكون داخل الجداول والقوائم فقط. قاعدة البيانات المحلية هي IndexedDB.</p></div><form onsubmit="addGuideNote(event)" class="card" style="margin-top:8px"><div class="form-grid"><div class="field wide"><label>ملاحظة تشغيلية</label><input id="guideNote" required placeholder="اكتب ملاحظة لفريق العمل"></div><div class="actions"><button class="btn primary">إضافة الملاحظة</button></div></div></form>`,`<div class="grid g2">${rows||'<div class="empty">لا توجد ملاحظات</div>'}</div>`));}
+async function addGuideNote(e){e.preventDefault();await add('notes',{date:today(),text:guideNote.value});toast('تم حفظ الملاحظة');renderGuide()}
+/* منع حذف العملاء والموردين المرتبطين بحركات */
+deleteParty=safeDeleteParty;
+
+(async()=>{try{await openDB();await seedDB();document.getElementById('login').classList.remove('hidden')}catch(e){document.body.innerHTML='<div style="direction:rtl;padding:25px;font-family:Tahoma"><h2>تعذر تشغيل قاعدة البيانات المحلية</h2><p>تأكد من فتح الملف في متصفح حديث يدعم IndexedDB.</p></div>'}})();
+
+/* ================= المرحلة الثالثة: التقارير المالية والرقابة والتوسع التنفيذي ================= */
+
+async function audit(action, details=''){
+  try{ await add('auditLog',{date:new Date().toISOString(),action,details}); }catch(e){ console.warn(e); }
+}
+
+async function loadPage(page){
+  currentPage=page; closeSidebar();
+  const c=document.getElementById('content');
+  try{
+    if(page==='purchaseOrders') return renderPurchaseOrders();
+    if(page==='statement') return renderAccountStatement();
+    if(page==='inventoryReport') return renderInventoryReport();
+    if(page==='profitLoss') return renderProfitLoss();
+    if(page==='balanceSheet') return renderBalanceSheet();
+    if(page==='audit') return renderAuditLog();
+
+    if(page==='dashboard')return renderDashboard();
+    if(page==='pos')return renderPOS();
+    if(page==='items')return renderItems();
+    if(page==='warehouses')return renderWarehouses();
+    if(page==='stockmoves')return renderStockMoves();
+    if(page==='stockcount')return renderStockCount();
+    if(page==='sales')return renderSales();
+    if(page==='customers')return renderCustomers();
+    if(page==='salesInvoices')return renderSalesInvoices();
+    if(page==='salesOrders')return renderSimpleCRUD('أوامر البيع','salesOrders');
+    if(page==='salesReturns')return renderReturns('مرتجعات المبيعات','salesReturns',-1);
+    if(page==='salesPayments')return renderPayments('التحصيلات','salesPayments','customer');
+    if(page==='quotations')return renderSimpleCRUD('عروض الأسعار','quotations');
+    if(page==='discounts')return renderDiscounts();
+    if(page==='salesReports')return renderSalesReports();
+    if(page==='suppliers')return renderSuppliers();
+    if(page==='purchases')return renderPurchases();
+    if(page==='purchaseReturns')return renderReturns('مرتجعات المشتريات','purchaseReturns',1);
+    if(page==='purchasePayments')return renderPayments('مدفوعات الموردين','purchasePayments','supplier');
+    if(page==='accounts')return renderAccounts();
+    if(page==='journal')return renderJournal();
+    if(page==='receipts')return renderTreasury('سندات القبض','receipts',1);
+    if(page==='payments')return renderTreasury('سندات الصرف','payments',-1);
+    if(page==='ledger')return renderLedger();
+    if(page==='trial')return renderTrial();
+    if(page==='reports')return renderReports();
+    if(page==='company')return renderCompany();
+    if(page==='users')return renderUsers();
+    if(page==='backup')return renderBackup();
+    if(page==='guide')return renderGuide();
+  }catch(e){
+    console.error(e);
+    c.innerHTML=shell('خطأ في التنفيذ',`<div class="card"><b>تعذر فتح الصفحة المطلوبة</b><p class="muted" style="margin-top:8px">${esc(e.message||e)}</p><div class="actions" style="margin-top:10px"><button class="btn primary" onclick="loadPage('dashboard')">العودة للرئيسية</button></div></div>`);
+  }
+}
+
+async function renderPurchaseOrders(){
+  const orders=await all('purchaseOrders'), suppliers=await all('suppliers');
+  const rows=orders.slice().reverse().map(o=>{
+    const s=suppliers.find(x=>x.id===o.supplierId);
+    return `<tr>
+      <td>${esc(o.code)}</td><td>${esc(o.date)}</td><td>${esc(s?.name||'')}</td>
+      <td>${money(o.total)}</td><td>${esc(o.status)}</td>
+      <td><button class="btn secondary" onclick="changePurchaseOrderStatus(${o.id})">تحديث الحالة</button>
+      <button class="btn danger" onclick="deletePurchaseOrder(${o.id})">حذف</button></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('content').innerHTML=shell('أوامر الشراء',pageLayout(
+    `<form onsubmit="savePurchaseOrder(event)" class="card">
+      <div class="form-grid">
+        <div class="field"><label>رقم الأمر</label><input id="poCode" value="PO-${Date.now().toString().slice(-6)}" required></div>
+        <div class="field"><label>التاريخ</label><input id="poDate" type="date" value="${today()}" required></div>
+        <div class="field"><label>المورد</label><select id="poSupplier">${suppliers.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('')}</select></div>
+        <div class="field"><label>إجمالي تقديري SAR</label><input id="poTotal" type="number" min=".01" step=".01" required></div>
+        <div class="field wide"><label>ملاحظات</label><input id="poNotes" placeholder="وصف الطلب أو ملاحظات الشراء"></div>
+      </div>
+      <div class="actions" style="margin-top:9px"><button class="btn primary">➕ حفظ أمر الشراء</button><button type="button" class="btn secondary" onclick="loadPage('purchases')">فتح فواتير المشتريات</button></div>
+    </form>`,
+    `<div class="table-wrap"><table><thead><tr><th>الرقم</th><th>التاريخ</th><th>المورد</th><th>الإجمالي</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>${rows||'<tr><td colspan="6" class="empty">لا توجد أوامر شراء</td></tr>'}</tbody></table></div>`
+  ));
+}
+
+async function savePurchaseOrder(e){
+  e.preventDefault();
+  const obj={
+    code:poCode.value.trim(), date:poDate.value, supplierId:num(poSupplier.value),
+    total:num(poTotal.value), notes:poNotes.value.trim(), status:'مفتوح'
+  };
+  if(!obj.code||!obj.supplierId||obj.total<=0) return toast('أكمل بيانات أمر الشراء بشكل صحيح','error');
+  const exists=(await all('purchaseOrders')).some(x=>x.code===obj.code);
+  if(exists) return toast('رقم أمر الشراء مستخدم مسبقًا','error');
+  await add('purchaseOrders',obj); await audit('إنشاء أمر شراء',obj.code);
+  toast('تم حفظ أمر الشراء'); loadPage('purchaseOrders');
+}
+
+async function changePurchaseOrderStatus(id){
+  const o=await get('purchaseOrders',id); if(!o) return;
+  const next={'مفتوح':'معتمد','معتمد':'مكتمل','مكتمل':'مغلق','مغلق':'مفتوح'}[o.status]||'مفتوح';
+  if(!confirm(`تغيير حالة الأمر من "${o.status}" إلى "${next}"؟`)) return;
+  o.status=next; await put('purchaseOrders',o); await audit('تحديث أمر شراء',`${o.code} → ${next}`);
+  toast('تم تحديث الحالة'); renderPurchaseOrders();
+}
+async function deletePurchaseOrder(id){
+  const o=await get('purchaseOrders',id); if(!o) return;
+  if(!confirm('هل تريد حذف أمر الشراء؟')) return;
+  await remove('purchaseOrders',id); await audit('حذف أمر شراء',o.code);
+  toast('تم حذف أمر الشراء'); renderPurchaseOrders();
+}
+
+function accountSums(journal){
+  const sums={};
+  journal.forEach(v=>(v.lines||[]).forEach(l=>{
+    sums[l.accountId]??={debit:0,credit:0};
+    sums[l.accountId].debit+=num(l.debit); sums[l.accountId].credit+=num(l.credit);
+  }));
+  return sums;
+}
+
+async function renderAccountStatement(){
+  const accounts=await all('accounts'), journal=await all('journal');
+  document.getElementById('content').innerHTML=shell('كشف حساب',`
+    <div class="card">
+      <div class="form-grid">
+        <div class="field wide"><label>الحساب</label><select id="statementAccount" onchange="drawAccountStatement()">
+          <option value="">اختر الحساب</option>${accounts.map(a=>`<option value="${a.id}">${esc(a.code+' - '+a.name)}</option>`).join('')}
+        </select></div>
+        <div class="field"><label>من تاريخ</label><input id="statementFrom" type="date" onchange="drawAccountStatement()"></div>
+        <div class="field"><label>إلى تاريخ</label><input id="statementTo" type="date" onchange="drawAccountStatement()"></div>
+      </div>
     </div>
+    <div id="statementResult" class="table-wrap" style="margin-top:9px"><div class="empty">اختر حسابًا لعرض كشف الحساب</div></div>
+  `);
+}
 
-    <!-- نافذة منسدلة قائمة "عرض" -->
-    <div id="viewDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeViewDropdown()">
-        <div class="absolute top-20 right-32 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
-            <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
-                <span class="text-sm">👁️</span>
-                <div>
-                    <h4 class="font-bold text-slate-800">قائمة عرض النظام</h4>
-                    <p class="text-[10px] text-slate-400">التنقل السريع بين شاشات النظام الأساسية</p>
-                </div>
-            </div>
-            <button onclick="loadHomeView(); closeViewDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏠 لوحة التحكم</span><span>◀️</span></button>
-            <button onclick="loadPageView('مركز الاستعلام', '🔍'); closeViewDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🔍 مركز الاستعلام</span><span>◀️</span></button>
-            <button onclick="loadPageView('الحسابات والدفاتر', '📒'); closeViewDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📒 الحسابات والدفاتر</span><span>◀️</span></button>
-            <button onclick="loadItemsView(); closeViewDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📦 المخزون والأصناف</span><span>◀️</span></button>
-        </div>
+async function drawAccountStatement(){
+  const id=num(document.getElementById('statementAccount').value);
+  if(!id){ document.getElementById('statementResult').innerHTML='<div class="empty">اختر حسابًا</div>'; return; }
+  const from=document.getElementById('statementFrom').value, to=document.getElementById('statementTo').value;
+  const journal=await all('journal');
+  let balance=0, rows=[];
+  journal.filter(j=>(!from||j.date>=from)&&(!to||j.date<=to)).sort((a,b)=>String(a.date).localeCompare(String(b.date))).forEach(j=>{
+    (j.lines||[]).filter(l=>num(l.accountId)===id).forEach(l=>{
+      const d=num(l.debit), c=num(l.credit); balance+=d-c;
+      rows.push(`<tr><td>${esc(j.date)}</td><td>${esc(j.code)}</td><td>${esc(j.description||j.source||'')}</td><td>${money(d)}</td><td>${money(c)}</td><td>${money(balance)}</td></tr>`);
+    });
+  });
+  document.getElementById('statementResult').innerHTML=`<table><thead><tr><th>التاريخ</th><th>المرجع</th><th>البيان</th><th>مدين</th><th>دائن</th><th>الرصيد</th></tr></thead><tbody>${rows.join('')||'<tr><td colspan="6" class="empty">لا توجد حركة للحساب</td></tr>'}</tbody></table>`;
+}
+
+async function renderInventoryReport(){
+  const items=await all('items'), wh=await all('warehouses');
+  const totalQty=items.reduce((a,x)=>a+num(x.qty),0);
+  const totalValue=items.reduce((a,x)=>a+num(x.qty)*num(x.cost),0);
+  const low=items.filter(x=>num(x.qty)<=5);
+  const rows=items.map(x=>`<tr><td>${esc(x.code)}</td><td>${esc(x.name)}</td><td>${esc(wh.find(w=>w.id===x.warehouseId)?.name||'')}</td><td>${num(x.qty)}</td><td>${money(x.cost)}</td><td>${money(num(x.qty)*num(x.cost))}</td><td>${num(x.qty)<=5?'<span style="color:#dc2626;font-weight:bold">منخفض</span>':'<span style="color:#059669;font-weight:bold">طبيعي</span>'}</td></tr>`).join('');
+  document.getElementById('content').innerHTML=shell('تقرير المخزون',pageLayout(
+    `<div class="grid g3">
+      <div class="kpi"><span>عدد الأصناف</span><b>${items.length}</b></div>
+      <div class="kpi"><span>إجمالي الكميات</span><b>${num(totalQty)}</b></div>
+      <div class="kpi"><span>قيمة المخزون بالتكلفة</span><b>${money(totalValue)}</b></div>
     </div>
+    <div class="card" style="margin-top:9px"><b>تنبيه المخزون المنخفض</b><p class="muted" style="margin-top:6px">${low.length?esc(low.map(x=>x.name).join('، ')):'لا توجد أصناف منخفضة حسب الحد الافتراضي (5).'}</p></div>`,
+    `<div class="table-wrap"><table><thead><tr><th>الكود</th><th>الصنف</th><th>المخزن</th><th>الكمية</th><th>التكلفة</th><th>القيمة</th><th>الحالة</th></tr></thead><tbody>${rows||'<tr><td colspan="7" class="empty">لا توجد أصناف</td></tr>'}</tbody></table></div>`
+  ));
+}
 
-    <!-- نافذة منسدلة قائمة "تعليمات" -->
-    <div id="instructionsDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeInstructionsDropdown()">
-        <div class="absolute top-20 right-48 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
-            <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
-                <span class="text-sm">📖</span>
-                <div>
-                    <h4 class="font-bold text-slate-800">قائمة تعليمات ودعم النظام</h4>
-                    <p class="text-[10px] text-slate-400">الدليل التعريفي وإرشادات التشغيل</p>
-                </div>
-            </div>
-            <button onclick="loadPageView('دليل الاستخدام السريع', '📖'); closeInstructionsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📖 دليل الاستخدام السريع</span><span>◀️</span></button>
-            <button onclick="loadPageView('دليل القيود المحاسبية', '📒'); closeInstructionsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📒 دليل القيود والسندات</span><span>◀️</span></button>
-            <button onclick="loadPageView('اختصارات لوحة المفاتيح', '⌨️'); closeInstructionsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>⌨️ اختصارات لوحة المفاتيح</span><span>◀️</span></button>
-            <button onclick="loadPageView('الأسئلة الشائعة', '❓'); closeInstructionsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>❓ الأسئلة الشائعة</span><span>◀️</span></button>
-            <button onclick="loadPageView('حول النظام والمبرمج', 'ℹ️'); closeInstructionsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>ℹ️ حول نظام الشيباني</span><span>◀️</span></button>
-        </div>
+async function renderProfitLoss(){
+  const journal=await all('journal'), accounts=await all('accounts');
+  const sums=accountSums(journal);
+  const byType=t=>accounts.filter(a=>a.type===t).map(a=>{
+    const s=sums[a.id]||{debit:0,credit:0};
+    return {name:a.name, amount:t==='إيراد'?s.credit-s.debit:s.debit-s.credit};
+  });
+  const revenues=byType('إيراد'), expenses=byType('مصروف');
+  const rev=revenues.reduce((a,x)=>a+x.amount,0), exp=expenses.reduce((a,x)=>a+x.amount,0), net=rev-exp;
+  const list=(arr,empty)=>arr.length?arr.map(x=>`<div class="stat"><span>${esc(x.name)}</span><b>${money(x.amount)}</b></div>`).join(''):`<div class="empty">${empty}</div>`;
+  document.getElementById('content').innerHTML=shell('تقرير الأرباح والخسائر',`
+    <div class="grid g2">
+      <div class="card"><b>الإيرادات</b><div style="margin-top:10px">${list(revenues,'لا توجد إيرادات مسجلة')}</div><div class="stat"><span>إجمالي الإيرادات</span><b>${money(rev)}</b></div></div>
+      <div class="card"><b>المصروفات</b><div style="margin-top:10px">${list(expenses,'لا توجد مصروفات مسجلة')}</div><div class="stat"><span>إجمالي المصروفات</span><b>${money(exp)}</b></div></div>
     </div>
+    <div class="card" style="margin-top:10px"><div class="stat"><span>صافي الربح / الخسارة</span><b style="font-size:18px">${money(net)}</b></div></div>
+  `);
+}
 
-    <!-- نافذة منسدلة قائمة "إعدادات" -->
-    <div id="settingsDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeSettingsDropdown()">
-        <div class="absolute top-20 right-16 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
-            <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
-                <span class="text-sm">⚙️</span>
-                <div>
-                    <h4 class="font-bold text-slate-800">قائمة إعدادات النظام</h4>
-                    <p class="text-[10px] text-slate-400">خيارات الضبط والتخصيص المتقدمة</p>
-                </div>
-            </div>
-            <button onclick="loadPageView('إعدادات المنشأة والشركة', '🏢'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏢 إعدادات المنشأة</span><span>◀️</span></button>
-            <button onclick="loadPageView('إعدادات الطباعة والربط', '🖨️'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🖨️ إعدادات الطابعات والباركود</span><span>◀️</span></button>
-            <button onclick="loadPageView('إدارة المستخدمين والصلاحيات', '👥'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>👥 المستخدمين والصلاحيات</span><span>◀️</span></button>
-            <button onclick="loadPageView('النسخ الاحتياطي والأمان', '🔒'); closeSettingsDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🔒 الأمان والنسخ الاحتياطي</span><span>◀️</span></button>
-        </div>
-    </div>
+async function renderBalanceSheet(){
+  const journal=await all('journal'), accounts=await all('accounts'), sums=accountSums(journal);
+  const types=['أصل','التزام','حقوق ملكية'];
+  const groups={};
+  for(const t of types){
+    groups[t]=accounts.filter(a=>a.type===t).map(a=>{
+      const s=sums[a.id]||{debit:0,credit:0};
+      const amount=t==='أصل'?s.debit-s.credit:s.credit-s.debit;
+      return {name:a.name,amount};
+    });
+  }
+  const block=(title,arr)=>`<div class="card"><b>${title}</b><div style="margin-top:9px">${arr.map(x=>`<div class="stat"><span>${esc(x.name)}</span><b>${money(x.amount)}</b></div>`).join('')||'<div class="empty">لا توجد حسابات</div>'}</div></div>`;
+  document.getElementById('content').innerHTML=shell('الميزانية العمومية',`
+    <div class="grid g2">${block('الأصول',groups['أصل'])}${block('الالتزامات',groups['التزام'])}</div>
+    <div style="margin-top:10px">${block('حقوق الملكية',groups['حقوق ملكية'])}</div>
+  `);
+}
 
-    <!-- نافذة منسدلة قائمة "إدارة التخزين" -->
-    <div id="storageDropdownMenu" class="hidden fixed inset-0 z-50" onclick="closeStorageDropdown()">
-        <div class="absolute top-20 right-64 bg-white border border-slate-200 rounded-2xl shadow-2xl w-64 p-2 z-50 space-y-1 text-xs" onclick="event.stopPropagation()">
-            <div class="px-3 py-2 border-b border-slate-100 flex items-center gap-2">
-                <span class="text-sm">📦</span>
-                <div>
-                    <h4 class="font-bold text-slate-800">قائمة إدارة التخزين</h4>
-                    <p class="text-[10px] text-slate-400">إدارة المخازن والأصناف والوحدات</p>
-                </div>
-            </div>
-            <button onclick="loadItemsView(); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏷️ بطاقة الأصناف</span><span>◀️</span></button>
-            <button onclick="loadPageView('المخازن والمستودعات', '🏬'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>🏬 المخازن والمستودعات</span><span>◀️</span></button>
-            <button onclick="loadPageView('حركات المخزن (إدخال وإخراج)', '📥'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📥 حركات المخزن</span><span>◀️</span></button>
-            <button onclick="loadPageView('الجرد المخزني', '📋'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📋 الجرد المخزني وتسوية المخزون</span><span>◀️</span></button>
-            <button onclick="loadPageView('تقارير المخازن', '📊'); closeStorageDropdown();" class="w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-slate-700 hover:bg-blue-50 hover:text-accentBlue transition-all cursor-pointer"><span>📊 تقارير حركة المخازن والأرصدة</span><span>◀️</span></button>
-        </div>
-    </div>
+async function renderAuditLog(){
+  const rows=(await all('auditLog')).slice().reverse().map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.action)}</td><td>${esc(x.details||'')}</td></tr>`).join('');
+  document.getElementById('content').innerHTML=shell('سجل العمليات والرقابة',pageLayout(
+    `<div class="card"><b>سجل واضح للعمليات الجديدة</b><p class="muted" style="margin-top:7px">يُستخدم لتوثيق العمليات التنفيذية التي تمت إضافتها في هذه المرحلة، دون تنفيذ أي إجراء مخفي.</p><div class="actions" style="margin-top:9px"><button class="btn danger" onclick="clearAuditLog()">مسح سجل العمليات</button></div></div>`,
+    `<div class="table-wrap"><table><thead><tr><th>التاريخ والوقت</th><th>العملية</th><th>التفاصيل</th></tr></thead><tbody>${rows||'<tr><td colspan="3" class="empty">لا توجد عمليات مسجلة</td></tr>'}</tbody></table></div>`
+  ));
+}
 
-    <!-- شاشة تسجيل الدخول -->
-    <div id="loginSection" class="flex-grow flex items-center justify-center p-4 bg-slate-900 overflow-hidden">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl">
-            <div class="text-center mb-4">
-                <div class="w-12 h-12 rounded-xl bg-accentBlue flex items-center justify-center mx-auto mb-2 shadow-lg shadow-blue-500/20 text-white font-black">AS</div>
-                <h1 class="text-lg font-bold text-slate-900">نظام الشيباني المحاسبي المتكامل</h1>
-                <p class="text-[11px] text-slate-500 mt-0.5">أمين ردمان الشيباني (admin / 123456)</p>
-            </div>
-            <form onsubmit="handleLogin(event)" class="space-y-3">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">اسم المستخدم</label>
-                    <input type="text" id="loginUser" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-accentBlue font-mono" placeholder="admin">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">كلمة المرور</label>
-                    <input type="password" id="loginPassword" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-accentBlue font-mono" placeholder="123456">
-                </div>
-                <button type="submit" class="w-full bg-accentBlue text-white font-bold text-xs py-2.5 rounded-xl hover:bg-accentHover transition-all cursor-pointer shadow-md">دخول النظام</button>
-            </form>
-        </div>
-    </div>
+async function clearAuditLog(){
+  if(!confirm('سيتم حذف سجل الرقابة فقط، ولن يتم حذف أي بيانات محاسبية. هل تريد المتابعة؟')) return;
+  const rows=await all('auditLog');
+  for(const x of rows) await remove('auditLog',x.id);
+  toast('تم مسح سجل العمليات فقط'); renderAuditLog();
+}
 
-    <!-- لوحة النظام الرئيسية -->
-    <div id="dashboardSection" class="hidden flex-col h-full overflow-hidden">
-        <!-- الشريط العلوي (Header) -->
-        <header class="bg-primaryBlue text-white shadow-md shrink-0 relative z-40">
-            <div class="max-w-7xl mx-auto px-4 h-13 flex items-center justify-between gap-2">
-                <div class="flex items-center gap-2.5 shrink-0">
-                    <button onclick="toggleSidebar()" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 px-2 py-1 rounded-xl transition-all cursor-pointer shadow" title="فتح لوحة التحكم">
-                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-accentBlue text-white font-black text-[11px] shadow">AS</span>
-                        <div class="hidden sm:block text-right">
-                            <div class="text-[10px] font-bold text-slate-100">لوحة التحكم</div>
-                        </div>
-                    </button>
-                    <button onclick="loadPOSView()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1 shadow text-xs">
-                        <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> نقطة البيع POS
-                    </button>
-                </div>
-                <div class="flex items-center gap-2 shrink-0 text-xs font-medium">
-                    <button onclick="toggleFinanceDropdown()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1 border border-slate-700 shadow-sm" title="المحاسبة المالية">
-                        <span>💰</span> <span>المحاسبة المالية</span>
-                    </button>
-                    <button onclick="loadHomeView()" class="px-3 py-1.5 hover:bg-slate-800 rounded-xl transition-all cursor-pointer text-slate-300 flex items-center gap-1" title="الصفحة الرئيسية">
-                        <i data-lucide="home" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">الرئيسية</span>
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <div id="mainContentArea" class="flex-grow flex flex-col items-center justify-center bg-slate-100 overflow-hidden w-full h-full"></div>
-
-        <footer class="bg-primaryBlue text-white py-1.5 px-4 flex items-center justify-between shrink-0 text-[10px]">
-            <div class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="font-bold">نظام الشيباني المحاسبي المتكامل - مع شاشة القيود اليومية والسندات ودفع الاستاذ الفعالة</span>
-            </div>
-            <div class="font-mono text-slate-400">Ameen Al-Shaibani v10.6</div>
-        </footer>
-    </div>
-
-    <script>
-        lucide.createIcons();
-        let selectedActiveYear = '2026';
-        let currentActivePage = 'الصفحة الرئيسية';
-        let currentActiveIcon = '🏠';
-
-        // قاعدة بيانات محلية وهمية لإدارة الأصناف، القيود، والسندات
-        let itemsDB = [
-            { id: 1, code: 'ITM-001', barcode: '6281001001', name: 'ثوب رجالي فاخر', qty: 50, costPiece: 10000, costDozen: 120000, pricePiece: 15000, priceDozen: 180000, currency: 'YER', notes: 'صناعة ممتازة' },
-            { id: 2, code: 'ITM-002', barcode: '6281001002', name: 'قماش رجالي سويسرى', qty: 30, costCost: 20000, costDozen: 240000, pricePiece: 28000, priceDozen: 336000, currency: 'YER', notes: 'قطن خالص' }
-        ];
-
-        let journalDB = [
-            { id: 1, date: '2026-09-01', desc: 'قيد افتتاحية السنة المالية', account: 'الصندوق الرئيسي', debit: 500000, credit: 0 },
-            { id: 2, date: '2026-09-01', desc: 'قيد افتتاحية رأس المال', account: 'رأس المال', debit: 0, credit: 500000 }
-        ];
-
-        let receiptsDB = [
-            { id: 1, date: '2026-09-01', client: 'محمد أحمد', amount: 25000, currency: 'YER', notes: 'دفعة مقدمة' }
-        ];
-
-        let paymentsDB = [
-            { id: 1, date: '2026-09-01', supplier: 'مؤسسة الأنسجة', amount: 10000, currency: 'YER', notes: 'سداد فاتورة مشريات' }
-        ];
-
-        function setSystemYear(year) {
-            selectedActiveYear = year;
-            showToast(`تم الانتقال إلى السنة المالية: ${year}`, "success");
-            if (currentActivePage === 'الصفحة الرئيسية') {
-                loadHomeView();
-            } else {
-                loadPageView(currentActivePage, currentActiveIcon);
-            }
-        }
-
-        function toggleSidebar() {
-            document.getElementById('sidebarModal').classList.toggle('hidden');
-        }
-
-        function toggleFinanceDropdown() {
-            closeAllDropdowns('financeDropdownMenu');
-            document.getElementById('financeDropdownMenu').classList.toggle('hidden');
-        }
-        function closeFinanceDropdown() { document.getElementById('financeDropdownMenu').classList.add('hidden'); }
-
-        function toggleFileDropdown() {
-            closeAllDropdowns('fileDropdownMenu');
-            document.getElementById('fileDropdownMenu').classList.toggle('hidden');
-        }
-        function closeFileDropdown() { document.getElementById('fileDropdownMenu').classList.add('hidden'); }
-
-        function toggleViewDropdown() {
-            closeAllDropdowns('viewDropdownMenu');
-            document.getElementById('viewDropdownMenu').classList.toggle('hidden');
-        }
-        function closeViewDropdown() { document.getElementById('viewDropdownMenu').classList.add('hidden'); }
-
-        function toggleInstructionsDropdown() {
-            closeAllDropdowns('instructionsDropdownMenu');
-            document.getElementById('instructionsDropdownMenu').classList.toggle('hidden');
-        }
-        function closeInstructionsDropdown() { document.getElementById('instructionsDropdownMenu').classList.add('hidden'); }
-
-        function toggleSettingsDropdown() {
-            closeAllDropdowns('settingsDropdownMenu');
-            document.getElementById('settingsDropdownMenu').classList.toggle('hidden');
-        }
-        function closeSettingsDropdown() { document.getElementById('settingsDropdownMenu').classList.add('hidden'); }
-
-        function toggleStorageDropdown() {
-            closeAllDropdowns('storageDropdownMenu');
-            document.getElementById('storageDropdownMenu').classList.toggle('hidden');
-        }
-        function closeStorageDropdown() { document.getElementById('storageDropdownMenu').classList.add('hidden'); }
-
-        function closeAllDropdowns(exceptId) {
-            const dropdowns = ['financeDropdownMenu', 'fileDropdownMenu', 'viewDropdownMenu', 'instructionsDropdownMenu', 'settingsDropdownMenu', 'storageDropdownMenu'];
-            dropdowns.forEach(id => {
-                if (id !== exceptId) {
-                    const el = document.getElementById(id);
-                    if (el) el.classList.add('hidden');
-                }
-            });
-        }
-
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `pointer-events-auto flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold shadow-xl transition-all duration-300 translate-y-2 opacity-0 ${
-                type === 'success' ? 'bg-emerald-600 text-white border border-emerald-500' : 'bg-red-600 text-white border border-red-500'
-            }`;
-            toast.innerHTML = `<i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}" class="w-4 h-4"></i><span>${message}</span>`;
-            container.appendChild(toast);
-            lucide.createIcons();
-            setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
-            setTimeout(() => {
-                toast.classList.add('translate-y-2', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        function handleLogin(event) {
-            event.preventDefault();
-            const userInput = document.getElementById('loginUser').value.trim();
-            const passInput = document.getElementById('loginPassword').value.trim();
-            if (userInput === 'admin' && passInput === '123456') {
-                showToast("تم تسجيل الدخول بنجاح للنظام المحاسبي!", "success");
-                document.getElementById('loginSection').classList.add('hidden');
-                const dash = document.getElementById('dashboardSection');
-                dash.classList.remove('hidden');
-                dash.classList.add('flex');
-                loadHomeView();
-            } else {
-                showToast("بيانات الدخول غير صحيحة (admin / 123456).", "error");
-            }
-        }
-
-        function lockSystem() {
-            document.getElementById('dashboardSection').classList.remove('flex');
-            document.getElementById('dashboardSection').classList.add('hidden');
-            document.getElementById('loginSection').classList.remove('hidden');
-            showToast("تم قفل النظام بنجاح.", "success");
-        }
-
-        function loadHomeView() {
-            currentActivePage = 'الصفحة الرئيسية';
-            currentActiveIcon = '🏠';
-            const area = document.getElementById('mainContentArea');
-            area.innerHTML = `
-                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden relative">
-                    <div class="w-full max-w-md bg-white border border-slate-200/80 rounded-2xl shadow-sm p-3 mb-3 flex flex-col items-center gap-2">
-                        <div class="flex items-center justify-center gap-2 w-full">
-                            <button onclick="toggleSettingsDropdown()" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">إعدادات ⚙️</button>
-                            <button onclick="toggleViewDropdown()" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">عرض 👁️</button>
-                            <button onclick="toggleFileDropdown()" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">ملف 📁</button>
-                        </div>
-                        <div class="flex items-center justify-center gap-2 w-full">
-                            <button onclick="toggleInstructionsDropdown()" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">تعليمات 📖</button>
-                            <button onclick="toggleStorageDropdown()" class="flex-1 py-2 px-2 bg-white hover:bg-blue-50 text-slate-700 hover:text-accentBlue border border-slate-200 rounded-xl text-xs font-bold shadow-sm transition-all text-center">إدارة التخزين 📦</button>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col items-center justify-center gap-3 w-full max-w-sm">
-                        <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl w-full overflow-hidden shrink-0">
-                            <div class="bg-primaryBlue px-3 py-2 text-center border-b border-slate-800">
-                                <h3 class="text-white font-bold text-xs tracking-wide">الفروع - السنة المالية</h3>
-                            </div>
-                            <div class="p-3 space-y-2">
-                                <button onclick="setSystemYear('2026')" class="w-full py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center ${selectedActiveYear === '2026' ? 'bg-blue-100 text-blue-900 border border-blue-300 shadow-sm' : 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700'}">السنة المالية 2026</button>
-                                <button onclick="setSystemYear('2025')" class="w-full py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center ${selectedActiveYear === '2025' ? 'bg-blue-100 text-blue-900 border border-blue-300 shadow-sm' : 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700'}">السنة المالية 2025</button>
-                                <button onclick="loadItemsView()" class="w-full mt-2 bg-accentBlue hover:bg-accentHover text-white py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-md flex items-center justify-center gap-1">دخول النظام</button>
-                            </div>
-                        </div>
-
-                        <div class="bg-white border border-slate-200 rounded-2xl shadow-xl w-full p-3.5 text-center space-y-1.5 shrink-0">
-                            <div class="flex justify-center">
-                                <div class="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center shadow-inner relative p-1">
-                                    <div class="text-center">
-                                        <div class="w-6 h-6 rounded-xl bg-accentBlue text-white font-black text-[9px] mx-auto flex items-center justify-center shadow">AS</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <h2 class="text-xs font-black text-slate-800">أمين الشيباني</h2>
-                                <p class="text-[10px] font-bold text-slate-600">نظام الإدارة المحاسبية والمالية</p>
-                                <p class="text-[8px] font-mono text-slate-400 tracking-wider">AMIN AL-SHAIBANI ACCOUNTING</p>
-                            </div>
-                            <div class="pt-1 border-t border-slate-100">
-                                <span class="text-[9px] font-bold text-accentBlue">دقة | أمان | نمو مستدام</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function exportDatabase() {
-            const backup = { items: itemsDB, journal: journalDB, receipts: receiptsDB, payments: paymentsDB };
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `Sheibani_Accounting_DB_${selectedActiveYear}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-            showToast("تم تصدير قاعدة بيانات النظام بنجاح!", "success");
-        }
-
-        // ================= صفحة بطاقة الأصناف المتكاملة =================
-        function loadItemsView() {
-            currentActivePage = 'بطاقة الاصناف';
-            currentActiveIcon = '🏷️';
-            const area = document.getElementById('mainContentArea');
-            let rowsHtml = '';
-            itemsDB.forEach((item, idx) => {
-                rowsHtml += `
-                    <tr class="hover:bg-blue-50/55 transition-colors border-b border-slate-100 text-xs">
-                        <td class="px-3 py-2.5 font-mono text-slate-700">${item.code}</td>
-                        <td class="px-3 py-2.5 font-mono text-slate-600">${item.barcode}</td>
-                        <td class="px-3 py-2.5 font-bold text-slate-800">${item.name}</td>
-                        <td class="px-3 py-2.5 font-bold text-blue-600">${item.qty}</td>
-                        <td class="px-3 py-2.5 font-mono">${item.costPiece} / ${item.costDozen}</td>
-                        <td class="px-3 py-2.5 font-mono">${item.pricePiece} / ${item.priceDozen}</td>
-                        <td class="px-3 py-2.5 font-mono font-bold">${item.currency}</td>
-                        <td class="px-3 py-2.5 text-center flex items-center justify-center gap-1">
-                            <button onclick="openEditItemModal(${item.id})" class="px-2 py-1 bg-amber-500 text-white rounded-lg hover:bg-amber-600 font-bold transition-all cursor-pointer">تعديل</button>
-                            <button onclick="deleteItem(${item.id})" class="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 font-bold transition-all cursor-pointer">حذف</button>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            area.innerHTML = `
-                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
-                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-6xl w-full shadow-md flex flex-col h-full max-h-[92vfh] overflow-hidden">
-                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
-                            <div class="flex items-center gap-2">
-                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
-                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
-                                </button>
-                                <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">🏷️</div>
-                                <div>
-                                    <h2 class="font-bold text-xs text-slate-800">دليل وبطاقة الأصناف (السنة: ${selectedActiveYear})</h2>
-                                    <p class="text-[10px] text-slate-500">إدارة المخزون، الأسعار، التكلفة، والعملات</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-1.5 flex-wrap">
-                                <button onclick="openAddItemModal()" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة صنف جديد</button>
-                                <button onclick="exportDatabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="download" class="w-3.5 h-3.5"></i> تصدير</button>
-                            </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl overflow-y-auto flex-grow">
-                            <table class="w-full text-right border-collapse">
-                                <thead class="bg-slate-100 text-slate-700 text-xs font-bold sticky top-0 border-b border-slate-200">
-                                    <tr>
-                                        <th class="px-3 py-2.5">كود الصنف</th>
-                                        <th class="px-3 py-2.5">الباركود</th>
-                                        <th class="px-3 py-2.5">اسم الصنف</th>
-                                        <th class="px-3 py-2.5">الكمية</th>
-                                        <th class="px-3 py-2.5">التكلفة (حبة/درزن)</th>
-                                        <th class="px-3 py-2.5">البيع (حبة/درزن)</th>
-                                        <th class="px-3 py-2.5">العملة</th>
-                                        <th class="px-3 py-2.5 text-center">العمليات</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${rowsHtml || '<tr><td colspan="8" class="text-center py-6 text-slate-400">لا توجد أصناف مضافة حالياً</td></tr>'}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        // نافذة إضافة صنف جديد مع الاحتساب التلقائي للدرزن
-        function openAddItemModal() {
-            const modalHtml = `
-                <div id="itemModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-                    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-5 text-xs space-y-3">
-                        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-                            <h3 class="font-bold text-sm text-slate-800 flex items-center gap-1.5"><span>➕</span> إضافة صنف جديد للمخزون</h3>
-                            <button onclick="document.getElementById('itemModal').remove()" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-600 flex items-center justify-center">✕</button>
-                        </div>
-                        <form onsubmit="saveNewItem(event)" class="space-y-3">
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">اسم الصنف</label>
-                                    <input type="text" id="itemName" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accentBlue" placeholder="اسم الصنف الكامل">
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">كود الصنف</label>
-                                    <input type="text" id="itemCode" required value="ITM-00${itemsDB.length + 1}" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">باركود الصنف</label>
-                                    <input type="text" id="itemBarcode" value="628100${Math.floor(Math.random()*9000+1000)}" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">الكمية الافتتاحية</label>
-                                    <input type="number" id="itemQty" value="10" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">سعر التكلفة (للحبة)</label>
-                                    <input type="number" id="costPiece" oninput="calculateDozenCost()" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue" placeholder="0">
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">سعر التكلفة (للدرزن - تلقائي)</label>
-                                    <input type="number" id="costDozen" readonly class="w-full bg-slate-200 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-600">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">سعر البيع (للحبة)</label>
-                                    <input type="number" id="pricePiece" oninput="calculateDozenPrice()" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue" placeholder="0">
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">سعر البيع (للدرزن - تلقائي)</label>
-                                    <input type="number" id="priceDozen" readonly class="w-full bg-slate-200 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-600">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">العملة</label>
-                                    <select id="itemCurrency" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                        <option value="YER">YER (ريال يمني)</option>
-                                        <option value="SAR">SAR (ريال سعودي)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">بيانات أخرى وملاحظات</label>
-                                    <input type="text" id="itemNotes" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accentBlue" placeholder="ملاحظات تفصيلية">
-                                </div>
-                            </div>
-                            <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
-                                <button type="button" onclick="document.getElementById('itemModal').remove()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-300">إلغاء</button>
-                                <button type="submit" class="px-4 py-2 bg-accentBlue text-white rounded-xl font-bold hover:bg-accentHover shadow">حفظ الصنف</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', modalHtml);
-        }
-
-        function calculateDozenCost() {
-            const pieceVal = parseFloat(document.getElementById('costPiece').value) || 0;
-            document.getElementById('costDozen').value = pieceVal * 12;
-        }
-
-        function calculateDozenPrice() {
-            const pieceVal = parseFloat(document.getElementById('pricePiece').value) || 0;
-            document.getElementById('priceDozen').value = pieceVal * 12;
-        }
-
-        function saveNewItem(event) {
-            event.preventDefault();
-            const newItem = {
-                id: itemsDB.length + 1,
-                name: document.getElementById('itemName').value,
-                code: document.getElementById('itemCode').value,
-                barcode: document.getElementById('itemBarcode').value,
-                qty: parseFloat(document.getElementById('itemQty').value) || 0,
-                costPiece: parseFloat(document.getElementById('costPiece').value) || 0,
-                costDozen: parseFloat(document.getElementById('costDozen').value) || 0,
-                pricePiece: parseFloat(document.getElementById('pricePiece').value) || 0,
-                priceDozen: parseFloat(document.getElementById('priceDozen').value) || 0,
-                currency: document.getElementById('itemCurrency').value,
-                notes: document.getElementById('itemNotes').value
-            };
-            itemsDB.push(newItem);
-            document.getElementById('itemModal').remove();
-            showToast("تمت إضافة الصنف بنجاح وإدراجه في المخزون!", "success");
-            loadItemsView();
-        }
-
-        function openEditItemModal(id) {
-            const item = itemsDB.find(i => i.id === id);
-            if (!item) return;
-            const modalHtml = `
-                <div id="itemModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-                    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-5 text-xs space-y-3">
-                        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-                            <h3 class="font-bold text-sm text-slate-800 flex items-center gap-1.5"><span>✏️</span> تعديل بيانات الصنف</h3>
-                            <button onclick="document.getElementById('itemModal').remove()" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-600 flex items-center justify-center">✕</button>
-                        </div>
-                        <form onsubmit="updateItem(event, ${item.id})" class="space-y-3">
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">اسم الصنف</label>
-                                    <input type="text" id="itemName" value="${item.name}" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accentBlue">
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">كود الصنف</label>
-                                    <input type="text" id="itemCode" value="${item.code}" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">باركود الصنف</label>
-                                    <input type="text" id="itemBarcode" value="${item.barcode}" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">الكمية</label>
-                                    <input type="number" id="itemQty" value="${item.qty}" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">سعر التكلفة (حبة)</label>
-                                    <input type="number" id="costPiece" value="${item.costPiece}" oninput="calculateDozenCost()" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">سعر التكلفة (درزن - تلقائي)</label>
-                                    <input type="number" id="costDozen" value="${item.costDozen}" readonly class="w-full bg-slate-200 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-600">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">سعر البيع (حبة)</label>
-                                    <input type="number" id="pricePiece" value="${item.pricePiece}" oninput="calculateDozenPrice()" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">سعر البيع (درزن - تلقائي)</label>
-                                    <input type="number" id="priceDozen" value="${item.priceDozen}" readonly class="w-full bg-slate-200 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono text-slate-600">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">العملة</label>
-                                    <select id="itemCurrency" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                        <option value="YER" ${item.currency === 'YER' ? 'selected' : ''}>YER (ريال يمني)</option>
-                                        <option value="SAR" ${item.currency === 'SAR' ? 'selected' : ''}>SAR (ريال سعودي)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">بيانات أخرى</label>
-                                    <input type="text" id="itemNotes" value="${item.notes || ''}" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accentBlue">
-                                </div>
-                            </div>
-                            <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
-                                <button type="button" onclick="document.getElementById('itemModal').remove()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-300">إلغاء</button>
-                                <button type="submit" class="px-4 py-2 bg-amber-500 text-white rounded-xl font-bold hover:bg-amber-600 shadow">تحديث الصنف</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', modalHtml);
-        }
-
-        function updateItem(event, id) {
-            event.preventDefault();
-            const index = itemsDB.findIndex(i => i.id === id);
-            if (index !== -1) {
-                itemsDB[index] = {
-                    id: id,
-                    name: document.getElementById('itemName').value,
-                    code: document.getElementById('itemCode').value,
-                    barcode: document.getElementById('itemBarcode').value,
-                    qty: parseFloat(document.getElementById('itemQty').value) || 0,
-                    costPiece: parseFloat(document.getElementById('costPiece').value) || 0,
-                    costDozen: parseFloat(document.getElementById('costDozen').value) || 0,
-                    pricePiece: parseFloat(document.getElementById('pricePiece').value) || 0,
-                    priceDozen: parseFloat(document.getElementById('priceDozen').value) || 0,
-                    currency: document.getElementById('itemCurrency').value,
-                    notes: document.getElementById('itemNotes').value
-                };
-            }
-            document.getElementById('itemModal').remove();
-            showToast("تم تحديث بيانات الصنف بنجاح!", "success");
-            loadItemsView();
-        }
-
-        function deleteItem(id) {
-            if (confirm("هل أنت متأكد من حذف هذا الصنف تماماً من النظام؟")) {
-                itemsDB = itemsDB.filter(i => i.id !== id);
-                showToast("تم حذف الصنف بنجاح.", "success");
-                loadItemsView();
-            }
-        }
-
-        // ================= شاشة القيود اليومية الفعالة =================
-        function loadJournalView() {
-            currentActivePage = 'القيود اليومية';
-            currentActiveIcon = '📝';
-            const area = document.getElementById('mainContentArea');
-            let rowsHtml = '';
-            journalDB.forEach((j) => {
-                rowsHtml += `
-                    <tr class="hover:bg-blue-50/55 transition-colors border-b border-slate-100 text-xs">
-                        <td class="px-3 py-2.5 font-mono text-slate-600">${j.date}</td>
-                        <td class="px-3 py-2.5 font-bold text-slate-800">${j.desc}</td>
-                        <td class="px-3 py-2.5 font-mono">${j.account}</td>
-                        <td class="px-3 py-2.5 font-mono text-emerald-600 font-bold">${j.debit || '-'}</td>
-                        <td class="px-3 py-2.5 font-mono text-blue-600 font-bold">${j.credit || '-'}</td>
-                        <td class="px-3 py-2.5 text-center">
-                            <button onclick="deleteJournal(${j.id})" class="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 font-bold transition-all cursor-pointer">حذف</button>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            area.innerHTML = `
-                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
-                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
-                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
-                            <div class="flex items-center gap-2">
-                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
-                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
-                                </button>
-                                <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">📝</div>
-                                <div>
-                                    <h2 class="font-bold text-xs text-slate-800">شاشة القيود اليومية (السنة: ${selectedActiveYear})</h2>
-                                    <p class="text-[10px] text-slate-500">تسجيل وتعديل الحركات المحاسبية اليومية المعتمدة</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-1.5 flex-wrap">
-                                <button onclick="openAddJournalModal()" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="plus" class="w-3.5 h-3.5"></i> إضافة قيد يومي جديد</button>
-                            </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl overflow-y-auto flex-grow">
-                            <table class="w-full text-right border-collapse">
-                                <thead class="bg-slate-100 text-slate-700 text-xs font-bold sticky top-0 border-b border-slate-200">
-                                    <tr>
-                                        <th class="px-3 py-2.5">التاريخ</th>
-                                        <th class="px-3 py-2.5">البيان والشرح</th>
-                                        <th class="px-3 py-2.5">الحساب</th>
-                                        <th class="px-3 py-2.5">مدين</th>
-                                        <th class="px-3 py-2.5">دائن</th>
-                                        <th class="px-3 py-2.5 text-center">العمليات</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${rowsHtml || '<tr><td colspan="6" class="text-center py-6 text-slate-400">لا توجد قيود مسجلة حالياً</td></tr>'}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function openAddJournalModal() {
-            const modalHtml = `
-                <div id="journalModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-                    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 text-xs space-y-3">
-                        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-                            <h3 class="font-bold text-sm text-slate-800 flex items-center gap-1.5"><span>➕</span> تسجيل قيد يومي جديد</h3>
-                            <button onclick="document.getElementById('journalModal').remove()" class="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-600 flex items-center justify-center">✕</button>
-                        </div>
-                        <form onsubmit="saveJournal(event)" class="space-y-3">
-                            <div>
-                                <label class="block font-bold text-slate-700 mb-1">البيان / الشرح</label>
-                                <input type="text" id="jDesc" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accentBlue" placeholder="شرح القيد المحاسبي">
-                            </div>
-                            <div>
-                                <label class="block font-bold text-slate-700 mb-1">الحساب</label>
-                                <input type="text" id="jAccount" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue" placeholder="اسم الحساب أو الصندوق">
-                            </div>
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">مدين</label>
-                                    <input type="number" id="jDebit" value="0" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                </div>
-                                <div>
-                                    <label class="block font-bold text-slate-700 mb-1">دائن</label>
-                                    <input type="number" id="jCredit" value="0" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-accentBlue">
-                                </div>
-                            </div>
-                            <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
-                                <button type="button" onclick="document.getElementById('journalModal').remove()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-300">إلغاء</button>
-                                <button type="submit" class="px-4 py-2 bg-accentBlue text-white rounded-xl font-bold hover:bg-accentHover shadow">حفظ القيد</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', modalHtml);
-        }
-
-        function saveJournal(event) {
-            event.preventDefault();
-            journalDB.push({
-                id: journalDB.length + 1,
-                date: new Date().toISOString().split('T')[0],
-                desc: document.getElementById('jDesc').value,
-                account: document.getElementById('jAccount').value,
-                debit: parseFloat(document.getElementById('jDebit').value) || 0,
-                credit: parseFloat(document.getElementById('jCredit').value) || 0
-            });
-            document.getElementById('journalModal').remove();
-            showToast("تم حفظ قيد اليومية بنجاح!", "success");
-            loadJournalView();
-        }
-
-        function deleteJournal(id) {
-            if (confirm("هل أنت متأكد من حذف هذا القيد المحاسبي؟")) {
-                journalDB = journalDB.filter(j => j.id !== id);
-                showToast("تم الحذف بنجاح.", "success");
-                loadJournalView();
-            }
-        }
-
-        // ================= دليل الحسابات الفعال =================
-        function loadChartView() {
-            currentActivePage = 'دليل الحسابات';
-            currentActiveIcon = '🌳';
-            const area = document.getElementById('mainContentArea');
-            area.innerHTML = `
-                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
-                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
-                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
-                            <div class="flex items-center gap-2">
-                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
-                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
-                                </button>
-                                <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">🌳</div>
-                                <div>
-                                    <h2 class="font-bold text-xs text-slate-800">دليل الحسابات العام (السنة: ${selectedActiveYear})</h2>
-                                    <p class="text-[10px] text-slate-500">شجرة الحسابات الرئيسية والفرعية</p>
-                                </div>
-                            </div>
-                            <button onclick="showToast('تمت إضافة حساب رئيسي جديد بنجاح', 'success')" class="bg-accentBlue hover:bg-accentHover text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shadow">➕ إضافة حساب جديد</button>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl overflow-y-auto flex-grow p-4 space-y-2 text-xs">
-                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold flex justify-between items-center"><span>1. الأصول (الأصول المتداولة والثابتة)</span><span class="text-blue-600 font-mono">رئيسي</span></div>
-                            <div class="p-2.5 bg-white border border-slate-100 rounded-xl mr-6 flex justify-between items-center"><span>11. النقدية بالصندوق والبنوك</span><span class="text-slate-500 font-mono">فرعي</span></div>
-                            <div class="p-2.5 bg-white border border-slate-100 rounded-xl mr-6 flex justify-between items-center"><span>12. العملاء والمدينون</span><span class="text-slate-500 font-mono">فرعي</span></div>
-                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold flex justify-between items-center"><span>2. الخصوم وحقوق الملكية</span><span class="text-blue-600 font-mono">رئيسي</span></div>
-                            <div class="p-2.5 bg-white border border-slate-100 rounded-xl mr-6 flex justify-between items-center"><span>21. الموردين والدائنون</span><span class="text-slate-500 font-mono">فرعي</span></div>
-                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold flex justify-between items-center"><span>3. الإيرادات والمبيعات</span><span class="text-blue-600 font-mono">رئيسي</span></div>
-                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold flex justify-between items-center"><span>4. المصروفات والتكاليف</span><span class="text-blue-600 font-mono">رئيسي</span></div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        // ================= سندات القبض والصرف الفعالة =================
-        function loadReceiptView() {
-            currentActivePage = 'سندات القبض';
-            currentActiveIcon = '📥';
-            const area = document.getElementById('mainContentArea');
-            let rowsHtml = '';
-            receiptsDB.forEach(r => {
-                rowsHtml += `<tr class="border-b border-slate-100 text-xs"><td class="px-3 py-2.5 font-mono">${r.date}</td><td class="px-3 py-2.5 font-bold">${r.client}</td><td class="px-3 py-2.5 font-mono text-emerald-600 font-bold">${r.amount} ${r.currency}</td><td class="px-3 py-2.5">${r.notes}</td></tr>`;
-            });
-            area.innerHTML = `
-                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
-                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
-                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
-                            <div class="flex items-center gap-2">
-                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm"><i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span></button>
-                                <h2 class="font-bold text-xs text-slate-800">سندات القبض المالي</h2>
-                            </div>
-                            <button onclick="showToast('تمت إضافة سند قبض بنجاح', 'success')" class="bg-accentBlue text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow">➕ إضافة سند قبض</button>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl overflow-y-auto flex-grow">
-                            <table class="w-full text-right border-collapse"><thead class="bg-slate-100 text-xs font-bold"><tr><th class="px-3 py-2.5">التاريخ</th><th class="px-3 py-2.5">العميل / الدافع</th><th class="px-3 py-2.5">المبلغ</th><th class="px-3 py-2.5">البيان</th></tr></thead><tbody>${rowsHtml}</tbody></table>
-                        </div>
-                    </div>
-                </div>`;
-            lucide.createIcons();
-        }
-
-        function loadPaymentView() {
-            currentActivePage = 'سندات الصرف';
-            currentActiveIcon = '📤';
-            const area = document.getElementById('mainContentArea');
-            let rowsHtml = '';
-            paymentsDB.forEach(p => {
-                rowsHtml += `<tr class="border-b border-slate-100 text-xs"><td class="px-3 py-2.5 font-mono">${p.date}</td><td class="px-3 py-2.5 font-bold">${p.supplier}</td><td class="px-3 py-2.5 font-mono text-red-600 font-bold">${p.amount} ${p.currency}</td><td class="px-3 py-2.5">${p.notes}</td></tr>`;
-            });
-            area.innerHTML = `
-                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
-                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
-                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
-                            <div class="flex items-center gap-2">
-                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm"><i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span></button>
-                                <h2 class="font-bold text-xs text-slate-800">سندات الصرف المالي</h2>
-                            </div>
-                            <button onclick="showToast('تمت إضافة سند صرف بنجاح', 'success')" class="bg-accentBlue text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow">➕ إضافة سند صرف</button>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl overflow-y-auto flex-grow">
-                            <table class="w-full text-right border-collapse"><thead class="bg-slate-100 text-xs font-bold"><tr><th class="px-3 py-2.5">التاريخ</th><th class="px-3 py-2.5">المستفيد / المورد</th><th class="px-3 py-2.5">المبلغ</th><th class="px-3 py-2.5">البيان</th></tr></thead><tbody>${rowsHtml}</tbody></table>
-                        </div>
-                    </div>
-                </div>`;
-            lucide.createIcons();
-        }
-
-        // ================= نقطة البيع POS =================
-        function loadPOSView() {
-            currentActivePage = 'نقطة البيع POS';
-            currentActiveIcon = '🛒';
-            const area = document.getElementById('mainContentArea');
-            area.innerHTML = `
-                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
-                    <div class="bg-white border border-slate-200 rounded-2xl p-4 max-w-6xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
-                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
-                            <div class="flex items-center gap-2">
-                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
-                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
-                                </button>
-                                <h2 class="font-bold text-xs text-slate-800">نقطة البيع التفاعلية POS (السنة: ${selectedActiveYear})</h2>
-                            </div>
-                            <button onclick="showToast('تم إتمام عملية البيع وطرح الكميات من المخزون بنجاح!', 'success')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow">إتمام البيع الطباعة 🖨️</button>
-                        </div>
-                        <div class="grid grid-cols-3 gap-3 flex-grow overflow-hidden">
-                            <div class="col-span-2 border border-slate-200 rounded-xl p-3 flex flex-col overflow-y-auto">
-                                <h3 class="font-bold text-xs text-slate-700 mb-2">الأصناف المتاحة للبيع السريع</h3>
-                                <div class="grid grid-cols-2 gap-2">
-                                    ${itemsDB.map(i => `
-                                        <div onclick="showToast('تم إدراج ${i.name} إلى الفاتورة', 'success')" class="bg-slate-50 border border-slate-200 rounded-xl p-3 hover:border-accentBlue cursor-pointer transition-all">
-                                            <div class="font-bold text-slate-800 text-xs">${i.name}</div>
-                                            <div class="text-[10px] text-slate-500 font-mono mt-1">السعر: ${i.pricePiece} ${i.currency}</div>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                            <div class="border border-slate-200 rounded-xl p-3 flex flex-col bg-slate-50">
-                                <h3 class="font-bold text-xs text-slate-700 mb-2">فاتورة البيع الحالية</h3>
-                                <div class="flex-grow bg-white border border-slate-200 rounded-xl p-2 font-mono text-xs overflow-y-auto space-y-1">
-                                    <div class="flex justify-between border-b pb-1"><span>ثوب رجالي فاخر (1)</span><span>15,000</span></div>
-                                </div>
-                                <div class="mt-2 pt-2 border-t border-slate-200 text-xs font-bold flex justify-between"><span>الإجمالي:</span><span class="text-emerald-600 font-mono">15,000 YER</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function loadPageView(title, icon) {
-            currentActivePage = title;
-            currentActiveIcon = icon;
-            const area = document.getElementById('mainContentArea');
-            area.innerHTML = `
-                <div class="flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
-                    <div id="printableArea" class="bg-white border border-slate-200 rounded-2xl p-4 max-w-5xl w-full shadow-md flex flex-col h-full max-h-[92vh] overflow-hidden">
-                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 shrink-0 gap-2 flex-wrap">
-                            <div class="flex items-center gap-2">
-                                <button onclick="loadHomeView()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm">
-                                    <i data-lucide="arrow-right" class="w-4 h-4"></i> <span>رجوع</span>
-                                </button>
-                                <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-sm shadow-inner">${icon}</div>
-                                <div>
-                                    <h2 class="font-bold text-xs text-slate-800">${title} (السنة المالية: ${selectedActiveYear})</h2>
-                                    <p class="text-[10px] text-slate-500">واجهة النظام المعتمدة والجاهزة للتشغيل التجاري</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-1.5 flex-wrap">
-                                <button onclick="exportDatabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow"><i data-lucide="download" class="w-3.5 h-3.5"></i> تصدير</button>
-                                <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1"><i data-lucide="printer" class="w-3.5 h-3.5"></i> طباعة</button>
-                            </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col flex-grow mt-1 p-6 items-center justify-center text-center">
-                            <div class="text-4xl mb-2">${icon}</div>
-                            <h3 class="font-bold text-sm text-slate-800 mb-1">تم تفعيل واجهة (${title}) بكامل الأزرار والمهام التشغيلية</h3>
-                            <p class="text-xs text-slate-500">النظام جاهز تماماً للعمل التجاري في الأسواق مع دعم كامل للتعديل، الحذف، والإضافة.</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-    </script>
+</script>
 </body>
 </html>
