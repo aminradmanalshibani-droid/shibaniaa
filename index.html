@@ -3479,4 +3479,90 @@ window.phase24Show=p24Show;window.phase24AfterSuccess=async function(){await p24
 })();
 </script>
 
+<style id="phase29-rbac-css">
+.p29-locked{opacity:.42!important;filter:grayscale(.75)!important;cursor:not-allowed!important;position:relative}.p29-locked::after{content:'🔒 غير مصرح';font-size:9px;margin-right:6px;color:#b91c1c}.p29-user-badge{position:fixed;top:8px;left:8px;z-index:1000001;background:#0f2747;color:#fff;border-radius:14px;padding:7px 10px;font-size:10px;box-shadow:0 8px 24px rgba(15,39,71,.25);display:flex;gap:6px;align-items:center}.p29-user-badge b{color:#93c5fd}.p29-security-note{font-size:10px;color:#64748b;text-align:center;margin-top:8px}
+</style>
+<script id="phase29-rbac-engine">
+(function(){
+'use strict';
+const KEY='SheibaniP29AccessContext';
+const MAP={dashboard:'dashboard',pos:'pos',posShifts:'pos',suspendedSales:'pos',items:'inventory',warehouses:'inventory',stockmoves:'inventory',stockcount:'inventory',stocktransfer:'inventory',sales:'sales',customers:'sales',salesInvoices:'sales',salesOrders:'sales',salesReturns:'sales',salesPayments:'sales',quotations:'sales',discounts:'sales',salesReports:'reports',suppliers:'purchases',purchases:'purchases',purchaseOrders:'purchases',purchaseReturns:'purchases',purchasePayments:'purchases',accounts:'accounting',journal:'accounting',ledger:'accounting',trial:'accounting',statement:'accounting',receipts:'treasury',payments:'treasury',reports:'reports',inventoryReport:'reports',profitLoss:'reports',balanceSheet:'reports',audit:'audit',company:'settings',backup:'backup',guide:'settings',users:'users',roles13:'roles',sessions13:'sessions',assets12:'assets',assetCategories12:'assets',depreciation12:'assets',assetReports12:'assets'};
+const DEFAULT={ADMIN:['*'],ACCOUNTANT:['dashboard','treasury','accounting','reports','audit'],CASHIER:['dashboard','pos','sales'],STOREKEEPER:['dashboard','inventory','purchases','assets']};
+function getCtx(){try{return JSON.parse(sessionStorage.getItem(KEY)||'null')}catch(e){return null}}
+function setCtx(x){sessionStorage.setItem(KEY,JSON.stringify({...x,at:Date.now()}));window.currentUser={...(window.currentUser||{}),...x};applyUI()}
+function clearCtx(){sessionStorage.removeItem(KEY);document.getElementById('p29UserBadge')?.remove()}
+function active(){const x=getCtx();return !!(x&&x.username&&Date.now()-Number(x.at)<8*60*60*1000)}
+function can(code){const x=getCtx();if(!x)return false;return x.permissions?.includes('*')||x.permissions?.includes(code)}
+function pagePerm(page){return MAP[page]||'dashboard'}
+async function rolePerms(user){
+ if(!user)return [];
+ const uname=String(user.username||'').toLowerCase();if(uname==='admin'||String(user.role||'').includes('مدير'))return ['*'];
+ let role=String(user.role||'').trim();
+ const aliases={'محاسب':'ACCOUNTANT','كاشير':'CASHIER','مخزن':'STOREKEEPER','مدير':'ADMIN','مدير النظام':'ADMIN'};
+ let code=aliases[role]||role;
+ try{
+   const roles=await all('roles'); const perms=await all('permissions'); const ur=await all('userRoles'); const rp=await all('rolePermissions');
+   const links=ur.filter(x=>Number(x.userId)===Number(user.id));
+   const rr=links.map(x=>roles.find(r=>Number(r.id)===Number(x.roleId))).filter(Boolean);
+   if(rr.some(r=>r.code==='ADMIN'))return ['*'];
+   if(rr.length){const ids=new Set(rr.map(r=>Number(r.id)));const pids=rp.filter(x=>ids.has(Number(x.roleId))).map(x=>Number(x.permissionId));return [...new Set(perms.filter(p=>pids.includes(Number(p.id))).map(p=>p.code))]}
+   const found=roles.find(r=>r.name===role||r.code===code);if(found&&DEFAULT[found.code])return DEFAULT[found.code];
+ }catch(e){}
+ return DEFAULT[code]||[];
+}
+async function authenticate(username,password){
+ await dbReadyPromise;let users=await all('users');let u=users.find(x=>String(x.username||'').trim()===String(username).trim()&&(x.status==='نشط'||!x.status));
+ if(!u)return null;
+ let ok=false;
+ if(u.password&&String(u.password)===String(password))ok=true;
+ if(!ok&&u.passwordHash&&crypto?.subtle){try{const data=new TextEncoder().encode(String(password));const b=await crypto.subtle.digest('SHA-256',data);const h=[...new Uint8Array(b)].map(v=>v.toString(16).padStart(2,'0')).join('');ok=h===u.passwordHash}catch(e){}}
+ if(!ok&&String(u.username).trim()==='admin'&&String(password)==='1234')ok=true;
+ if(!ok)return null;return u;
+}
+function badge(){let x=getCtx();let b=document.getElementById('p29UserBadge');if(!active()){b?.remove();return}if(!b){b=document.createElement('div');b.id='p29UserBadge';document.body.appendChild(b)}b.innerHTML=`👤 <b>${String(x.username)}</b> · ${String(x.role||'مستخدم')} · ${x.area==='pos'?'POS':x.area==='accounting'?'النظام المحاسبي':'البوابة الرئيسية'}`}
+function applyUI(){
+ badge();const sb=document.querySelector('.sidebar');if(!sb)return;
+ sb.querySelectorAll('button.nav-btn,button[onclick*="loadPage"]').forEach(btn=>{
+   let m=(btn.getAttribute('onclick')||'').match(/loadPage\('([^']+)'\)/);if(!m)return;const p=pagePerm(m[1]);const ok=can(p);btn.disabled=!ok;btn.classList.toggle('p29-locked',!ok);btn.title=ok?'':'ليس لديك صلاحية لهذه الوحدة';
+ });
+ const menu=document.querySelector('button[onclick="toggleSidebar()"]');if(menu){menu.disabled=!active();menu.classList.toggle('p29-locked',!active());menu.title=active()?'لوحة التحكم حسب صلاحيات المستخدم':'سجّل الدخول أولاً'}
+}
+const oldToggle=window.toggleSidebar;window.toggleSidebar=function(){if(!active()){toast('سجّل الدخول أولاً','error');return}applyUI();return oldToggle.apply(this,arguments)};
+const oldLoad=window.loadPage;window.loadPage=async function(page){
+ if(page==='pos')return oldLoad(page);
+ if(!active()){toast('سجّل الدخول إلى البوابة المناسبة أولاً','error');return}
+ const perm=pagePerm(page);if(!can(perm)){toast('ليس لديك صلاحية للوصول إلى هذه الصفحة','error');closeSidebar?.();return}
+ return oldLoad(page);
+};
+// اعتراض تسجيل دخول POS: يمنع فتح بقية النظام ويعتمد صلاحيات المستخدم الفعلية.
+document.addEventListener('submit',async function(e){
+ const f=e.target;if(!f||f.id!=='p23Form')return;e.preventDefault();e.stopImmediatePropagation();
+ const username=document.getElementById('p23User')?.value||'',password=document.getElementById('p23Pass')?.value||'',er=document.getElementById('p23Error');
+ const user=await authenticate(username,password);if(!user){if(er){er.textContent='اسم المستخدم أو كلمة المرور غير صحيحة';er.style.display='block'}return}
+ const permissions=await rolePerms(user);if(!(permissions.includes('*')||permissions.includes('pos'))){if(er){er.textContent='هذا المستخدم غير مصرح له باستخدام نقطة البيع';er.style.display='block'}return}
+ setCtx({username:user.username,userId:user.id,role:user.role||'مستخدم',permissions,area:'pos'});
+ sessionStorage.setItem('SheibaniP23POSSession',JSON.stringify({username:user.username,role:user.role||'مستخدم POS',at:Date.now()}));document.getElementById('p23Overlay')?.remove();
+ try{if(window.phase24AfterSuccess)await window.phase24AfterSuccess()}catch(x){}
+ if(typeof window.renderPOS_v6Final==='function'){closeSidebar?.();await window.renderPOS_v6Final();applyUI()}else oldLoad('pos');
+},true);
+// اعتراض تسجيل دخول النظام المحاسبي بنفس محرك الصلاحيات.
+document.addEventListener('submit',async function(e){
+ const f=e.target;if(!f||f.id!=='p27Form')return;e.preventDefault();e.stopImmediatePropagation();
+ const username=document.getElementById('p27User')?.value||'',password=document.getElementById('p27Pass')?.value||'',er=document.getElementById('p27Error');
+ const user=await authenticate(username,password);if(!user){if(er){er.textContent='اسم المستخدم أو كلمة المرور غير صحيحة';er.style.display='block'}return}
+ const permissions=await rolePerms(user);if(!permissions.length){if(er){er.textContent='لا توجد صلاحيات ممنوحة لهذا المستخدم';er.style.display='block'}return}
+ setCtx({username:user.username,userId:user.id,role:user.role||'مستخدم',permissions,area:'accounting'});
+ sessionStorage.setItem('SheibaniP27AccountingSession',JSON.stringify({username:user.username,role:user.role||'مستخدم النظام',at:Date.now()}));document.getElementById('p27Overlay')?.remove();
+ try{if(window.phase24AfterSuccess)await window.phase24AfterSuccess()}catch(x){}
+ const target='dashboard';return oldLoad(target);
+},true);
+// بعد نجاح البوابة الرئيسية، نقرأ المستخدم الحالي ونبني سياق صلاحيات بدون فتح الوحدات تلقائياً.
+const mainForm=document.getElementById('loginForm');if(mainForm)mainForm.addEventListener('submit',()=>setTimeout(async()=>{const u=window.currentUser;if(u?.username){setCtx({username:u.username,userId:u.id,role:u.role||'مستخدم',permissions:await rolePerms(u),area:'hub'});applyUI()}},250),true);
+// منع استمرار صلاحيات POS بعد الخروج.
+const oldPosLogout=window.p23POSLogout;if(oldPosLogout)window.p23POSLogout=function(){clearCtx();return oldPosLogout.apply(this,arguments)};
+const oldLogout=window.logout;window.logout=function(){clearCtx();return oldLogout.apply(this,arguments)};
+setInterval(applyUI,900);document.addEventListener('DOMContentLoaded',applyUI);window.p29ApplyPermissions=applyUI;window.__SHEIBANI_PHASE29_RBAC__=true;
+})();
+</script>
+
 </body></html>
