@@ -1,11 +1,11 @@
 {
   "name": "نظام الشيباني المحاسبي 2026",
   "short_name": "الشيباني",
-  "start_url": "./?v=31",
+  "start_url": "./index.html?v=32",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f1f5f9",
-  "theme_color": "#2563eb",
+  "background_color": "#10185f",
+  "theme_color": "#10185f",
   "lang": "ar",
   "dir": "rtl"
 }
