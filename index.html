@@ -212,7 +212,7 @@ td .btn{padding:5px 7px;font-size:9px}
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="أمين الشيباني">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="./manifest.webmanifest?v=32">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="theme-color" content="#0f1f3d">
@@ -715,11 +715,6 @@ loadPage=function(page){if(page==='posPoints30'){renderPOSPoints30();return}if(p
 <!-- PHASE 31 SAFE ROUTER PATCH: GitHub Pages live build -->
 <script id="phase31-safe-router">
 (function(){'use strict';if(window.__SHEIBANI_PHASE31_SAFE_ROUTER__)return;const oldLoad=window.loadPage;if(typeof oldLoad!=='function')return;const routes={stocktransfer:()=>renderStockTransfers(),purchaseOrders:()=>renderPurchaseOrders(),statement:()=>renderAccountStatement(),inventoryReport:()=>renderInventoryReport(),profitLoss:()=>renderProfitLoss(),balanceSheet:()=>renderBalanceSheet(),audit:()=>renderAuditLog(),financialPeriods:()=>renderFinancialPeriods11(),openingBalances:()=>renderOpeningBalances11(),financialClosing:()=>renderClosingCenter11(),treasury:()=>renderTreasury9(),cashBoxes:()=>renderCashBoxes9(),cashReceipt:()=>renderCashVoucher9(1),cashPayment:()=>renderCashVoucher9(-1),cashTransfer:()=>renderCashTransfer9(),cashStatement:()=>renderCashStatement9(),banking:()=>renderBank9(),bankStatement:()=>renderBankStatement9(),customerBalances:()=>renderCustomerStatement9(),supplierBalances:()=>renderSupplierStatement9(),financialReports10:()=>renderFinancialReports10(),managementReports10:()=>renderManagementReports10(),customerAging10:()=>renderAging10('customer'),supplierAging10:()=>renderAging10('supplier'),cashFlow10:()=>renderCashFlow10(),trialAdvanced10:()=>renderTrialAdvanced10(),profitLoss10:()=>renderProfitLoss10(),balanceSheet10:()=>renderBalanceSheet10(),ledgerAdvanced10:()=>renderLedgerAdvanced10(),reportsCenter10:()=>renderReportsCenter10(),assetCategories12:()=>renderCategories12(),depreciation12:()=>renderDep12(),assetReports12:()=>renderAssetReports12(),assets12:()=>renderAssets12(),roles13:()=>typeof renderRoles13==='function'?renderRoles13():oldLoad('users'),sessions13:()=>typeof renderSessions13==='function'?renderSessions13():oldLoad('users'),systemCenter:()=>renderP15SystemCenter(),workflow21:()=>renderWorkflow21()};window.loadPage=async function(page){if(routes[page]){try{if(typeof window.closeSidebar==='function')window.closeSidebar();return await routes[page]();}catch(e){console.error('Phase31 route',page,e);const el=document.getElementById('content');if(el)el.innerHTML='<div class="card"><b>تعذر فتح الصفحة المطلوبة</b><p class="muted">'+String(e.message||e)+'</p><div class="actions"><button class="btn primary" onclick="loadPage(\'dashboard\')">العودة للرئيسية</button></div></div>';return;}}return oldLoad.apply(this,arguments);};window.__SHEIBANI_PHASE31_SAFE_ROUTER__=true;})();
-</script>
-
-<!-- PWA المرحلة 31 -->
-<script>
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=32',{updateViaCache:'none'}).catch(console.error));}
 </script>
 </body></html>`);w.document.close()}
 </script>
@@ -3806,7 +3801,7 @@ window.phase24Show=p24Show;window.phase24AfterSuccess=async function(){await p24
 (function(){
   if ('serviceWorker' in navigator && location.protocol !== 'file:') {
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('./sw.js?v=32',{updateViaCache:'none'}).catch(function(err){
+      navigator.serviceWorker.register('./sw.js').catch(function(err){
         console.warn('تعذر تسجيل خدمة العمل دون إنترنت:', err);
       });
     });
@@ -3926,19 +3921,15 @@ loadPage=function(page){if(page==='posPoints30'){renderPOSPoints30();return}if(p
 </script>
 
 
-<!-- Phase 31.1 startup watchdog -->
-<script id="phase31-startup-watchdog">
+<!-- Emergency boot recovery: Phase 31.2 -->
+<script>
 (function(){
- window.addEventListener('error',function(e){console.error('Startup error:',e.error||e.message);});
- setTimeout(function(){
-   var login=document.getElementById('login'),app=document.getElementById('app');
-   if(login && login.classList.contains('hidden') && (!app || app.classList.contains('hidden'))){
-     login.classList.remove('hidden');
-   }
- },3500);
- if('serviceWorker' in navigator){
-   navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.update().catch(function(){});});});
- }
+  try{
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});});
+    }
+    if(window.caches){caches.keys().then(function(keys){keys.filter(function(k){return k.indexOf('shibaniaa-')===0;}).forEach(function(k){caches.delete(k);});});}
+  }catch(e){console.warn('PWA recovery',e);}
 })();
 </script>
 </body></html>
